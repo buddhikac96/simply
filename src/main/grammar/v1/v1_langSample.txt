@@ -1,0 +1,70 @@
+get math;
+get io;
+
+<<
+    multiline comment
+    looks like this
+>>
+
+// main function
+function main() : void {
+    num a = 5;
+    num b = 10;
+
+    num total = add(a , b);
+
+    print(total);
+}
+
+// operators and return
+function add(num a, num b) : num {
+    int total = a + b;
+    send total;
+}
+
+// condition
+function vote(num age) : boolean {
+    check(age > 21) {
+        print("Can marry");
+        send true;
+    }check otherwise() {
+        print("Can vote");
+        send true;
+    }otherwise{
+        print("Can't neither marry nor vote");
+        send false;
+    }
+}
+
+// loop
+function loop() : void {
+    iterate(num i : range 1 to 10 by 1){
+        print(i);
+    }
+
+    num a = 0;
+    iterate(true){
+        print(a);
+        a++;
+        check(a == 10){
+            break;
+        }
+    }
+}
+
+// data types
+function foo() : void {
+    num a = 10;
+    float b = 3.14;
+    boolean isPrime = true;
+
+    list : num = [1,2,3,4];
+    num b =
+}
+
+// library
+function sqrt(num a) : float {
+    float root = math.sqrt(a);
+    send root;
+}
+
