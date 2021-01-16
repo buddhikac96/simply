@@ -1,0 +1,26 @@
+function main() : void {
+
+}
+
+function vote(int age) : void {
+
+    check(age > 18) {
+        print("can vote");
+    }otherwise {
+        print("can't vote");
+    }
+
+}
+
+function grade(int marks) : void {
+
+    check(marks >= 75) {
+        print('A');
+    }otherwise check(marks >= 65){
+        print('B');
+    }otherwise check(marks > 50){
+        print('C');
+    }otherwise{
+        print('F');
+    }
+}

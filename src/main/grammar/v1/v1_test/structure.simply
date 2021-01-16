@@ -1,0 +1,14 @@
+get math;
+get io;
+
+function main() : void {
+    int a = 5;
+    int b = 10;
+    int total = add(a, b);
+    print(total);
+}
+
+function add(int a, int b) : int {
+    int total = a + b;
+    send total;
+}

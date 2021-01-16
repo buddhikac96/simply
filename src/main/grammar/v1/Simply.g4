@@ -1,6 +1,6 @@
 grammar Simply;
 
-@header {
+@header{
 package antlr;
 }
 
@@ -9,106 +9,110 @@ prog
     ;
 
 get
-    : 'get' identifier TERMINAL
+    : GET IDENTIFIER EOL
     ;
 
 function
-    : FUNCTION identifier LEFT_PARAN params RIGHT_PARAN LEFT_CURL stmt+ RIGHT_CURL
+    : FUNCTION IDENTIFIER LEFT_PARAN param_list RIGHT_PARAN COLON return_type LEFT_CURL stmt* RIGHT_CURL
     ;
 
-stmt
-    : vardeclare
-    | loop
-    | check
-    | expr
-    ;
-
-
-expr
-    : '(' expr ')'
-    | '[' literal? (',' literal)* ']'
-    | 'keyin' '(' (literal) ')'
-    | IDENTIFIER '.' IDENTIFIER '(' params ')'
-    | arithmatic_op
-    | logical_op
-    | IDENTIFIER
-    | literal
-    ;
-
-arithmatic_op
-    : expr '**' expr
-    | expr '%' expr
-    | expr '*' expr
-    | expr '/' expr
-    | expr '+' expr
-    | expr '-' expr
-    | IDENTIFIER ('++' | '--')
-    | ('++' | '--') IDENTIFIER
-    ;
-
-logical_op
-    : '!' expr
-    | expr '<' expr
-    | expr '<=' expr
-    | expr '>' expr
-    | expr '>=' expr
-    | expr '==' expr
-    | expr '!=' expr
-    | expr 'and' expr
-    | expr 'or' expr
-    ;
-
-identifier
-    : IDENTIFIER
-    ;
-
-params
+param_list
     : param? (COMMA param)*
     ;
 
 param
-    : data_type identifier
+    : non_void_dtype IDENTIFIER
     ;
 
-data_type
+non_void_dtype
     : INT
     | FLOAT
-    | FLOAT
+    | STRING
     | CHAR
-    | VOID
+    | BOOL
     ;
 
-
-vardeclare
-    : data_type identifier EQUAL literal
+return_type
+    : VOID
+    | non_void_dtype
     ;
 
-
-
-loop
-    : ITERATE LEFT_PARAN condition RIGHT_PARAN LEFT_CURL stmt+ RIGHT_CURL
+stmt
+    : var_assign
+    | print
+    | return
+    | iterate
+    | check
     ;
 
-
-check
-    : CHECK LEFT_PARAN condition RIGHT_PARAN LEFT_CURL stmt+ RIGHT_CURL checkotherwise* otherwise
+var_assign
+    : non_void_dtype? IDENTIFIER EQUAL expression EOL
     ;
 
-
-checkotherwise
-    : CHECK OTHERWISE LEFT_PARAN condition RIGHT_PARAN LEFT_CURL stmt+ RIGHT_CURL
+print
+    : PRINT LEFT_PARAN expression RIGHT_PARAN EOL
     ;
 
-otherwise
-    : OTHERWISE LEFT_CURL stmt+ RIGHT_CURL
+expression
+    : LEFT_PARAN expression RIGHT_PARAN // ( expression )
+    | expression MULTIPLY expression
+    | expression DIVIDE expression
+    | expression PLUS expression
+    | expression SUBSTRACT expression
+    | NOT expression
+    | expression OR expression
+    | expression AND expression
+    | expression IS_EQUAL expression
+    | expression NOT_EQUAL expression
+    | expression GREATER_THAN expression
+    | expression LESS_THAN expression
+    | expression GREATER_OR_EQUAL_THAN expression
+    | expression LESS_OR_EQUAL_THAN expression
+    | func_call
+    | LITERAL
+    | IDENTIFIER
+    ;
+
+func_call
+    : IDENTIFIER LEFT_PARAN (LITERAL | IDENTIFIER)? (COMMA (LITERAL | IDENTIFIER)*) RIGHT_PARAN
+    ;
+
+return
+    : SEND expression EOL
+    ;
+
+iterate
+    : ITERATE LEFT_PARAN condition RIGHT_PARAN LEFT_CURL stmt* RIGHT_CURL
     ;
 
 condition
-    : BOOL_LIT
-    | logical_op
+    : expression
+    | BOOL_LIT
     ;
 
-literal
+check
+    : ifStmt elseIfStmt* elseStmt?
+    ;
+
+ifStmt
+    : CHECK LEFT_PARAN condition RIGHT_PARAN LEFT_CURL stmt* RIGHT_CURL
+    ;
+
+elseIfStmt
+    : OTHERWISE ifStmt
+    ;
+
+elseStmt
+    : OTHERWISE LEFT_CURL stmt* RIGHT_CURL
+    ;
+
+
+
+
+
+// Literals
+
+LITERAL
     : INT_LIT
     | FLOAT_LIT
     | STRING_LIT
@@ -116,60 +120,71 @@ literal
     | BOOL_LIT
     ;
 
+INT_LIT : [1-9] [0-9]* ;
 
-// Key Words
+FLOAT_LIT : INT_LIT PERIOD INT_LIT;
 
-CHECK: 'check' ;
+STRING_LIT : DOUBLE_QUOTE [a-zA-Z'#_ ]+ DOUBLE_QUOTE ;
 
-OTHERWISE: 'otherwise';
-
-ITERATE: 'iterate' ;
-
-FUNCTION: 'function';
-
-// Literals
-
-INT_LIT: [1-9] [0-9]*;
-
-FLOAT_LIT: INT_LIT DOT INT_LIT;
-
-STRING_LIT: '"' [a-z]* '"' ;
-
-CHAR_LIT: '\'' [a-z]* '\'';
+CHAR_LIT : SINGLE_QUOTE [a-zA-Z0-9] SINGLE_QUOTE ;
 
 BOOL_LIT
     : 'true'
     | 'false'
     ;
 
+
+
+
+// Keywords
+
+GET : 'get' ;
+FUNCTION : 'function' ;
+PRINT : 'print' ;
+AND : 'and' ;
+OR : 'or' ;
+ITERATE : 'iterate' ;
+SEND : 'send' ;
+CHECK : 'check' ;
+OTHERWISE : 'otherwise' ;
+
+// Data Types
+
+INT : 'int' ;
+FLOAT : 'float' ;
+STRING : 'string' ;
+CHAR : 'char' ;
+BOOL : 'bool' ;
+VOID : 'void' ;
+
 // Symbols
 
-EQUAL: '=' ;
-
-INT: 'int' ;
-
-FLOAT: 'float' ;
-
-STRING: 'string' ;
-
-CHAR: 'char' ;
-
-VOID: 'void' ;
-
+LEFT_PARAN : '(' ;
+RIGHT_PARAN: ')' ;
+LEFT_CURL : '{' ;
+RIGHT_CURL : '}' ;
 COMMA: ',' ;
+EOL : ';' ;
+EQUAL: '=' ;
+PERIOD : '.' ;
+SINGLE_QUOTE : '\'' ;
+DOUBLE_QUOTE : '"' ;
+COLON : ':' ;
+PLUS : '+' ;
+SUBSTRACT : '-' ;
+MULTIPLY : '*' ;
+DIVIDE : '/' ;
+NOT : '!' ;
+IS_EQUAL: '==' ;
+NOT_EQUAL : '!= ' ;
+GREATER_THAN : '>' ;
+LESS_THAN : '<' ;
+GREATER_OR_EQUAL_THAN : '>=' ;
+LESS_OR_EQUAL_THAN : '<=' ;
 
-DOT: '.' ;
 
-LEFT_PARAN: '(';
+IDENTIFIER
+    : [a-z]+
+    ;
 
-RIGHT_PARAN: ')';
-
-LEFT_CURL: '{' ;
-
-RIGHT_CURL: '}' ;
-
-IDENTIFIER: [a-z]+;
-
-TERMINAL: ';';
-
-WS: [ \n\t] -> skip;
+WS : [ \t\n] -> skip;
