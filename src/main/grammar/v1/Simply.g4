@@ -157,7 +157,7 @@ CHAR : 'char' ;
 BOOL : 'bool' ;
 VOID : 'void' ;
 
-// Symbols
+// seperators
 
 LEFT_PARAN : '(' ;
 RIGHT_PARAN: ')' ;
@@ -165,6 +165,8 @@ LEFT_CURL : '{' ;
 RIGHT_CURL : '}' ;
 COMMA: ',' ;
 EOL : ';' ;
+
+
 EQUAL: '=' ;
 PERIOD : '.' ;
 SINGLE_QUOTE : '\'' ;
