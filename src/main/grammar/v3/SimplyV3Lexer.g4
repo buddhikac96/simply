@@ -5,8 +5,6 @@ lexer grammar SimplyV3Lexer;
 GET: 'get';
 CONST: 'const';
 LIST: 'list';
-TRUE: 'true';
-FALSE: 'false';
 SEND: 'send';
 CHECK: 'check';
 OTHERWISE: 'otherwise';
@@ -17,15 +15,21 @@ CHAR: 'char';
 STRING: 'string';
 BOOL: 'bool';
 VOID: 'void';
-FUNCTION: 'funtion' ;
+FUNCTION: 'function' ;
+FROM: 'from' ;
+TO: 'to' ;
+CONTINUE: 'continue' ;
+BREAK: 'break' ;
+OF: 'of' ;
 
 
 // Literals
-IntegerLiteral: [1-9][0-9]*;
+IntegerLiteral: '0' | [1-9][0-9]*;
 FloatLiteral: IntegerLiteral DOT IntegerLiteral;
+BoolLiteral: 'true' | 'false' ;
 CharLiteral: '\'' [a-z] '\'';
 StringLiteral: '"' [a-z]* '"';
-BoolLiteral: TRUE | FALSE;
+
 
 
 // Seperators

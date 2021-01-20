@@ -45,7 +45,7 @@ expression
 // Arithmatic expressions
 arithmaticExpression
     : logicExpression
-    | arithmaticExpression ADD logicExpression
+    | arithmaticExpression MUL logicExpression
     | arithmaticExpression DIV logicExpression
     | arithmaticExpression MOD logicExpression
     | arithmaticExpression ADD logicExpression
@@ -71,20 +71,20 @@ unaryExpression
     | ADD expression
     | SUB expression
     | BANG expression
-    | funcCall
+    | funcCallExpression
     | literal
     | Identifier arrayAccess?
     ;
 
 // Array access -> arr[3]
 arrayAccess
-    : LBRACK IntegerLiteral RBRACK
+    : LBRACK expression RBRACK
     ;
 
 
 // Function call -> add(2,3)
-funcCall
-    : libRef? Identifier LPAREN expression? (COMMA expression)* RPAREN EOL
+funcCallExpression
+    : libRef? Identifier LPAREN expression? (COMMA expression)* RPAREN
     ;
 
 // Library reference  -> math.root()
@@ -96,9 +96,9 @@ libRef
 literal
     : IntegerLiteral
     | FloatLiteral
+    | BoolLiteral
     | CharLiteral
     | StringLiteral
-    | BoolLiteral
     ;
 
 
@@ -134,6 +134,7 @@ arrayValue
 
 
 // Function declaration
+// TODO: list return type
 functionDeclaration
     : FUNCTION Identifier LPAREN argList RPAREN COLON dataTypeName block
     ;
@@ -168,7 +169,7 @@ statement
     : ifStatement
     | iterateStatement
     | assignment
-    | funcCall
+    | funcCallStatement
     | returnStatemtnt
     | variableDeclaration
     ;
@@ -200,9 +201,34 @@ elseBlock
 // TODO: loop in range / loop through array
 // TODO: break, contine keywords
 iterateStatement
-    : ITERATE LPAREN expression RPAREN block
+    : ITERATE LPAREN loopExpression RPAREN loopBlock
     ;
 
+loopExpression
+    : expression
+    | rangeExpression
+    | arrayLoopExpression
+    ;
+
+// Loop through a range
+rangeExpression
+    : arg FROM expression TO expression
+    ;
+
+// Loop throug an array
+arrayLoopExpression
+    : arg OF (Identifier | funcCallExpression)
+    ;
+
+loopBlock
+    : block
+    | loopControl
+    ;
+
+loopControl
+    : CONTINUE
+    | BREAK
+    ;
 
 // Assignment operations
 assignment
@@ -217,6 +243,10 @@ assignmentOperator
     | DIV_ASSIGN
     ;
 
+
+funcCallStatement
+    : funcCallExpression EOL
+    ;
 
 // Return
 returnStatemtnt
