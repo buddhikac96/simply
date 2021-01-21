@@ -134,18 +134,20 @@ arrayValue
 
 
 // Function declaration
-// TODO: list return type
 functionDeclaration
-    : FUNCTION Identifier LPAREN argList RPAREN COLON dataTypeName block
+    : FUNCTION functionSignature COLON LIST? dataTypeName block
     ;
 
+functionSignature
+    : Identifier LPAREN argList RPAREN
+    ;
 
 argList
     : arg? (COMMA arg)*
     ;
 
 arg
-    : nonVoidDataTypeName Identifier
+    : LIST? nonVoidDataTypeName Identifier
     ;
 
 dataTypeName
@@ -172,6 +174,7 @@ statement
     | funcCallStatement
     | returnStatemtnt
     | variableDeclaration
+    | loopControlStatement
     ;
 
 
@@ -198,10 +201,8 @@ elseBlock
 
 
 // Loops
-// TODO: loop in range / loop through array
-// TODO: break, contine keywords
 iterateStatement
-    : ITERATE LPAREN loopExpression RPAREN loopBlock
+    : ITERATE LPAREN loopExpression RPAREN block
     ;
 
 loopExpression
@@ -220,14 +221,9 @@ arrayLoopExpression
     : arg OF (Identifier | funcCallExpression)
     ;
 
-loopBlock
-    : block
-    | loopControl
-    ;
-
-loopControl
-    : CONTINUE
-    | BREAK
+loopControlStatement
+    : CONTINUE EOL
+    | BREAK EOL
     ;
 
 // Assignment operations

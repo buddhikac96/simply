@@ -24,6 +24,7 @@ OF: 'of' ;
 
 
 // Literals
+// TODO : Literal values standard
 IntegerLiteral: '0' | [1-9][0-9]*;
 FloatLiteral: IntegerLiteral DOT IntegerLiteral;
 BoolLiteral: 'true' | 'false' ;
@@ -68,6 +69,7 @@ MUL_ASSIGN : '*=';
 DIV_ASSIGN : '/=';
 
 
+// TODO : standard identifier
 Identifier: [a-z]+;
 
 WS: [ \t\n\r] -> skip;
