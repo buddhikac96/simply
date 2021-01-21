@@ -1,7 +1,9 @@
 lexer grammar SimplyV3Lexer;
 
-
+//
 // Keywords
+//
+
 GET: 'get';
 CONST: 'const';
 LIST: 'list';
@@ -22,8 +24,9 @@ CONTINUE: 'continue' ;
 BREAK: 'break' ;
 OF: 'of' ;
 
-
+//
 // Literals
+//
 
 // Integer
 IntegerLiteral
@@ -85,7 +88,9 @@ StringCharacter
 
 
 
-
+//
+// Symbols
+//
 
 // Seperators
 LPAREN : '(';
@@ -123,7 +128,37 @@ MUL_ASSIGN : '*=';
 DIV_ASSIGN : '/=';
 
 
-// TODO : standard identifier
-Identifier: [a-z]+;
+//
+// Identifier
+//
 
-WS: [ \t\n\r] -> skip;
+Identifier
+    : IdentifierStart [a-zA-Z] IdentifierEnd*
+    ;
+
+fragment
+IdentifierStart
+    : '_'
+    | [a-zA-Z]
+    ;
+
+fragment
+IdentifierEnd
+    : [a-zA-Z]
+    | [0-9]
+    ;
+
+//
+// White Spaces , Comments
+//
+
+WS  :  [ \t\r\n\u000C]+ -> skip
+    ;
+
+COMMENT
+    :   '/*' .*? '*/' -> skip
+    ;
+
+LINE_COMMENT
+    :   '//' ~[\r\n]* -> skip
+    ;
