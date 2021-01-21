@@ -70,11 +70,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayAccess(SimplyV3Parser.ArrayAccessContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCall}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFuncCall(SimplyV3Parser.FuncCallContext ctx);
+	T visitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#libRef}.
 	 * @param ctx the parse tree
@@ -87,6 +87,18 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteral(SimplyV3Parser.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree
@@ -129,6 +141,12 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionDeclaration(SimplyV3Parser.FunctionDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#functionSignature}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#argList}.
 	 * @param ctx the parse tree
@@ -220,6 +238,18 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayLoopExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -231,6 +261,12 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssignmentOperator(SimplyV3Parser.AssignmentOperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCallStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCallStatement(SimplyV3Parser.FuncCallStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#returnStatemtnt}.
 	 * @param ctx the parse tree

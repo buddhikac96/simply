@@ -107,15 +107,15 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitArrayAccess(SimplyV3Parser.ArrayAccessContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCall}.
+	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncCall(SimplyV3Parser.FuncCallContext ctx);
+	void enterFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#funcCall}.
+	 * Exit a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncCall(SimplyV3Parser.FuncCallContext ctx);
+	void exitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#libRef}.
 	 * @param ctx the parse tree
@@ -136,6 +136,26 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(SimplyV3Parser.LiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree
@@ -206,6 +226,16 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionDeclaration(SimplyV3Parser.FunctionDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#functionSignature}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#functionSignature}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#argList}.
 	 * @param ctx the parse tree
@@ -357,6 +387,26 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayLoopExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#arrayLoopExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#loopControlStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#assignment}.
 	 * @param ctx the parse tree
 	 */
@@ -376,6 +426,16 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignmentOperator(SimplyV3Parser.AssignmentOperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCallStatement(SimplyV3Parser.FuncCallStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#funcCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCallStatement(SimplyV3Parser.FuncCallStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#returnStatemtnt}.
 	 * @param ctx the parse tree

@@ -24,12 +24,66 @@ OF: 'of' ;
 
 
 // Literals
-// TODO : Literal values standard
-IntegerLiteral: '0' | [1-9][0-9]*;
-FloatLiteral: IntegerLiteral DOT IntegerLiteral;
-BoolLiteral: 'true' | 'false' ;
-CharLiteral: '\'' [a-z] '\'';
-StringLiteral: '"' [a-z]* '"';
+
+// Integer
+IntegerLiteral
+    : (SUB | ADD)?  (NonZeroInteger | Zero)
+    ;
+
+fragment
+NonZeroInteger
+    : NonZeroDigit Digit*
+    ;
+
+fragment
+NonZeroDigit: [1-9];
+
+fragment
+Digit: [0-9];
+
+fragment
+Zero: '0' ;
+
+
+// Floating-point
+FloatLiteral
+    : (ADD | SUB)? IntegerLiteral DOT IntegerLiteral
+    ;
+
+
+// Boolean
+BoolLiteral
+    : 'true'
+    | 'false'
+    ;
+
+// Character
+CharLiteral
+    : '\'' SingleCharacter '\''
+    ;
+
+fragment
+SingleCharacter
+    : ~['\\\r\n]
+    ;
+
+
+// String
+StringLiteral
+	:	'"' StringCharacters? '"'
+	;
+
+fragment
+StringCharacters
+	:	StringCharacter+
+	;
+
+fragment
+StringCharacter
+	:	~["\\\r\n]
+	;
+
+
 
 
 

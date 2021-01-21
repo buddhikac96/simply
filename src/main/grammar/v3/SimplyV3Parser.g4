@@ -102,6 +102,7 @@ literal
     ;
 
 
+
 // Array declaration
 arrayVariableDeclaration
     : LIST nonVoidDataTypeName Identifier arrayDeclaration? EOL

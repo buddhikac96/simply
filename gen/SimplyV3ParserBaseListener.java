@@ -135,13 +135,13 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncCall(SimplyV3Parser.FuncCallContext ctx) { }
+	@Override public void enterFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncCall(SimplyV3Parser.FuncCallContext ctx) { }
+	@Override public void exitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -166,6 +166,30 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteral(SimplyV3Parser.LiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -250,6 +274,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunctionDeclaration(SimplyV3Parser.FunctionDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -435,6 +471,30 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignment(SimplyV3Parser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -454,6 +514,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignmentOperator(SimplyV3Parser.AssignmentOperatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncCallStatement(SimplyV3Parser.FuncCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncCallStatement(SimplyV3Parser.FuncCallStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
