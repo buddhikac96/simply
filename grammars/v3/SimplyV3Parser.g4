@@ -4,6 +4,10 @@ options {
     tokenVocab=SimplyV3Lexer;
 }
 
+@header {
+package antlr;
+}
+
 // Compilation unit
 compilationUnit
     : libImport* variableDeclaration* functionDeclaration*

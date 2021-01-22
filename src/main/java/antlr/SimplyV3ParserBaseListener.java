@@ -1,4 +1,7 @@
-// Generated from /home/hackerbuddy/dev/fyp/simply/src/main/grammar/v3/SimplyV3Parser.g4 by ANTLR 4.8
+// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.8
+
+package antlr;
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -166,30 +169,6 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteral(SimplyV3Parser.LiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

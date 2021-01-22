@@ -1,4 +1,7 @@
-// Generated from /home/hackerbuddy/dev/fyp/simply/src/main/grammar/v3/SimplyV3Parser.g4 by ANTLR 4.8
+// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.8
+
+package antlr;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -136,26 +139,6 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(SimplyV3Parser.LiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree

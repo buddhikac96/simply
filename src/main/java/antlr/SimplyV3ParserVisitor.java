@@ -1,4 +1,7 @@
-// Generated from /home/hackerbuddy/dev/fyp/simply/src/main/grammar/v3/SimplyV3Parser.g4 by ANTLR 4.8
+// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.8
+
+package antlr;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -87,18 +90,6 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteral(SimplyV3Parser.LiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#integerLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#floatLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree
