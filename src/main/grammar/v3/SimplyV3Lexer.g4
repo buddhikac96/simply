@@ -133,13 +133,12 @@ DIV_ASSIGN : '/=';
 //
 
 Identifier
-    : IdentifierStart [a-zA-Z] IdentifierEnd*
+    : IdentifierStart ([a-zA-Z] IdentifierEnd*)?
     ;
 
 fragment
 IdentifierStart
-    : '_'
-    | [a-zA-Z]
+    : [_a-zA-Z]
     ;
 
 fragment
