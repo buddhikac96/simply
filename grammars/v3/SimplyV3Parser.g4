@@ -176,7 +176,7 @@ statements
 statement
     : ifStatement
     | iterateStatement
-    | assignment
+    | assignmentStatement
     | funcCallStatement
     | returnStatemtnt
     | variableDeclaration
@@ -233,7 +233,7 @@ loopControlStatement
     ;
 
 // Assignment operations
-assignment
+assignmentStatement
     : Identifier arrayAccess? assignmentOperator expression EOL
     ;
 

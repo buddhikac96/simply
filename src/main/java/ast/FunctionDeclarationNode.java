@@ -8,12 +8,12 @@ import java.util.List;
 public class FunctionDeclarationNode extends ASTNode {
     FunctionSignatureNode functionSignatureNode;
     DataType returnType;
-    Block functionBody;
+    BlockNode functionBody;
 
     public FunctionDeclarationNode(
             FunctionSignatureNode functionSignatureNode,
             DataType returnType,
-            Block functionBody
+            BlockNode functionBody
     ) {
         this.functionSignatureNode = functionSignatureNode;
         this.returnType = returnType;
@@ -23,23 +23,23 @@ public class FunctionDeclarationNode extends ASTNode {
 
 class FunctionSignatureNode extends ASTNode{
     String functionName;
-    List<FunctionArgument> functionArgumentList;
+    List<FunctionArgumentNode> functionArgumentNodeList;
 
     public FunctionSignatureNode(String functionName) {
         this.functionName = functionName;
-        this.functionArgumentList = new ArrayList<>();
+        this.functionArgumentNodeList = new ArrayList<>();
     }
 
-    public void addArguments(FunctionArgument functionArgument){
-        this.functionArgumentList.add(functionArgument);
+    public void addArguments(FunctionArgumentNode functionArgumentNode){
+        this.functionArgumentNodeList.add(functionArgumentNode);
     }
 }
 
-class FunctionArgument extends ASTNode{
+class FunctionArgumentNode extends ASTNode{
     DataType dataType;
     String argumentName;
 
-    public FunctionArgument(DataType dataType, String argumentName) {
+    public FunctionArgumentNode(DataType dataType, String argumentName) {
         this.dataType = dataType;
         this.argumentName = argumentName;
     }

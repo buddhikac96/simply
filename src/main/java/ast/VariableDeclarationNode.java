@@ -2,7 +2,7 @@ package ast;
 
 import ast.util.DataType;
 
-public abstract class VariableDeclarationNode extends ASTNode {
+public abstract class VariableDeclarationNode extends StatementNode {
 
 }
 
