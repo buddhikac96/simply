@@ -10,7 +10,7 @@ package antlr;
 
 // Compilation unit
 compilationUnit
-    : libImport* variableDeclaration* functionDeclaration*
+    : libImport* variableDeclaration* functionDeclaration* EOF
     ;
 
 
@@ -110,21 +110,21 @@ literal
 
 // Array declaration
 arrayVariableDeclaration
-    : LIST nonVoidDataTypeName Identifier arrayDeclaration? EOL
+    : LIST nonVoidDataTypeName Identifier arrayIntialization? EOL
     ;
 
-arrayDeclaration
-    : emptyArrayDeclaration
-    | nonEmptyArrayDeclaration
+arrayIntialization
+    : emptyArrayIntialization
+    | nonEmptyArrayIntialization
     ;
 
 // Empty array declaration -> list int arr = [];
-emptyArrayDeclaration
+emptyArrayIntialization
     : ASSIGN LBRACK RBRACK
     ;
 
 // Non-empty array declaration -> list int arr = [1,2,3];
-nonEmptyArrayDeclaration
+nonEmptyArrayIntialization
     : ASSIGN LBRACK arrayValues RBRACK
     ;
 
@@ -135,7 +135,7 @@ arrayValues
     ;
 
 arrayValue
-    : literal
+    : expression
     ;
 
 
