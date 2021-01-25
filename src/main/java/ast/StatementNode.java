@@ -4,10 +4,6 @@ public abstract class StatementNode extends ASTNode {
 
 }
 
-class AssignmentStatementNode extends StatementNode{
-
-}
-
 class FunctionCallStatementNode extends StatementNode{
 
 }
