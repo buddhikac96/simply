@@ -16,9 +16,12 @@ compilationUnit
 
 // library import
 libImport
-    : GET Identifier EOL
+    : GET identifier EOL
     ;
 
+identifier
+    : Identifier
+    ;
 
 // variable declaration
 variableDeclaration
@@ -28,7 +31,7 @@ variableDeclaration
 
 // Primitive variable declaration
 primitiveVariableDeclaration
-    : CONST? nonVoidDataTypeName Identifier (ASSIGN expression)? EOL
+    : CONST? nonVoidDataTypeName identifier (ASSIGN expression)? EOL
     ;
 
 // Non-void data type names
@@ -77,7 +80,7 @@ unaryExpression
     | BANG expression
     | funcCallExpression
     | literal
-    | Identifier arrayAccess?
+    | identifier arrayAccess?
     ;
 
 // Array access -> arr[3]
@@ -89,12 +92,12 @@ arrayAccess
 // Function call -> add(2,3)
 // TODO: LibRef standarize -> study java grammr
 funcCallExpression
-    : libRef? Identifier LPAREN expression? (COMMA expression)* RPAREN
+    : libRef? identifier LPAREN expression? (COMMA expression)* RPAREN
     ;
 
 // Library reference  -> math.root()
 libRef
-    : Identifier DOT
+    : identifier DOT
     ;
 
 // Literal
@@ -110,7 +113,7 @@ literal
 
 // Array declaration
 arrayVariableDeclaration
-    : LIST nonVoidDataTypeName Identifier arrayIntialization? EOL
+    : LIST nonVoidDataTypeName identifier arrayIntialization? EOL
     ;
 
 arrayIntialization
@@ -145,7 +148,7 @@ functionDeclaration
     ;
 
 functionSignature
-    : Identifier LPAREN argList RPAREN
+    : identifier LPAREN argList RPAREN
     ;
 
 argList
@@ -153,7 +156,7 @@ argList
     ;
 
 arg
-    : LIST? nonVoidDataTypeName Identifier
+    : LIST? nonVoidDataTypeName identifier
     ;
 
 dataTypeName
@@ -190,10 +193,10 @@ ifStatement
     ;
 
 ifBlock
-    : CHECK conditionExpression block
+    : CHECK ifConditionExpression block
     ;
 
-conditionExpression
+ifConditionExpression
     : LPAREN expression RPAREN
     ;
 
@@ -208,13 +211,13 @@ elseBlock
 
 // Loops
 iterateStatement
-    : ITERATE LPAREN loopExpression RPAREN block
+    : ITERATE LPAREN iterateConditionExpression RPAREN block
     ;
 
-loopExpression
+iterateConditionExpression
     : expression
     | rangeExpression
-    | arrayLoopExpression
+    | arrayIterateExpression
     ;
 
 // Loop through a range
@@ -223,8 +226,8 @@ rangeExpression
     ;
 
 // Loop throug an array
-arrayLoopExpression
-    : arg OF (Identifier | funcCallExpression)
+arrayIterateExpression
+    : arg OF ( identifier | funcCallExpression )
     ;
 
 loopControlStatement
@@ -234,7 +237,7 @@ loopControlStatement
 
 // Assignment operations
 assignmentStatement
-    : Identifier arrayAccess? assignmentOperator expression EOL
+    : identifier arrayAccess? assignmentOperator expression EOL
     ;
 
 assignmentOperator
