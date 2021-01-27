@@ -13,7 +13,6 @@ compilationUnit
     : libImport* globalVariableDeclaration* functionDeclaration* EOF
     ;
 
-
 // library import
 libImport
     : GET identifier EOL

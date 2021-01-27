@@ -16,7 +16,21 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitCompilationUnit(SimplyV3Parser.CompilationUnitContext ctx) {
-        super.visitCompilationUnit(ctx);
+        //visit lib imports
+        for(SimplyV3Parser.LibImportContext libImportContext : ctx.libImport()){
+            visitLibImport(libImportContext);
+        }
+
+        //visit var declarations
+        for(SimplyV3Parser.GlobalVariableDeclarationContext globalVariableDeclarationContext : ctx.globalVariableDeclaration()){
+            visitGlobalVariableDeclaration(globalVariableDeclarationContext);
+        }
+
+        //visit function declarations
+        for(SimplyV3Parser.FunctionDeclarationContext functionDeclarationContext : ctx.functionDeclaration()){
+            super.visitFunctionDeclaration(functionDeclarationContext);
+        }
+
         return this.compilationUnitNode;
     }
 
@@ -45,7 +59,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) {
-        return super.visitVariableDeclaration(ctx);
+        return visitPrimitiveVariableDeclaration(ctx.primitiveVariableDeclaration());
     }
 
     @Override

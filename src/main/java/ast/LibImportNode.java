@@ -6,4 +6,8 @@ public class LibImportNode extends ASTNode {
     public LibImportNode(String libName) {
         LibName = libName;
     }
+
+    public String getLibName() {
+        return LibName;
+    }
 }

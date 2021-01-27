@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompilationUnitNode extends ASTNode {
-    List<LibImportNode> libImportNodeList;
-    List<VariableDeclarationNode> globalVariableDeclarationNodeList;
-    List<FunctionDeclarationNode> functionDeclarationNodes;
+    public List<LibImportNode> libImportNodeList;
+    public List<VariableDeclarationNode> globalVariableDeclarationNodeList;
+    public List<FunctionDeclarationNode> functionDeclarationNodes;
 
     public CompilationUnitNode() {
         this.libImportNodeList = new ArrayList<>();
