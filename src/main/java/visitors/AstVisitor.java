@@ -13,11 +13,10 @@ import java.io.IOException;
 
 public class AstVisitor {
     public static void main(String[] args) throws IOException {
-        String code = "get math;" +
-                "get io;" +
-                "get audio;";
 
-        CharStream charStream = CharStreams.fromString(code);
+        String filePath = "Samples/sample.simply";
+
+        CharStream charStream = CharStreams.fromFileName(filePath);
         SimplyV3Lexer lexer = new SimplyV3Lexer(charStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         SimplyV3Parser parser = new SimplyV3Parser(commonTokenStream);

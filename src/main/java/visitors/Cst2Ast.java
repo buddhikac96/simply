@@ -42,44 +42,68 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         return libImportNode;
     }
 
-    @Override
-    public ASTNode visitIdentifier(SimplyV3Parser.IdentifierContext ctx) {
-        return super.visitIdentifier(ctx);
-    }
 
     @Override
     public ASTNode visitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx) {
-        VariableDeclarationNode variableDeclarationNode =
-                (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
 
-        this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
+        if(ctx.variableDeclaration() != null){
+            VariableDeclarationNode variableDeclarationNode =
+                    (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
+            this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
 
-        return variableDeclarationNode;
+            return variableDeclarationNode;
+        }else{
+            VariableDeclarationNode variableDeclarationNode =
+                    (VariableDeclarationNode) visitConstantDeclaration(ctx.constantDeclaration());
+
+            this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
+
+            return variableDeclarationNode;
+        }
+
     }
 
     @Override
     public ASTNode visitVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) {
-        return visitPrimitiveVariableDeclaration(ctx.primitiveVariableDeclaration());
+        if(ctx.arrayVariableDeclaration() != null){
+            return visitArrayVariableDeclaration(ctx.arrayVariableDeclaration());
+        }else{
+            return visitPrimitiveVariableDeclaration(ctx.primitiveVariableDeclaration());
+        }
     }
 
     @Override
     public ASTNode visitConstantDeclaration(SimplyV3Parser.ConstantDeclarationContext ctx) {
-        boolean isConst = true;
+
         VariableDeclarationNode variableDeclarationNode =
                 (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
         variableDeclarationNode.setConst();
 
         return variableDeclarationNode;
+
     }
 
     @Override
     public ASTNode visitPrimitiveVariableDeclaration(SimplyV3Parser.PrimitiveVariableDeclarationContext ctx) {
-        DataType dataType = DataTypeMapper.getType(ctx.getChild(0).getText());
-        String varName = ctx.getChild(1).getText();
+        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+        String varName = ctx.identifier().getText();
         ExpressionNode expressionNode = (ExpressionNode) visitExpression(ctx.expression());
 
-        return new PrimitiveVariableDeclarationNode(false, dataType, varName, expressionNode);
+        return new PrimitiveVariableDeclarationNode(
+                false,
+                dataType,
+                varName,
+                expressionNode
+        );
     }
 
+    @Override
+    public ASTNode visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx) {
+        return super.visitArrayVariableDeclaration(ctx);
+    }
 
+    @Override
+    public ASTNode visitExpression(SimplyV3Parser.ExpressionContext ctx) {
+        return super.visitExpression(ctx);
+    }
 }
