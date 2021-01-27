@@ -24,4 +24,9 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     public void setConst() {
         this.isConst = true;
     }
+
+    @Override
+    public String getName() {
+        return this.varName;
+    }
 }

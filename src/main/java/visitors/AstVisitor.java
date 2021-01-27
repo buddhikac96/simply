@@ -4,12 +4,15 @@ import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
 import ast.LibImportNode;
+import ast.VariableDeclarationNode;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AstVisitor {
     public static void main(String[] args) throws IOException {
@@ -23,7 +26,9 @@ public class AstVisitor {
 
         ParseTree tree = parser.compilationUnit();
 
-        Cst2Ast cst2Ast = new Cst2Ast();
+        List<String> errors = new ArrayList<>();
+
+        Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
 
         System.out.println(ast.libImportNodeList.size());
@@ -33,5 +38,8 @@ public class AstVisitor {
             System.out.println(libImportNode.getLibName());
         }
 
+        for(String error : errors){
+            System.out.println(error);
+        }
     }
 }

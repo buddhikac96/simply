@@ -6,16 +6,24 @@ import ast.*;
 import ast.util.DataTypeMapper;
 import ast.util.enums.DataType;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     CompilationUnitNode compilationUnitNode;
+    HashSet<String> globalVariableSymbolTable;
+    public List<String> syntaxErrors;
 
-    public Cst2Ast() {
+    public Cst2Ast(List<String> syntaxErrors) {
         this.compilationUnitNode = new CompilationUnitNode();
+        this.globalVariableSymbolTable = new HashSet<>();
+        this.syntaxErrors = syntaxErrors;
     }
 
     @Override
     public ASTNode visitCompilationUnit(SimplyV3Parser.CompilationUnitContext ctx) {
+
         //visit lib imports
         for(SimplyV3Parser.LibImportContext libImportContext : ctx.libImport()){
             visitLibImport(libImportContext);
@@ -32,6 +40,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         }
 
         return this.compilationUnitNode;
+
     }
 
     @Override
@@ -42,24 +51,32 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         return libImportNode;
     }
 
+    @Override
+    public ASTNode visitIdentifier(SimplyV3Parser.IdentifierContext ctx) {
+        return super.visitIdentifier(ctx);
+    }
 
     @Override
     public ASTNode visitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx) {
 
+        VariableDeclarationNode variableDeclarationNode;
+
         if(ctx.variableDeclaration() != null){
-            VariableDeclarationNode variableDeclarationNode =
+            variableDeclarationNode =
                     (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
-            this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
-
-            return variableDeclarationNode;
         }else{
-            VariableDeclarationNode variableDeclarationNode =
+            variableDeclarationNode =
                     (VariableDeclarationNode) visitConstantDeclaration(ctx.constantDeclaration());
-
-            this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
-
-            return variableDeclarationNode;
         }
+
+        // Check whether variable already exist
+        if(this.globalVariableSymbolTable.contains(variableDeclarationNode.getName())){
+            this.syntaxErrors.add("Global Variable : " + variableDeclarationNode.getName() + " already exist");
+        }
+
+        this.globalVariableSymbolTable.add(variableDeclarationNode.getName());
+        this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
+        return variableDeclarationNode;
 
     }
 
@@ -85,6 +102,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitPrimitiveVariableDeclaration(SimplyV3Parser.PrimitiveVariableDeclarationContext ctx) {
+
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
         String varName = ctx.identifier().getText();
         ExpressionNode expressionNode = (ExpressionNode) visitExpression(ctx.expression());
@@ -98,12 +116,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx) {
-        return super.visitArrayVariableDeclaration(ctx);
-    }
-
-    @Override
-    public ASTNode visitExpression(SimplyV3Parser.ExpressionContext ctx) {
-        return super.visitExpression(ctx);
+    public ASTNode visitNonVoidDataTypeName(SimplyV3Parser.NonVoidDataTypeNameContext ctx) {
+        return super.visitNonVoidDataTypeName(ctx);
     }
 }
