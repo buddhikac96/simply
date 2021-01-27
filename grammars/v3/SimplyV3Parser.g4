@@ -5,12 +5,12 @@ options {
 }
 
 @header {
-package antlr;
+package antlr.gen;
 }
 
 // Compilation unit
 compilationUnit
-    : libImport* variableDeclaration* functionDeclaration* EOF
+    : libImport* globalVariableDeclaration* functionDeclaration* EOF
     ;
 
 
@@ -23,15 +23,25 @@ identifier
     : Identifier
     ;
 
+
+globalVariableDeclaration
+    : GLOBAL (variableDeclaration | constantDeclaration)
+    ;
+
 // variable declaration
 variableDeclaration
     : primitiveVariableDeclaration
     | arrayVariableDeclaration
     ;
 
+constantDeclaration
+    : CONST variableDeclaration
+    ;
+
+
 // Primitive variable declaration
 primitiveVariableDeclaration
-    : CONST? nonVoidDataTypeName identifier (ASSIGN expression)? EOL
+    : nonVoidDataTypeName identifier (ASSIGN expression)? EOL
     ;
 
 // Non-void data type names
@@ -51,25 +61,25 @@ expression
 
 // Arithmatic expressions
 arithmaticExpression
-    : logicExpression
-    | arithmaticExpression MUL logicExpression
-    | arithmaticExpression DIV logicExpression
-    | arithmaticExpression MOD logicExpression
-    | arithmaticExpression ADD logicExpression
-    | arithmaticExpression SUB logicExpression
+    : logicExpression                               # logic
+    | arithmaticExpression MUL logicExpression      # multiplication
+    | arithmaticExpression DIV logicExpression      # division
+    | arithmaticExpression MOD logicExpression      # modulos
+    | arithmaticExpression ADD logicExpression      # addition
+    | arithmaticExpression SUB logicExpression      # substraction
     ;
 
 // Logical expression
 logicExpression
-    : unaryExpression
-    | logicExpression OR unaryExpression
-    | logicExpression AND unaryExpression
-    | logicExpression GT unaryExpression
-    | logicExpression LT unaryExpression
-    | logicExpression GE unaryExpression
-    | logicExpression LE unaryExpression
-    | logicExpression EQUAL unaryExpression
-    | logicExpression NOTEQUAL unaryExpression
+    : unaryExpression                               # unary
+    | logicExpression OR unaryExpression            # logicalOr
+    | logicExpression AND unaryExpression           # logicalAnd
+    | logicExpression GT unaryExpression            # greaterThan
+    | logicExpression LT unaryExpression            # lessThan
+    | logicExpression GE unaryExpression            # greaterOrEqualThan
+    | logicExpression LE unaryExpression            # lessOrEqualThan
+    | logicExpression EQUAL unaryExpression         # equals
+    | logicExpression NOTEQUAL unaryExpression      # notEquals
     ;
 
 // Unary expressions
@@ -188,6 +198,7 @@ statement
     | funcCallStatement
     | returnStatemtnt
     | variableDeclaration
+    | constantDeclaration
     | loopControlStatement
     ;
 

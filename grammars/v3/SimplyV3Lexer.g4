@@ -1,5 +1,9 @@
 lexer grammar SimplyV3Lexer;
 
+@header{
+package antlr.gen;
+}
+
 //
 // Keywords
 //
@@ -23,6 +27,7 @@ TO: 'to' ;
 CONTINUE: 'continue' ;
 BREAK: 'break' ;
 OF: 'of' ;
+GLOBAL: 'global';
 
 //
 // Literals

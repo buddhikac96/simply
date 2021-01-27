@@ -1,6 +1,6 @@
-// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.8
+// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.9.1
 
-package antlr;
+package antlr.gen;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -25,11 +25,29 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLibImport(SimplyV3Parser.LibImportContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#identifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(SimplyV3Parser.IdentifierContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#globalVariableDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#constantDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantDeclaration(SimplyV3Parser.ConstantDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#primitiveVariableDeclaration}.
 	 * @param ctx the parse tree
@@ -49,17 +67,110 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
+	 * Visit a parse tree produced by the {@code division}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
+	T visitDivision(SimplyV3Parser.DivisionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
+	 * Visit a parse tree produced by the {@code modulos}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
+	T visitModulos(SimplyV3Parser.ModulosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code logic}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogic(SimplyV3Parser.LogicContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code multiplication}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplication(SimplyV3Parser.MultiplicationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code substraction}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubstraction(SimplyV3Parser.SubstractionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code addition}
+	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddition(SimplyV3Parser.AdditionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code greaterOrEqualThan}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code lessThan}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessThan(SimplyV3Parser.LessThanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code equals}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquals(SimplyV3Parser.EqualsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code lessOrEqualThan}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notEquals}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotEquals(SimplyV3Parser.NotEqualsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code logicalAnd}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalAnd(SimplyV3Parser.LogicalAndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unary}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary(SimplyV3Parser.UnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code logicalOr}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalOr(SimplyV3Parser.LogicalOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code greaterThan}
+	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGreaterThan(SimplyV3Parser.GreaterThanContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree
@@ -79,6 +190,12 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCallParamList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCallParamList(SimplyV3Parser.FuncCallParamListContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#libRef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -97,23 +214,23 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayDeclaration}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArrayDeclaration(SimplyV3Parser.ArrayDeclarationContext ctx);
+	T visitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#emptyArrayDeclaration}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#emptyArrayIntialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEmptyArrayDeclaration(SimplyV3Parser.EmptyArrayDeclarationContext ctx);
+	T visitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#nonEmptyArrayDeclaration}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#nonEmptyArrayIntialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNonEmptyArrayDeclaration(SimplyV3Parser.NonEmptyArrayDeclarationContext ctx);
+	T visitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayValues}.
 	 * @param ctx the parse tree
@@ -193,11 +310,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfBlock(SimplyV3Parser.IfBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#conditionExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#ifConditionExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConditionExpression(SimplyV3Parser.ConditionExpressionContext ctx);
+	T visitIfConditionExpression(SimplyV3Parser.IfConditionExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#elseIfBlock}.
 	 * @param ctx the parse tree
@@ -217,11 +334,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIterateStatement(SimplyV3Parser.IterateStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#loopExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#iterateConditionExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLoopExpression(SimplyV3Parser.LoopExpressionContext ctx);
+	T visitIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#rangeExpression}.
 	 * @param ctx the parse tree
@@ -229,11 +346,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayLoopExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayIterateExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx);
+	T visitArrayIterateExpression(SimplyV3Parser.ArrayIterateExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#loopControlStatement}.
 	 * @param ctx the parse tree
@@ -241,11 +358,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#assignment}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#assignmentStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignment(SimplyV3Parser.AssignmentContext ctx);
+	T visitAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#assignmentOperator}.
 	 * @param ctx the parse tree

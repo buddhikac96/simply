@@ -1,7 +1,5 @@
 package ast;
 
-import ast.util.DataType;
-
 public class IterateStatementNode extends StatementNode{
     IterateConditionExpressionNode iterateConditionExpressionNode;
     BlockNode blockNode;

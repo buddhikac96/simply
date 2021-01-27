@@ -1,4 +1,4 @@
-package ast.util;
+package ast.util.enums;
 
 public enum LoopControlOperator {
     Continue,

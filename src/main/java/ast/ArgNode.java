@@ -1,6 +1,6 @@
 package ast;
 
-import ast.util.DataType;
+import ast.util.enums.DataType;
 
 public class ArgNode extends ASTNode {
     DataType dataType;

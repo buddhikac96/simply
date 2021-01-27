@@ -1,6 +1,6 @@
-// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.8
+// Generated from /home/hackerbuddy/dev/fyp/simply/grammars/v3/SimplyV3Parser.g4 by ANTLR 4.9.1
 
-package antlr;
+package antlr.gen;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -42,6 +42,30 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIdentifier(SimplyV3Parser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifier(SimplyV3Parser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -49,6 +73,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstantDeclaration(SimplyV3Parser.ConstantDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstantDeclaration(SimplyV3Parser.ConstantDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -90,25 +126,181 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx) { }
+	@Override public void enterDivision(SimplyV3Parser.DivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx) { }
+	@Override public void exitDivision(SimplyV3Parser.DivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicExpression(SimplyV3Parser.LogicExpressionContext ctx) { }
+	@Override public void enterModulos(SimplyV3Parser.ModulosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx) { }
+	@Override public void exitModulos(SimplyV3Parser.ModulosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogic(SimplyV3Parser.LogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogic(SimplyV3Parser.LogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultiplication(SimplyV3Parser.MultiplicationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultiplication(SimplyV3Parser.MultiplicationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubstraction(SimplyV3Parser.SubstractionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubstraction(SimplyV3Parser.SubstractionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAddition(SimplyV3Parser.AdditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAddition(SimplyV3Parser.AdditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLessThan(SimplyV3Parser.LessThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLessThan(SimplyV3Parser.LessThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEquals(SimplyV3Parser.EqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEquals(SimplyV3Parser.EqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNotEquals(SimplyV3Parser.NotEqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotEquals(SimplyV3Parser.NotEqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogicalAnd(SimplyV3Parser.LogicalAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogicalAnd(SimplyV3Parser.LogicalAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnary(SimplyV3Parser.UnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnary(SimplyV3Parser.UnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogicalOr(SimplyV3Parser.LogicalOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogicalOr(SimplyV3Parser.LogicalOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGreaterThan(SimplyV3Parser.GreaterThanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGreaterThan(SimplyV3Parser.GreaterThanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -150,6 +342,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFuncCallParamList(SimplyV3Parser.FuncCallParamListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncCallParamList(SimplyV3Parser.FuncCallParamListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLibRef(SimplyV3Parser.LibRefContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -186,37 +390,37 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayDeclaration(SimplyV3Parser.ArrayDeclarationContext ctx) { }
+	@Override public void enterArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayDeclaration(SimplyV3Parser.ArrayDeclarationContext ctx) { }
+	@Override public void exitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmptyArrayDeclaration(SimplyV3Parser.EmptyArrayDeclarationContext ctx) { }
+	@Override public void enterEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmptyArrayDeclaration(SimplyV3Parser.EmptyArrayDeclarationContext ctx) { }
+	@Override public void exitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNonEmptyArrayDeclaration(SimplyV3Parser.NonEmptyArrayDeclarationContext ctx) { }
+	@Override public void enterNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNonEmptyArrayDeclaration(SimplyV3Parser.NonEmptyArrayDeclarationContext ctx) { }
+	@Override public void exitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -378,13 +582,13 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditionExpression(SimplyV3Parser.ConditionExpressionContext ctx) { }
+	@Override public void enterIfConditionExpression(SimplyV3Parser.IfConditionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditionExpression(SimplyV3Parser.ConditionExpressionContext ctx) { }
+	@Override public void exitIfConditionExpression(SimplyV3Parser.IfConditionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -426,13 +630,13 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoopExpression(SimplyV3Parser.LoopExpressionContext ctx) { }
+	@Override public void enterIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoopExpression(SimplyV3Parser.LoopExpressionContext ctx) { }
+	@Override public void exitIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -450,13 +654,13 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx) { }
+	@Override public void enterArrayIterateExpression(SimplyV3Parser.ArrayIterateExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayLoopExpression(SimplyV3Parser.ArrayLoopExpressionContext ctx) { }
+	@Override public void exitArrayIterateExpression(SimplyV3Parser.ArrayIterateExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -474,13 +678,13 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(SimplyV3Parser.AssignmentContext ctx) { }
+	@Override public void enterAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(SimplyV3Parser.AssignmentContext ctx) { }
+	@Override public void exitAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,6 +1,6 @@
 package ast;
 
-import ast.util.LoopControlOperator;
+import ast.util.enums.LoopControlOperator;
 
 public class LoopControlStatementNode extends StatementNode {
     LoopControlOperator operator;

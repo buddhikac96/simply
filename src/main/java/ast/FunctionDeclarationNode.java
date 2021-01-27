@@ -1,6 +1,6 @@
 package ast;
 
-import ast.util.DataType;
+import ast.util.enums.DataType;
 
 import java.util.ArrayList;
 import java.util.List;

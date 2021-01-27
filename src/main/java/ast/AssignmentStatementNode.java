@@ -1,6 +1,6 @@
 package ast;
 
-import ast.util.AssignmentOperator;
+import ast.util.enums.AssignmentOperator;
 
 public class AssignmentStatementNode extends StatementNode {
     String name;
@@ -18,14 +18,6 @@ public class AssignmentStatementNode extends StatementNode {
         this.arrayAccess = arrayAccess;
         this.assignmentOperator = assignmentOperator;
         this.value = value;
-    }
-}
-
-class ArrayAccess extends ASTNode{
-    ExpressionNode expressionNode;
-
-    public ArrayAccess(ExpressionNode expressionNode) {
-        this.expressionNode = expressionNode;
     }
 }
 
