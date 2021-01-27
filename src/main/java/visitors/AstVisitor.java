@@ -2,6 +2,7 @@ package visitors;
 
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
+import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.LibImportNode;
 import ast.VariableDeclarationNode;
@@ -31,7 +32,7 @@ public class AstVisitor {
         Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
 
-        System.out.println(ast.libImportNodeList.size());
+        /*System.out.println(ast.libImportNodeList.size());
         System.out.println(ast.globalVariableDeclarationNodeList.size());
 
         for(LibImportNode libImportNode : ast.libImportNodeList){
@@ -40,6 +41,10 @@ public class AstVisitor {
 
         for(String error : errors){
             System.out.println(error);
+        }*/
+
+        for(ASTNode node : ast.globalVariableDeclarationNodeList){
+            System.out.println();
         }
     }
 }

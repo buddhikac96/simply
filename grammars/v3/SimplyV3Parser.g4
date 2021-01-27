@@ -60,37 +60,38 @@ expression
 
 // Arithmatic expressions
 arithmaticExpression
-    : logicExpression                               # logic
-    | arithmaticExpression MUL logicExpression      # multiplication
-    | arithmaticExpression DIV logicExpression      # division
-    | arithmaticExpression MOD logicExpression      # modulos
-    | arithmaticExpression ADD logicExpression      # addition
-    | arithmaticExpression SUB logicExpression      # substraction
+    : logicExpression
+    | arithmaticExpression MUL logicExpression
+    | arithmaticExpression DIV logicExpression
+    | arithmaticExpression MOD logicExpression
+    | arithmaticExpression ADD logicExpression
+    | arithmaticExpression SUB logicExpression
     ;
 
 // Logical expression
 logicExpression
-    : unaryExpression                               # unary
-    | logicExpression OR unaryExpression            # logicalOr
-    | logicExpression AND unaryExpression           # logicalAnd
-    | logicExpression GT unaryExpression            # greaterThan
-    | logicExpression LT unaryExpression            # lessThan
-    | logicExpression GE unaryExpression            # greaterOrEqualThan
-    | logicExpression LE unaryExpression            # lessOrEqualThan
-    | logicExpression EQUAL unaryExpression         # equals
-    | logicExpression NOTEQUAL unaryExpression      # notEquals
+    : unaryExpression
+    | logicExpression OR unaryExpression
+    | logicExpression AND unaryExpression
+    | logicExpression GT unaryExpression
+    | logicExpression LT unaryExpression
+    | logicExpression GE unaryExpression
+    | logicExpression LE unaryExpression
+    | logicExpression EQUAL unaryExpression
+    | logicExpression NOTEQUAL unaryExpression
     ;
 
 // Unary expressions
 unaryExpression
-    : LPAREN expression RPAREN
-    | ADD expression
-    | SUB expression
-    | BANG expression
-    | funcCallExpression
-    | literal
-    | identifier arrayAccess?
+    : LPAREN expression RPAREN      # parenExpression
+    | ADD expression                # prefixPlusExpression
+    | SUB expression                # prefixMinusExpression
+    | BANG expression               # prefixNotExpression
+    | funcCallExpression            # functionCallExpression
+    | literal                       # literalExpression
+    | identifier arrayAccess?       # arrayAccessExpression
     ;
+    
 
 // Array access -> arr[3]
 arrayAccess

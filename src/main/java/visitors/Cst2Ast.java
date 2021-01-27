@@ -119,4 +119,107 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     public ASTNode visitNonVoidDataTypeName(SimplyV3Parser.NonVoidDataTypeNameContext ctx) {
         return super.visitNonVoidDataTypeName(ctx);
     }
+
+    @Override
+    public ASTNode visitExpression(SimplyV3Parser.ExpressionContext ctx) {
+        return visitArithmaticExpression(ctx.arithmaticExpression());
+    }
+
+    @Override
+    public ASTNode visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx) {
+        if(ctx.MUL() != null){
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            return new ArithmeticExpressionNode.MultiplicationExpressionNode(left, right);
+
+        }else if(ctx.DIV() != null){
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            return new ArithmeticExpressionNode.DivisionExpressionNode(left, right);
+
+        }else if(ctx.SUB() != null){
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            return new ArithmeticExpressionNode.SubtractionExpressionNode(left, right);
+
+        }else if(ctx.ADD() != null){
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+
+            return new ArithmeticExpressionNode.AdditionExpressionNode(left, right);
+
+        }else if(ctx.MOD() != null){
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            return new ArithmeticExpressionNode.ModulusExpressionNode(left, right);
+
+        }else{
+
+            return visitLogicExpression(ctx.logicExpression());
+
+        }
+    }
+
+    @Override
+    public ASTNode visitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx) {
+        if(ctx.OR() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.OrExpressionNode(left, right);
+
+        }else if(ctx.AND() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.AndExpressionNode(left, right);
+
+        }else if(ctx.GT() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.GreaterThanExpressionNode(left, right);
+
+        }else if(ctx.LT() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.LessThanExpressionNode(left, right);
+
+        }else if(ctx.GE() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.GreaterOrEqualThanExpressionNode(left, right);
+
+        }else if(ctx.LE() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.LessOrEqualThanExpressionNode(left, right);
+
+        }else if(ctx.EQUAL() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.EqualsExpressionNode(left, right);
+
+        }else if(ctx.NOTEQUAL() != null){
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LogicExpressionNode.NotEqualsExpressionNode(left, right);
+
+        }else{
+
+            return visitUnaryExpression(ctx.unaryExpression());
+
+        }
+
+    }
 }

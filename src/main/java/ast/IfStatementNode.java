@@ -17,23 +17,25 @@ public class IfStatementNode extends StatementNode {
     public void addElseIfBlockNode(IfBlockNode IfBlockNode){
         this.elseIfBlockNodeList.add(IfBlockNode);
     }
-}
 
-class IfBlockNode extends ASTNode{
-    ExpressionNode conditionExpressionNode;
-    BlockNode blockNode;
+    public class IfBlockNode extends ASTNode{
+        ExpressionNode conditionExpressionNode;
+        BlockNode blockNode;
 
-    public IfBlockNode(ExpressionNode conditionExpressionNode, BlockNode blockNode) {
-        this.conditionExpressionNode = conditionExpressionNode;
-        this.blockNode = blockNode;
+        public IfBlockNode(ExpressionNode conditionExpressionNode, BlockNode blockNode) {
+            this.conditionExpressionNode = conditionExpressionNode;
+            this.blockNode = blockNode;
+        }
+    }
+
+
+    public class ElseBlockNode extends ASTNode{
+        BlockNode blockNode;
+
+        public ElseBlockNode(BlockNode blockNode) {
+            this.blockNode = blockNode;
+        }
     }
 }
 
 
-class ElseBlockNode extends ASTNode{
-    BlockNode blockNode;
-
-    public ElseBlockNode(BlockNode blockNode) {
-        this.blockNode = blockNode;
-    }
-}

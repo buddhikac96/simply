@@ -67,110 +67,17 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code division}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDivision(SimplyV3Parser.DivisionContext ctx);
+	T visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code modulos}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitModulos(SimplyV3Parser.ModulosContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code logic}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLogic(SimplyV3Parser.LogicContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code multiplication}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultiplication(SimplyV3Parser.MultiplicationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code substraction}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubstraction(SimplyV3Parser.SubstractionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code addition}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAddition(SimplyV3Parser.AdditionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code greaterOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code lessThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLessThan(SimplyV3Parser.LessThanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code equals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEquals(SimplyV3Parser.EqualsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code lessOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code notEquals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNotEquals(SimplyV3Parser.NotEqualsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code logicalAnd}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLogicalAnd(SimplyV3Parser.LogicalAndContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code unary}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnary(SimplyV3Parser.UnaryContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code logicalOr}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLogicalOr(SimplyV3Parser.LogicalOrContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code greaterThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGreaterThan(SimplyV3Parser.GreaterThanContext ctx);
+	T visitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree

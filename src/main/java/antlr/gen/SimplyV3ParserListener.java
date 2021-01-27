@@ -100,185 +100,25 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code division}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Enter a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterDivision(SimplyV3Parser.DivisionContext ctx);
+	void enterArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code division}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Exit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitDivision(SimplyV3Parser.DivisionContext ctx);
+	void exitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code modulos}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Enter a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterModulos(SimplyV3Parser.ModulosContext ctx);
+	void enterLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code modulos}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
+	 * Exit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitModulos(SimplyV3Parser.ModulosContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code logic}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogic(SimplyV3Parser.LogicContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code logic}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogic(SimplyV3Parser.LogicContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code multiplication}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplication(SimplyV3Parser.MultiplicationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code multiplication}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplication(SimplyV3Parser.MultiplicationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code substraction}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterSubstraction(SimplyV3Parser.SubstractionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code substraction}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitSubstraction(SimplyV3Parser.SubstractionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code addition}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAddition(SimplyV3Parser.AdditionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code addition}
-	 * labeled alternative in {@link SimplyV3Parser#arithmaticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAddition(SimplyV3Parser.AdditionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code greaterOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code greaterOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitGreaterOrEqualThan(SimplyV3Parser.GreaterOrEqualThanContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code lessThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLessThan(SimplyV3Parser.LessThanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code lessThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLessThan(SimplyV3Parser.LessThanContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code equals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterEquals(SimplyV3Parser.EqualsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code equals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitEquals(SimplyV3Parser.EqualsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code lessOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code lessOrEqualThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLessOrEqualThan(SimplyV3Parser.LessOrEqualThanContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code notEquals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterNotEquals(SimplyV3Parser.NotEqualsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code notEquals}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitNotEquals(SimplyV3Parser.NotEqualsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code logicalAnd}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalAnd(SimplyV3Parser.LogicalAndContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code logicalAnd}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalAnd(SimplyV3Parser.LogicalAndContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code unary}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnary(SimplyV3Parser.UnaryContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code unary}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnary(SimplyV3Parser.UnaryContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code logicalOr}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalOr(SimplyV3Parser.LogicalOrContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code logicalOr}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalOr(SimplyV3Parser.LogicalOrContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code greaterThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterGreaterThan(SimplyV3Parser.GreaterThanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code greaterThan}
-	 * labeled alternative in {@link SimplyV3Parser#logicExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitGreaterThan(SimplyV3Parser.GreaterThanContext ctx);
+	void exitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree

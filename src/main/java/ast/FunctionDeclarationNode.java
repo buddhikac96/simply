@@ -19,29 +19,32 @@ public class FunctionDeclarationNode extends ASTNode {
         this.returnType = returnType;
         this.functionBody = functionBody;
     }
-}
 
-class FunctionSignatureNode extends ASTNode{
-    String functionName;
-    List<FunctionArgumentNode> functionArgumentNodeList;
 
-    public FunctionSignatureNode(String functionName) {
-        this.functionName = functionName;
-        this.functionArgumentNodeList = new ArrayList<>();
+    public class FunctionSignatureNode extends ASTNode{
+        String functionName;
+        List<FunctionArgumentNode> functionArgumentNodeList;
+
+        public FunctionSignatureNode(String functionName) {
+            this.functionName = functionName;
+            this.functionArgumentNodeList = new ArrayList<>();
+        }
+
+        public void addArguments(FunctionArgumentNode functionArgumentNode){
+            this.functionArgumentNodeList.add(functionArgumentNode);
+        }
     }
 
-    public void addArguments(FunctionArgumentNode functionArgumentNode){
-        this.functionArgumentNodeList.add(functionArgumentNode);
+    public class FunctionArgumentNode extends ASTNode{
+        DataType dataType;
+        String argumentName;
+
+        public FunctionArgumentNode(DataType dataType, String argumentName) {
+            this.dataType = dataType;
+            this.argumentName = argumentName;
+        }
     }
 }
 
-class FunctionArgumentNode extends ASTNode{
-    DataType dataType;
-    String argumentName;
 
-    public FunctionArgumentNode(DataType dataType, String argumentName) {
-        this.dataType = dataType;
-        this.argumentName = argumentName;
-    }
-}
 

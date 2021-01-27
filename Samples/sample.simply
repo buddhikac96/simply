@@ -1,5 +1,1 @@
-get math;
-get io;
-
-global const int a = 5;
-global int a = 10;
+global int a = a > b;

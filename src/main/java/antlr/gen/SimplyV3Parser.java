@@ -685,147 +685,32 @@ public class SimplyV3Parser extends Parser {
 	}
 
 	public static class ArithmaticExpressionContext extends ParserRuleContext {
-		public ArithmaticExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_arithmaticExpression; }
-	 
-		public ArithmaticExpressionContext() { }
-		public void copyFrom(ArithmaticExpressionContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class DivisionContext extends ArithmaticExpressionContext {
-		public ArithmaticExpressionContext arithmaticExpression() {
-			return getRuleContext(ArithmaticExpressionContext.class,0);
-		}
-		public TerminalNode DIV() { return getToken(SimplyV3Parser.DIV, 0); }
 		public LogicExpressionContext logicExpression() {
 			return getRuleContext(LogicExpressionContext.class,0);
 		}
-		public DivisionContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterDivision(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitDivision(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitDivision(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ModulosContext extends ArithmaticExpressionContext {
-		public ArithmaticExpressionContext arithmaticExpression() {
-			return getRuleContext(ArithmaticExpressionContext.class,0);
-		}
-		public TerminalNode MOD() { return getToken(SimplyV3Parser.MOD, 0); }
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public ModulosContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterModulos(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitModulos(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitModulos(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LogicContext extends ArithmaticExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public LogicContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLogic(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLogic(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLogic(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class MultiplicationContext extends ArithmaticExpressionContext {
 		public ArithmaticExpressionContext arithmaticExpression() {
 			return getRuleContext(ArithmaticExpressionContext.class,0);
 		}
 		public TerminalNode MUL() { return getToken(SimplyV3Parser.MUL, 0); }
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public MultiplicationContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterMultiplication(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitMultiplication(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitMultiplication(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class SubstractionContext extends ArithmaticExpressionContext {
-		public ArithmaticExpressionContext arithmaticExpression() {
-			return getRuleContext(ArithmaticExpressionContext.class,0);
-		}
-		public TerminalNode SUB() { return getToken(SimplyV3Parser.SUB, 0); }
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public SubstractionContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterSubstraction(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitSubstraction(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitSubstraction(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AdditionContext extends ArithmaticExpressionContext {
-		public ArithmaticExpressionContext arithmaticExpression() {
-			return getRuleContext(ArithmaticExpressionContext.class,0);
-		}
+		public TerminalNode DIV() { return getToken(SimplyV3Parser.DIV, 0); }
+		public TerminalNode MOD() { return getToken(SimplyV3Parser.MOD, 0); }
 		public TerminalNode ADD() { return getToken(SimplyV3Parser.ADD, 0); }
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
+		public TerminalNode SUB() { return getToken(SimplyV3Parser.SUB, 0); }
+		public ArithmaticExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public AdditionContext(ArithmaticExpressionContext ctx) { copyFrom(ctx); }
+		@Override public int getRuleIndex() { return RULE_arithmaticExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterAddition(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterArithmaticExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitAddition(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitArithmaticExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitAddition(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitArithmaticExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -846,10 +731,6 @@ public class SimplyV3Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			_localctx = new LogicContext(_localctx);
-			_ctx = _localctx;
-			_prevctx = _localctx;
-
 			setState(143);
 			logicExpression(0);
 			}
@@ -867,7 +748,7 @@ public class SimplyV3Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 					case 1:
 						{
-						_localctx = new MultiplicationContext(new ArithmaticExpressionContext(_parentctx, _parentState));
+						_localctx = new ArithmaticExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmaticExpression);
 						setState(145);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -879,7 +760,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new DivisionContext(new ArithmaticExpressionContext(_parentctx, _parentState));
+						_localctx = new ArithmaticExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmaticExpression);
 						setState(148);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -891,7 +772,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new ModulosContext(new ArithmaticExpressionContext(_parentctx, _parentState));
+						_localctx = new ArithmaticExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmaticExpression);
 						setState(151);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -903,7 +784,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new AdditionContext(new ArithmaticExpressionContext(_parentctx, _parentState));
+						_localctx = new ArithmaticExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmaticExpression);
 						setState(154);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -915,7 +796,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 5:
 						{
-						_localctx = new SubstractionContext(new ArithmaticExpressionContext(_parentctx, _parentState));
+						_localctx = new ArithmaticExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmaticExpression);
 						setState(157);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -946,216 +827,35 @@ public class SimplyV3Parser extends Parser {
 	}
 
 	public static class LogicExpressionContext extends ParserRuleContext {
-		public LogicExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_logicExpression; }
-	 
-		public LogicExpressionContext() { }
-		public void copyFrom(LogicExpressionContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class GreaterOrEqualThanContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode GE() { return getToken(SimplyV3Parser.GE, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
-		public GreaterOrEqualThanContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterGreaterOrEqualThan(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitGreaterOrEqualThan(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitGreaterOrEqualThan(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LessThanContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode LT() { return getToken(SimplyV3Parser.LT, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public LessThanContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLessThan(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLessThan(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLessThan(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class EqualsContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode EQUAL() { return getToken(SimplyV3Parser.EQUAL, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public EqualsContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterEquals(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitEquals(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitEquals(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LessOrEqualThanContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode LE() { return getToken(SimplyV3Parser.LE, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public LessOrEqualThanContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLessOrEqualThan(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLessOrEqualThan(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLessOrEqualThan(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class NotEqualsContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode NOTEQUAL() { return getToken(SimplyV3Parser.NOTEQUAL, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public NotEqualsContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterNotEquals(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitNotEquals(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitNotEquals(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LogicalAndContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
-		public TerminalNode AND() { return getToken(SimplyV3Parser.AND, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public LogicalAndContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLogicalAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLogicalAnd(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLogicalAnd(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class UnaryContext extends LogicExpressionContext {
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public UnaryContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterUnary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitUnary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitUnary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LogicalOrContext extends LogicExpressionContext {
 		public LogicExpressionContext logicExpression() {
 			return getRuleContext(LogicExpressionContext.class,0);
 		}
 		public TerminalNode OR() { return getToken(SimplyV3Parser.OR, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public LogicalOrContext(LogicExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLogicalOr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLogicalOr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLogicalOr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class GreaterThanContext extends LogicExpressionContext {
-		public LogicExpressionContext logicExpression() {
-			return getRuleContext(LogicExpressionContext.class,0);
-		}
+		public TerminalNode AND() { return getToken(SimplyV3Parser.AND, 0); }
 		public TerminalNode GT() { return getToken(SimplyV3Parser.GT, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
+		public TerminalNode LT() { return getToken(SimplyV3Parser.LT, 0); }
+		public TerminalNode GE() { return getToken(SimplyV3Parser.GE, 0); }
+		public TerminalNode LE() { return getToken(SimplyV3Parser.LE, 0); }
+		public TerminalNode EQUAL() { return getToken(SimplyV3Parser.EQUAL, 0); }
+		public TerminalNode NOTEQUAL() { return getToken(SimplyV3Parser.NOTEQUAL, 0); }
+		public LogicExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public GreaterThanContext(LogicExpressionContext ctx) { copyFrom(ctx); }
+		@Override public int getRuleIndex() { return RULE_logicExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterGreaterThan(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLogicExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitGreaterThan(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLogicExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitGreaterThan(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLogicExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1176,10 +876,6 @@ public class SimplyV3Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			_localctx = new UnaryContext(_localctx);
-			_ctx = _localctx;
-			_prevctx = _localctx;
-
 			setState(166);
 			unaryExpression();
 			}
@@ -1197,7 +893,7 @@ public class SimplyV3Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 					case 1:
 						{
-						_localctx = new LogicalOrContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(168);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
@@ -1209,7 +905,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new LogicalAndContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(171);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -1221,7 +917,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new GreaterThanContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(174);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
@@ -1233,7 +929,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new LessThanContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(177);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -1245,7 +941,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 5:
 						{
-						_localctx = new GreaterOrEqualThanContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(180);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -1257,7 +953,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 6:
 						{
-						_localctx = new LessOrEqualThanContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(183);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -1269,7 +965,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 7:
 						{
-						_localctx = new EqualsContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(186);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -1281,7 +977,7 @@ public class SimplyV3Parser extends Parser {
 						break;
 					case 8:
 						{
-						_localctx = new NotEqualsContext(new LogicExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicExpressionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_logicExpression);
 						setState(189);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");

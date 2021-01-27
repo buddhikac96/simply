@@ -8,32 +8,35 @@ public class IterateStatementNode extends StatementNode{
         this.iterateConditionExpressionNode = iterateConditionExpressionNode;
         this.blockNode = blockNode;
     }
-}
 
-abstract class IterateConditionExpressionNode extends ExpressionNode{
 
-}
+    public abstract class IterateConditionExpressionNode extends ExpressionNode{
+        public class RangeExpressionNode extends IterateConditionExpressionNode{
+            ArgNode variableDeclaration;
+            ExpressionNode fromValue;
+            ExpressionNode toValue;
 
-class RangeExpressionNode extends IterateConditionExpressionNode{
-    ArgNode variableDeclaration;
-    ExpressionNode fromValue;
-    ExpressionNode toValue;
+            public RangeExpressionNode(ArgNode variableDeclaration, ExpressionNode fromValue, ExpressionNode toValue) {
+                this.variableDeclaration = variableDeclaration;
+                this.fromValue = fromValue;
+                this.toValue = toValue;
+            }
+        }
+    }
 
-    public RangeExpressionNode(ArgNode variableDeclaration, ExpressionNode fromValue, ExpressionNode toValue) {
-        this.variableDeclaration = variableDeclaration;
-        this.fromValue = fromValue;
-        this.toValue = toValue;
+    public class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
+        ArgNode variableDeclaration;
+        ASTNode arrayReference;  // Identifier or function call expression
+
+        public ArrayIterateExpressionNode(ArgNode variableDeclaration, ASTNode arrayReference) {
+            this.variableDeclaration = variableDeclaration;
+            this.arrayReference = arrayReference;
+        }
     }
 }
 
-class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
-    ArgNode variableDeclaration;
-    ASTNode arrayReference;  // Identifier or function call expression
 
-    public ArrayIterateExpressionNode(ArgNode variableDeclaration, ASTNode arrayReference) {
-        this.variableDeclaration = variableDeclaration;
-        this.arrayReference = arrayReference;
-    }
-}
+
+
 
 
