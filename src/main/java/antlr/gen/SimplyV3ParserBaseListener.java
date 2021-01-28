@@ -522,13 +522,97 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(SimplyV3Parser.StatementContext ctx) { }
+	@Override public void enterIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(SimplyV3Parser.StatementContext ctx) { }
+	@Override public void exitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

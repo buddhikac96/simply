@@ -228,19 +228,19 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     public ASTNode visitUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx) {
         if(ctx instanceof SimplyV3Parser.ParenExpressionContext) {
 
-            return (ExpressionNode) visitExpression(((SimplyV3Parser.ParenExpressionContext) ctx).expression());
+            return visitExpression(((SimplyV3Parser.ParenExpressionContext) ctx).expression());
 
         }else if(ctx instanceof SimplyV3Parser.PrefixPlusExpressionContext){
 
-            return (ExpressionNode) visitExpression((((SimplyV3Parser.PrefixPlusExpressionContext) ctx).expression()));
+            return visitExpression((((SimplyV3Parser.PrefixPlusExpressionContext) ctx).expression()));
 
         }else if(ctx instanceof SimplyV3Parser.PrefixMinusExpressionContext){
 
-            return (ExpressionNode) visitExpression(((SimplyV3Parser.PrefixMinusExpressionContext) ctx).expression());
+            return visitExpression(((SimplyV3Parser.PrefixMinusExpressionContext) ctx).expression());
 
         }else if(ctx instanceof SimplyV3Parser.PrefixNotExpressionContext){
 
-            return (ExpressionNode) visitExpression(((SimplyV3Parser.PrefixNotExpressionContext) ctx).expression());
+            return visitExpression(((SimplyV3Parser.PrefixNotExpressionContext) ctx).expression());
 
         }else if(ctx instanceof SimplyV3Parser.FunctionCallExpressionContext){
 
@@ -425,11 +425,98 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitBlock(SimplyV3Parser.BlockContext ctx) {
-        return super.visitBlock(ctx);
+        BlockNode blockNode = new BlockNode();
+
+        List<SimplyV3Parser.StatementContext> statementContextList = ctx.blockBody().statements().statement();
+
+        for(SimplyV3Parser.StatementContext statementContext : statementContextList){
+            blockNode.addStatementNode(
+                    (StatementNode) visitStatementRule(statementContext)
+            );
+        }
+
+        return blockNode;
+
+    }
+
+
+    // Visit Statement Rules
+    public ASTNode visitStatementRule(SimplyV3Parser.StatementContext ctx) {
+        if(ctx instanceof SimplyV3Parser.IfStatementRuleContext){
+
+            return visitIfStatementRule((SimplyV3Parser.IfStatementRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.IterateStatementRuleContext){
+
+            return visitIterateStatementRule((SimplyV3Parser.IterateStatementRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.AssignmentStatementRuleContext){
+
+            return visitAssignmentStatementRule((SimplyV3Parser.AssignmentStatementRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.FuncCallStatementRuleContext){
+
+            return visitFuncCallStatementRule((SimplyV3Parser.FuncCallStatementRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.ReturnStatemtntRuleContext){
+
+            return visitReturnStatemtntRule((SimplyV3Parser.ReturnStatemtntRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.VariableDeclarationStatementRuleContext){
+
+            return visitVariableDeclarationStatementRule(
+                    (SimplyV3Parser.VariableDeclarationStatementRuleContext) ctx);
+
+        }else if(ctx instanceof SimplyV3Parser.ConstantDeclarationStatementRuleContext){
+
+            return visitConstantDeclarationStatementRule(
+                    (SimplyV3Parser.ConstantDeclarationStatementRuleContext) ctx);
+
+        }else{
+
+            return visitLoopControlStatementRule(
+                    (SimplyV3Parser.LoopControlStatementRuleContext) ctx);
+
+        }
     }
 
     @Override
-    public ASTNode visitBlockBody(SimplyV3Parser.BlockBodyContext ctx) {
-        return super.visitBlockBody(ctx);
+    public ASTNode visitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx) {
+        return super.visitIfStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx) {
+        return super.visitIterateStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx) {
+        return super.visitAssignmentStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx) {
+        return super.visitFuncCallStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx) {
+        return super.visitReturnStatemtntRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx) {
+        return super.visitVariableDeclarationStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx) {
+        return super.visitConstantDeclarationStatementRule(ctx);
+    }
+
+    @Override
+    public ASTNode visitLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx) {
+        return super.visitLoopControlStatementRule(ctx);
     }
 }

@@ -279,11 +279,61 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatements(SimplyV3Parser.StatementsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#statement}.
+	 * Visit a parse tree produced by the {@code ifStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(SimplyV3Parser.StatementContext ctx);
+	T visitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code iterateStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code assignmentStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcCallStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code returnStatemtntRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code variableDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code constantDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code loopControlStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#ifStatement}.
 	 * @param ctx the parse tree

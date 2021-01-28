@@ -458,15 +458,101 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitStatements(SimplyV3Parser.StatementsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#statement}.
+	 * Enter a parse tree produced by the {@code ifStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(SimplyV3Parser.StatementContext ctx);
+	void enterIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#statement}.
+	 * Exit a parse tree produced by the {@code ifStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(SimplyV3Parser.StatementContext ctx);
+	void exitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code iterateStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code iterateStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code assignmentStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code assignmentStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcCallStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcCallStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code returnStatemtntRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code returnStatemtntRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code variableDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code variableDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code constantDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code constantDeclarationStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code loopControlStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code loopControlStatementRule}
+	 * labeled alternative in {@link SimplyV3Parser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#ifStatement}.
 	 * @param ctx the parse tree

@@ -2513,45 +2513,165 @@ public class SimplyV3Parser extends Parser {
 	}
 
 	public static class StatementContext extends ParserRuleContext {
-		public IfStatementContext ifStatement() {
-			return getRuleContext(IfStatementContext.class,0);
-		}
-		public IterateStatementContext iterateStatement() {
-			return getRuleContext(IterateStatementContext.class,0);
-		}
-		public AssignmentStatementContext assignmentStatement() {
-			return getRuleContext(AssignmentStatementContext.class,0);
-		}
-		public FuncCallStatementContext funcCallStatement() {
-			return getRuleContext(FuncCallStatementContext.class,0);
-		}
-		public ReturnStatemtntContext returnStatemtnt() {
-			return getRuleContext(ReturnStatemtntContext.class,0);
-		}
-		public VariableDeclarationContext variableDeclaration() {
-			return getRuleContext(VariableDeclarationContext.class,0);
-		}
-		public ConstantDeclarationContext constantDeclaration() {
-			return getRuleContext(ConstantDeclarationContext.class,0);
-		}
-		public LoopControlStatementContext loopControlStatement() {
-			return getRuleContext(LoopControlStatementContext.class,0);
-		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
+	 
+		public StatementContext() { }
+		public void copyFrom(StatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class IterateStatementRuleContext extends StatementContext {
+		public IterateStatementContext iterateStatement() {
+			return getRuleContext(IterateStatementContext.class,0);
+		}
+		public IterateStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterStatement(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterIterateStatementRule(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitStatement(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitIterateStatementRule(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitStatement(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitIterateStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IfStatementRuleContext extends StatementContext {
+		public IfStatementContext ifStatement() {
+			return getRuleContext(IfStatementContext.class,0);
+		}
+		public IfStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterIfStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitIfStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitIfStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ReturnStatemtntRuleContext extends StatementContext {
+		public ReturnStatemtntContext returnStatemtnt() {
+			return getRuleContext(ReturnStatemtntContext.class,0);
+		}
+		public ReturnStatemtntRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterReturnStatemtntRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitReturnStatemtntRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitReturnStatemtntRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LoopControlStatementRuleContext extends StatementContext {
+		public LoopControlStatementContext loopControlStatement() {
+			return getRuleContext(LoopControlStatementContext.class,0);
+		}
+		public LoopControlStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterLoopControlStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitLoopControlStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitLoopControlStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ConstantDeclarationStatementRuleContext extends StatementContext {
+		public ConstantDeclarationContext constantDeclaration() {
+			return getRuleContext(ConstantDeclarationContext.class,0);
+		}
+		public ConstantDeclarationStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterConstantDeclarationStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitConstantDeclarationStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitConstantDeclarationStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AssignmentStatementRuleContext extends StatementContext {
+		public AssignmentStatementContext assignmentStatement() {
+			return getRuleContext(AssignmentStatementContext.class,0);
+		}
+		public AssignmentStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterAssignmentStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitAssignmentStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitAssignmentStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FuncCallStatementRuleContext extends StatementContext {
+		public FuncCallStatementContext funcCallStatement() {
+			return getRuleContext(FuncCallStatementContext.class,0);
+		}
+		public FuncCallStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterFuncCallStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitFuncCallStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitFuncCallStatementRule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VariableDeclarationStatementRuleContext extends StatementContext {
+		public VariableDeclarationContext variableDeclaration() {
+			return getRuleContext(VariableDeclarationContext.class,0);
+		}
+		public VariableDeclarationStatementRuleContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterVariableDeclarationStatementRule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitVariableDeclarationStatementRule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitVariableDeclarationStatementRule(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2564,6 +2684,7 @@ public class SimplyV3Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
 			case 1:
+				_localctx = new IfStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(327);
@@ -2571,6 +2692,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new IterateStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(328);
@@ -2578,6 +2700,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new AssignmentStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(329);
@@ -2585,6 +2708,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new FuncCallStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(330);
@@ -2592,6 +2716,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new ReturnStatemtntRuleContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(331);
@@ -2599,6 +2724,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new VariableDeclarationStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(332);
@@ -2606,6 +2732,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 7:
+				_localctx = new ConstantDeclarationStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(333);
@@ -2613,6 +2740,7 @@ public class SimplyV3Parser extends Parser {
 				}
 				break;
 			case 8:
+				_localctx = new LoopControlStatementRuleContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(334);

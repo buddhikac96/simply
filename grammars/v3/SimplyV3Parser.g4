@@ -192,14 +192,14 @@ statements
     ;
 
 statement
-    : ifStatement
-    | iterateStatement
-    | assignmentStatement
-    | funcCallStatement
-    | returnStatemtnt
-    | variableDeclaration
-    | constantDeclaration
-    | loopControlStatement      
+    : ifStatement               # ifStatementRule
+    | iterateStatement          # iterateStatementRule
+    | assignmentStatement       # assignmentStatementRule
+    | funcCallStatement         # funcCallStatementRule
+    | returnStatemtnt           # returnStatemtntRule
+    | variableDeclaration       # variableDeclarationStatementRule
+    | constantDeclaration       # constantDeclarationStatementRule
+    | loopControlStatement      # loopControlStatementRule
     ;
 
 
