@@ -354,37 +354,49 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx) { }
+	@Override public void enterEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx) { }
+	@Override public void exitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx) { }
+	@Override public void enterNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx) { }
+	@Override public void exitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx) { }
+	@Override public void enterEmptyArr(SimplyV3Parser.EmptyArrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx) { }
+	@Override public void exitEmptyArr(SimplyV3Parser.EmptyArrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -215,21 +215,28 @@ public class SimplyV3ParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEmptyArr(SimplyV3Parser.EmptyArrContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

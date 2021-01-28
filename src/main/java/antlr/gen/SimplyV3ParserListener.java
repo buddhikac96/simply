@@ -314,35 +314,49 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayIntialization}.
+	 * Enter a parse tree produced by the {@code emptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 */
-	void enterArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx);
+	void enterEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#arrayIntialization}.
+	 * Exit a parse tree produced by the {@code emptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 */
-	void exitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx);
+	void exitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#emptyArrayIntialization}.
+	 * Enter a parse tree produced by the {@code nonEmptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 */
-	void enterEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx);
+	void enterNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#emptyArrayIntialization}.
+	 * Exit a parse tree produced by the {@code nonEmptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 */
-	void exitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx);
+	void exitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#nonEmptyArrayIntialization}.
+	 * Enter a parse tree produced by {@link SimplyV3Parser#emptyArr}.
 	 * @param ctx the parse tree
 	 */
-	void enterNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx);
+	void enterEmptyArr(SimplyV3Parser.EmptyArrContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#nonEmptyArrayIntialization}.
+	 * Exit a parse tree produced by {@link SimplyV3Parser#emptyArr}.
 	 * @param ctx the parse tree
 	 */
-	void exitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx);
+	void exitEmptyArr(SimplyV3Parser.EmptyArrContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#nonEmptyArr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#nonEmptyArr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayValues}.
 	 * @param ctx the parse tree

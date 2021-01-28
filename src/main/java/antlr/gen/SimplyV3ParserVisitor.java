@@ -193,23 +193,31 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayIntialization}.
+	 * Visit a parse tree produced by the {@code emptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArrayIntialization(SimplyV3Parser.ArrayIntializationContext ctx);
+	T visitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#emptyArrayIntialization}.
+	 * Visit a parse tree produced by the {@code nonEmptyArrayInitialization}
+	 * labeled alternative in {@link SimplyV3Parser#arrayIntialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEmptyArrayIntialization(SimplyV3Parser.EmptyArrayIntializationContext ctx);
+	T visitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#nonEmptyArrayIntialization}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#emptyArr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNonEmptyArrayIntialization(SimplyV3Parser.NonEmptyArrayIntializationContext ctx);
+	T visitEmptyArr(SimplyV3Parser.EmptyArrContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#nonEmptyArr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNonEmptyArr(SimplyV3Parser.NonEmptyArrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayValues}.
 	 * @param ctx the parse tree

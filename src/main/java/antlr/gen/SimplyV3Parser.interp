@@ -140,8 +140,8 @@ libRef
 literal
 arrayVariableDeclaration
 arrayIntialization
-emptyArrayIntialization
-nonEmptyArrayIntialization
+emptyArr
+nonEmptyArr
 arrayValues
 arrayValue
 functionDeclaration

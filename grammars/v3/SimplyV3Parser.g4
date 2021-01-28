@@ -132,17 +132,17 @@ arrayVariableDeclaration
     ;
 
 arrayIntialization
-    : emptyArrayIntialization
-    | nonEmptyArrayIntialization
+    : emptyArr              # emptyArrayInitialization
+    | nonEmptyArr           # nonEmptyArrayInitialization
     ;
 
 // Empty array declaration -> list int arr = [];
-emptyArrayIntialization
+emptyArr
     : ASSIGN LBRACK RBRACK
     ;
 
 // Non-empty array declaration -> list int arr = [1,2,3];
-nonEmptyArrayIntialization
+nonEmptyArr
     : ASSIGN LBRACK arrayValues RBRACK
     ;
 
@@ -199,7 +199,7 @@ statement
     | returnStatemtnt
     | variableDeclaration
     | constantDeclaration
-    | loopControlStatement
+    | loopControlStatement      
     ;
 
 

@@ -1,1 +1,1 @@
-global int a = ~*^$;
+global list int arr = [1,2,3,4];

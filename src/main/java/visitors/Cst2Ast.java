@@ -268,7 +268,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
             return functionCallExpressionNode;
 
         }else if(ctx instanceof SimplyV3Parser.LiteralExpressionContext){
-            
+
             SimplyV3Parser.LiteralContext literalContext =
                     ((SimplyV3Parser.LiteralExpressionContext) ctx).literal();
 
@@ -330,5 +330,106 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         }
 
         return null;
+    }
+
+    @Override
+    public ASTNode visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx) {
+
+        String arrayName = ctx.identifier().getText();
+        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+
+        ArrayInitializationNode arrayInitializationNode =
+                (ArrayInitializationNode) visitArrayInitialization(ctx.arrayIntialization());
+
+        return new ArrayVariableDeclarationNode(false, dataType, arrayName, arrayInitializationNode);
+
+    }
+
+
+    public ASTNode visitArrayInitialization(SimplyV3Parser.ArrayIntializationContext ctx) {
+        if(ctx instanceof SimplyV3Parser.EmptyArrayInitializationContext){
+            return visitEmptyArrayInitialization((SimplyV3Parser.EmptyArrayInitializationContext) ctx);
+        }else{
+            return visitNonEmptyArrayInitialization((SimplyV3Parser.NonEmptyArrayInitializationContext) ctx);
+        }
+    }
+
+
+    @Override
+    public ASTNode visitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx) {
+        return new EmptyArrayInitializationNode();
+    }
+
+    @Override
+    public ASTNode visitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx) {
+        SimplyV3Parser.NonEmptyArrContext nonEmptyArrContext = ctx.nonEmptyArr();
+
+        NonEmptyArrayInitializationNode nonEmptyArrayInitializationNode =
+                new NonEmptyArrayInitializationNode();
+
+        List<SimplyV3Parser.ArrayValueContext> arrayValueContextListList =
+                nonEmptyArrContext.arrayValues().arrayValue();
+
+        for(SimplyV3Parser.ArrayValueContext arrayValue : arrayValueContextListList){
+            nonEmptyArrayInitializationNode.addValues(
+                    (ExpressionNode) visitExpression(arrayValue.expression())
+            );
+        }
+
+        return nonEmptyArrayInitializationNode;
+    }
+
+    @Override
+    public ASTNode visitFunctionDeclaration(SimplyV3Parser.FunctionDeclarationContext ctx) {
+        DataType returnType = DataTypeMapper.getType(
+                ctx.dataTypeName().getText()
+        );
+
+        FunctionDeclarationNode.FunctionSignatureNode functionSignatureNode =
+                (FunctionDeclarationNode.FunctionSignatureNode) visitFunctionSignature(ctx.functionSignature());
+
+        BlockNode blockNode =
+                (BlockNode) visitBlock(ctx.block());
+
+        return new FunctionDeclarationNode(functionSignatureNode, returnType, blockNode);
+
+
+    }
+
+    @Override
+    public ASTNode visitFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx) {
+        String functionName = ctx.identifier().getText();
+
+        FunctionDeclarationNode.FunctionSignatureNode functionSignatureNode =
+                new FunctionDeclarationNode.FunctionSignatureNode(functionName);
+
+        List<SimplyV3Parser.ArgContext> argContextList = ctx.argList().arg();
+
+        for(SimplyV3Parser.ArgContext argContext : argContextList){
+            functionSignatureNode.addArguments(
+                    (FunctionDeclarationNode.FunctionArgumentNode) visitArg(argContext)
+            );
+        }
+
+        return functionSignatureNode;
+    }
+
+
+    @Override
+    public ASTNode visitArg(SimplyV3Parser.ArgContext ctx) {
+        String varName = ctx.identifier().getText();
+        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+
+        return new ArgNode(dataType, varName);
+    }
+
+    @Override
+    public ASTNode visitBlock(SimplyV3Parser.BlockContext ctx) {
+        return super.visitBlock(ctx);
+    }
+
+    @Override
+    public ASTNode visitBlockBody(SimplyV3Parser.BlockBodyContext ctx) {
+        return super.visitBlockBody(ctx);
     }
 }

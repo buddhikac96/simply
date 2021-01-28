@@ -34,28 +34,28 @@ public class SimplyV3Parser extends Parser {
 		RULE_nonVoidDataTypeName = 7, RULE_expression = 8, RULE_arithmaticExpression = 9, 
 		RULE_logicExpression = 10, RULE_unaryExpression = 11, RULE_arrayAccess = 12, 
 		RULE_funcCall = 13, RULE_funcCallParamList = 14, RULE_libRef = 15, RULE_literal = 16, 
-		RULE_arrayVariableDeclaration = 17, RULE_arrayIntialization = 18, RULE_emptyArrayIntialization = 19, 
-		RULE_nonEmptyArrayIntialization = 20, RULE_arrayValues = 21, RULE_arrayValue = 22, 
-		RULE_functionDeclaration = 23, RULE_functionSignature = 24, RULE_argList = 25, 
-		RULE_arg = 26, RULE_dataTypeName = 27, RULE_block = 28, RULE_blockBody = 29, 
-		RULE_statements = 30, RULE_statement = 31, RULE_ifStatement = 32, RULE_ifBlock = 33, 
-		RULE_ifConditionExpression = 34, RULE_elseIfBlock = 35, RULE_elseBlock = 36, 
-		RULE_iterateStatement = 37, RULE_iterateConditionExpression = 38, RULE_rangeExpression = 39, 
-		RULE_arrayIterateExpression = 40, RULE_loopControlStatement = 41, RULE_assignmentStatement = 42, 
-		RULE_assignmentOperator = 43, RULE_funcCallStatement = 44, RULE_returnStatemtnt = 45;
+		RULE_arrayVariableDeclaration = 17, RULE_arrayIntialization = 18, RULE_emptyArr = 19, 
+		RULE_nonEmptyArr = 20, RULE_arrayValues = 21, RULE_arrayValue = 22, RULE_functionDeclaration = 23, 
+		RULE_functionSignature = 24, RULE_argList = 25, RULE_arg = 26, RULE_dataTypeName = 27, 
+		RULE_block = 28, RULE_blockBody = 29, RULE_statements = 30, RULE_statement = 31, 
+		RULE_ifStatement = 32, RULE_ifBlock = 33, RULE_ifConditionExpression = 34, 
+		RULE_elseIfBlock = 35, RULE_elseBlock = 36, RULE_iterateStatement = 37, 
+		RULE_iterateConditionExpression = 38, RULE_rangeExpression = 39, RULE_arrayIterateExpression = 40, 
+		RULE_loopControlStatement = 41, RULE_assignmentStatement = 42, RULE_assignmentOperator = 43, 
+		RULE_funcCallStatement = 44, RULE_returnStatemtnt = 45;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"compilationUnit", "libImport", "identifier", "globalVariableDeclaration", 
 			"variableDeclaration", "constantDeclaration", "primitiveVariableDeclaration", 
 			"nonVoidDataTypeName", "expression", "arithmaticExpression", "logicExpression", 
 			"unaryExpression", "arrayAccess", "funcCall", "funcCallParamList", "libRef", 
-			"literal", "arrayVariableDeclaration", "arrayIntialization", "emptyArrayIntialization", 
-			"nonEmptyArrayIntialization", "arrayValues", "arrayValue", "functionDeclaration", 
-			"functionSignature", "argList", "arg", "dataTypeName", "block", "blockBody", 
-			"statements", "statement", "ifStatement", "ifBlock", "ifConditionExpression", 
-			"elseIfBlock", "elseBlock", "iterateStatement", "iterateConditionExpression", 
-			"rangeExpression", "arrayIterateExpression", "loopControlStatement", 
-			"assignmentStatement", "assignmentOperator", "funcCallStatement", "returnStatemtnt"
+			"literal", "arrayVariableDeclaration", "arrayIntialization", "emptyArr", 
+			"nonEmptyArr", "arrayValues", "arrayValue", "functionDeclaration", "functionSignature", 
+			"argList", "arg", "dataTypeName", "block", "blockBody", "statements", 
+			"statement", "ifStatement", "ifBlock", "ifConditionExpression", "elseIfBlock", 
+			"elseBlock", "iterateStatement", "iterateConditionExpression", "rangeExpression", 
+			"arrayIterateExpression", "loopControlStatement", "assignmentStatement", 
+			"assignmentOperator", "funcCallStatement", "returnStatemtnt"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -1724,27 +1724,51 @@ public class SimplyV3Parser extends Parser {
 	}
 
 	public static class ArrayIntializationContext extends ParserRuleContext {
-		public EmptyArrayIntializationContext emptyArrayIntialization() {
-			return getRuleContext(EmptyArrayIntializationContext.class,0);
-		}
-		public NonEmptyArrayIntializationContext nonEmptyArrayIntialization() {
-			return getRuleContext(NonEmptyArrayIntializationContext.class,0);
-		}
 		public ArrayIntializationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arrayIntialization; }
+	 
+		public ArrayIntializationContext() { }
+		public void copyFrom(ArrayIntializationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class NonEmptyArrayInitializationContext extends ArrayIntializationContext {
+		public NonEmptyArrContext nonEmptyArr() {
+			return getRuleContext(NonEmptyArrContext.class,0);
+		}
+		public NonEmptyArrayInitializationContext(ArrayIntializationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterNonEmptyArrayInitialization(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitNonEmptyArrayInitialization(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitArrayIntialization(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitNonEmptyArrayInitialization(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EmptyArrayInitializationContext extends ArrayIntializationContext {
+		public EmptyArrContext emptyArr() {
+			return getRuleContext(EmptyArrContext.class,0);
+		}
+		public EmptyArrayInitializationContext(ArrayIntializationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterEmptyArrayInitialization(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitEmptyArrayInitialization(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitEmptyArrayInitialization(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1757,17 +1781,19 @@ public class SimplyV3Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
 			case 1:
+				_localctx = new EmptyArrayInitializationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(256);
-				emptyArrayIntialization();
+				emptyArr();
 				}
 				break;
 			case 2:
+				_localctx = new NonEmptyArrayInitializationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(257);
-				nonEmptyArrayIntialization();
+				nonEmptyArr();
 				}
 				break;
 			}
@@ -1783,32 +1809,32 @@ public class SimplyV3Parser extends Parser {
 		return _localctx;
 	}
 
-	public static class EmptyArrayIntializationContext extends ParserRuleContext {
+	public static class EmptyArrContext extends ParserRuleContext {
 		public TerminalNode ASSIGN() { return getToken(SimplyV3Parser.ASSIGN, 0); }
 		public TerminalNode LBRACK() { return getToken(SimplyV3Parser.LBRACK, 0); }
 		public TerminalNode RBRACK() { return getToken(SimplyV3Parser.RBRACK, 0); }
-		public EmptyArrayIntializationContext(ParserRuleContext parent, int invokingState) {
+		public EmptyArrContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_emptyArrayIntialization; }
+		@Override public int getRuleIndex() { return RULE_emptyArr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterEmptyArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterEmptyArr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitEmptyArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitEmptyArr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitEmptyArrayIntialization(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitEmptyArr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final EmptyArrayIntializationContext emptyArrayIntialization() throws RecognitionException {
-		EmptyArrayIntializationContext _localctx = new EmptyArrayIntializationContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_emptyArrayIntialization);
+	public final EmptyArrContext emptyArr() throws RecognitionException {
+		EmptyArrContext _localctx = new EmptyArrContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_emptyArr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -1831,35 +1857,35 @@ public class SimplyV3Parser extends Parser {
 		return _localctx;
 	}
 
-	public static class NonEmptyArrayIntializationContext extends ParserRuleContext {
+	public static class NonEmptyArrContext extends ParserRuleContext {
 		public TerminalNode ASSIGN() { return getToken(SimplyV3Parser.ASSIGN, 0); }
 		public TerminalNode LBRACK() { return getToken(SimplyV3Parser.LBRACK, 0); }
 		public ArrayValuesContext arrayValues() {
 			return getRuleContext(ArrayValuesContext.class,0);
 		}
 		public TerminalNode RBRACK() { return getToken(SimplyV3Parser.RBRACK, 0); }
-		public NonEmptyArrayIntializationContext(ParserRuleContext parent, int invokingState) {
+		public NonEmptyArrContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_nonEmptyArrayIntialization; }
+		@Override public int getRuleIndex() { return RULE_nonEmptyArr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterNonEmptyArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).enterNonEmptyArr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitNonEmptyArrayIntialization(this);
+			if ( listener instanceof SimplyV3ParserListener ) ((SimplyV3ParserListener)listener).exitNonEmptyArr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitNonEmptyArrayIntialization(this);
+			if ( visitor instanceof SimplyV3ParserVisitor ) return ((SimplyV3ParserVisitor<? extends T>)visitor).visitNonEmptyArr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final NonEmptyArrayIntializationContext nonEmptyArrayIntialization() throws RecognitionException {
-		NonEmptyArrayIntializationContext _localctx = new NonEmptyArrayIntializationContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_nonEmptyArrayIntialization);
+	public final NonEmptyArrContext nonEmptyArr() throws RecognitionException {
+		NonEmptyArrContext _localctx = new NonEmptyArrContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_nonEmptyArr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
