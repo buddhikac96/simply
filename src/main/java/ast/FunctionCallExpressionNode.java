@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionCallExpressionNode extends ExpressionNode {
-    String libRef;
-    String funcName;
-    List<ExpressionNode> parameterList;
+    public String libRef;
+    public String funcName;
+    public List<ExpressionNode> parameterList;
 
     public FunctionCallExpressionNode(String libRef, String funcName) {
         this.libRef = libRef;

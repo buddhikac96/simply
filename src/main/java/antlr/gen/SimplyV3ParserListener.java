@@ -120,15 +120,89 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
+	 * Enter a parse tree produced by the {@code parenExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx);
+	void enterParenExpression(SimplyV3Parser.ParenExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
+	 * Exit a parse tree produced by the {@code parenExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx);
+	void exitParenExpression(SimplyV3Parser.ParenExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code prefixPlusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrefixPlusExpression(SimplyV3Parser.PrefixPlusExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code prefixPlusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrefixPlusExpression(SimplyV3Parser.PrefixPlusExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code prefixMinusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrefixMinusExpression(SimplyV3Parser.PrefixMinusExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code prefixMinusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrefixMinusExpression(SimplyV3Parser.PrefixMinusExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code prefixNotExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrefixNotExpression(SimplyV3Parser.PrefixNotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code prefixNotExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrefixNotExpression(SimplyV3Parser.PrefixNotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code functionCallExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallExpression(SimplyV3Parser.FunctionCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code functionCallExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallExpression(SimplyV3Parser.FunctionCallExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code literalExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralExpression(SimplyV3Parser.LiteralExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code literalExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralExpression(SimplyV3Parser.LiteralExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAccessExpression(SimplyV3Parser.ArrayAccessExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAccessExpression(SimplyV3Parser.ArrayAccessExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayAccess}.
 	 * @param ctx the parse tree
@@ -140,15 +214,15 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitArrayAccess(SimplyV3Parser.ArrayAccessContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
+	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
+	void enterFuncCall(SimplyV3Parser.FuncCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
+	 * Exit a parse tree produced by {@link SimplyV3Parser#funcCall}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
+	void exitFuncCall(SimplyV3Parser.FuncCallContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#funcCallParamList}.
 	 * @param ctx the parse tree
@@ -170,15 +244,65 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitLibRef(SimplyV3Parser.LibRefContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#literal}.
+	 * Enter a parse tree produced by the {@code integerLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteral(SimplyV3Parser.LiteralContext ctx);
+	void enterIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#literal}.
+	 * Exit a parse tree produced by the {@code integerLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteral(SimplyV3Parser.LiteralContext ctx);
+	void exitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code floatLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code floatLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code boolLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolLiteral(SimplyV3Parser.BoolLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolLiteral(SimplyV3Parser.BoolLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code charLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterCharLiteral(SimplyV3Parser.CharLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code charLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitCharLiteral(SimplyV3Parser.CharLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stringLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLiteral(SimplyV3Parser.StringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stringLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLiteral(SimplyV3Parser.StringLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree

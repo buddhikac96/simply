@@ -105,6 +105,8 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
         String varName = ctx.identifier().getText();
+
+        // TODO: If expression is a function call -> Syntax Error
         ExpressionNode expressionNode = (ExpressionNode) visitExpression(ctx.expression());
 
         return new PrimitiveVariableDeclarationNode(
@@ -221,5 +223,112 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         }
 
+    }
+
+    public ASTNode visitUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx) {
+        if(ctx instanceof SimplyV3Parser.ParenExpressionContext) {
+
+            return (ExpressionNode) visitExpression(((SimplyV3Parser.ParenExpressionContext) ctx).expression());
+
+        }else if(ctx instanceof SimplyV3Parser.PrefixPlusExpressionContext){
+
+            return (ExpressionNode) visitExpression((((SimplyV3Parser.PrefixPlusExpressionContext) ctx).expression()));
+
+        }else if(ctx instanceof SimplyV3Parser.PrefixMinusExpressionContext){
+
+            return (ExpressionNode) visitExpression(((SimplyV3Parser.PrefixMinusExpressionContext) ctx).expression());
+
+        }else if(ctx instanceof SimplyV3Parser.PrefixNotExpressionContext){
+
+            return (ExpressionNode) visitExpression(((SimplyV3Parser.PrefixNotExpressionContext) ctx).expression());
+
+        }else if(ctx instanceof SimplyV3Parser.FunctionCallExpressionContext){
+
+            SimplyV3Parser.FunctionCallExpressionContext funcCallCtx =
+                    (SimplyV3Parser.FunctionCallExpressionContext) ctx;
+
+            String libRef = "";
+
+            if(funcCallCtx.funcCall().libRef() != null){
+                libRef = funcCallCtx.funcCall().libRef().getText();
+            }
+
+            String funcName = funcCallCtx.funcCall().identifier().getText();
+
+            FunctionCallExpressionNode functionCallExpressionNode = new FunctionCallExpressionNode(libRef, funcName);
+
+            for(int i = 0; i < funcCallCtx.funcCall().funcCallParamList().expression().size(); i++){
+                functionCallExpressionNode.addParameter(
+                        (ExpressionNode) visitExpression(
+                                funcCallCtx.funcCall().funcCallParamList().expression(i)
+                        )
+                );
+            }
+
+            return functionCallExpressionNode;
+
+        }else if(ctx instanceof SimplyV3Parser.LiteralExpressionContext){
+            
+            SimplyV3Parser.LiteralContext literalContext =
+                    ((SimplyV3Parser.LiteralExpressionContext) ctx).literal();
+
+            LiteralExpressionNode literalExpressionNode;
+
+            if(literalContext instanceof SimplyV3Parser.IntegerLiteralContext){
+
+                int value =
+                        Integer.parseInt(
+                                ((SimplyV3Parser.IntegerLiteralContext) literalContext).IntegerLiteral().getText()
+                        );
+
+                literalExpressionNode = new LiteralExpressionNode.IntegerLiteralExpression(value);
+
+            }else if(literalContext instanceof SimplyV3Parser.FloatLiteralContext){
+
+                float value =
+                        Float.parseFloat(
+                                ((SimplyV3Parser.FloatLiteralContext) literalContext).FloatLiteral().getText()
+                        );
+
+                literalExpressionNode = new LiteralExpressionNode.FloatLiteralExpression(value);
+
+            }else if(literalContext instanceof SimplyV3Parser.CharLiteralContext){
+
+                char value =
+                        ((SimplyV3Parser.CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
+
+                literalExpressionNode = new LiteralExpressionNode.CharLiteralExpression(value);
+
+            }else if(literalContext instanceof SimplyV3Parser.StringLiteralContext){
+
+                String value =
+                        ((SimplyV3Parser.StringLiteralContext) literalContext).StringLiteral().getText();
+
+                literalExpressionNode = new LiteralExpressionNode.StringLiteralExpression(value);
+
+            }else{
+
+                boolean value =
+                        Boolean.parseBoolean(
+                                ((SimplyV3Parser.BoolLiteralContext) literalContext).BoolLiteral().getText()
+                        );
+
+                literalExpressionNode = new LiteralExpressionNode.BoolLiteralExpression(value);
+            }
+
+            return literalExpressionNode;
+        }else if(ctx instanceof SimplyV3Parser.ArrayAccessExpressionContext){
+
+            String arrayName = ((SimplyV3Parser.ArrayAccessExpressionContext) ctx).identifier().getText();
+            ExpressionNode accessValueExpression =
+                    (ExpressionNode) visitExpression(
+                            ((SimplyV3Parser.ArrayAccessExpressionContext) ctx).arrayAccess().expression()
+                    );
+
+            return new ArrayAccessExpressionNode(arrayName, accessValueExpression);
+
+        }
+
+        return null;
     }
 }

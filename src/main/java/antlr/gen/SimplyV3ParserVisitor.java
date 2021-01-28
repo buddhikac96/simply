@@ -79,11 +79,54 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#unaryExpression}.
+	 * Visit a parse tree produced by the {@code parenExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx);
+	T visitParenExpression(SimplyV3Parser.ParenExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code prefixPlusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixPlusExpression(SimplyV3Parser.PrefixPlusExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code prefixMinusExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixMinusExpression(SimplyV3Parser.PrefixMinusExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code prefixNotExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixNotExpression(SimplyV3Parser.PrefixNotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code functionCallExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallExpression(SimplyV3Parser.FunctionCallExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code literalExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralExpression(SimplyV3Parser.LiteralExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAccessExpression(SimplyV3Parser.ArrayAccessExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayAccess}.
 	 * @param ctx the parse tree
@@ -91,11 +134,11 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayAccess(SimplyV3Parser.ArrayAccessContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCallExpression}.
+	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFuncCallExpression(SimplyV3Parser.FuncCallExpressionContext ctx);
+	T visitFuncCall(SimplyV3Parser.FuncCallContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#funcCallParamList}.
 	 * @param ctx the parse tree
@@ -109,11 +152,40 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLibRef(SimplyV3Parser.LibRefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#literal}.
+	 * Visit a parse tree produced by the {@code integerLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral(SimplyV3Parser.LiteralContext ctx);
+	T visitIntegerLiteral(SimplyV3Parser.IntegerLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code floatLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloatLiteral(SimplyV3Parser.FloatLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code boolLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolLiteral(SimplyV3Parser.BoolLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code charLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCharLiteral(SimplyV3Parser.CharLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stringLiteral}
+	 * labeled alternative in {@link SimplyV3Parser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLiteral(SimplyV3Parser.StringLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayVariableDeclaration}.
 	 * @param ctx the parse tree

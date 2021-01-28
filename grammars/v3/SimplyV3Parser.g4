@@ -87,11 +87,11 @@ unaryExpression
     | ADD expression                # prefixPlusExpression
     | SUB expression                # prefixMinusExpression
     | BANG expression               # prefixNotExpression
-    | funcCallExpression            # functionCallExpression
+    | funcCall                      # functionCallExpression
     | literal                       # literalExpression
     | identifier arrayAccess?       # arrayAccessExpression
     ;
-    
+
 
 // Array access -> arr[3]
 arrayAccess
@@ -101,7 +101,7 @@ arrayAccess
 
 // Function call -> add(2,3)
 // TODO: LibRef standarize -> study java grammr
-funcCallExpression
+funcCall
     : libRef? identifier funcCallParamList
     ;
 
@@ -117,11 +117,11 @@ libRef
 
 // Literal
 literal
-    : IntegerLiteral
-    | FloatLiteral
-    | BoolLiteral
-    | CharLiteral
-    | StringLiteral
+    : IntegerLiteral    # integerLiteral
+    | FloatLiteral      # floatLiteral
+    | BoolLiteral       # boolLiteral
+    | CharLiteral       # charLiteral
+    | StringLiteral     # stringLiteral
     ;
 
 
@@ -243,7 +243,7 @@ rangeExpression
 
 // Loop throug an array
 arrayIterateExpression
-    : arg OF ( identifier | funcCallExpression )
+    : arg OF ( identifier | funcCall )
     ;
 
 loopControlStatement
@@ -266,7 +266,7 @@ assignmentOperator
 
 
 funcCallStatement
-    : funcCallExpression EOL
+    : funcCall EOL
     ;
 
 // Return
