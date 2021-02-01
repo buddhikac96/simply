@@ -1,10 +1,10 @@
 package visitors;
 
-import antlr.gen.SimplyV3Parser;
+import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
 import ast.ASTNode;
 import ast.ArgNode;
-import ast.ArithmeticExpressionNode;
+import ast.ArithmeticExpressionNode.*;
 import ast.ArrayAccessExpressionNode;
 import ast.ArrayInitializationNode;
 import ast.ArrayVariableDeclarationNode;
@@ -14,12 +14,16 @@ import ast.EmptyArrayInitializationNode;
 import ast.ExpressionNode;
 import ast.FunctionCallExpressionNode;
 import ast.FunctionDeclarationNode;
+import ast.FunctionDeclarationNode.FunctionArgumentNode;
+import ast.FunctionDeclarationNode.FunctionSignatureNode;
 import ast.IdentifierExpressionNode;
 import ast.IfStatementNode;
+import ast.IfStatementNode.ElseBlockNode;
+import ast.IfStatementNode.IfBlockNode;
 import ast.IterateStatementNode;
+import ast.IterateStatementNode.IterateConditionExpressionNode;
 import ast.LibImportNode;
 import ast.LiteralExpressionNode;
-import ast.LogicExpressionNode;
 import ast.NonEmptyArrayInitializationNode;
 import ast.PrimitiveVariableDeclarationNode;
 import ast.StatementNode;
@@ -30,11 +34,14 @@ import ast.util.enums.DataType;
 import java.util.HashSet;
 import java.util.List;
 
+import static ast.LiteralExpressionNode.*;
+import static ast.LogicExpressionNode.*;
+
 public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
+    public List<String> syntaxErrors;
     CompilationUnitNode compilationUnitNode;
     HashSet<String> globalVariableSymbolTable;
-    public List<String> syntaxErrors;
 
     public Cst2Ast(List<String> syntaxErrors) {
         this.compilationUnitNode = new CompilationUnitNode();
@@ -43,20 +50,20 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitCompilationUnit(SimplyV3Parser.CompilationUnitContext ctx) {
+    public ASTNode visitCompilationUnit(CompilationUnitContext ctx) {
 
         //visit lib imports
-        for(SimplyV3Parser.LibImportContext libImportContext : ctx.libImport()){
+        for (LibImportContext libImportContext : ctx.libImport()) {
             visitLibImport(libImportContext);
         }
 
         //visit var declarations
-        for(SimplyV3Parser.GlobalVariableDeclarationContext globalVariableDeclarationContext : ctx.globalVariableDeclaration()){
+        for (GlobalVariableDeclarationContext globalVariableDeclarationContext : ctx.globalVariableDeclaration()) {
             visitGlobalVariableDeclaration(globalVariableDeclarationContext);
         }
 
         //visit function declarations
-        for(SimplyV3Parser.FunctionDeclarationContext functionDeclarationContext : ctx.functionDeclaration()){
+        for (FunctionDeclarationContext functionDeclarationContext : ctx.functionDeclaration()) {
             visitFunctionDeclaration(functionDeclarationContext);
         }
 
@@ -65,7 +72,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitLibImport(SimplyV3Parser.LibImportContext ctx) {
+    public ASTNode visitLibImport(LibImportContext ctx) {
         String name = ctx.identifier().getText();
         LibImportNode libImportNode = new LibImportNode(name);
         this.compilationUnitNode.addLibImportNode(libImportNode);
@@ -73,25 +80,25 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitIdentifier(SimplyV3Parser.IdentifierContext ctx) {
+    public ASTNode visitIdentifier(IdentifierContext ctx) {
         return super.visitIdentifier(ctx);
     }
 
     @Override
-    public ASTNode visitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx) {
+    public ASTNode visitGlobalVariableDeclaration(GlobalVariableDeclarationContext ctx) {
 
         VariableDeclarationNode variableDeclarationNode;
 
-        if(ctx.variableDeclaration() != null){
+        if (ctx.variableDeclaration() != null) {
             variableDeclarationNode =
                     (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
-        }else{
+        } else {
             variableDeclarationNode =
                     (VariableDeclarationNode) visitConstantDeclaration(ctx.constantDeclaration());
         }
 
         // Check whether variable already exist
-        if(this.globalVariableSymbolTable.contains(variableDeclarationNode.getName())){
+        if (this.globalVariableSymbolTable.contains(variableDeclarationNode.getName())) {
             this.syntaxErrors.add("Global Variable : " + variableDeclarationNode.getName() + " already exist");
         }
 
@@ -102,16 +109,16 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) {
-        if(ctx.arrayVariableDeclaration() != null){
+    public ASTNode visitVariableDeclaration(VariableDeclarationContext ctx) {
+        if (ctx.arrayVariableDeclaration() != null) {
             return visitArrayVariableDeclaration(ctx.arrayVariableDeclaration());
-        }else{
+        } else {
             return visitPrimitiveVariableDeclaration(ctx.primitiveVariableDeclaration());
         }
     }
 
     @Override
-    public ASTNode visitConstantDeclaration(SimplyV3Parser.ConstantDeclarationContext ctx) {
+    public ASTNode visitConstantDeclaration(ConstantDeclarationContext ctx) {
 
         VariableDeclarationNode variableDeclarationNode =
                 (VariableDeclarationNode) visitVariableDeclaration(ctx.variableDeclaration());
@@ -122,7 +129,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitPrimitiveVariableDeclaration(SimplyV3Parser.PrimitiveVariableDeclarationContext ctx) {
+    public ASTNode visitPrimitiveVariableDeclaration(PrimitiveVariableDeclarationContext ctx) {
 
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
         String varName = ctx.identifier().getText();
@@ -139,49 +146,49 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitNonVoidDataTypeName(SimplyV3Parser.NonVoidDataTypeNameContext ctx) {
+    public ASTNode visitNonVoidDataTypeName(NonVoidDataTypeNameContext ctx) {
         return super.visitNonVoidDataTypeName(ctx);
     }
 
     @Override
-    public ASTNode visitExpression(SimplyV3Parser.ExpressionContext ctx) {
+    public ASTNode visitExpression(ExpressionContext ctx) {
         return visitArithmaticExpression(ctx.arithmaticExpression());
     }
 
     @Override
-    public ASTNode visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx) {
-        if(ctx.MUL() != null){
+    public ASTNode visitArithmaticExpression(ArithmaticExpressionContext ctx) {
+        if (ctx.MUL() != null) {
 
             ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            return new ArithmeticExpressionNode.MultiplicationExpressionNode(left, right);
+            return new MultiplicationExpressionNode(left, right);
 
-        }else if(ctx.DIV() != null){
-
-            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
-            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            return new ArithmeticExpressionNode.DivisionExpressionNode(left, right);
-
-        }else if(ctx.SUB() != null){
+        } else if (ctx.DIV() != null) {
 
             ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            return new ArithmeticExpressionNode.SubtractionExpressionNode(left, right);
+            return new DivisionExpressionNode(left, right);
 
-        }else if(ctx.ADD() != null){
+        } else if (ctx.SUB() != null) {
+
+            ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
+            ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            return new SubtractionExpressionNode(left, right);
+
+        } else if (ctx.ADD() != null) {
 
             ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
 
-            return new ArithmeticExpressionNode.AdditionExpressionNode(left, right);
+            return new AdditionExpressionNode(left, right);
 
-        }else if(ctx.MOD() != null){
+        } else if (ctx.MOD() != null) {
 
             ExpressionNode left = (ExpressionNode) visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            return new ArithmeticExpressionNode.ModulusExpressionNode(left, right);
+            return new ModulusExpressionNode(left, right);
 
-        }else{
+        } else {
 
             return visitLogicExpression(ctx.logicExpression());
 
@@ -189,56 +196,56 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx) {
-        if(ctx.OR() != null){
+    public ASTNode visitLogicExpression(LogicExpressionContext ctx) {
+        if (ctx.OR() != null) {
 
             ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.OrExpressionNode(left, right);
+            return new OrExpressionNode(left, right);
 
-        }else if(ctx.AND() != null){
-
-            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.AndExpressionNode(left, right);
-
-        }else if(ctx.GT() != null){
+        } else if (ctx.AND() != null) {
 
             ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.GreaterThanExpressionNode(left, right);
+            return new AndExpressionNode(left, right);
 
-        }else if(ctx.LT() != null){
-
-            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.LessThanExpressionNode(left, right);
-
-        }else if(ctx.GE() != null){
+        } else if (ctx.GT() != null) {
 
             ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.GreaterOrEqualThanExpressionNode(left, right);
+            return new GreaterThanExpressionNode(left, right);
 
-        }else if(ctx.LE() != null){
-
-            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
-            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.LessOrEqualThanExpressionNode(left, right);
-
-        }else if(ctx.EQUAL() != null){
+        } else if (ctx.LT() != null) {
 
             ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.EqualsExpressionNode(left, right);
+            return new LessThanExpressionNode(left, right);
 
-        }else if(ctx.NOTEQUAL() != null){
+        } else if (ctx.GE() != null) {
 
             ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
-            return new LogicExpressionNode.NotEqualsExpressionNode(left, right);
+            return new GreaterOrEqualThanExpressionNode(left, right);
 
-        }else{
+        } else if (ctx.LE() != null) {
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new LessOrEqualThanExpressionNode(left, right);
+
+        } else if (ctx.EQUAL() != null) {
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new EqualsExpressionNode(left, right);
+
+        } else if (ctx.NOTEQUAL() != null) {
+
+            ExpressionNode left = (ExpressionNode) visitLogicExpression(ctx.logicExpression());
+            ExpressionNode right = (ExpressionNode) visitUnaryExpression(ctx.unaryExpression());
+            return new NotEqualsExpressionNode(left, right);
+
+        } else {
 
             return visitUnaryExpression(ctx.unaryExpression());
 
@@ -246,31 +253,31 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     }
 
-    public ASTNode visitUnaryExpression(SimplyV3Parser.UnaryExpressionContext ctx) {
-        if(ctx instanceof SimplyV3Parser.ParenExpressionContext) {
+    public ASTNode visitUnaryExpression(UnaryExpressionContext ctx) {
+        if (ctx instanceof ParenExpressionContext) {
 
-            return visitExpression(((SimplyV3Parser.ParenExpressionContext) ctx).expression());
+            return visitExpression(((ParenExpressionContext) ctx).expression());
 
-        }else if(ctx instanceof SimplyV3Parser.PrefixPlusExpressionContext){
+        } else if (ctx instanceof PrefixPlusExpressionContext) {
 
-            return visitExpression((((SimplyV3Parser.PrefixPlusExpressionContext) ctx).expression()));
+            return visitExpression((((PrefixPlusExpressionContext) ctx).expression()));
 
-        }else if(ctx instanceof SimplyV3Parser.PrefixMinusExpressionContext){
+        } else if (ctx instanceof PrefixMinusExpressionContext) {
 
-            return visitExpression(((SimplyV3Parser.PrefixMinusExpressionContext) ctx).expression());
+            return visitExpression(((PrefixMinusExpressionContext) ctx).expression());
 
-        }else if(ctx instanceof SimplyV3Parser.PrefixNotExpressionContext){
+        } else if (ctx instanceof PrefixNotExpressionContext) {
 
-            return visitExpression(((SimplyV3Parser.PrefixNotExpressionContext) ctx).expression());
+            return visitExpression(((PrefixNotExpressionContext) ctx).expression());
 
-        }else if(ctx instanceof SimplyV3Parser.FunctionCallExpressionContext){
+        } else if (ctx instanceof FunctionCallExpressionContext) {
 
-            SimplyV3Parser.FunctionCallExpressionContext funcCallCtx =
-                    (SimplyV3Parser.FunctionCallExpressionContext) ctx;
+            FunctionCallExpressionContext funcCallCtx =
+                    (FunctionCallExpressionContext) ctx;
 
             String libRef = "";
 
-            if(funcCallCtx.funcCall().libRef() != null){
+            if (funcCallCtx.funcCall().libRef() != null) {
                 libRef = funcCallCtx.funcCall().libRef().getText();
             }
 
@@ -278,7 +285,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             FunctionCallExpressionNode functionCallExpressionNode = new FunctionCallExpressionNode(libRef, funcName);
 
-            for(int i = 0; i < funcCallCtx.funcCall().funcCallParamList().expression().size(); i++){
+            for (int i = 0; i < funcCallCtx.funcCall().funcCallParamList().expression().size(); i++) {
                 functionCallExpressionNode.addParameter(
                         (ExpressionNode) visitExpression(
                                 funcCallCtx.funcCall().funcCallParamList().expression(i)
@@ -288,69 +295,69 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             return functionCallExpressionNode;
 
-        }else if(ctx instanceof SimplyV3Parser.LiteralExpressionContext){
+        } else if (ctx instanceof LiteralExpressionContext) {
 
-            SimplyV3Parser.LiteralContext literalContext =
-                    ((SimplyV3Parser.LiteralExpressionContext) ctx).literal();
+            LiteralContext literalContext =
+                    ((LiteralExpressionContext) ctx).literal();
 
             LiteralExpressionNode literalExpressionNode;
 
-            if(literalContext instanceof SimplyV3Parser.IntegerLiteralContext){
+            if (literalContext instanceof IntegerLiteralContext) {
 
                 int value =
                         Integer.parseInt(
-                                ((SimplyV3Parser.IntegerLiteralContext) literalContext).IntegerLiteral().getText()
+                                ((IntegerLiteralContext) literalContext).IntegerLiteral().getText()
                         );
 
-                literalExpressionNode = new LiteralExpressionNode.IntegerLiteralExpression(value);
+                literalExpressionNode = new IntegerLiteralExpression(value);
 
-            }else if(literalContext instanceof SimplyV3Parser.FloatLiteralContext){
+            } else if (literalContext instanceof FloatLiteralContext) {
 
                 float value =
                         Float.parseFloat(
-                                ((SimplyV3Parser.FloatLiteralContext) literalContext).FloatLiteral().getText()
+                                ((FloatLiteralContext) literalContext).FloatLiteral().getText()
                         );
 
-                literalExpressionNode = new LiteralExpressionNode.FloatLiteralExpression(value);
+                literalExpressionNode = new FloatLiteralExpression(value);
 
-            }else if(literalContext instanceof SimplyV3Parser.CharLiteralContext){
+            } else if (literalContext instanceof CharLiteralContext) {
 
                 char value =
-                        ((SimplyV3Parser.CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
+                        ((CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
 
-                literalExpressionNode = new LiteralExpressionNode.CharLiteralExpression(value);
+                literalExpressionNode = new CharLiteralExpression(value);
 
-            }else if(literalContext instanceof SimplyV3Parser.StringLiteralContext){
+            } else if (literalContext instanceof StringLiteralContext) {
 
                 String value =
-                        ((SimplyV3Parser.StringLiteralContext) literalContext).StringLiteral().getText();
+                        ((StringLiteralContext) literalContext).StringLiteral().getText();
 
-                literalExpressionNode = new LiteralExpressionNode.StringLiteralExpression(value);
+                literalExpressionNode = new StringLiteralExpression(value);
 
-            }else{
+            } else {
 
                 boolean value =
                         Boolean.parseBoolean(
-                                ((SimplyV3Parser.BoolLiteralContext) literalContext).BoolLiteral().getText()
+                                ((BoolLiteralContext) literalContext).BoolLiteral().getText()
                         );
 
-                literalExpressionNode = new LiteralExpressionNode.BoolLiteralExpression(value);
+                literalExpressionNode = new BoolLiteralExpression(value);
             }
 
             return literalExpressionNode;
-        }else if(ctx instanceof SimplyV3Parser.VariableAccessExpressionContext){
+        } else if (ctx instanceof VariableAccessExpressionContext) {
 
-            String name = ((SimplyV3Parser.VariableAccessExpressionContext) ctx).identifier().getText();
+            String name = ((VariableAccessExpressionContext) ctx).identifier().getText();
 
             return new IdentifierExpressionNode(name);
 
-        }else if(ctx instanceof SimplyV3Parser.ArrayAccessExpressionContext){
+        } else if (ctx instanceof ArrayAccessExpressionContext) {
 
-            String name = ((SimplyV3Parser.ArrayAccessExpressionContext) ctx)
+            String name = ((ArrayAccessExpressionContext) ctx)
                     .arrayAccess().identifier().Identifier().getText();
 
             ExpressionNode expressionNode = (ExpressionNode) visitExpression(
-                    ((SimplyV3Parser.ArrayAccessExpressionContext) ctx).arrayAccess().expression());
+                    ((ArrayAccessExpressionContext) ctx).arrayAccess().expression());
 
             return new ArrayAccessExpressionNode(name, expressionNode);
 
@@ -360,7 +367,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitArrayVariableDeclaration(SimplyV3Parser.ArrayVariableDeclarationContext ctx) {
+    public ASTNode visitArrayVariableDeclaration(ArrayVariableDeclarationContext ctx) {
 
         String arrayName = ctx.identifier().getText();
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
@@ -373,31 +380,31 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
 
-    public ASTNode visitArrayInitialization(SimplyV3Parser.ArrayIntializationContext ctx) {
-        if(ctx instanceof SimplyV3Parser.EmptyArrayInitializationContext){
-            return visitEmptyArrayInitialization((SimplyV3Parser.EmptyArrayInitializationContext) ctx);
-        }else{
-            return visitNonEmptyArrayInitialization((SimplyV3Parser.NonEmptyArrayInitializationContext) ctx);
+    public ASTNode visitArrayInitialization(ArrayIntializationContext ctx) {
+        if (ctx instanceof EmptyArrayInitializationContext) {
+            return visitEmptyArrayInitialization((EmptyArrayInitializationContext) ctx);
+        } else {
+            return visitNonEmptyArrayInitialization((NonEmptyArrayInitializationContext) ctx);
         }
     }
 
 
     @Override
-    public ASTNode visitEmptyArrayInitialization(SimplyV3Parser.EmptyArrayInitializationContext ctx) {
+    public ASTNode visitEmptyArrayInitialization(EmptyArrayInitializationContext ctx) {
         return new EmptyArrayInitializationNode();
     }
 
     @Override
-    public ASTNode visitNonEmptyArrayInitialization(SimplyV3Parser.NonEmptyArrayInitializationContext ctx) {
-        SimplyV3Parser.NonEmptyArrContext nonEmptyArrContext = ctx.nonEmptyArr();
+    public ASTNode visitNonEmptyArrayInitialization(NonEmptyArrayInitializationContext ctx) {
+        NonEmptyArrContext nonEmptyArrContext = ctx.nonEmptyArr();
 
         NonEmptyArrayInitializationNode nonEmptyArrayInitializationNode =
                 new NonEmptyArrayInitializationNode();
 
-        List<SimplyV3Parser.ArrayValueContext> arrayValueContextListList =
+        List<ArrayValueContext> arrayValueContextListList =
                 nonEmptyArrContext.arrayValues().arrayValue();
 
-        for(SimplyV3Parser.ArrayValueContext arrayValue : arrayValueContextListList){
+        for (ArrayValueContext arrayValue : arrayValueContextListList) {
             nonEmptyArrayInitializationNode.addValues(
                     (ExpressionNode) visitExpression(arrayValue.expression())
             );
@@ -407,13 +414,13 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitFunctionDeclaration(SimplyV3Parser.FunctionDeclarationContext ctx) {
+    public ASTNode visitFunctionDeclaration(FunctionDeclarationContext ctx) {
         DataType returnType = DataTypeMapper.getType(
                 ctx.dataTypeName().getText()
         );
 
-        FunctionDeclarationNode.FunctionSignatureNode functionSignatureNode =
-                (FunctionDeclarationNode.FunctionSignatureNode) visitFunctionSignature(ctx.functionSignature());
+        FunctionSignatureNode functionSignatureNode =
+                (FunctionSignatureNode) visitFunctionSignature(ctx.functionSignature());
 
         BlockNode blockNode =
                 (BlockNode) visitBlock(ctx.block());
@@ -424,17 +431,17 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitFunctionSignature(SimplyV3Parser.FunctionSignatureContext ctx) {
+    public ASTNode visitFunctionSignature(FunctionSignatureContext ctx) {
         String functionName = ctx.identifier().getText();
 
-        FunctionDeclarationNode.FunctionSignatureNode functionSignatureNode =
-                new FunctionDeclarationNode.FunctionSignatureNode(functionName);
+        FunctionSignatureNode functionSignatureNode =
+                new FunctionSignatureNode(functionName);
 
-        List<SimplyV3Parser.ArgContext> argContextList = ctx.argList().arg();
+        List<ArgContext> argContextList = ctx.argList().arg();
 
-        for(SimplyV3Parser.ArgContext argContext : argContextList){
+        for (ArgContext argContext : argContextList) {
             functionSignatureNode.addArguments(
-                    (FunctionDeclarationNode.FunctionArgumentNode) visitArg(argContext)
+                    (FunctionArgumentNode) visitArg(argContext)
             );
         }
 
@@ -443,7 +450,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
 
     @Override
-    public ASTNode visitArg(SimplyV3Parser.ArgContext ctx) {
+    public ASTNode visitArg(ArgContext ctx) {
         String varName = ctx.identifier().getText();
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
 
@@ -451,79 +458,79 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitBlock(SimplyV3Parser.BlockContext ctx) {
+    public ASTNode visitBlock(BlockContext ctx) {
 
-        return (BlockNode) visitBlockBody(ctx.blockBody());
+        return visitBlockBody(ctx.blockBody());
 
     }
 
 
     // Visit Statement Rules
-    public ASTNode visitStatementRule(SimplyV3Parser.StatementContext ctx) {
-        if(ctx instanceof SimplyV3Parser.IfStatementRuleContext){
+    public ASTNode visitStatementRule(StatementContext ctx) {
+        if (ctx instanceof IfStatementRuleContext) {
 
-            return visitIfStatementRule((SimplyV3Parser.IfStatementRuleContext) ctx);
+            return visitIfStatementRule((IfStatementRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.IterateStatementRuleContext){
+        } else if (ctx instanceof IterateStatementRuleContext) {
 
-            return visitIterateStatementRule((SimplyV3Parser.IterateStatementRuleContext) ctx);
+            return visitIterateStatementRule((IterateStatementRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.AssignmentStatementRuleContext){
+        } else if (ctx instanceof AssignmentStatementRuleContext) {
 
-            return visitAssignmentStatementRule((SimplyV3Parser.AssignmentStatementRuleContext) ctx);
+            return visitAssignmentStatementRule((AssignmentStatementRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.FuncCallStatementRuleContext){
+        } else if (ctx instanceof FuncCallStatementRuleContext) {
 
-            return visitFuncCallStatementRule((SimplyV3Parser.FuncCallStatementRuleContext) ctx);
+            return visitFuncCallStatementRule((FuncCallStatementRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.ReturnStatemtntRuleContext){
+        } else if (ctx instanceof ReturnStatemtntRuleContext) {
 
-            return visitReturnStatemtntRule((SimplyV3Parser.ReturnStatemtntRuleContext) ctx);
+            return visitReturnStatemtntRule((ReturnStatemtntRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.VariableDeclarationStatementRuleContext){
+        } else if (ctx instanceof VariableDeclarationStatementRuleContext) {
 
             return visitVariableDeclarationStatementRule(
-                    (SimplyV3Parser.VariableDeclarationStatementRuleContext) ctx);
+                    (VariableDeclarationStatementRuleContext) ctx);
 
-        }else if(ctx instanceof SimplyV3Parser.ConstantDeclarationStatementRuleContext){
+        } else if (ctx instanceof ConstantDeclarationStatementRuleContext) {
 
             return visitConstantDeclarationStatementRule(
-                    (SimplyV3Parser.ConstantDeclarationStatementRuleContext) ctx);
+                    (ConstantDeclarationStatementRuleContext) ctx);
 
-        }else{
+        } else {
 
             return visitLoopControlStatementRule(
-                    (SimplyV3Parser.LoopControlStatementRuleContext) ctx);
+                    (LoopControlStatementRuleContext) ctx);
 
         }
     }
 
     @Override
-    public ASTNode visitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx) {
+    public ASTNode visitIfStatementRule(IfStatementRuleContext ctx) {
 
-        SimplyV3Parser.IfStatementContext ifStatementContext =
+        IfStatementContext ifStatementContext =
                 ctx.ifStatement();
 
-        IfStatementNode.IfBlockNode ifBlockNode =
-                (IfStatementNode.IfBlockNode) visitIfBlock(ifStatementContext.ifBlock());
+        IfBlockNode ifBlockNode =
+                (IfBlockNode) visitIfBlock(ifStatementContext.ifBlock());
 
         IfStatementNode ifStatementNode;
 
-        if(ctx.ifStatement().elseBlock() != null){
-            IfStatementNode.ElseBlockNode elseBlockNode =
-                    (IfStatementNode.ElseBlockNode) visitElseBlock(ctx.ifStatement().elseBlock());
+        if (ctx.ifStatement().elseBlock() != null) {
+            ElseBlockNode elseBlockNode =
+                    (ElseBlockNode) visitElseBlock(ctx.ifStatement().elseBlock());
 
             ifStatementNode = new IfStatementNode(ifBlockNode, elseBlockNode);
-        }else{
+        } else {
             ifStatementNode = new IfStatementNode(ifBlockNode);
         }
-        
-        List<SimplyV3Parser.ElseIfBlockContext> elseIfBlockContexts =
+
+        List<ElseIfBlockContext> elseIfBlockContexts =
                 ctx.ifStatement().elseIfBlock();
 
-        for(SimplyV3Parser.ElseIfBlockContext elseIfBlockContext : elseIfBlockContexts){
+        for (ElseIfBlockContext elseIfBlockContext : elseIfBlockContexts) {
             ifStatementNode.addElseIfBlockNode(
-                    (IfStatementNode.IfBlockNode) visitIfBlock(elseIfBlockContext.ifBlock())
+                    (IfBlockNode) visitIfBlock(elseIfBlockContext.ifBlock())
             );
         }
 
@@ -532,33 +539,33 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitIfBlock(SimplyV3Parser.IfBlockContext ctx) {
+    public ASTNode visitIfBlock(IfBlockContext ctx) {
 
         ExpressionNode expressionNode =
                 (ExpressionNode) visitExpression(ctx.ifConditionExpression().expression());
 
         BlockNode blockNode = (BlockNode) visitBlock(ctx.block());
-        return new IfStatementNode.IfBlockNode(expressionNode, blockNode);
+        return new IfBlockNode(expressionNode, blockNode);
 
     }
 
     @Override
-    public ASTNode visitElseBlock(SimplyV3Parser.ElseBlockContext ctx) {
+    public ASTNode visitElseBlock(ElseBlockContext ctx) {
 
         BlockNode blockNode = (BlockNode) visitBlock(ctx.block());
-        return new IfStatementNode.ElseBlockNode(blockNode);
+        return new ElseBlockNode(blockNode);
 
     }
 
     @Override
-    public ASTNode visitBlockBody(SimplyV3Parser.BlockBodyContext ctx) {
+    public ASTNode visitBlockBody(BlockBodyContext ctx) {
 
-        List<SimplyV3Parser.StatementContext> statementContextList =
+        List<StatementContext> statementContextList =
                 ctx.statements().statement();
 
         BlockNode blockNode = new BlockNode();
 
-        for(SimplyV3Parser.StatementContext statementContext : statementContextList){
+        for (StatementContext statementContext : statementContextList) {
             blockNode.addStatementNode(
                     (StatementNode) visitStatementRule(statementContext)
             );
@@ -568,13 +575,13 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx) {
-        SimplyV3Parser.IterateStatementContext iterateStatementContext =
+    public ASTNode visitIterateStatementRule(IterateStatementRuleContext ctx) {
+        IterateStatementContext iterateStatementContext =
                 ctx.iterateStatement();
 
-        IterateStatementNode.IterateConditionExpressionNode iterateConditionExpressionNode =
-                (IterateStatementNode.IterateConditionExpressionNode)
-                visitIterateConditionExpressionRule(iterateStatementContext.iterateConditionExpression());
+        IterateConditionExpressionNode iterateConditionExpressionNode =
+                (IterateConditionExpressionNode)
+                        visitIterateConditionExpressionRule(iterateStatementContext.iterateConditionExpression());
 
         BlockNode blockNode = (BlockNode) visitBlock(iterateStatementContext.block());
 
@@ -582,45 +589,43 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     // Visit Iterate Condition Expression
-    public ASTNode visitIterateConditionExpressionRule(SimplyV3Parser.IterateConditionExpressionContext ctx){
-        if(ctx instanceof SimplyV3Parser.BooleanIterateExpressionRuleContext){
+    public ASTNode visitIterateConditionExpressionRule(IterateConditionExpressionContext ctx) {
+        if (ctx instanceof BooleanIterateExpressionRuleContext) {
 
             ExpressionNode expressionNode = (ExpressionNode)
-                    visitExpression(((SimplyV3Parser.BooleanIterateExpressionRuleContext) ctx).expression());
+                    visitExpression(((BooleanIterateExpressionRuleContext) ctx).expression());
 
-            return new IterateStatementNode
-                    .IterateConditionExpressionNode
+            return new IterateConditionExpressionNode
                     .BooleanIterateExpressionNode(expressionNode);
 
 
-        }else if(ctx instanceof SimplyV3Parser.RangeIterateExpressionRuleContext){
+        } else if (ctx instanceof RangeIterateExpressionRuleContext) {
 
             ArgNode argNode = (ArgNode)
-                    visitArg(((SimplyV3Parser.RangeIterateExpressionRuleContext) ctx).rangeExpression().arg());
+                    visitArg(((RangeIterateExpressionRuleContext) ctx).rangeExpression().arg());
 
             ExpressionNode fromExpression = (ExpressionNode)
-                    visitExpression(((SimplyV3Parser.RangeIterateExpressionRuleContext) ctx)
+                    visitExpression(((RangeIterateExpressionRuleContext) ctx)
                             .rangeExpression().fromExpression().expression());
 
             ExpressionNode toExpression = (ExpressionNode)
-                    visitExpression(((SimplyV3Parser.RangeIterateExpressionRuleContext) ctx)
+                    visitExpression(((RangeIterateExpressionRuleContext) ctx)
                             .rangeExpression().toExpression().expression());
 
-            return new IterateStatementNode.
+            return new
                     IterateConditionExpressionNode.
-                    RangeIterateExpressionNode(argNode, fromExpression, toExpression);
+                            RangeIterateExpressionNode(argNode, fromExpression, toExpression);
 
-        }else if(ctx instanceof SimplyV3Parser.ArrayIterateExpressionRuleContext){
+        } else if (ctx instanceof ArrayIterateExpressionRuleContext) {
             ArgNode argNode = (ArgNode)
-                    visitArg(((SimplyV3Parser.ArrayIterateExpressionRuleContext) ctx)
+                    visitArg(((ArrayIterateExpressionRuleContext) ctx)
                             .arrayIterateExpression().arg());
 
             ExpressionNode expressionNode = (ExpressionNode)
-                    visitExpression(((SimplyV3Parser.ArrayIterateExpressionRuleContext) ctx)
+                    visitExpression(((ArrayIterateExpressionRuleContext) ctx)
                             .arrayIterateExpression().expression());
 
-            return new IterateStatementNode
-                    .IterateConditionExpressionNode
+            return new IterateConditionExpressionNode
                     .ArrayIterateExpressionNode(argNode, expressionNode);
         }
 
@@ -628,32 +633,32 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitAssignmentStatementRule(SimplyV3Parser.AssignmentStatementRuleContext ctx) {
+    public ASTNode visitAssignmentStatementRule(AssignmentStatementRuleContext ctx) {
         return super.visitAssignmentStatementRule(ctx);
     }
 
     @Override
-    public ASTNode visitFuncCallStatementRule(SimplyV3Parser.FuncCallStatementRuleContext ctx) {
+    public ASTNode visitFuncCallStatementRule(FuncCallStatementRuleContext ctx) {
         return super.visitFuncCallStatementRule(ctx);
     }
 
     @Override
-    public ASTNode visitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx) {
+    public ASTNode visitReturnStatemtntRule(ReturnStatemtntRuleContext ctx) {
         return super.visitReturnStatemtntRule(ctx);
     }
 
     @Override
-    public ASTNode visitVariableDeclarationStatementRule(SimplyV3Parser.VariableDeclarationStatementRuleContext ctx) {
+    public ASTNode visitVariableDeclarationStatementRule(VariableDeclarationStatementRuleContext ctx) {
         return super.visitVariableDeclarationStatementRule(ctx);
     }
 
     @Override
-    public ASTNode visitConstantDeclarationStatementRule(SimplyV3Parser.ConstantDeclarationStatementRuleContext ctx) {
+    public ASTNode visitConstantDeclarationStatementRule(ConstantDeclarationStatementRuleContext ctx) {
         return super.visitConstantDeclarationStatementRule(ctx);
     }
 
     @Override
-    public ASTNode visitLoopControlStatementRule(SimplyV3Parser.LoopControlStatementRuleContext ctx) {
+    public ASTNode visitLoopControlStatementRule(LoopControlStatementRuleContext ctx) {
         return super.visitLoopControlStatementRule(ctx);
     }
 }
