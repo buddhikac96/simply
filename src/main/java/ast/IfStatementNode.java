@@ -14,6 +14,11 @@ public class IfStatementNode extends StatementNode {
         this.elseIfBlockNodeList = new ArrayList<>();
     }
 
+    public IfStatementNode(IfBlockNode ifBlockNode) {
+        this.ifBlockNode = ifBlockNode;
+        this.elseIfBlockNodeList = new ArrayList<>();
+    }
+
     public void addElseIfBlockNode(IfBlockNode IfBlockNode){
         this.elseIfBlockNodeList.add(IfBlockNode);
     }

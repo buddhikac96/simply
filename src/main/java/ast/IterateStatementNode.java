@@ -10,29 +10,40 @@ public class IterateStatementNode extends StatementNode{
     }
 
 
-    public abstract class IterateConditionExpressionNode extends ExpressionNode{
-        public class RangeExpressionNode extends IterateConditionExpressionNode{
+    public abstract static class IterateConditionExpressionNode extends ExpressionNode{
+
+        public static class BooleanIterateExpressionNode extends IterateConditionExpressionNode{
+            ExpressionNode expressionNode;
+
+            public BooleanIterateExpressionNode(ExpressionNode expressionNode) {
+                this.expressionNode = expressionNode;
+            }
+        }
+
+        public static class RangeIterateExpressionNode extends IterateConditionExpressionNode{
             ArgNode variableDeclaration;
             ExpressionNode fromValue;
             ExpressionNode toValue;
 
-            public RangeExpressionNode(ArgNode variableDeclaration, ExpressionNode fromValue, ExpressionNode toValue) {
+            public RangeIterateExpressionNode(ArgNode variableDeclaration, ExpressionNode fromValue, ExpressionNode toValue) {
                 this.variableDeclaration = variableDeclaration;
                 this.fromValue = fromValue;
                 this.toValue = toValue;
             }
         }
-    }
 
-    public class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
-        ArgNode variableDeclaration;
-        ASTNode arrayReference;  // Identifier or function call expression
+        public static class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
+            ArgNode variableDeclaration;
+            ExpressionNode expressionNode;  // Identifier or function call expression
 
-        public ArrayIterateExpressionNode(ArgNode variableDeclaration, ASTNode arrayReference) {
-            this.variableDeclaration = variableDeclaration;
-            this.arrayReference = arrayReference;
+            public ArrayIterateExpressionNode(ArgNode variableDeclaration, ExpressionNode expressionNode) {
+                this.variableDeclaration = variableDeclaration;
+                this.expressionNode = expressionNode;
+            }
         }
     }
+
+
 }
 
 

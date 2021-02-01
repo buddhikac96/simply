@@ -378,17 +378,44 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIterateStatement(SimplyV3Parser.IterateStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#iterateConditionExpression}.
+	 * Visit a parse tree produced by the {@code booleanIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx);
+	T visitBooleanIterateExpressionRule(SimplyV3Parser.BooleanIterateExpressionRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code rangeIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRangeIterateExpressionRule(SimplyV3Parser.RangeIterateExpressionRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayIterateExpressionRule(SimplyV3Parser.ArrayIterateExpressionRuleContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#rangeExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#fromExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFromExpression(SimplyV3Parser.FromExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#toExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToExpression(SimplyV3Parser.ToExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayIterateExpression}.
 	 * @param ctx the parse tree

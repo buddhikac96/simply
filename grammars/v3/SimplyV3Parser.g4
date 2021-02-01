@@ -232,19 +232,27 @@ iterateStatement
     ;
 
 iterateConditionExpression
-    : expression
-    | rangeExpression
-    | arrayIterateExpression
+    : expression                            # booleanIterateExpressionRule
+    | rangeExpression                       # rangeIterateExpressionRule
+    | arrayIterateExpression                # arrayIterateExpressionRule
     ;
 
 // Loop through a range
 rangeExpression
-    : arg FROM expression TO expression
+    : arg FROM fromExpression TO toExpression
+    ;
+
+fromExpression
+    : expression
+    ;
+
+toExpression
+    : expression
     ;
 
 // Loop throug an array
 arrayIterateExpression
-    : arg OF ( identifier | funcCall )
+    : arg OF expression
     ;
 
 loopControlStatement

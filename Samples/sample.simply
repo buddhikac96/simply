@@ -1,13 +1,5 @@
 function main() : void {
-
-    check(a > 5){
-        print(a);
-        print(b);
-
-        check(a > 10){
-            print(a);
-            print(b);
-            print(c);
-        }
+    check(a>4){
+        print(5);
     }
 }

@@ -626,15 +626,41 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitIterateStatement(SimplyV3Parser.IterateStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#iterateConditionExpression}.
+	 * Enter a parse tree produced by the {@code booleanIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx);
+	void enterBooleanIterateExpressionRule(SimplyV3Parser.BooleanIterateExpressionRuleContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#iterateConditionExpression}.
+	 * Exit a parse tree produced by the {@code booleanIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitIterateConditionExpression(SimplyV3Parser.IterateConditionExpressionContext ctx);
+	void exitBooleanIterateExpressionRule(SimplyV3Parser.BooleanIterateExpressionRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code rangeIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRangeIterateExpressionRule(SimplyV3Parser.RangeIterateExpressionRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code rangeIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRangeIterateExpressionRule(SimplyV3Parser.RangeIterateExpressionRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayIterateExpressionRule(SimplyV3Parser.ArrayIterateExpressionRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayIterateExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayIterateExpressionRule(SimplyV3Parser.ArrayIterateExpressionRuleContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#rangeExpression}.
 	 * @param ctx the parse tree
@@ -645,6 +671,26 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#fromExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFromExpression(SimplyV3Parser.FromExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#fromExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFromExpression(SimplyV3Parser.FromExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#toExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterToExpression(SimplyV3Parser.ToExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#toExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitToExpression(SimplyV3Parser.ToExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayIterateExpression}.
 	 * @param ctx the parse tree
