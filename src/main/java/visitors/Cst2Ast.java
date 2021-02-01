@@ -321,7 +321,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             String name = ((SimplyV3Parser.VariableAccessExpressionContext) ctx).identifier().getText();
             System.out.println(name);
-            return new IdentifierNode(name);
+            return new IdentifierExpressionNode(name);
 
         }else if(ctx instanceof SimplyV3Parser.ArrayAccessExpressionContext){
 
@@ -536,6 +536,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitBlockBody(SimplyV3Parser.BlockBodyContext ctx) {
+
         List<SimplyV3Parser.StatementContext> statementContextList =
                 ctx.statements().statement();
 
