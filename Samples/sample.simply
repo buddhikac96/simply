@@ -1,7 +1,10 @@
 function main() : void {
-    int b = 10;
 
     check(a > 5){
+        print("asdf");
+            check(a > 10){
+        }otherwise{
 
+        }
     }
 }

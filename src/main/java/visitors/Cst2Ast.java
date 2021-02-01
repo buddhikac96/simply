@@ -516,6 +516,41 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     }
 
     @Override
+    public ASTNode visitIfBlock(SimplyV3Parser.IfBlockContext ctx) {
+        ExpressionNode expressionNode =
+                (ExpressionNode) visitExpression(ctx.ifConditionExpression().expression());
+
+        BlockNode blockNode =
+                (BlockNode) visitBlockBody(ctx.block().blockBody());
+
+        return new IfStatementNode.IfBlockNode(expressionNode, blockNode);
+    }
+
+    @Override
+    public ASTNode visitElseBlock(SimplyV3Parser.ElseBlockContext ctx) {
+        BlockNode blockNode =
+                (BlockNode) visitBlockBody(ctx.block().blockBody());
+
+        return new IfStatementNode.ElseBlockNode(blockNode);
+    }
+
+    @Override
+    public ASTNode visitBlockBody(SimplyV3Parser.BlockBodyContext ctx) {
+        List<SimplyV3Parser.StatementContext> statementContextList =
+                ctx.statements().statement();
+
+        BlockNode blockNode = new BlockNode();
+
+        for(SimplyV3Parser.StatementContext statementContext : statementContextList){
+            blockNode.addStatementNode(
+                    (StatementNode) visitStatementRule(statementContext)
+            );
+        }
+
+        return blockNode;
+    }
+
+    @Override
     public ASTNode visitIterateStatementRule(SimplyV3Parser.IterateStatementRuleContext ctx) {
         return super.visitIterateStatementRule(ctx);
     }
