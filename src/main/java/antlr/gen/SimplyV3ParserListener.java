@@ -192,6 +192,18 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitLiteralExpression(SimplyV3Parser.LiteralExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code variableAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableAccessExpression(SimplyV3Parser.VariableAccessExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code variableAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableAccessExpression(SimplyV3Parser.VariableAccessExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code arrayAccessExpression}
 	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree

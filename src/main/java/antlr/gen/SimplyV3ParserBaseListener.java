@@ -222,6 +222,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVariableAccessExpression(SimplyV3Parser.VariableAccessExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableAccessExpression(SimplyV3Parser.VariableAccessExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArrayAccessExpression(SimplyV3Parser.ArrayAccessExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

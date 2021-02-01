@@ -89,13 +89,14 @@ unaryExpression
     | BANG expression               # prefixNotExpression
     | funcCall                      # functionCallExpression
     | literal                       # literalExpression
-    | identifier arrayAccess?       # arrayAccessExpression
+    | identifier                    # variableAccessExpression
+    | arrayAccess                   # arrayAccessExpression
     ;
 
 
 // Array access -> arr[3]
 arrayAccess
-    : LBRACK expression RBRACK
+    : identifier LBRACK expression RBRACK
     ;
 
 

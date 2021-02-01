@@ -121,6 +121,13 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteralExpression(SimplyV3Parser.LiteralExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code variableAccessExpression}
+	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableAccessExpression(SimplyV3Parser.VariableAccessExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code arrayAccessExpression}
 	 * labeled alternative in {@link SimplyV3Parser#unaryExpression}.
 	 * @param ctx the parse tree
