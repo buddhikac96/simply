@@ -319,6 +319,8 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
             return literalExpressionNode;
         }else if(ctx instanceof SimplyV3Parser.ArrayAccessExpressionContext){
 
+            System.out.println("Array access expression");
+
             String arrayName = ((SimplyV3Parser.ArrayAccessExpressionContext) ctx).identifier().getText();
             ExpressionNode accessValueExpression =
                     (ExpressionNode) visitExpression(
@@ -482,7 +484,31 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitIfStatementRule(SimplyV3Parser.IfStatementRuleContext ctx) {
-        return super.visitIfStatementRule(ctx);
+
+        System.out.println("if statement");
+
+        SimplyV3Parser.IfStatementContext ifStatementContext =
+                ctx.ifStatement();
+
+        IfStatementNode.IfBlockNode ifBlockNode =
+                (IfStatementNode.IfBlockNode) visitIfBlock(ifStatementContext.ifBlock());
+
+        IfStatementNode.ElseBlockNode elseBlockNode =
+                (IfStatementNode.ElseBlockNode) visitElseBlock(ctx.ifStatement().elseBlock());
+
+        IfStatementNode ifStatementNode = new IfStatementNode(ifBlockNode, elseBlockNode);
+
+        List<SimplyV3Parser.ElseIfBlockContext> elseIfBlockContexts =
+                ctx.ifStatement().elseIfBlock();
+
+        for(SimplyV3Parser.ElseIfBlockContext elseIfBlockContext : elseIfBlockContexts){
+            ifStatementNode.addElseIfBlockNode(
+                    (IfStatementNode.IfBlockNode) visitIfBlock(elseIfBlockContext.ifBlock())
+            );
+        }
+
+        return ifStatementNode;
+
     }
 
     @Override

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IfStatementNode extends StatementNode {
-    IfBlockNode ifBlockNode;
-    List<IfBlockNode> elseIfBlockNodeList;
-    ElseBlockNode elseBlockNode;
+    private IfBlockNode ifBlockNode;
+    private final List<IfBlockNode> elseIfBlockNodeList;
+    private ElseBlockNode elseBlockNode;
 
     public IfStatementNode(IfBlockNode ifBlockNode, ElseBlockNode elseBlockNode) {
         this.ifBlockNode = ifBlockNode;
@@ -18,21 +18,72 @@ public class IfStatementNode extends StatementNode {
         this.elseIfBlockNodeList.add(IfBlockNode);
     }
 
-    public class IfBlockNode extends ASTNode{
-        ExpressionNode conditionExpressionNode;
-        BlockNode blockNode;
+    public List<IfBlockNode> getElseIfBlockNodeList() {
+        return elseIfBlockNodeList;
+    }
+
+    public IfBlockNode getIfBlockNode() {
+        return ifBlockNode;
+    }
+
+    public void setIfBlockNode(IfBlockNode ifBlockNode) {
+        this.ifBlockNode = ifBlockNode;
+    }
+
+    public ElseBlockNode getElseBlockNode() {
+        return elseBlockNode;
+    }
+
+    public void setElseBlockNode(ElseBlockNode elseBlockNode) {
+        this.elseBlockNode = elseBlockNode;
+    }
+
+
+
+
+    // If block node AST class
+    public static class IfBlockNode extends ASTNode{
+        private ExpressionNode conditionExpressionNode;
+        private BlockNode blockNode;
 
         public IfBlockNode(ExpressionNode conditionExpressionNode, BlockNode blockNode) {
             this.conditionExpressionNode = conditionExpressionNode;
             this.blockNode = blockNode;
         }
+
+        public ExpressionNode getConditionExpressionNode() {
+            return conditionExpressionNode;
+        }
+
+        public void setConditionExpressionNode(ExpressionNode conditionExpressionNode) {
+            this.conditionExpressionNode = conditionExpressionNode;
+        }
+
+        public BlockNode getBlockNode() {
+            return blockNode;
+        }
+
+        public void setBlockNode(BlockNode blockNode) {
+            this.blockNode = blockNode;
+        }
     }
 
 
-    public class ElseBlockNode extends ASTNode{
-        BlockNode blockNode;
+
+
+    // Else block node AST class
+    public static class ElseBlockNode extends ASTNode{
+        private BlockNode blockNode;
 
         public ElseBlockNode(BlockNode blockNode) {
+            this.blockNode = blockNode;
+        }
+
+        public BlockNode getBlockNode() {
+            return blockNode;
+        }
+
+        public void setBlockNode(BlockNode blockNode) {
             this.blockNode = blockNode;
         }
     }
