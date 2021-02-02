@@ -2,32 +2,12 @@ package visitors;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
-import ast.ASTNode;
-import ast.ArgNode;
+import ast.*;
 import ast.ArithmeticExpressionNode.*;
-import ast.ArrayAccessExpressionNode;
-import ast.ArrayInitializationNode;
-import ast.ArrayVariableDeclarationNode;
-import ast.BlockNode;
-import ast.CompilationUnitNode;
-import ast.EmptyArrayInitializationNode;
-import ast.ExpressionNode;
-import ast.FunctionCallExpressionNode;
-import ast.FunctionCallStatementNode;
-import ast.FunctionDeclarationNode;
 import ast.FunctionDeclarationNode.FunctionSignatureNode;
-import ast.IdentifierExpressionNode;
-import ast.IfStatementNode;
 import ast.IfStatementNode.ElseBlockNode;
 import ast.IfStatementNode.IfBlockNode;
-import ast.IterateStatementNode;
 import ast.IterateStatementNode.IterateConditionExpressionNode;
-import ast.LibImportNode;
-import ast.LiteralExpressionNode;
-import ast.NonEmptyArrayInitializationNode;
-import ast.PrimitiveVariableDeclarationNode;
-import ast.StatementNode;
-import ast.VariableDeclarationNode;
 import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
 import ast.util.enums.AssignmentOperator;
@@ -699,7 +679,10 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitReturnStatemtntRule(ReturnStatemtntRuleContext ctx) {
-        return super.visitReturnStatemtntRule(ctx);
+        ExpressionNode expressionNode = (ExpressionNode)
+                visitExpression(ctx.returnStatemtnt().expression());
+
+        return new ReturnStatementNode(expressionNode);
     }
 
     @Override
