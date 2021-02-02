@@ -712,15 +712,49 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimplyV3Parser#assignmentStatement}.
+	 * Enter a parse tree produced by the {@code primitiveVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx);
+	void enterPrimitiveVariableAssignmentRule(SimplyV3Parser.PrimitiveVariableAssignmentRuleContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimplyV3Parser#assignmentStatement}.
+	 * Exit a parse tree produced by the {@code primitiveVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx);
+	void exitPrimitiveVariableAssignmentRule(SimplyV3Parser.PrimitiveVariableAssignmentRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayVariableAssignmentRule(SimplyV3Parser.ArrayVariableAssignmentRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayVariableAssignmentRule(SimplyV3Parser.ArrayVariableAssignmentRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#primitiveVariableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimitiveVariableAssignment(SimplyV3Parser.PrimitiveVariableAssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#primitiveVariableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimitiveVariableAssignment(SimplyV3Parser.PrimitiveVariableAssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimplyV3Parser#arrayVariableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayVariableAssignment(SimplyV3Parser.ArrayVariableAssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimplyV3Parser#arrayVariableAssignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayVariableAssignment(SimplyV3Parser.ArrayVariableAssignmentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#assignmentOperator}.
 	 * @param ctx the parse tree

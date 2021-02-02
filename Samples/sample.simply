@@ -1,5 +1,5 @@
 function main() : void {
-    check(a>4){
-        print(5);
-    }
+
+
+
 }

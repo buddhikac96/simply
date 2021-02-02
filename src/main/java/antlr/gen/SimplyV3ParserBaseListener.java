@@ -798,13 +798,49 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx) { }
+	@Override public void enterPrimitiveVariableAssignmentRule(SimplyV3Parser.PrimitiveVariableAssignmentRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx) { }
+	@Override public void exitPrimitiveVariableAssignmentRule(SimplyV3Parser.PrimitiveVariableAssignmentRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayVariableAssignmentRule(SimplyV3Parser.ArrayVariableAssignmentRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayVariableAssignmentRule(SimplyV3Parser.ArrayVariableAssignmentRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrimitiveVariableAssignment(SimplyV3Parser.PrimitiveVariableAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrimitiveVariableAssignment(SimplyV3Parser.PrimitiveVariableAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayVariableAssignment(SimplyV3Parser.ArrayVariableAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayVariableAssignment(SimplyV3Parser.ArrayVariableAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

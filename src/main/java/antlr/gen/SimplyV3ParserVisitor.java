@@ -429,11 +429,31 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoopControlStatement(SimplyV3Parser.LoopControlStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#assignmentStatement}.
+	 * Visit a parse tree produced by the {@code primitiveVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignmentStatement(SimplyV3Parser.AssignmentStatementContext ctx);
+	T visitPrimitiveVariableAssignmentRule(SimplyV3Parser.PrimitiveVariableAssignmentRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayVariableAssignmentRule}
+	 * labeled alternative in {@link SimplyV3Parser#assignmentStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayVariableAssignmentRule(SimplyV3Parser.ArrayVariableAssignmentRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#primitiveVariableAssignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimitiveVariableAssignment(SimplyV3Parser.PrimitiveVariableAssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arrayVariableAssignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayVariableAssignment(SimplyV3Parser.ArrayVariableAssignmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#assignmentOperator}.
 	 * @param ctx the parse tree

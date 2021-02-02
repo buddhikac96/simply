@@ -262,7 +262,16 @@ loopControlStatement
 
 // Assignment operations
 assignmentStatement
-    : identifier arrayAccess? assignmentOperator expression EOL
+    : primitiveVariableAssignment           # primitiveVariableAssignmentRule
+    | arrayVariableAssignment               # arrayVariableAssignmentRule
+    ;
+
+primitiveVariableAssignment
+    : identifier assignmentOperator expression EOL
+    ;
+
+arrayVariableAssignment
+    : arrayAccess assignmentOperator expression EOL
     ;
 
 assignmentOperator

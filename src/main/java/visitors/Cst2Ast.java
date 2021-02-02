@@ -2,38 +2,22 @@ package visitors;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
-import ast.ASTNode;
-import ast.ArgNode;
+import ast.*;
 import ast.ArithmeticExpressionNode.*;
-import ast.ArrayAccessExpressionNode;
-import ast.ArrayInitializationNode;
-import ast.ArrayVariableDeclarationNode;
-import ast.BlockNode;
-import ast.CompilationUnitNode;
-import ast.EmptyArrayInitializationNode;
-import ast.ExpressionNode;
-import ast.FunctionCallExpressionNode;
-import ast.FunctionDeclarationNode;
 import ast.FunctionDeclarationNode.FunctionArgumentNode;
 import ast.FunctionDeclarationNode.FunctionSignatureNode;
-import ast.IdentifierExpressionNode;
-import ast.IfStatementNode;
 import ast.IfStatementNode.ElseBlockNode;
 import ast.IfStatementNode.IfBlockNode;
-import ast.IterateStatementNode;
 import ast.IterateStatementNode.IterateConditionExpressionNode;
-import ast.LibImportNode;
-import ast.LiteralExpressionNode;
-import ast.NonEmptyArrayInitializationNode;
-import ast.PrimitiveVariableDeclarationNode;
-import ast.StatementNode;
-import ast.VariableDeclarationNode;
+import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
+import ast.util.enums.AssignmentOperator;
 import ast.util.enums.DataType;
 
 import java.util.HashSet;
 import java.util.List;
 
+import static ast.AssignmentStatementNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 
@@ -634,7 +618,45 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitAssignmentStatementRule(AssignmentStatementRuleContext ctx) {
-        return super.visitAssignmentStatementRule(ctx);
+        if(ctx.assignmentStatement() instanceof PrimitiveVariableAssignmentRuleContext){
+            return visitPrimitiveVariableAssignment(((PrimitiveVariableAssignmentRuleContext)
+                    ctx.assignmentStatement()).primitiveVariableAssignment());
+        }else if(ctx.assignmentStatement() instanceof ArrayVariableAssignmentRuleContext){
+            return visitArrayVariableAssignment(((ArrayVariableAssignmentRuleContext)
+                    ctx.assignmentStatement()).arrayVariableAssignment());
+        }else{
+            return null;
+        }
+    }
+    
+    @Override
+    public ASTNode visitPrimitiveVariableAssignment(PrimitiveVariableAssignmentContext ctx) {
+
+        String name = ctx.identifier().getText();
+
+        AssignmentOperator operator = AssignmentOperatorMapper.getAssignmentOperator(
+                ctx.assignmentOperator().getText()
+        );
+
+        ExpressionNode expressionNode =
+                (ExpressionNode) visitExpression(ctx.expression());
+
+        return new PrimitiveVariableAssignmentStatementNode(name, operator, expressionNode);
+    }
+
+    @Override
+    public ASTNode visitArrayVariableAssignment(ArrayVariableAssignmentContext ctx) {
+        System.out.println(ctx.getText());
+        String name = ctx.arrayAccess().identifier().getText();
+
+        AssignmentOperator operator = AssignmentOperatorMapper.getAssignmentOperator(
+                ctx.assignmentOperator().getText()
+        );
+
+        ExpressionNode expressionNode =
+                (ExpressionNode) visitExpression(ctx.expression());
+
+        return new ArrayVariableAssignmentStatementNode(name, operator, expressionNode);
     }
 
     @Override
