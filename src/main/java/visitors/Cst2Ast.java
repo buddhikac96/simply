@@ -2,13 +2,32 @@ package visitors;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
-import ast.*;
+import ast.ASTNode;
+import ast.ArgNode;
 import ast.ArithmeticExpressionNode.*;
-import ast.FunctionDeclarationNode.FunctionArgumentNode;
+import ast.ArrayAccessExpressionNode;
+import ast.ArrayInitializationNode;
+import ast.ArrayVariableDeclarationNode;
+import ast.BlockNode;
+import ast.CompilationUnitNode;
+import ast.EmptyArrayInitializationNode;
+import ast.ExpressionNode;
+import ast.FunctionCallExpressionNode;
+import ast.FunctionCallStatementNode;
+import ast.FunctionDeclarationNode;
 import ast.FunctionDeclarationNode.FunctionSignatureNode;
+import ast.IdentifierExpressionNode;
+import ast.IfStatementNode;
 import ast.IfStatementNode.ElseBlockNode;
 import ast.IfStatementNode.IfBlockNode;
+import ast.IterateStatementNode;
 import ast.IterateStatementNode.IterateConditionExpressionNode;
+import ast.LibImportNode;
+import ast.LiteralExpressionNode;
+import ast.NonEmptyArrayInitializationNode;
+import ast.PrimitiveVariableDeclarationNode;
+import ast.StatementNode;
+import ast.VariableDeclarationNode;
 import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
 import ast.util.enums.AssignmentOperator;
@@ -17,7 +36,8 @@ import ast.util.enums.DataType;
 import java.util.HashSet;
 import java.util.List;
 
-import static ast.AssignmentStatementNode.*;
+import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
+import static ast.AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 
@@ -256,28 +276,8 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         } else if (ctx instanceof FunctionCallExpressionContext) {
 
-            FunctionCallExpressionContext funcCallCtx =
-                    (FunctionCallExpressionContext) ctx;
+            return visitFunctionCallExpression((FunctionCallExpressionContext) ctx);
 
-            String libRef = "";
-
-            if (funcCallCtx.funcCall().libRef() != null) {
-                libRef = funcCallCtx.funcCall().libRef().getText();
-            }
-
-            String funcName = funcCallCtx.funcCall().identifier().getText();
-
-            FunctionCallExpressionNode functionCallExpressionNode = new FunctionCallExpressionNode(libRef, funcName);
-
-            for (int i = 0; i < funcCallCtx.funcCall().funcCallParamList().expression().size(); i++) {
-                functionCallExpressionNode.addParameter(
-                        (ExpressionNode) visitExpression(
-                                funcCallCtx.funcCall().funcCallParamList().expression(i)
-                        )
-                );
-            }
-
-            return functionCallExpressionNode;
 
         } else if (ctx instanceof LiteralExpressionContext) {
 
@@ -425,7 +425,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         for (ArgContext argContext : argContextList) {
             functionSignatureNode.addArguments(
-                    (FunctionArgumentNode) visitArg(argContext)
+                    (ArgNode) visitArg(argContext)
             );
         }
 
@@ -628,7 +628,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
             return null;
         }
     }
-    
+
     @Override
     public ASTNode visitPrimitiveVariableAssignment(PrimitiveVariableAssignmentContext ctx) {
 
@@ -661,8 +661,41 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitFuncCallStatementRule(FuncCallStatementRuleContext ctx) {
-        return super.visitFuncCallStatementRule(ctx);
+        FunctionCallExpressionNode functionCallExpressionNode = (FunctionCallExpressionNode)
+                visitFuncCall(ctx.funcCallStatement().funcCall());
+
+        return new FunctionCallStatementNode(functionCallExpressionNode);
     }
+
+    @Override
+    public ASTNode visitFunctionCallExpression(FunctionCallExpressionContext ctx) {
+        return visitFuncCall(ctx.funcCall());
+    }
+
+    @Override
+    public ASTNode visitFuncCall(FuncCallContext ctx) {
+        String funcName = ctx.identifier().getText();
+
+        List<ExpressionContext> paramList = ctx.funcCallParamList().expression();
+
+        FunctionCallExpressionNode functionCallExpressionNode;
+
+        if(ctx.libRef() != null){
+            String libRef = ctx.libRef().getText();
+            functionCallExpressionNode = new FunctionCallExpressionNode(libRef,funcName);
+        }else{
+            functionCallExpressionNode = new FunctionCallExpressionNode(funcName);
+        }
+
+        for (ExpressionContext param : paramList) {
+            ExpressionNode expressionNode = (ExpressionNode) visitExpression(param);
+            functionCallExpressionNode.addParameter(expressionNode);
+        }
+
+        return functionCallExpressionNode;
+    }
+
+
 
     @Override
     public ASTNode visitReturnStatemtntRule(ReturnStatemtntRuleContext ctx) {

@@ -14,6 +14,11 @@ public class FunctionCallExpressionNode extends ExpressionNode {
         this.parameterList = new ArrayList<>();
     }
 
+    public FunctionCallExpressionNode(String funcName) {
+        this.funcName = funcName;
+        this.parameterList = new ArrayList<>();
+    }
+
     public void addParameter(ExpressionNode expressionNode) {
         this.parameterList.add(expressionNode);
     }

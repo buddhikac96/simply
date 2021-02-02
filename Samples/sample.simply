@@ -1,5 +1,9 @@
 function main() : void {
+    int a = add(1,2);
 
+    add();
+}
 
+function add(int a, int b) : int {
 
 }
