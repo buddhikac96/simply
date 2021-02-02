@@ -1,9 +1,53 @@
-function main() : void {
-    int a = add(1,2);
+get math;
+get io;
 
-    add();
+global int a = 5;
+global list int arr = [1,2,3];
+global const float PI = 3.14;
+
+function main() : void {
+    int age = 18;
+
+    check(age > 18) {
+        print("can vote");
+    }otherwise{
+        print("cant vote");
+    }
+
+    int x = 5;
+    int y = 10;
+
+    int total = add(a, b);
 }
 
 function add(int a, int b) : int {
+    int total = a + b;
+    send total;
+}
+
+function printNumbers(int n) : void {
+    iterate(int i from i to n){
+        print(i);
+    }
+
+    list int arr = [1,2,3,4,5];
+    arr[2] = 10;
+
+    iterate(int i of arr){
+        print(i);
+    }
+
+    int j = 0;
+
+    iterate(j < 10){
+        print(j);
+        j = j + 1;
+
+        check(j == 5){
+            continue;
+        }otherwise check(j == 7){
+            break;
+        }
+    }
 
 }
