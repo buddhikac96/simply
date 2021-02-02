@@ -12,6 +12,7 @@ import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
 import ast.util.enums.AssignmentOperator;
 import ast.util.enums.DataType;
+import ast.util.enums.LoopControlOperator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -687,16 +688,26 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitVariableDeclarationStatementRule(VariableDeclarationStatementRuleContext ctx) {
-        return super.visitVariableDeclarationStatementRule(ctx);
+        return visitVariableDeclaration(ctx.variableDeclaration());
     }
 
     @Override
     public ASTNode visitConstantDeclarationStatementRule(ConstantDeclarationStatementRuleContext ctx) {
-        return super.visitConstantDeclarationStatementRule(ctx);
+        return visitConstantDeclaration(ctx.constantDeclaration());
     }
 
     @Override
     public ASTNode visitLoopControlStatementRule(LoopControlStatementRuleContext ctx) {
-        return super.visitLoopControlStatementRule(ctx);
+
+        String loopControlOperator = ctx.loopControlStatement().getText();
+
+        if(loopControlOperator.equals("continue")){
+            return new LoopControlStatementNode(LoopControlOperator.Continue);
+        }else if(loopControlOperator.equals("break")){
+            return new LoopControlStatementNode(LoopControlOperator.Break);
+        }else{
+            return null;
+        }
+        
     }
 }
