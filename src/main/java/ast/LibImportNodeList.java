@@ -1,10 +1,9 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LibImportNodeList extends ASTNode {
 
@@ -21,16 +20,12 @@ public class LibImportNodeList extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return this.libImportNodes.stream().map(node -> (ASTNode)node).collect(Collectors.toCollection(
-                ArrayList<ASTNode>::new
-        ));
+        return new ArrayList<ASTNode>(this.libImportNodes);
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
-        for(ASTNode node : this.getChildren()){
-            node.accept(visitor);
-        }
+    public void accept(BaseAstVisitor visitor) {
+        this.getChildren().forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }

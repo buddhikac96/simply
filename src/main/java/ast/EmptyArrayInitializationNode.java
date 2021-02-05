@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class EmptyArrayInitializationNode extends ArrayInitializationNode {
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
+    public void accept(BaseAstVisitor visitor) {
 
     }
 }

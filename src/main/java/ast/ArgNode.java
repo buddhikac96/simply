@@ -1,7 +1,8 @@
 package ast;
 
 import ast.util.enums.DataType;
-import visitors.AstVisitor;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
@@ -32,11 +33,11 @@ public class ArgNode extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
-
+    public void accept(BaseAstVisitor visitor) {
+        visitor.visit(this);
     }
 }

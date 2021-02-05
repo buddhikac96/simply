@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +23,12 @@ public class FunctionDeclarationNodeList extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<ASTNode>(this.functionDeclarationNodes);
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
-
+    public void accept(BaseAstVisitor visitor) {
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }

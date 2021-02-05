@@ -1,11 +1,12 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LibImportNode extends ASTNode {
-    String LibName;
+    private String LibName;
 
     public LibImportNode(String libName) {
         LibName = libName;
@@ -17,11 +18,11 @@ public class LibImportNode extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
-
+    public void accept(BaseAstVisitor visitor) {
+        visitor.visit(this);
     }
 }

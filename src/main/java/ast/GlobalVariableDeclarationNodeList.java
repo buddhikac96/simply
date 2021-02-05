@@ -1,10 +1,9 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GlobalVariableDeclarationNodeList extends ASTNode {
 
@@ -24,14 +23,14 @@ public class GlobalVariableDeclarationNodeList extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return this.variableDeclarationNodes.stream().map(node -> (ASTNode)node).collect(Collectors.toCollection(
-                ArrayList<ASTNode>::new
-        ));
+
+        return new ArrayList<>(this.variableDeclarationNodes);
+
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
-        this.getChildren().forEach(node -> accept(visitor));
+    public void accept(BaseAstVisitor visitor) {
+        this.getChildren().forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }

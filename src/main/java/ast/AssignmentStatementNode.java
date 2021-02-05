@@ -1,7 +1,7 @@
 package ast;
 
 import ast.util.enums.AssignmentOperator;
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public abstract class AssignmentStatementNode extends StatementNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -68,7 +68,7 @@ public abstract class AssignmentStatementNode extends StatementNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }

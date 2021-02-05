@@ -302,7 +302,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
                         );
 
                 LOGGER.info("IntegerLiteralExpression created");
-                return new IntegerLiteralExpression(value);
+                return new IntegerLiteralExpressionNode(value);
 
             } else if (literalContext instanceof FloatLiteralContext) {
 
@@ -312,7 +312,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
                         );
 
                 LOGGER.info("FloatLiteralExpression created");
-                return new FloatLiteralExpression(value);
+                return new FloatLiteralExpressionNode(value);
 
             } else if (literalContext instanceof CharLiteralContext) {
 
@@ -320,7 +320,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
                         ((CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
 
                 LOGGER.info("CharLiteralExpression created");
-                return new CharLiteralExpression(value);
+                return new CharLiteralExpressionNode(value);
 
             } else if (literalContext instanceof StringLiteralContext) {
 
@@ -328,7 +328,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
                         ((StringLiteralContext) literalContext).StringLiteral().getText();
 
                 LOGGER.info("StringLiteralExpression created");
-                return new StringLiteralExpression(value);
+                return new StringLiteralExpressionNode(value);
 
             } else {
 
@@ -338,7 +338,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
                         );
 
                 LOGGER.info("BoolLiteralExpression created");
-                return new BoolLiteralExpression(value);
+                return new BoolLiteralExpressionNode(value);
             }
 
         } else if (ctx instanceof VariableAccessExpressionContext) {

@@ -33,6 +33,13 @@ public class MainAppDemo {
         Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
 
+
+
+        TestAstVisitor testAstVisitor = new TestAstVisitor();
+        ast.accept(testAstVisitor);
+
+
+
         //TreeDemo treeDemo = new TreeDemo();
         //treeDemo.setRoot(ast);
 

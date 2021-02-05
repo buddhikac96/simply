@@ -1,14 +1,15 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
 public abstract class LiteralExpressionNode extends ExpressionNode {
-    public static class IntegerLiteralExpression extends LiteralExpressionNode {
+
+    public static class IntegerLiteralExpressionNode extends LiteralExpressionNode {
         private int value;
 
-        public IntegerLiteralExpression(int value) {
+        public IntegerLiteralExpressionNode(int value) {
             this.value = value;
         }
 
@@ -26,15 +27,15 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
 
-    public static class FloatLiteralExpression extends LiteralExpressionNode {
+    public static class FloatLiteralExpressionNode extends LiteralExpressionNode {
         private float value;
 
-        public FloatLiteralExpression(float value) {
+        public FloatLiteralExpressionNode(float value) {
             this.value = value;
         }
 
@@ -52,15 +53,15 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
 
-    public static class CharLiteralExpression extends LiteralExpressionNode {
+    public static class CharLiteralExpressionNode extends LiteralExpressionNode {
         private char value;
 
-        public CharLiteralExpression(char value) {
+        public CharLiteralExpressionNode(char value) {
             this.value = value;
         }
 
@@ -78,15 +79,15 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
 
-    public static class StringLiteralExpression extends LiteralExpressionNode {
+    public static class StringLiteralExpressionNode extends LiteralExpressionNode {
         private String value;
 
-        public StringLiteralExpression(String value) {
+        public StringLiteralExpressionNode(String value) {
             this.value = value;
         }
 
@@ -104,15 +105,15 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
 
-    public static class BoolLiteralExpression extends LiteralExpressionNode {
+    public static class BoolLiteralExpressionNode extends LiteralExpressionNode {
         private boolean value = false;
 
-        public BoolLiteralExpression(boolean value) {
+        public BoolLiteralExpressionNode(boolean value) {
             this.value = value;
         }
 
@@ -130,7 +131,7 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }

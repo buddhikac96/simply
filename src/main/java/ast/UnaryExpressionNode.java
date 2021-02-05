@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -37,7 +37,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -55,15 +55,15 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
 
-    public static class PrefixNotExpression extends ExpressionNode{
+    public static class PrefixNotExpressionNode extends ExpressionNode{
         ExpressionNode expressionNode;
 
-        public PrefixNotExpression(ExpressionNode expressionNode) {
+        public PrefixNotExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
         }
 
@@ -73,7 +73,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }

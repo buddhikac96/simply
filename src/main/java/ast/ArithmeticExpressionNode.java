@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -42,7 +42,7 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -62,7 +62,7 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -82,7 +82,7 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }
@@ -102,7 +102,7 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(AstVisitor visitor) {
+        public void accept(BaseAstVisitor visitor) {
 
         }
     }

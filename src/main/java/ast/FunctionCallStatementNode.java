@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class FunctionCallStatementNode extends StatementNode {
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
+    public void accept(BaseAstVisitor visitor) {
 
     }
 }

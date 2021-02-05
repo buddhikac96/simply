@@ -1,6 +1,6 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class CompilationUnitNode extends ASTNode {
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
+    public void accept(BaseAstVisitor visitor) {
         for(ASTNode node : this.getChildren()){
             node.accept(visitor);
         }

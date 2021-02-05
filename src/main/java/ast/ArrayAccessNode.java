@@ -1,13 +1,13 @@
 package ast;
 
-import visitors.AstVisitor;
+import visitors.BaseAstVisitor;
 
 import java.util.List;
 
-public class ArrayAccess extends ASTNode {
+public class ArrayAccessNode extends ASTNode {
     ExpressionNode expressionNode;
 
-    public ArrayAccess(ExpressionNode expressionNode) {
+    public ArrayAccessNode(ExpressionNode expressionNode) {
         this.expressionNode = expressionNode;
     }
 
@@ -17,7 +17,7 @@ public class ArrayAccess extends ASTNode {
     }
 
     @Override
-    public void accept(AstVisitor visitor) {
+    public void accept(BaseAstVisitor visitor) {
 
     }
 }
