@@ -1,6 +1,9 @@
 package ast;
 
 import ast.util.enums.DataType;
+import visitors.AstVisitor;
+
+import java.util.List;
 
 public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
     boolean isConst;
@@ -28,5 +31,15 @@ public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
     @Override
     public String getName() {
         return this.varName;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 }

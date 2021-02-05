@@ -1,6 +1,9 @@
 package ast;
 
 import ast.util.enums.AssignmentOperator;
+import visitors.AstVisitor;
+
+import java.util.List;
 
 public abstract class AssignmentStatementNode extends StatementNode {
 
@@ -18,14 +21,6 @@ public abstract class AssignmentStatementNode extends StatementNode {
             this.value = value;
         }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
         public AssignmentOperator getAssignmentOperator() {
             return assignmentOperator;
         }
@@ -34,12 +29,14 @@ public abstract class AssignmentStatementNode extends StatementNode {
             this.assignmentOperator = assignmentOperator;
         }
 
-        public ExpressionNode getValue() {
-            return value;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setValue(ExpressionNode value) {
-            this.value = value;
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -57,14 +54,6 @@ public abstract class AssignmentStatementNode extends StatementNode {
             this.value = value;
         }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
         public AssignmentOperator getAssignmentOperator() {
             return assignmentOperator;
         }
@@ -73,12 +62,14 @@ public abstract class AssignmentStatementNode extends StatementNode {
             this.assignmentOperator = assignmentOperator;
         }
 
-        public ExpressionNode getValue() {
-            return value;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setValue(ExpressionNode value) {
-            this.value = value;
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 

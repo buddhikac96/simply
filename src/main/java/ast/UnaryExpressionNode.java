@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public abstract class UnaryExpressionNode extends ExpressionNode {
 
     public static class ParenExpressionNode extends ExpressionNode {
@@ -7,6 +11,16 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         public ParenExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -16,6 +30,16 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         public PrefixPlusExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class PrefixMinusExpressionNode extends ExpressionNode{
@@ -24,6 +48,16 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         public PrefixMinusExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class PrefixNotExpression extends ExpressionNode{
@@ -31,6 +65,16 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         public PrefixNotExpression(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 }

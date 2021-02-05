@@ -1,7 +1,10 @@
 package ast;
 
+import visitors.AstVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LibImportNodeList extends ASTNode {
 
@@ -15,7 +18,19 @@ public class LibImportNodeList extends ASTNode {
         this.libImportNodes.add(libImportNode);
     }
 
-    public List<LibImportNode> getLibImportNodes() {
-        return libImportNodes;
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return this.libImportNodes.stream().map(node -> (ASTNode)node).collect(Collectors.toCollection(
+                ArrayList<ASTNode>::new
+        ));
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+        for(ASTNode node : this.getChildren()){
+            node.accept(visitor);
+        }
+        visitor.visit(this);
     }
 }

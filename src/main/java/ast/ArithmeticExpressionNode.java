@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class AdditionExpressionNode extends ArithmeticExpressionNode {
@@ -11,20 +15,15 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.right = right;
         }
 
-        public ExpressionNode getLeft() {
-            return left;
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setLeft(ExpressionNode left) {
-            this.left = left;
-        }
+        @Override
+        public void accept(AstVisitor visitor) {
 
-        public ExpressionNode getRight() {
-            return right;
-        }
-
-        public void setRight(ExpressionNode right) {
-            this.right = right;
         }
     }
 
@@ -37,20 +36,14 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.right = right;
         }
 
-        public ExpressionNode getLeft() {
-            return left;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setLeft(ExpressionNode left) {
-            this.left = left;
-        }
+        @Override
+        public void accept(AstVisitor visitor) {
 
-        public ExpressionNode getRight() {
-            return right;
-        }
-
-        public void setRight(ExpressionNode right) {
-            this.right = right;
         }
     }
 
@@ -63,20 +56,14 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.right = right;
         }
 
-        public ExpressionNode getLeft() {
-            return left;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setLeft(ExpressionNode left) {
-            this.left = left;
-        }
+        @Override
+        public void accept(AstVisitor visitor) {
 
-        public ExpressionNode getRight() {
-            return right;
-        }
-
-        public void setRight(ExpressionNode right) {
-            this.right = right;
         }
     }
 
@@ -89,20 +76,14 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.right = right;
         }
 
-        public ExpressionNode getLeft() {
-            return left;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setLeft(ExpressionNode left) {
-            this.left = left;
-        }
+        @Override
+        public void accept(AstVisitor visitor) {
 
-        public ExpressionNode getRight() {
-            return right;
-        }
-
-        public void setRight(ExpressionNode right) {
-            this.right = right;
         }
     }
 
@@ -115,20 +96,14 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.right = right;
         }
 
-        public ExpressionNode getLeft() {
-            return left;
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
         }
 
-        public void setLeft(ExpressionNode left) {
-            this.left = left;
-        }
+        @Override
+        public void accept(AstVisitor visitor) {
 
-        public ExpressionNode getRight() {
-            return right;
-        }
-
-        public void setRight(ExpressionNode right) {
-            this.right = right;
         }
     }
 }

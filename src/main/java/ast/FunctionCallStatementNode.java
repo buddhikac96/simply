@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public class FunctionCallStatementNode extends StatementNode {
     FunctionCallExpressionNode functionCallExpressionNode;
 
@@ -13,5 +17,15 @@ public class FunctionCallStatementNode extends StatementNode {
 
     public void setFunctionCallExpressionNode(FunctionCallExpressionNode functionCallExpressionNode) {
         this.functionCallExpressionNode = functionCallExpressionNode;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 }

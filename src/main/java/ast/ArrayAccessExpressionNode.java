@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public class ArrayAccessExpressionNode extends ExpressionNode {
     private String arrayName;
     private ExpressionNode accessValueExpression;
@@ -23,5 +27,15 @@ public class ArrayAccessExpressionNode extends ExpressionNode {
 
     public void setAccessValueExpression(ExpressionNode accessValueExpression) {
         this.accessValueExpression = accessValueExpression;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 }

@@ -1,5 +1,7 @@
 package ast;
 
+import visitors.AstVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,15 @@ public class IfStatementNode extends StatementNode {
         this.elseBlockNode = elseBlockNode;
     }
 
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
 
+    @Override
+    public void accept(AstVisitor visitor) {
+
+    }
 
 
     // If block node AST class
@@ -71,6 +81,16 @@ public class IfStatementNode extends StatementNode {
         public void setBlockNode(BlockNode blockNode) {
             this.blockNode = blockNode;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
 
@@ -90,6 +110,16 @@ public class IfStatementNode extends StatementNode {
 
         public void setBlockNode(BlockNode blockNode) {
             this.blockNode = blockNode;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 }

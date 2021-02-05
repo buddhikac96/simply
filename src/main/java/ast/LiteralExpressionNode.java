@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public abstract class LiteralExpressionNode extends ExpressionNode {
     public static class IntegerLiteralExpression extends LiteralExpressionNode {
         private int value;
@@ -14,6 +18,16 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         public void setValue(int value) {
             this.value = value;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -31,6 +45,16 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         public void setValue(float value) {
             this.value = value;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class CharLiteralExpression extends LiteralExpressionNode {
@@ -46,6 +70,16 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         public void setValue(char value) {
             this.value = value;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -63,6 +97,16 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         public void setValue(String value) {
             this.value = value;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class BoolLiteralExpression extends LiteralExpressionNode {
@@ -78,6 +122,16 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         public void setValue(boolean value) {
             this.value = value;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 }

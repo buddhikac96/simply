@@ -1,6 +1,7 @@
 package ast;
 
 import ast.util.enums.DataType;
+import visitors.AstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,16 @@ public class FunctionDeclarationNode extends ASTNode {
         this.functionBody = functionBody;
     }
 
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
+    }
+
 
     // Function Signature AST Node class
     public static class FunctionSignatureNode extends ASTNode{
@@ -69,6 +80,16 @@ public class FunctionDeclarationNode extends ASTNode {
 
         public List<ArgNode> getFunctionArgumentNodeList() {
             return functionArgumentNodeList;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 }

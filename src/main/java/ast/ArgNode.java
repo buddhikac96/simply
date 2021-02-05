@@ -1,6 +1,9 @@
 package ast;
 
 import ast.util.enums.DataType;
+import visitors.AstVisitor;
+
+import java.util.List;
 
 public class ArgNode extends ASTNode {
     private DataType dataType;
@@ -25,5 +28,15 @@ public class ArgNode extends ASTNode {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 }

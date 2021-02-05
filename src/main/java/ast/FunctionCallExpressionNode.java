@@ -1,5 +1,7 @@
 package ast;
 
+import visitors.AstVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,16 @@ public class FunctionCallExpressionNode extends ExpressionNode {
 
     public void addParameter(ExpressionNode expressionNode) {
         this.parameterList.add(expressionNode);
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 }
 

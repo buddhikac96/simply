@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public class IterateStatementNode extends StatementNode{
     IterateConditionExpressionNode iterateConditionExpressionNode;
     BlockNode blockNode;
@@ -7,6 +11,16 @@ public class IterateStatementNode extends StatementNode{
     public IterateStatementNode(IterateConditionExpressionNode iterateConditionExpressionNode, BlockNode blockNode) {
         this.iterateConditionExpressionNode = iterateConditionExpressionNode;
         this.blockNode = blockNode;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(AstVisitor visitor) {
+
     }
 
 
@@ -17,6 +31,16 @@ public class IterateStatementNode extends StatementNode{
 
             public BooleanIterateExpressionNode(ExpressionNode expressionNode) {
                 this.expressionNode = expressionNode;
+            }
+
+            @Override
+            public List<ASTNode> getChildren() {
+                return null;
+            }
+
+            @Override
+            public void accept(AstVisitor visitor) {
+
             }
         }
 
@@ -30,6 +54,16 @@ public class IterateStatementNode extends StatementNode{
                 this.fromValue = fromValue;
                 this.toValue = toValue;
             }
+
+            @Override
+            public List<ASTNode> getChildren() {
+                return null;
+            }
+
+            @Override
+            public void accept(AstVisitor visitor) {
+
+            }
         }
 
         public static class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
@@ -39,6 +73,16 @@ public class IterateStatementNode extends StatementNode{
             public ArrayIterateExpressionNode(ArgNode variableDeclaration, ExpressionNode expressionNode) {
                 this.variableDeclaration = variableDeclaration;
                 this.expressionNode = expressionNode;
+            }
+
+            @Override
+            public List<ASTNode> getChildren() {
+                return null;
+            }
+
+            @Override
+            public void accept(AstVisitor visitor) {
+
             }
         }
     }

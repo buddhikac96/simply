@@ -1,5 +1,9 @@
 package ast;
 
+import visitors.AstVisitor;
+
+import java.util.List;
+
 public abstract class LogicExpressionNode extends ExpressionNode {
     public static class OrExpressionNode extends LogicExpressionNode {
         ExpressionNode left;
@@ -8,6 +12,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public OrExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
             this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -19,6 +33,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.left = left;
             this.right = right;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class GreaterThanExpressionNode extends LogicExpressionNode {
@@ -28,6 +52,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public GreaterThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
             this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -39,6 +73,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.left = left;
             this.right = right;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class GreaterOrEqualThanExpressionNode extends LogicExpressionNode {
@@ -48,6 +92,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public GreaterOrEqualThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
             this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 
@@ -59,6 +113,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.left = left;
             this.right = right;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class EqualsExpressionNode extends LogicExpressionNode {
@@ -69,6 +133,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.left = left;
             this.right = right;
         }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
+        }
     }
 
     public static class NotEqualsExpressionNode extends LogicExpressionNode {
@@ -78,6 +152,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public NotEqualsExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
             this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(AstVisitor visitor) {
+
         }
     }
 }
