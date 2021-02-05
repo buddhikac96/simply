@@ -43,17 +43,20 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         //visit lib imports
         for (LibImportContext libImportContext : ctx.libImport()) {
-            visitLibImport(libImportContext);
+            LibImportNode libImportNode = visitLibImport(libImportContext);
+            this.compilationUnitNode.addLibImportNode(libImportNode);
         }
 
         //visit var declarations
         for (GlobalVariableDeclarationContext globalVariableDeclarationContext : ctx.globalVariableDeclaration()) {
-            visitGlobalVariableDeclaration(globalVariableDeclarationContext);
+            VariableDeclarationNode variableDeclarationNode = visitGlobalVariableDeclaration(globalVariableDeclarationContext);
+            this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
         }
 
         //visit function declarations
         for (FunctionDeclarationContext functionDeclarationContext : ctx.functionDeclaration()) {
-            visitFunctionDeclaration(functionDeclarationContext);
+            FunctionDeclarationNode functionDeclarationNode = visitFunctionDeclaration(functionDeclarationContext);
+            this.compilationUnitNode.addFunctionDeclarationNode(functionDeclarationNode);
         }
 
         LOGGER.info("CompilationUnitNode created");
@@ -65,7 +68,6 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
     public LibImportNode visitLibImport(LibImportContext ctx) {
         String name = ctx.identifier().getText();
         LibImportNode libImportNode = new LibImportNode(name);
-        this.compilationUnitNode.addLibImportNode(libImportNode);
 
         LOGGER.info("LibImportNode created");
         return libImportNode;
@@ -92,7 +94,6 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         }
 
         this.globalVariableSymbolTable.add(variableDeclarationNode.getName());
-        this.compilationUnitNode.addGlobalVariableDeclarationNode(variableDeclarationNode);
 
         LOGGER.info("VariableDeclarationNode created");
         return variableDeclarationNode;

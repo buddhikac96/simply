@@ -1,28 +1,26 @@
 package ast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CompilationUnitNode extends ASTNode {
-    public List<LibImportNode> libImportNodeList;
-    public List<VariableDeclarationNode> globalVariableDeclarationNodeList;
-    public List<FunctionDeclarationNode> functionDeclarationNodes;
+
+    private final LibImportNodeList libImportNodeList;
+    private final GlobalVariableNodeList globalVariableNodeList;
+    private final FunctionDeclarationNodeList functionDeclarationNodeList;
 
     public CompilationUnitNode() {
-        this.libImportNodeList = new ArrayList<>();
-        this.globalVariableDeclarationNodeList = new ArrayList<>();
-        this.functionDeclarationNodes = new ArrayList<>();
+        this.libImportNodeList = new LibImportNodeList();
+        this.globalVariableNodeList = new GlobalVariableNodeList();
+        this.functionDeclarationNodeList = new FunctionDeclarationNodeList();
     }
 
     public void addLibImportNode(LibImportNode libImportNode){
-        this.libImportNodeList.add(libImportNode);
+        this.libImportNodeList.addNode(libImportNode);
     }
 
     public void addGlobalVariableDeclarationNode(VariableDeclarationNode variableDeclarationNode){
-        this.globalVariableDeclarationNodeList.add(variableDeclarationNode);
+        this.globalVariableNodeList.addNode(variableDeclarationNode);
     }
 
     public void addFunctionDeclarationNode(FunctionDeclarationNode functionDeclarationNode){
-        this.functionDeclarationNodes.add(functionDeclarationNode);
+        this.functionDeclarationNodeList.addNode(functionDeclarationNode);
     }
 }
