@@ -6,6 +6,7 @@ import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.LibImportNode;
 import ast.VariableDeclarationNode;
+import ast.gui.TreeDemo;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -31,6 +32,9 @@ public class AstVisitor {
 
         Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
+
+        //TreeDemo treeDemo = new TreeDemo();
+        //treeDemo.setRoot(ast);
 
         /*System.out.println(ast.libImportNodeList.size());
         System.out.println(ast.globalVariableDeclarationNodeList.size());
