@@ -2,12 +2,35 @@ package visitors;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
-import ast.*;
+import ast.ASTNode;
+import ast.ArgNode;
 import ast.ArithmeticExpressionNode.*;
+import ast.ArrayAccessExpressionNode;
+import ast.ArrayInitializationNode;
+import ast.ArrayVariableDeclarationNode;
+import ast.AssignmentStatementNode;
+import ast.BlockNode;
+import ast.CompilationUnitNode;
+import ast.EmptyArrayInitializationNode;
+import ast.ExpressionNode;
+import ast.FunctionCallExpressionNode;
+import ast.FunctionCallStatementNode;
+import ast.FunctionDeclarationNode;
 import ast.FunctionDeclarationNode.FunctionSignatureNode;
+import ast.IdentifierExpressionNode;
+import ast.IfStatementNode;
 import ast.IfStatementNode.ElseBlockNode;
 import ast.IfStatementNode.IfBlockNode;
+import ast.IterateStatementNode;
 import ast.IterateStatementNode.IterateConditionExpressionNode;
+import ast.LibImportNode;
+import ast.LiteralExpressionNode;
+import ast.LoopControlStatementNode;
+import ast.NonEmptyArrayInitializationNode;
+import ast.PrimitiveVariableDeclarationNode;
+import ast.ReturnStatementNode;
+import ast.StatementNode;
+import ast.VariableDeclarationNode;
 import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
 import ast.util.enums.AssignmentOperator;
@@ -16,6 +39,7 @@ import ast.util.enums.LoopControlOperator;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
 import static ast.AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode;
@@ -51,7 +75,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         for (FunctionDeclarationContext functionDeclarationContext : ctx.functionDeclaration()) {
             visitFunctionDeclaration(functionDeclarationContext);
         }
-
+        
         return this.compilationUnitNode;
 
     }
@@ -69,13 +93,15 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         VariableDeclarationNode variableDeclarationNode;
 
-        if (ctx.variableDeclaration() != null) {
-            variableDeclarationNode =
-                    visitVariableDeclaration(ctx.variableDeclaration());
-        } else {
-            variableDeclarationNode =
-                    visitConstantDeclaration(ctx.constantDeclaration());
+        if(ctx.elementDeclaration() instanceof VariableDeclarationRuleContext){
+            variableDeclarationNode = visitVariableDeclaration(((VariableDeclarationRuleContext) ctx
+                    .elementDeclaration()).variableDeclaration());
+        }else{
+            // instance of ConstantDeclarationRuleContext
+            variableDeclarationNode = visitConstantDeclaration(((ConstantDeclarationRuleContext) ctx
+                    .elementDeclaration()).constantDeclaration());
         }
+
 
         // Check whether variable already exist
         if (this.globalVariableSymbolTable.contains(variableDeclarationNode.getName())) {
@@ -306,8 +332,8 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             return new IdentifierExpressionNode(name);
 
-        } else if (ctx instanceof ArrayAccessExpressionContext) {
-
+        } else{
+            // instance of ArrayAccessExpressionContext
             String name = ((ArrayAccessExpressionContext) ctx)
                     .arrayAccess().identifier().Identifier().getText();
 
@@ -317,8 +343,6 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
             return new ArrayAccessExpressionNode(name, expressionNode);
 
         }
-
-        return null;
     }
 
     @Override

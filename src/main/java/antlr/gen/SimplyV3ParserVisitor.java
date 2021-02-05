@@ -37,6 +37,20 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code variableDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclarationRule(SimplyV3Parser.VariableDeclarationRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code constantDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantDeclarationRule(SimplyV3Parser.ConstantDeclarationRuleContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

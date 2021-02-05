@@ -22,9 +22,14 @@ identifier
     : Identifier
     ;
 
-
+// TODO: Write seperate rules for global constant and global variable
 globalVariableDeclaration
-    : GLOBAL (variableDeclaration | constantDeclaration)
+    : GLOBAL elementDeclaration
+    ;
+
+elementDeclaration
+    : variableDeclaration           # variableDeclarationRule
+    | constantDeclaration           # constantDeclarationRule
     ;
 
 // variable declaration
@@ -82,6 +87,7 @@ logicExpression
     ;
 
 // Unary expressions
+// TODO: remove prefix plus expression
 unaryExpression
     : LPAREN expression RPAREN      # parenExpression
     | ADD expression                # prefixPlusExpression

@@ -66,6 +66,30 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVariableDeclarationRule(SimplyV3Parser.VariableDeclarationRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableDeclarationRule(SimplyV3Parser.VariableDeclarationRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstantDeclarationRule(SimplyV3Parser.ConstantDeclarationRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstantDeclarationRule(SimplyV3Parser.ConstantDeclarationRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVariableDeclaration(SimplyV3Parser.VariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -50,6 +50,30 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitGlobalVariableDeclaration(SimplyV3Parser.GlobalVariableDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code variableDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclarationRule(SimplyV3Parser.VariableDeclarationRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code variableDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclarationRule(SimplyV3Parser.VariableDeclarationRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code constantDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstantDeclarationRule(SimplyV3Parser.ConstantDeclarationRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code constantDeclarationRule}
+	 * labeled alternative in {@link SimplyV3Parser#elementDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstantDeclarationRule(SimplyV3Parser.ConstantDeclarationRuleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimplyV3Parser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 */
