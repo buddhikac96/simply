@@ -346,7 +346,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
             String name = ((VariableAccessExpressionContext) ctx).identifier().getText();
 
             LOGGER.info("IdentifierExpressionNode created");
-            return new IdentifierExpressionNode(name);
+            return new IdentifierNode(name);
 
         } else{
             // instance of ArrayAccessExpressionContext

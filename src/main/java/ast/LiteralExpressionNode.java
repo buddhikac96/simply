@@ -2,6 +2,7 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class LiteralExpressionNode extends ExpressionNode {
@@ -23,12 +24,12 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>();
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            visitor.visit(this);
         }
     }
 
@@ -49,12 +50,12 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>();
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            visitor.visit(this);
         }
     }
 
@@ -75,12 +76,12 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>();
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            visitor.visit(this);
         }
     }
 
@@ -101,12 +102,12 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>();
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            visitor.visit(this);
         }
     }
 
@@ -127,12 +128,12 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>();
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            visitor.visit(this);
         }
     }
 }

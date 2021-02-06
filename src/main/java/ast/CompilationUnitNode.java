@@ -42,9 +42,7 @@ public class CompilationUnitNode extends ASTNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-        for(ASTNode node : this.getChildren()){
-            node.accept(visitor);
-        }
+        this.getChildren().forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }

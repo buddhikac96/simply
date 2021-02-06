@@ -23,9 +23,7 @@ public class GlobalVariableDeclarationNodeList extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-
         return new ArrayList<>(this.variableDeclarationNodes);
-
     }
 
     @Override

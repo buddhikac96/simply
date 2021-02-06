@@ -2,22 +2,23 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class IdentifierExpressionNode extends ExpressionNode{
+public class IdentifierNode extends ExpressionNode{
     String name;
 
-    public IdentifierExpressionNode(String name) {
+    public IdentifierNode(String name) {
         this.name = name;
     }
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        visitor.visit(this);
     }
 }

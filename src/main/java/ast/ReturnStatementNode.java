@@ -2,6 +2,7 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReturnStatementNode extends StatementNode {
@@ -13,11 +14,14 @@ public class ReturnStatementNode extends StatementNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        List<ASTNode> children = new ArrayList<>();
+        children.add(value);
+        return children;
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }

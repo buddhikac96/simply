@@ -13,7 +13,7 @@ import ast.FunctionCallStatementNode;
 import ast.FunctionDeclarationNode;
 import ast.FunctionDeclarationNodeList;
 import ast.GlobalVariableDeclarationNodeList;
-import ast.IdentifierExpressionNode;
+import ast.IdentifierNode;
 import ast.IfStatementNode;
 import ast.IterateStatementNode;
 import ast.LibImportNode;
@@ -248,7 +248,7 @@ public class TestAstVisitor extends BaseAstVisitor<String> {
     }
 
     @Override
-    public String visit(IdentifierExpressionNode node) {
+    public String visit(IdentifierNode node) {
         return null;
     }
 

@@ -2,6 +2,7 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UnaryExpressionNode extends ExpressionNode {
@@ -15,12 +16,15 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(expressionNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -33,12 +37,15 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(expressionNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -51,12 +58,15 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(expressionNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -69,12 +79,15 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(expressionNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 }

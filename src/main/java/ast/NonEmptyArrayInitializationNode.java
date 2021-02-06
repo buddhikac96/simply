@@ -18,11 +18,12 @@ public class NonEmptyArrayInitializationNode extends ArrayInitializationNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<>(this.arrayValues);
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }

@@ -47,12 +47,17 @@ public class IfStatementNode extends StatementNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        List<ASTNode> children = new ArrayList<>();
+        children.add(this.ifBlockNode);
+        children.addAll(this.elseIfBlockNodeList);
+        children.add(this.elseBlockNode);
+        return children;
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 
 
@@ -84,15 +89,18 @@ public class IfStatementNode extends StatementNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.conditionExpressionNode);
+            children.add(this.blockNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
-
 
 
 
@@ -114,14 +122,15 @@ public class IfStatementNode extends StatementNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.blockNode);
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 }
-
-

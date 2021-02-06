@@ -2,6 +2,7 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ArithmeticExpressionNode extends ExpressionNode {
@@ -18,12 +19,17 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -38,12 +44,17 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -58,12 +69,17 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -78,12 +94,17 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 
@@ -98,12 +119,17 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 }

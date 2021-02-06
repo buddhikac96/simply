@@ -18,12 +18,13 @@ public class BlockNode extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<>(this.statementNodeList);
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }
 

@@ -27,12 +27,13 @@ public class FunctionCallExpressionNode extends ExpressionNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        return new ArrayList<>(this.parameterList);
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }
 

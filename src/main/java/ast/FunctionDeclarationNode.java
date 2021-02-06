@@ -47,12 +47,17 @@ public class FunctionDeclarationNode extends ASTNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        List<ASTNode> children = new ArrayList<>();
+        children.add(this.functionSignatureNode);
+        children.add(this.functionBody);
+
+        return children;
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 
 
@@ -84,12 +89,13 @@ public class FunctionDeclarationNode extends ASTNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return null;
+            return new ArrayList<>(this.functionArgumentNodeList);
         }
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-
+            this.getChildren().forEach(node -> node.accept(visitor));
+            visitor.visit(this);
         }
     }
 }

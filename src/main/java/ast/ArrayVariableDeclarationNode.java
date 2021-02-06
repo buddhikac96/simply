@@ -3,6 +3,7 @@ package ast;
 import ast.util.enums.DataType;
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
@@ -35,11 +36,14 @@ public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        List<ASTNode> children = new ArrayList<ASTNode>();
+        children.add(this.initializationNode);
+        return children;
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().forEach(node -> node.accept(visitor));
+        visitor.visit(this);
     }
 }

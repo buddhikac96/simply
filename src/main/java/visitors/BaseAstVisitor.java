@@ -35,7 +35,7 @@ public abstract class BaseAstVisitor<T> {
     public abstract T visit(FunctionSignatureNode node);
     public abstract T visit(FunctionDeclarationNodeList node);
     public abstract T visit(GlobalVariableDeclarationNodeList node);
-    public abstract T visit(IdentifierExpressionNode node);
+    public abstract T visit(IdentifierNode node);
     public abstract T visit(IfStatementNode node);
     public abstract T visit(ElseBlockNode node);
     public abstract T visit(IfBlockNode node);
