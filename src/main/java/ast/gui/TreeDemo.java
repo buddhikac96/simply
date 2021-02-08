@@ -1,6 +1,7 @@
 package ast.gui;
 
 import ast.ASTNode;
+import ast.CompilationUnitNode;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -10,13 +11,14 @@ import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class TreeDemo extends JPanel implements TreeSelectionListener {
     private JEditorPane htmlPane;
     private JTree tree;
     private URL helpURL;
     private static boolean DEBUG = false;
-    private ASTNode root;
+    public static CompilationUnitNode compilationUnitNode;
 
     //Optionally play with line styles.  Possible values are
     //"Angled" (the default), "Horizontal", and "None".
@@ -25,10 +27,6 @@ public class TreeDemo extends JPanel implements TreeSelectionListener {
 
     //Optionally set the look and feel.
     private static boolean useSystemLookAndFeel = false;
-
-    public void setRoot(ASTNode root) {
-        this.root = root;
-    }
 
     public TreeDemo() {
         super(new GridLayout(1,0));
@@ -142,8 +140,23 @@ public class TreeDemo extends JPanel implements TreeSelectionListener {
     }
 
     private void createNodes(DefaultMutableTreeNode top) {
-        DefaultMutableTreeNode noe = new DefaultMutableTreeNode("sldkjf");
-        top.add(noe);
+        addNodes(top, compilationUnitNode);
+    }
+
+    private void addNodes(DefaultMutableTreeNode head, ASTNode astNode){
+
+        if(astNode.getChildren().stream().filter(Objects::nonNull).count() == 0){
+            return;
+        }
+
+        astNode.getChildren().stream().filter(Objects::nonNull).forEach(node -> {
+
+            DefaultMutableTreeNode h = new DefaultMutableTreeNode(node.getClass().getName());
+            head.add(h);
+
+            addNodes(h, node);
+
+        });
     }
 
     /**
@@ -173,7 +186,7 @@ public class TreeDemo extends JPanel implements TreeSelectionListener {
         frame.setVisible(true);
     }
 
-    public void draw() {
+    public static void draw() {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

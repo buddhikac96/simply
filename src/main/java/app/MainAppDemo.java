@@ -30,29 +30,14 @@ public class MainAppDemo {
         List<String> errors = new ArrayList<>();
 
         Cst2Ast cst2Ast = new Cst2Ast(errors);
-        CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
+        CompilationUnitNode astRoot = (CompilationUnitNode) cst2Ast.visit(tree);
 
         TestAstVisitor testAstVisitor = new TestAstVisitor();
-        ast.accept(testAstVisitor);
+        astRoot.accept(testAstVisitor);
+
+        TreeDemo.compilationUnitNode = astRoot;
+        TreeDemo.draw();
 
 
-        TreeDemo treeDemo = new TreeDemo();
-        treeDemo.setRoot(ast);
-        treeDemo.draw();
-
-        /*System.out.println(ast.libImportNodeList.size());
-        System.out.println(ast.globalVariableDeclarationNodeList.size());
-
-        for(LibImportNode libImportNode : ast.libImportNodeList){
-            System.out.println(libImportNode.getLibName());
-        }
-
-        for(String error : errors){
-            System.out.println(error);
-        }*/
-
-        /*for(VariableDeclarationNode node : ast.getGlobalVariableNodeList().getVariableDeclarationNodes()){
-            System.out.println(node.getName());
-        }*/
     }
 }
