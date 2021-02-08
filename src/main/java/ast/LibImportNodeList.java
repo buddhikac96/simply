@@ -4,6 +4,8 @@ import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Objects;
 
 public class LibImportNodeList extends ASTNode {
 
@@ -25,7 +27,7 @@ public class LibImportNodeList extends ASTNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-        this.getChildren().forEach(node -> node.accept(visitor));
+        this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }

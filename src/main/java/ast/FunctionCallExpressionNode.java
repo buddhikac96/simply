@@ -4,6 +4,7 @@ import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FunctionCallExpressionNode extends ExpressionNode {
     public String libRef;
@@ -32,7 +33,7 @@ public class FunctionCallExpressionNode extends ExpressionNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-        this.getChildren().forEach(node -> node.accept(visitor));
+        this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }

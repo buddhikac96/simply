@@ -1,16 +1,14 @@
-package visitors;
+package app;
 
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
-import ast.ASTNode;
 import ast.CompilationUnitNode;
-import ast.LibImportNode;
-import ast.VariableDeclarationNode;
-import ast.gui.TreeDemo;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import visitors.Cst2Ast;
+import visitors.TestAstVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;

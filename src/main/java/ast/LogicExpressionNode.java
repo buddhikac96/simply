@@ -4,6 +4,7 @@ import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class LogicExpressionNode extends ExpressionNode {
     public static class OrExpressionNode extends LogicExpressionNode {
@@ -25,7 +26,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -49,7 +50,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -73,7 +74,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -97,7 +98,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -121,7 +122,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -145,7 +146,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -169,7 +170,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }
@@ -193,7 +194,7 @@ public abstract class LogicExpressionNode extends ExpressionNode {
 
         @Override
         public void accept(BaseAstVisitor visitor) {
-            this.getChildren().forEach(node -> node.accept(visitor));
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
     }

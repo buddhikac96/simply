@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.Objects;
 
 public class TreeDemo extends JPanel implements TreeSelectionListener {
     private JEditorPane htmlPane;

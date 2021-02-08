@@ -2,7 +2,9 @@ package ast;
 
 import visitors.BaseAstVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ArrayAccessExpressionNode extends ExpressionNode {
     private String arrayName;
@@ -31,11 +33,13 @@ public class ArrayAccessExpressionNode extends ExpressionNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return null;
+        List<ASTNode> children = new ArrayList<>();
+        children.add(accessValueExpression);
+        return children;
     }
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-
+        this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
     }
 }

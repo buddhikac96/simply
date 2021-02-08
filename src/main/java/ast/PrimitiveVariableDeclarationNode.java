@@ -5,6 +5,7 @@ import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     boolean isConst;
@@ -43,7 +44,7 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
-        this.getChildren().forEach(node -> node.accept(visitor));
+        this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }
