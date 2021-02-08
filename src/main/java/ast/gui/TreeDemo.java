@@ -2,25 +2,14 @@ package ast.gui;
 
 import ast.ASTNode;
 
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.UIManager;
-
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
-import java.net.URL;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
 import java.io.IOException;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.List;
-import java.util.Objects;
+import java.net.URL;
 
 public class TreeDemo extends JPanel implements TreeSelectionListener {
     private JEditorPane htmlPane;

@@ -5,7 +5,6 @@ import visitors.BaseAstVisitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Objects;
 
 public class IfStatementNode extends StatementNode {
     private IfBlockNode ifBlockNode;

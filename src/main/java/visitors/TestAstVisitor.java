@@ -1,27 +1,6 @@
 package visitors;
 
-import ast.ArgNode;
-import ast.ArrayAccessExpressionNode;
-import ast.ArrayAccessNode;
-import ast.ArrayInitializationNode;
-import ast.ArrayVariableDeclarationNode;
-import ast.BlockNode;
-import ast.CompilationUnitNode;
-import ast.EmptyArrayInitializationNode;
-import ast.FunctionCallExpressionNode;
-import ast.FunctionCallStatementNode;
-import ast.FunctionDeclarationNode;
-import ast.FunctionDeclarationNodeList;
-import ast.GlobalVariableDeclarationNodeList;
-import ast.IdentifierNode;
-import ast.IfStatementNode;
-import ast.IterateStatementNode;
-import ast.LibImportNode;
-import ast.LibImportNodeList;
-import ast.LoopControlStatementNode;
-import ast.NonEmptyArrayInitializationNode;
-import ast.PrimitiveVariableDeclarationNode;
-import ast.ReturnStatementNode;
+import ast.*;
 
 import static ast.ArithmeticExpressionNode.*;
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;

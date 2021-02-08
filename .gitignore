@@ -1,4 +1,5 @@
 Reference/
 .idea/
 src/main/grammar/ReferenceGrammars/
-target/
+/target/
+/out/
