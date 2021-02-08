@@ -636,11 +636,10 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         if (ctx.assignmentStatement() instanceof PrimitiveVariableAssignmentRuleContext) {
             return visitPrimitiveVariableAssignment(((PrimitiveVariableAssignmentRuleContext)
                     ctx.assignmentStatement()).primitiveVariableAssignment());
-        } else if (ctx.assignmentStatement() instanceof ArrayVariableAssignmentRuleContext) {
+        } else {
+            // instanceof ArrayVariableAssignmentRuleContext
             return visitArrayVariableAssignment(((ArrayVariableAssignmentRuleContext)
                     ctx.assignmentStatement()).arrayVariableAssignment());
-        } else {
-            return null;
         }
     }
 

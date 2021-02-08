@@ -3,6 +3,7 @@ package app;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
+import ast.gui.TreeDemo;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -31,15 +32,13 @@ public class MainAppDemo {
         Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode ast = (CompilationUnitNode) cst2Ast.visit(tree);
 
-
-
         TestAstVisitor testAstVisitor = new TestAstVisitor();
         ast.accept(testAstVisitor);
 
 
-
-        //TreeDemo treeDemo = new TreeDemo();
-        //treeDemo.setRoot(ast);
+        TreeDemo treeDemo = new TreeDemo();
+        treeDemo.setRoot(ast);
+        treeDemo.draw();
 
         /*System.out.println(ast.libImportNodeList.size());
         System.out.println(ast.globalVariableDeclarationNodeList.size());
