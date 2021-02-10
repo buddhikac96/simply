@@ -151,7 +151,7 @@ public class TreeDemo extends JPanel implements TreeSelectionListener {
 
         astNode.getChildren().stream().filter(Objects::nonNull).forEach(node -> {
 
-            DefaultMutableTreeNode h = new DefaultMutableTreeNode(node.getClass().getName());
+            DefaultMutableTreeNode h = new DefaultMutableTreeNode(node.toString());
             head.add(h);
 
             addNodes(h, node);

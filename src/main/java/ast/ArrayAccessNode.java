@@ -21,6 +21,13 @@ public class ArrayAccessNode extends ASTNode {
     }
 
     @Override
+    public String toString() {
+        return "ArrayAccessNode{" +
+                "expressionNode=" + expressionNode +
+                '}';
+    }
+
+    @Override
     public void accept(BaseAstVisitor visitor) {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);

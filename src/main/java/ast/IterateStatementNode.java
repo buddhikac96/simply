@@ -29,6 +29,13 @@ public class IterateStatementNode extends StatementNode{
         visitor.visit(this);
     }
 
+    @Override
+    public String toString() {
+        return "IterateStatementNode{" +
+                "iterateConditionExpressionNode=" + iterateConditionExpressionNode +
+                ", blockNode=" + blockNode +
+                '}';
+    }
 
     public abstract static class IterateConditionExpressionNode extends ExpressionNode{
 
@@ -50,6 +57,13 @@ public class IterateStatementNode extends StatementNode{
             public void accept(BaseAstVisitor visitor) {
                 this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
                 visitor.visit(this);
+            }
+
+            @Override
+            public String toString() {
+                return "BooleanIterateExpressionNode{" +
+                        "expressionNode=" + expressionNode +
+                        '}';
             }
         }
 
@@ -78,6 +92,15 @@ public class IterateStatementNode extends StatementNode{
                 this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
                 visitor.visit(this);
             }
+
+            @Override
+            public String toString() {
+                return "RangeIterateExpressionNode{" +
+                        "variableDeclaration=" + variableDeclaration +
+                        ", fromValue=" + fromValue +
+                        ", toValue=" + toValue +
+                        '}';
+            }
         }
 
         public static class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
@@ -101,6 +124,14 @@ public class IterateStatementNode extends StatementNode{
             public void accept(BaseAstVisitor visitor) {
                 this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
                 visitor.visit(this);
+            }
+
+            @Override
+            public String toString() {
+                return "ArrayIterateExpressionNode{" +
+                        "variableDeclaration=" + variableDeclaration +
+                        ", expressionNode=" + expressionNode +
+                        '}';
             }
         }
     }

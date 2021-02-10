@@ -3,7 +3,7 @@ package app;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
-import ast.gui.TreeDemo;
+import ast.gui.AstDotGenerator;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -35,8 +35,10 @@ public class MainAppDemo {
         TestAstVisitor testAstVisitor = new TestAstVisitor();
         astRoot.accept(testAstVisitor);
 
-        TreeDemo.compilationUnitNode = astRoot;
-        TreeDemo.draw();
+        /*TreeDemo.compilationUnitNode = astRoot;
+        TreeDemo.draw();*/
+
+        AstDotGenerator.draw(astRoot);
 
 
     }

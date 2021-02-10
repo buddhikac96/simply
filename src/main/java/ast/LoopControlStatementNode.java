@@ -22,5 +22,12 @@ public class LoopControlStatementNode extends StatementNode {
     public void accept(BaseAstVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "LoopControlStatementNode{" +
+                "operator=" + operator +
+                '}';
+    }
 }
 

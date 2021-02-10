@@ -47,4 +47,14 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "PrimitiveVariableDeclarationNode{" +
+                "isConst=" + isConst +
+                ", dataType=" + dataType +
+                ", varName='" + varName + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }

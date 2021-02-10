@@ -32,4 +32,11 @@ public class GlobalVariableDeclarationNodeList extends ASTNode {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "GlobalVariableDeclarationNodeList{" +
+                "variableDeclarationNodes=" + variableDeclarationNodes +
+                '}';
+    }
 }

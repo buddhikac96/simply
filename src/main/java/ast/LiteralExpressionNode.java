@@ -31,6 +31,13 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "IntegerLiteralExpressionNode{" +
+                    "value=" + value +
+                    '}';
+        }
     }
 
     public static class FloatLiteralExpressionNode extends LiteralExpressionNode {
@@ -56,6 +63,13 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         @Override
         public void accept(BaseAstVisitor visitor) {
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "FloatLiteralExpressionNode{" +
+                    "value=" + value +
+                    '}';
         }
     }
 
@@ -83,6 +97,13 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "CharLiteralExpressionNode{" +
+                    "value=" + value +
+                    '}';
+        }
     }
 
     public static class StringLiteralExpressionNode extends LiteralExpressionNode {
@@ -109,6 +130,13 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "StringLiteralExpressionNode{" +
+                    "value='" + value + '\'' +
+                    '}';
+        }
     }
 
     public static class BoolLiteralExpressionNode extends LiteralExpressionNode {
@@ -134,6 +162,13 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         @Override
         public void accept(BaseAstVisitor visitor) {
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "BoolLiteralExpressionNode{" +
+                    "value=" + value +
+                    '}';
         }
     }
 }

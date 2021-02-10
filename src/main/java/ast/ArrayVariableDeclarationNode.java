@@ -47,4 +47,14 @@ public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "ArrayVariableDeclarationNode{" +
+                "isConst=" + isConst +
+                ", dataType=" + dataType +
+                ", varName='" + varName + '\'' +
+                ", initializationNode=" + initializationNode +
+                '}';
+    }
 }

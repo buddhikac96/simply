@@ -29,6 +29,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "OrExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
+        }
     }
 
     public static class AndExpressionNode extends LogicExpressionNode {
@@ -52,6 +60,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "AndExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
         }
     }
 
@@ -77,6 +93,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "GreaterThanExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
+        }
     }
 
     public static class LessThanExpressionNode extends LogicExpressionNode {
@@ -100,6 +124,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "LessThanExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
         }
     }
 
@@ -125,6 +157,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "GreaterOrEqualThanExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
+        }
     }
 
     public static class LessOrEqualThanExpressionNode extends LogicExpressionNode {
@@ -148,6 +188,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "LessOrEqualThanExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
         }
     }
 
@@ -173,6 +221,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "EqualsExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
+        }
     }
 
     public static class NotEqualsExpressionNode extends LogicExpressionNode {
@@ -196,6 +252,14 @@ public abstract class LogicExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "NotEqualsExpressionNode{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
         }
     }
 }

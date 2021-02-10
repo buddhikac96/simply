@@ -16,4 +16,9 @@ public class EmptyArrayInitializationNode extends ArrayInitializationNode {
     public void accept(BaseAstVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "EmptyArrayInitializationNode{}";
+    }
 }

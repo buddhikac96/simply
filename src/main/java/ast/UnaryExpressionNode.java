@@ -27,6 +27,13 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "ParenExpressionNode{" +
+                    "expressionNode=" + expressionNode +
+                    '}';
+        }
     }
 
     public static class PrefixPlusExpressionNode extends ExpressionNode {
@@ -47,6 +54,13 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "PrefixPlusExpressionNode{" +
+                    "expressionNode=" + expressionNode +
+                    '}';
         }
     }
 
@@ -69,6 +83,13 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "PrefixMinusExpressionNode{" +
+                    "expressionNode=" + expressionNode +
+                    '}';
+        }
     }
 
     public static class PrefixNotExpressionNode extends ExpressionNode{
@@ -89,6 +110,13 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "PrefixNotExpressionNode{" +
+                    "expressionNode=" + expressionNode +
+                    '}';
         }
     }
 }

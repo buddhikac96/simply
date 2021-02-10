@@ -39,6 +39,14 @@ public class ArrayAccessExpressionNode extends ExpressionNode {
     }
 
     @Override
+    public String toString() {
+        return "ArrayAccessExpressionNode{" +
+                "arrayName='" + arrayName + '\'' +
+                ", accessValueExpression=" + accessValueExpression +
+                '}';
+    }
+
+    @Override
     public void accept(BaseAstVisitor visitor) {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);

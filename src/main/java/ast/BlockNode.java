@@ -9,6 +9,13 @@ import java.util.Objects;
 public class BlockNode extends ASTNode {
     List<StatementNode> statementNodeList;
 
+    @Override
+    public String toString() {
+        return "BlockNode{" +
+                "statementNodeList=" + statementNodeList +
+                '}';
+    }
+
     public BlockNode() {
         this.statementNodeList = new ArrayList<>();
     }

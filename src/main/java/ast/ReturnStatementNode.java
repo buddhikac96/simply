@@ -25,4 +25,11 @@ public class ReturnStatementNode extends StatementNode {
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "ReturnStatementNode{" +
+                "value=" + value +
+                '}';
+    }
 }

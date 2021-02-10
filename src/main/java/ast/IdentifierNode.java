@@ -21,4 +21,11 @@ public class IdentifierNode extends ExpressionNode{
     public void accept(BaseAstVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "IdentifierNode{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

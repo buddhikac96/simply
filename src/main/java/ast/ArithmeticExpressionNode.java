@@ -32,10 +32,21 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "AdditionExpressionNode{ + }";
+        }
     }
 
     public static class DivisionExpressionNode extends ArithmeticExpressionNode{
         private ExpressionNode left;
+
+        @Override
+        public String toString() {
+            return "DivisionExpressionNode{ // }";
+        }
+
         private ExpressionNode right;
 
         public DivisionExpressionNode(ExpressionNode left, ExpressionNode right) {
@@ -61,6 +72,12 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class ModulusExpressionNode extends ArithmeticExpressionNode {
         private ExpressionNode left;
+
+        @Override
+        public String toString() {
+            return "ModulusExpressionNode{ % }";
+        }
+
         private ExpressionNode right;
 
         public ModulusExpressionNode(ExpressionNode left, ExpressionNode right) {
@@ -88,6 +105,11 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         private ExpressionNode left;
         private ExpressionNode right;
 
+        @Override
+        public String toString() {
+            return "MultiplicationExpressionNode{ * }";
+        }
+
         public MultiplicationExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
             this.right = right;
@@ -111,6 +133,12 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class SubtractionExpressionNode extends ArithmeticExpressionNode {
         private ExpressionNode left;
+
+        @Override
+        public String toString() {
+            return "SubtractionExpressionNode{ - }";
+        }
+
         private ExpressionNode right;
 
         public SubtractionExpressionNode(ExpressionNode left, ExpressionNode right) {

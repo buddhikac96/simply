@@ -61,6 +61,14 @@ public class IfStatementNode extends StatementNode {
         visitor.visit(this);
     }
 
+    @Override
+    public String toString() {
+        return "IfStatementNode{" +
+                "ifBlockNode=" + ifBlockNode +
+                ", elseIfBlockNodeList=" + elseIfBlockNodeList +
+                ", elseBlockNode=" + elseBlockNode +
+                '}';
+    }
 
     // If block node AST class
     public static class IfBlockNode extends ASTNode{
@@ -101,6 +109,14 @@ public class IfStatementNode extends StatementNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public String toString() {
+            return "IfBlockNode{" +
+                    "conditionExpressionNode=" + conditionExpressionNode +
+                    ", blockNode=" + blockNode +
+                    '}';
+        }
     }
 
 
@@ -132,6 +148,13 @@ public class IfStatementNode extends StatementNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "ElseBlockNode{" +
+                    "blockNode=" + blockNode +
+                    '}';
         }
     }
 }

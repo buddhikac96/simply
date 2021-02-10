@@ -25,4 +25,11 @@ public class LibImportNode extends ASTNode {
     public void accept(BaseAstVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "LibImportNode{" +
+                "LibName='" + LibName + '\'' +
+                '}';
+    }
 }

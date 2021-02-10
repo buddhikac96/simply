@@ -40,5 +40,13 @@ public class ArgNode extends ASTNode {
     public void accept(BaseAstVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "ArgNode{" +
+                "dataType=" + dataType +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 

@@ -14,6 +14,15 @@ public abstract class AssignmentStatementNode extends StatementNode {
         private AssignmentOperator assignmentOperator;
         private ExpressionNode value;
 
+        @Override
+        public String toString() {
+            return "PrimitiveVariableAssignmentStatementNode{" +
+                    "name='" + name + '\'' +
+                    ", assignmentOperator=" + assignmentOperator +
+                    ", value=" + value +
+                    '}';
+        }
+
         public PrimitiveVariableAssignmentStatementNode(
                 String name,
                 AssignmentOperator assignmentOperator,
@@ -49,6 +58,15 @@ public abstract class AssignmentStatementNode extends StatementNode {
         private String name;
         private AssignmentOperator assignmentOperator;
         private ExpressionNode value;
+
+        @Override
+        public String toString() {
+            return "ArrayVariableAssignmentStatementNode{" +
+                    "name='" + name + '\'' +
+                    ", assignmentOperator=" + assignmentOperator +
+                    ", value=" + value +
+                    '}';
+        }
 
         public ArrayVariableAssignmentStatementNode(
                 String name,

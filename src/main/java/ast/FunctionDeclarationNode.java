@@ -61,6 +61,14 @@ public class FunctionDeclarationNode extends ASTNode {
         visitor.visit(this);
     }
 
+    @Override
+    public String toString() {
+        return "FunctionDeclarationNode{" +
+                "functionSignatureNode=" + functionSignatureNode +
+                ", returnType=" + returnType +
+                ", functionBody=" + functionBody +
+                '}';
+    }
 
     // Function Signature AST Node class
     public static class FunctionSignatureNode extends ASTNode{
@@ -97,6 +105,14 @@ public class FunctionDeclarationNode extends ASTNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "FunctionSignatureNode{" +
+                    "functionName='" + functionName + '\'' +
+                    ", functionArgumentNodeList=" + functionArgumentNodeList +
+                    '}';
         }
     }
 }
