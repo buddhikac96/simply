@@ -1,0 +1,19 @@
+<libraries>
+    <library>
+        <jnam>libjname</jnam>
+        <alias>libalias</alias>
+        <functions>
+            <func>
+                <jnam>funcjname</jnam>
+                <alias>funcalias</alias>
+                <overloads>
+                    <args>
+                        <arg>int</arg>
+                        <arg>string</arg>
+                    </args>
+                    <return>float</return>
+                </overloads>
+            </func>
+        </functions>
+    </library>
+</libraries>

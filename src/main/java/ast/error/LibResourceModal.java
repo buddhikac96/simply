@@ -10,13 +10,23 @@ import java.util.List;
  */
 public class LibResourceModal {
 
+    public List<Library> libraryList;
+
+    public LibResourceModal() {
+        this.libraryList = new ArrayList<>();
+    }
+
+    public void addLibrary(Library library){
+        this.libraryList.add(library);
+    }
+
     /*
         Library class
-     */
+    */
     public static class Library{
-        String jname;
-        String alias;
-        List<Function> functionList;
+        public String jname;
+        public String alias;
+        public List<Function> functionList;
 
         public Library(String jname, String alias) {
             this.jname = jname;
@@ -34,9 +44,9 @@ public class LibResourceModal {
         Function class
      */
     public static class Function{
-        String jname;
-        String alias;
-        List<Overload> overloadList;
+        public String jname;
+        public String alias;
+        public List<Overload> overloadList;
 
         public Function(String jname, String alias) {
             this.jname = jname;
@@ -54,8 +64,8 @@ public class LibResourceModal {
         Overload class
      */
     public static class Overload{
-        List<DataType> argList;
-        DataType returnType;
+        public List<DataType> argList;
+        public DataType returnType;
 
         public Overload(DataType returnType) {
             this.argList = new ArrayList<>();
