@@ -9,7 +9,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import visitors.Cst2Ast;
-import visitors.TestAstVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +31,8 @@ public class MainAppDemo {
         Cst2Ast cst2Ast = new Cst2Ast(errors);
         CompilationUnitNode astRoot = (CompilationUnitNode) cst2Ast.visit(tree);
 
-        TestAstVisitor testAstVisitor = new TestAstVisitor();
-        astRoot.accept(testAstVisitor);
-
-        /*TreeDemo.compilationUnitNode = astRoot;
-        TreeDemo.draw();*/
+        /*TestAstVisitor testAstVisitor = new TestAstVisitor();
+        astRoot.accept(testAstVisitor);*/
 
         AstDotGenerator.draw(astRoot);
 

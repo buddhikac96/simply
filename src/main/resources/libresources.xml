@@ -1,0 +1,21 @@
+<libs>
+    <lib>
+        <name>math</name>
+        <funcs>
+            <func>
+                <name>sqrt</name>
+                <return></return>
+                <args>
+                    <arg>int</arg>
+                    <arg>string</arg>
+                </args>
+            </func>
+            <func>
+                <nam>cos</nam>
+                <args>
+                    <arg>float</arg>
+                </args>
+            </func>
+        </funcs>
+    </lib>
+</libs>
