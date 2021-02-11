@@ -1,21 +1,50 @@
-<libs>
-    <lib>
-        <name>math</name>
-        <funcs>
+<libraries>
+    <library>
+        <jname>java.lang.Math</jname>
+        <alias>math</alias>
+        <functions>
             <func>
-                <name>sqrt</name>
-                <return></return>
-                <args>
-                    <arg>int</arg>
-                    <arg>string</arg>
-                </args>
+                <jname>abs</jname>
+                <alias>absolute</alias>
+                <overloads>
+                    <overload>
+                        <args>
+                            <arg>int</arg>
+                        </args>
+                        <return>int</return>
+                    </overload>
+                    <overload>
+                        <args>
+                            <arg>float</arg>
+                        </args>
+                        <return>float</return>
+                    </overload>
+                </overloads>
             </func>
             <func>
-                <nam>cos</nam>
-                <args>
-                    <arg>float</arg>
-                </args>
+                <jname>asin</jname>
+                <alias>sin</alias>
+                <overloads>
+                    <overload>
+                        <args>
+                            <arg>float</arg>
+                        </args>
+                        <return>float</return>
+                    </overload>
+                </overloads>
             </func>
-        </funcs>
-    </lib>
-</libs>
+            <func>
+                <jname>exp</jname>
+                <alias>exponent</alias>
+                <overloads>
+                    <overload>
+                        <args>
+                            <arg>float</arg>
+                        </args>
+                        <return>float</return>
+                    </overload>
+                </overloads>
+            </func>
+        </functions>
+    </library>
+</libraries>
