@@ -1,5 +1,6 @@
 package app;
 
+import analyzers.syntaxAnalyzer.SyntaxAnalyzerVisitor;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
@@ -33,6 +34,10 @@ public class MainAppDemo {
 
         /*TestAstVisitor testAstVisitor = new TestAstVisitor();
         astRoot.accept(testAstVisitor);*/
+
+        // Syntax analyzing
+        SyntaxAnalyzerVisitor syntaxAnalyzerVisitor = new SyntaxAnalyzerVisitor();
+        astRoot.accept(syntaxAnalyzerVisitor);
 
         AstDotGenerator.draw(astRoot);
 

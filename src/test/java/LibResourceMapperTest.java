@@ -7,7 +7,7 @@ public class LibResourceMapperTest {
     LibResourceModal libResourceModal;
 
     public LibResourceMapperTest() throws DocumentException {
-        this.libResourceModal = LibResourceModalMapper.map();
+        this.libResourceModal = LibResourceModalMapper.getMap();
     }
 
     @Test

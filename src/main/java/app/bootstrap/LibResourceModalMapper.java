@@ -24,7 +24,7 @@ public class LibResourceModalMapper {
 
     private static final String libResourceXmlPath = "src/main/resources/libresources.xml";
 
-    public static LibResourceModal map(){
+    public static LibResourceModal getMap(){
         LibResourceModal libResourceModal = null;
         try {
             libResourceModal = parse(libResourceXmlPath);

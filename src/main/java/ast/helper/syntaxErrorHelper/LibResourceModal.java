@@ -3,6 +3,7 @@ package ast.helper.syntaxErrorHelper;
 import ast.util.enums.DataType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /*
@@ -18,6 +19,12 @@ public class LibResourceModal {
 
     public void addLibrary(Library library){
         this.libraryList.add(library);
+    }
+
+    public HashSet<String> getLibAliasNames(){
+        HashSet<String> set = new HashSet<>();
+        this.libraryList.forEach(lib -> set.add(lib.alias));
+        return set;
     }
 
     /*
@@ -37,6 +44,17 @@ public class LibResourceModal {
         public void addFunction(Function function){
             this.functionList.add(function);
         }
+
+        public HashSet<String> getFunctionAliasNames(){
+            HashSet<String> set = new HashSet<>();
+            this.functionList.forEach(func -> set.add(func.alias));
+            return set;
+        }
+
+        /*
+            TODO : return overload as a single string and check overload in syntax analyzing section
+            ex: foo(int a, float b) -> foointfloat -> check this string
+         */
     }
 
 

@@ -1,6 +1,12 @@
+/*
+    TODO: Not possible to get line number details in syntax errors. Get context details in to the visitor from ast
+ */
+
 package analyzers.syntaxAnalyzer;
 
+import app.bootstrap.LibResourceModalMapper;
 import ast.*;
+import ast.helper.syntaxErrorHelper.LibResourceModal;
 import visitors.BaseAstVisitor;
 
 import static ast.ArithmeticExpressionNode.*;
@@ -162,6 +168,10 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
+        LibResourceModal libResourceModal = LibResourceModalMapper.getMap();
+        if(!libResourceModal.getLibAliasNames().contains(node.getLibName())){
+            System.out.println("Undefined library import: " + node.getLibName());
+        }
         return null;
     }
 
