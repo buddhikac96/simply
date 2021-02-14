@@ -1,5 +1,5 @@
 import app.bootstrap.LibResourceModalMapper;
-import ast.error.LibResourceModal;
+import ast.helper.syntaxErrorHelper.LibResourceModal;
 import org.dom4j.DocumentException;
 import org.junit.Test;
 

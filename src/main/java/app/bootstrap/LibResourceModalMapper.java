@@ -1,6 +1,6 @@
 package app.bootstrap;
 
-import ast.error.LibResourceModal;
+import ast.helper.syntaxErrorHelper.LibResourceModal;
 import ast.util.DataTypeMapper;
 import ast.util.enums.DataType;
 import org.dom4j.Document;
@@ -10,9 +10,9 @@ import org.dom4j.io.SAXReader;
 
 import java.util.List;
 
-import static ast.error.LibResourceModal.Function;
-import static ast.error.LibResourceModal.Library;
-import static ast.error.LibResourceModal.Overload;
+import static ast.helper.syntaxErrorHelper.LibResourceModal.Function;
+import static ast.helper.syntaxErrorHelper.LibResourceModal.Library;
+import static ast.helper.syntaxErrorHelper.LibResourceModal.Overload;
 
 public class LibResourceModalMapper {
 

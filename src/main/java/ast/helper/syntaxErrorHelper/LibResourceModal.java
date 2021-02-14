@@ -1,4 +1,4 @@
-package ast.error;
+package ast.helper.syntaxErrorHelper;
 
 import ast.util.enums.DataType;
 
