@@ -16,8 +16,21 @@ import static ast.error.LibResourceModal.Overload;
 
 public class LibResourceModalMapper {
 
-    public static LibResourceModal map(String path) throws DocumentException {
-        LibResourceModal libResourceModal = parse(path);
+    private LibResourceModalMapper() {
+        /*
+            Just Hiding the implicit public constructor
+         */
+    }
+
+    private static final String libResourceXmlPath = "src/main/resources/libresources.xml";
+
+    public static LibResourceModal map(){
+        LibResourceModal libResourceModal = null;
+        try {
+            libResourceModal = parse(libResourceXmlPath);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
         return libResourceModal;
     }
