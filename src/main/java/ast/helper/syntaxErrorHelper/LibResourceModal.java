@@ -55,6 +55,26 @@ public class LibResourceModal {
             TODO : return overload as a single string and check overload in syntax analyzing section
             ex: foo(int a, float b) -> foointfloat -> check this string
          */
+
+        public HashSet<String> getFunctionOverloadList(){
+            HashSet<String> set = new HashSet<>();
+
+            for (Function func : functionList) {
+                for (Overload overload : func.overloadList) {
+                    StringBuilder name = new StringBuilder();
+                    name.append(func.alias);
+                    for (DataType arg : overload.argList) {
+                        name.append(arg.name());
+                    }
+                    set.add(name.toString());
+                    name = new StringBuilder();
+                }
+            }
+
+            return set;
+        }
+
+
     }
 
 

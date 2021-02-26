@@ -1,4 +1,3 @@
-import app.bootstrap.LibResourceModalMapper;
 import ast.helper.syntaxErrorHelper.LibResourceModal;
 import org.dom4j.DocumentException;
 import org.junit.Test;
@@ -7,7 +6,7 @@ public class LibResourceMapperTest {
     LibResourceModal libResourceModal;
 
     public LibResourceMapperTest() throws DocumentException {
-        this.libResourceModal = LibResourceModalMapper.getMap();
+        //this.libResourceModal = LibResourceModalMapper.getMap();
     }
 
     @Test

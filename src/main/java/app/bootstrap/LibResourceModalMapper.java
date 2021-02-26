@@ -10,9 +10,7 @@ import org.dom4j.io.SAXReader;
 
 import java.util.List;
 
-import static ast.helper.syntaxErrorHelper.LibResourceModal.Function;
-import static ast.helper.syntaxErrorHelper.LibResourceModal.Library;
-import static ast.helper.syntaxErrorHelper.LibResourceModal.Overload;
+import static ast.helper.syntaxErrorHelper.LibResourceModal.*;
 
 public class LibResourceModalMapper {
 
@@ -39,15 +37,14 @@ public class LibResourceModalMapper {
         SAXReader reader = new SAXReader();
         Document document = reader.read(path);
 
-        List<Node> libraries = document.selectNodes("//library");
-
+        List<Node> libraries = document.selectNodes("libraries/library");
         LibResourceModal libResourceModal = new LibResourceModal();
 
         libraries.forEach(lib -> {
             // Create library
             String libJname = lib.valueOf("jname");
             String libAlias = lib.valueOf("alias");
-            List<Node> funcList = lib.selectNodes("//func");
+            List<Node> funcList = lib.selectNodes("functions/func");
 
             Library library = new Library(libJname, libAlias);
 
@@ -55,7 +52,7 @@ public class LibResourceModalMapper {
             funcList.forEach(func -> {
                 String funcJname = func.valueOf("jname");
                 String funcAlias = func.valueOf("alias");
-                List<Node> overloadList = func.selectNodes("//overloads");
+                List<Node> overloadList = func.selectNodes("overloads/overload");
 
                 Function function = new Function(funcJname, funcAlias);
 
@@ -64,7 +61,7 @@ public class LibResourceModalMapper {
                     DataType returnType = DataTypeMapper.getType(overload.valueOf("return"));
                     Overload overloadItem = new Overload(returnType);
 
-                    overload.selectNodes("//args/arg").forEach(arg -> {
+                    overload.selectNodes("args/arg").forEach(arg -> {
                         overloadItem.addArg(DataTypeMapper.getType(arg.getStringValue()));
                     });
 

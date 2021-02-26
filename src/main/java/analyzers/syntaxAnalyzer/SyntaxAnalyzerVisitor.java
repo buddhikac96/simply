@@ -21,6 +21,13 @@ import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
 
 public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
+
+    LibResourceModal libResourceModal;
+
+    public SyntaxAnalyzerVisitor() {
+        this.libResourceModal = LibResourceModalMapper.getMap();
+    }
+
     @Override
     public String visit(ArgNode node) {
         return null;
@@ -168,10 +175,12 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-        LibResourceModal libResourceModal = LibResourceModalMapper.getMap();
+
+        //TODO: Use syntax errors arraylist to append syntax errors
         if(!libResourceModal.getLibAliasNames().contains(node.getLibName())){
             System.out.println("Undefined library import: " + node.getLibName());
         }
+
         return null;
     }
 
