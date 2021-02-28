@@ -7,7 +7,13 @@ package analyzers.syntaxAnalyzer;
 import app.bootstrap.LibResourceModalMapper;
 import ast.*;
 import ast.helper.syntaxErrorHelper.LibResourceModal;
+import ast.util.enums.DataType;
 import visitors.BaseAstVisitor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.StringJoiner;
 
 import static ast.ArithmeticExpressionNode.*;
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
@@ -23,9 +29,11 @@ import static ast.UnaryExpressionNode.*;
 public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     LibResourceModal libResourceModal;
+    HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
     public SyntaxAnalyzerVisitor() {
         this.libResourceModal = LibResourceModalMapper.getMap();
+        this.functions = new HashMap<>();
     }
 
     @Override
@@ -115,6 +123,31 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionDeclarationNode node) {
+        /*
+            Find duplicate function declarations
+            Overloading available
+         */
+        String funcName = node.getFunctionSignatureNode().getFunctionName();
+        if(!this.functions.containsKey(funcName)){
+            this.functions.put(funcName, new HashSet<>());
+        }
+
+        ArrayList<DataType> arguments = new ArrayList<>();
+        node.getFunctionSignatureNode().getFunctionArgumentNodeList().forEach(arg -> {
+            arguments.add(arg.getDataType());
+        });
+
+        boolean isExist = functions.get(funcName).add(arguments);
+
+        if(!isExist){
+            StringJoiner sj = new StringJoiner(",", funcName+"(", ")");
+            node.getFunctionSignatureNode().getFunctionArgumentNodeList().forEach(arg -> {
+                sj.add(arg.getDataType().name());
+            });
+
+            System.out.println("Function " + sj.toString() + " already exist");
+        }
+
         return null;
     }
 
@@ -175,7 +208,6 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-
         //TODO: Use syntax errors arraylist to append syntax errors
         if(!libResourceModal.getLibAliasNames().contains(node.getLibName())){
             System.out.println("Undefined library import: " + node.getLibName());

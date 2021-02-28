@@ -3,6 +3,7 @@ package ast.helper.syntaxErrorHelper;
 import ast.util.enums.DataType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -72,6 +73,28 @@ public class LibResourceModal {
             }
 
             return set;
+        }
+
+        public HashMap<String, HashSet<Integer>> getFunctionOverloadArgDetailList(){
+            HashMap<String, HashSet<Integer>> map = new HashMap<>();
+
+            for(Function func : functionList) {
+                String name = func.alias;
+                map.put(name, new HashSet<>());
+                for (Overload overload : func.overloadList) {
+                    int numOfArgs = overload.argList.size();
+                    map.get(name).add(numOfArgs);
+                }
+            }
+
+            for(String key : map.keySet()){
+                System.out.print(key + " - ");
+                map.get(key).forEach(num -> {
+                    System.out.print(num + ", ");
+                });
+                System.out.println();
+            }
+            return map;
         }
 
 

@@ -1,5 +1,4 @@
 get math;
-get io;
 
 global int a = 5;
 global list int arr = [1,2,3];
@@ -49,5 +48,10 @@ function printNumbers(int n) : void {
             break;
         }
     }
+
+}
+
+function add(float a, int b) : int {
+
 
 }

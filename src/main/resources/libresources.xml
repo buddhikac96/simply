@@ -43,6 +43,14 @@
                         </args>
                         <return>float</return>
                     </overload>
+                    <overload>
+                        <args>
+                            <arg>float</arg>
+                            <arg>int</arg>
+                            <arg>string</arg>
+                        </args>
+                        <return>float</return>
+                    </overload>
                 </overloads>
             </func>
         </functions>
