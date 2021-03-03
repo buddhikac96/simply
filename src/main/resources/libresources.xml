@@ -55,4 +55,40 @@
             </func>
         </functions>
     </library>
+    <library>
+        <jname>System.out</jname>
+        <alias>io</alias>
+        <functions>
+            <func>
+                <jname>println</jname>
+                <alias>print</alias>
+                <overloads>
+                    <overload>
+                        <args>
+                            <arg>String</arg>
+                        </args>
+                        <return>String</return>
+                    </overload>
+                    <overload>
+                        <args>
+                            <arg>int</arg>
+                        </args>
+                        <return>String</return>
+                    </overload>
+                    <overload>
+                        <args>
+                            <arg>float</arg>
+                        </args>
+                        <return>String</return>
+                    </overload>
+                    <overload>
+                        <args>
+                            <arg>bool</arg>
+                        </args>
+                        <return>String</return>
+                    </overload>
+                </overloads>
+            </func>
+        </functions>
+    </library>
 </libraries>

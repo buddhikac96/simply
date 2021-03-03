@@ -2,7 +2,7 @@
     TODO: Not possible to get line number details in syntax errors. Get context details in to the visitor from ast
  */
 
-package analyzers.syntaxAnalyzer;
+package passes;
 
 import app.bootstrap.LibResourceModalMapper;
 import ast.*;
@@ -25,13 +25,14 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
+import static ast.helper.syntaxErrorHelper.LibResourceModal.*;
 
-public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
+public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     LibResourceModal libResourceModal;
     HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
-    public SyntaxAnalyzerVisitor() {
+    public SyntaxAnalyzerPassVisitor() {
         this.libResourceModal = LibResourceModalMapper.getMap();
         this.functions = new HashMap<>();
     }
@@ -113,6 +114,66 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionCallExpressionNode node) {
+        /*
+            TODO: Think and update
+            Function name and number of arguments are both checked. We can update this to check both, not one by one.
+         */
+        if(node.libRef != null){
+            /*
+                Check whether function contains in a standard library
+             */
+            String libName = node.libRef;
+
+            //TODO: Syntax error should be added to proper data structure
+            //Check whether library defined
+            if(!libResourceModal.libraries.containsKey(libName)){
+                System.out.println("Library " + libName +" not identified");
+                return null;
+            }
+
+            Library library = libResourceModal.libraries.get(libName);
+            String funcName = node.funcName;
+
+            //TODO: Syntax error should be added to proper data structure
+            //Check whether function defined in the library
+            if(!library.functionList.containsKey(funcName)){
+                System.out.println("Library " + libName + " does not contains a function " + funcName);
+                return null;
+            }
+
+            Function function = library.functionList.get(funcName);
+
+            int numOfParams = node.parameterList.size();
+            boolean isOverloadExist = false;
+
+            for(Overload overload : library.functionList.get(funcName).overloadList){
+                if(overload.argList.size() == numOfParams){
+                    isOverloadExist = true;
+                    break;
+                }
+            }
+
+            if(!isOverloadExist){
+                System.out.println("Function " + funcName + "has not an Overload with " + numOfParams + " parameters");
+            }
+
+        }else{
+            /*
+                Check whether user has written the function
+                In this case libReference is null
+             */
+            String funcName = node.funcName;
+
+            if(!this.functions.containsKey(funcName)){
+                System.out.println("Function " + funcName + " not found");
+                return null;
+            }
+
+            /*
+                Not have checked number of arguments. Find a way to check both function name and number of arguments once
+             */
+        }
+
         return null;
     }
 
@@ -121,6 +182,7 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
         return null;
     }
 
+    //TODO: This should be happen in the bootstrap. Otherwise function calls cant be validated.
     @Override
     public String visit(FunctionDeclarationNode node) {
         /*
@@ -145,6 +207,7 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
                 sj.add(arg.getDataType().name());
             });
 
+            //TODO: Syntax error should be added to proper data structure
             System.out.println("Function " + sj.toString() + " already exist");
         }
 
@@ -208,8 +271,8 @@ public class SyntaxAnalyzerVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-        //TODO: Use syntax errors arraylist to append syntax errors
-        if(!libResourceModal.getLibAliasNames().contains(node.getLibName())){
+        //TODO: Syntax error should be added to proper data structure
+        if(!libResourceModal.libraries.containsKey(node.getLibName())){
             System.out.println("Undefined library import: " + node.getLibName());
         }
 

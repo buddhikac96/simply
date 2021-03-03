@@ -16,7 +16,7 @@ import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
 
-public class AstChildren extends BaseAstVisitor<List<ASTNode>>{
+public class AstChildrenVisitor extends BaseAstVisitor<List<ASTNode>>{
     @Override
     public List<ASTNode> visit(ArgNode node) {
         return node.getChildren().stream().filter(Objects::nonNull).collect(Collectors.toList());

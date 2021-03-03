@@ -1,4 +1,4 @@
-package visitors;
+package passes;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;
@@ -24,15 +24,15 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 
-public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
+public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
-    private static final Logger LOGGER = Logger.getLogger(Cst2Ast.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Cst2AstPassVisitor.class.getName());
 
     public List<String> syntaxErrors;
     CompilationUnitNode compilationUnitNode;
     HashSet<String> globalVariableSymbolTable;
 
-    public Cst2Ast(List<String> syntaxErrors) {
+    public Cst2AstPassVisitor(List<String> syntaxErrors) {
         this.compilationUnitNode = new CompilationUnitNode();
         this.globalVariableSymbolTable = new HashSet<>();
         this.syntaxErrors = syntaxErrors;
@@ -698,7 +698,7 @@ public class Cst2Ast extends SimplyV3ParserBaseVisitor<ASTNode> {
         FunctionCallExpressionNode functionCallExpressionNode;
 
         if (ctx.libRef() != null) {
-            String libRef = ctx.libRef().getText();
+            String libRef = ctx.libRef().identifier().getText();
             functionCallExpressionNode = new FunctionCallExpressionNode(libRef, funcName);
         } else {
             functionCallExpressionNode = new FunctionCallExpressionNode(funcName);

@@ -1,2 +1,10 @@
 get io;
 get math;
+
+function main() : void {
+
+}
+
+function add(int a, int b) : int {}
+
+function add(int c, int d) : int {}

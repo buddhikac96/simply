@@ -1,4 +1,5 @@
 get math;
+get io;
 
 global int a = 5;
 global list int arr = [1,2,3];
@@ -8,9 +9,9 @@ function main() : void {
     int age = 18;
 
     check(age > 18) {
-        print("can vote");
+        io.print("can vote");
     }otherwise{
-        print("cant vote");
+        io.print("cant vote");
     }
 
     int x = 5;
@@ -26,20 +27,20 @@ function add(int a, int b) : int {
 
 function printNumbers(int n) : void {
     iterate(int i from 3 to 10){
-        print(i);
+        io.print(i);
     }
 
     list int arr = [1,2,3,4,5];
     arr[2] = 10;
 
     iterate(int i of arr){
-        print(i);
+        io.print(i);
     }
 
     int j = 0;
 
     iterate(j < 10){
-        print(j);
+        io.print(j);
         j = j + 1;
 
         check(j == 5){
@@ -48,10 +49,5 @@ function printNumbers(int n) : void {
             break;
         }
     }
-
-}
-
-function add(float a, int b) : int {
-
 
 }

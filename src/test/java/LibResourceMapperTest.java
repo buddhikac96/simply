@@ -11,7 +11,7 @@ public class LibResourceMapperTest {
 
     @Test
     public void libraryCountTest() {
-        assert libResourceModal.libraryList.size() == 2;
+        assert libResourceModal.libraries.size() == 2;
     }
 
     /*@Test
