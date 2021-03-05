@@ -1,5 +1,7 @@
 package app;
 
+import ast.util.enums.DataType;
+import passes.PreEvaluatePassVisitor;
 import passes.SyntaxAnalyzerPassVisitor;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
@@ -13,6 +15,8 @@ import passes.Cst2AstPassVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class MainAppDemo {
@@ -35,8 +39,17 @@ public class MainAppDemo {
         /*TestAstVisitor testAstVisitor = new TestAstVisitor();
         astRoot.accept(testAstVisitor);*/
 
+        // pre-evaluation pass
+        // get the function list data structure
+        // pass data structure to syntax analyzing phase
+
+        PreEvaluatePassVisitor preEvaluatePassVisitor = new PreEvaluatePassVisitor();
+        astRoot.accept(preEvaluatePassVisitor);
+
+        HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
+
         // Syntax analyzing
-        SyntaxAnalyzerPassVisitor syntaxAnalyzerPassVisitor = new SyntaxAnalyzerPassVisitor();
+        SyntaxAnalyzerPassVisitor syntaxAnalyzerPassVisitor = new SyntaxAnalyzerPassVisitor(userDefinedFunctionList);
         astRoot.accept(syntaxAnalyzerPassVisitor);
 
         AstDotGenerator.draw(astRoot);

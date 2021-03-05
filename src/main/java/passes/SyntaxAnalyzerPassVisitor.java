@@ -13,7 +13,6 @@ import visitors.BaseAstVisitor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.StringJoiner;
 
 import static ast.ArithmeticExpressionNode.*;
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
@@ -32,9 +31,9 @@ public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
     LibResourceModal libResourceModal;
     HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
-    public SyntaxAnalyzerPassVisitor() {
+    public SyntaxAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();
-        this.functions = new HashMap<>();
+        this.functions = functions;
     }
 
     @Override
@@ -182,37 +181,8 @@ public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
         return null;
     }
 
-    //TODO: This should be happen in the bootstrap. Otherwise function calls cant be validated.
     @Override
-    public String visit(FunctionDeclarationNode node) {
-        /*
-            Find duplicate function declarations
-            Overloading available
-         */
-        String funcName = node.getFunctionSignatureNode().getFunctionName();
-        if(!this.functions.containsKey(funcName)){
-            this.functions.put(funcName, new HashSet<>());
-        }
-
-        ArrayList<DataType> arguments = new ArrayList<>();
-        node.getFunctionSignatureNode().getFunctionArgumentNodeList().forEach(arg -> {
-            arguments.add(arg.getDataType());
-        });
-
-        boolean isExist = functions.get(funcName).add(arguments);
-
-        if(!isExist){
-            StringJoiner sj = new StringJoiner(",", funcName+"(", ")");
-            node.getFunctionSignatureNode().getFunctionArgumentNodeList().forEach(arg -> {
-                sj.add(arg.getDataType().name());
-            });
-
-            //TODO: Syntax error should be added to proper data structure
-            System.out.println("Function " + sj.toString() + " already exist");
-        }
-
-        return null;
-    }
+    public String visit(FunctionDeclarationNode node) { return null; }
 
     @Override
     public String visit(FunctionSignatureNode node) {

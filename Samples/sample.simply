@@ -51,3 +51,7 @@ function printNumbers(int n) : void {
     }
 
 }
+
+function add(int a, int c) : int {
+
+}
