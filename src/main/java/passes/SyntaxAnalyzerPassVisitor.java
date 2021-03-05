@@ -113,10 +113,6 @@ public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionCallExpressionNode node) {
-        /*
-            TODO: Think and update
-            Function name and number of arguments are both checked. We can update this to check both, not one by one.
-         */
         if(node.libRef != null){
             /*
                 Check whether function contains in a standard library
@@ -166,10 +162,23 @@ public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
             if(!this.functions.containsKey(funcName)){
                 System.out.println("Function " + funcName + " not found");
                 return null;
+            }else{
+                /*
+                    If the function name available then check number of arguments
+                 */
+                int numOfArgs = node.parameterList.size();
+                boolean isExist = this.functions.get(node.funcName)
+                        .stream()
+                        .anyMatch(overload -> overload.size() == numOfArgs);
+
+                if(!isExist){
+                    System.out.println("Function " + funcName + " with " + numOfArgs + " arguments not found");
+                }
             }
 
             /*
-                Not have checked number of arguments. Find a way to check both function name and number of arguments once
+                Not have checked types of arguments. Find a way to check both function name and type of arguments
+                Use Type system
              */
         }
 

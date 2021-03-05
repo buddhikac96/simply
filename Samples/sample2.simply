@@ -2,7 +2,7 @@ get io;
 get math;
 
 function main() : void {
-    add();
+    add(12,324,234);
 }
 
 function add(int a, int b) : int {}
