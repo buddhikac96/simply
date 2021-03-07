@@ -48,11 +48,6 @@ public class AstChildrenVisitor extends BaseAstVisitor<List<ASTNode>>{
     }
 
     @Override
-    public List<ASTNode> visit(ArrayAccessNode node) {
-        return node.getChildren().stream().filter(Objects::nonNull).collect(Collectors.toList());
-    }
-
-    @Override
     public List<ASTNode> visit(ArrayAccessExpressionNode node) {
         return node.getChildren().stream().filter(Objects::nonNull).collect(Collectors.toList());
     }

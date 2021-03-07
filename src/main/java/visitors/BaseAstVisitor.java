@@ -20,7 +20,6 @@ public abstract class BaseAstVisitor<T> {
     public abstract T visit(ModulusExpressionNode node);
     public abstract T visit(MultiplicationExpressionNode node);
     public abstract T visit(SubtractionExpressionNode node);
-    public abstract T visit(ArrayAccessNode node);
     public abstract T visit(ArrayAccessExpressionNode node);
     public abstract T visit(ArrayInitializationNode node);
     public abstract T visit(ArrayVariableDeclarationNode node);

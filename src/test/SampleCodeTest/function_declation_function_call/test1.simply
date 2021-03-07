@@ -1,0 +1,25 @@
+/*
+    <author>buddhikac96</author>
+    <description>
+        Check duplicate function declaration.
+        Overloads are allowed.
+    </description>
+*/
+
+function main() : void {
+
+}
+
+// Empty parameters. Different return types.
+function foo() : void {
+
+}
+
+function foo() : int {
+
+}
+
+// With same parameters and same return type.
+function bar(int a, float b) : void { }
+
+function bar(int c, float d) : void { }

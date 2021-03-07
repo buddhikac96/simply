@@ -1,0 +1,15 @@
+/*
+    <author>buddhikac96</author>
+    <description>
+        Check invalid lib imports.
+        Lib imports will validate with lib resource model which is created using lib resource file
+        src/main/resources/libresources.xml
+    </description>
+*/
+
+// Valid lib imports
+get io;
+get math;
+
+// Invalid lib imports
+get invalidlib;
