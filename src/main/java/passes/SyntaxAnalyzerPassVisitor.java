@@ -67,11 +67,6 @@ public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
     }
 
     @Override
-    public String visit(ArrayAccessNode node) {
-        return null;
-    }
-
-    @Override
     public String visit(ArrayAccessExpressionNode node) {
         return null;
     }

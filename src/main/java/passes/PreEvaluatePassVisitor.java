@@ -56,11 +56,6 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(ArrayAccessNode node) {
-        return null;
-    }
-
-    @Override
     public Void visit(ArrayAccessExpressionNode node) {
         return null;
     }
