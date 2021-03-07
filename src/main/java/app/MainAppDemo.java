@@ -2,7 +2,7 @@ package app;
 
 import ast.util.enums.DataType;
 import passes.PreEvaluatePassVisitor;
-import passes.SyntaxAnalyzerPassVisitor;
+import passes.SemanticAnalyzerPassVisitor;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
@@ -49,8 +49,8 @@ public class MainAppDemo {
         HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
         // Syntax analyzing
-        SyntaxAnalyzerPassVisitor syntaxAnalyzerPassVisitor = new SyntaxAnalyzerPassVisitor(userDefinedFunctionList);
-        astRoot.accept(syntaxAnalyzerPassVisitor);
+        SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
+        astRoot.accept(semanticAnalyzerPassVisitor);
 
         AstDotGenerator.draw(astRoot);
 

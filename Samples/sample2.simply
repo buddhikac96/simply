@@ -2,5 +2,8 @@ get io;
 get math;
 
 function main() : void {
+    list int arr = [1,2,3];
+    int b = 1;
 
+    b = arr[2] + arr[1];
 }

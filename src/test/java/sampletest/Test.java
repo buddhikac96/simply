@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
 import passes.PreEvaluatePassVisitor;
-import passes.SyntaxAnalyzerPassVisitor;
+import passes.SemanticAnalyzerPassVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class Test {
         HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
         // Syntax analyzing
-        SyntaxAnalyzerPassVisitor syntaxAnalyzerPassVisitor = new SyntaxAnalyzerPassVisitor(userDefinedFunctionList);
-        astRoot.accept(syntaxAnalyzerPassVisitor);
+        SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
+        astRoot.accept(semanticAnalyzerPassVisitor);
 
     }
 }

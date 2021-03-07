@@ -26,12 +26,12 @@ import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
 import static ast.helper.syntaxErrorHelper.LibResourceModal.*;
 
-public class SyntaxAnalyzerPassVisitor extends BaseAstVisitor<String> {
+public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     LibResourceModal libResourceModal;
     HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
-    public SyntaxAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
+    public SemanticAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();
         this.functions = functions;
     }
