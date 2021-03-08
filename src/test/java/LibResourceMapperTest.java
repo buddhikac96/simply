@@ -1,4 +1,4 @@
-import ast.helper.syntaxErrorHelper.LibResourceModal;
+import app.bootstrap.LibResourceModal;
 import org.dom4j.DocumentException;
 import org.junit.Test;
 

@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
 import passes.PreEvaluatePassVisitor;
-import passes.SemanticAnalyzerPassVisitor;
+import passes.semantic.SemanticAnalyzerPassVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package app;
 
 import ast.util.enums.DataType;
 import passes.PreEvaluatePassVisitor;
-import passes.SemanticAnalyzerPassVisitor;
+import passes.semantic.SemanticAnalyzerPassVisitor;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;

@@ -2,11 +2,11 @@
     TODO: Not possible to get line number details in syntax errors. Get context details in to the visitor from ast
  */
 
-package passes;
+package passes.semantic;
 
 import app.bootstrap.LibResourceModalMapper;
 import ast.*;
-import ast.helper.syntaxErrorHelper.LibResourceModal;
+import app.bootstrap.LibResourceModal;
 import ast.util.enums.DataType;
 import visitors.BaseAstVisitor;
 
@@ -24,16 +24,22 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
-import static ast.helper.syntaxErrorHelper.LibResourceModal.*;
+import static app.bootstrap.LibResourceModal.*;
 
 public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     LibResourceModal libResourceModal;
     HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
+    //Symbol tables
+    HashMap<String, Symbol> globalVariableSymbolTable;
+    HashMap<String, Symbol> funcLocalSymbolTable;
+    HashMap<String, Symbol> blockLocalSymbolTable;
+
     public SemanticAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();
         this.functions = functions;
+        this.globalVariableSymbolTable = new HashMap<>();
     }
 
     @Override
@@ -186,7 +192,9 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     }
 
     @Override
-    public String visit(FunctionDeclarationNode node) { return null; }
+    public String visit(FunctionDeclarationNode node) {
+        return null;
+    }
 
     @Override
     public String visit(FunctionSignatureNode node) {
@@ -200,6 +208,30 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(GlobalVariableDeclarationNodeList node) {
+
+        for(VariableDeclarationNode varNode : node.getVariableDeclarationNodes()){
+            if(varNode instanceof PrimitiveVariableDeclarationNode) {
+                PrimitiveVariableDeclarationNode primNode = (PrimitiveVariableDeclarationNode) varNode;
+                Symbol symbol = new SymbolBuilder()
+                        .setName(primNode.getName())
+                        .setConst(primNode.isConst())
+                        .setDataType(primNode.getDataType())
+                        .build();
+                this.globalVariableSymbolTable.put(primNode.getName(), symbol);
+            }else if(varNode instanceof ArrayVariableDeclarationNode){
+                ArrayVariableDeclarationNode arrNode = (ArrayVariableDeclarationNode) varNode;
+                Symbol symbol = new SymbolBuilder()
+                        .setName(arrNode.getName())
+                        .setArray(true)
+                        .setDataType(arrNode.getDataType())
+                        .setConst(arrNode.isConst())
+                        .build();
+                this.globalVariableSymbolTable.put(arrNode.getName(), symbol);
+            }
+        }
+
+        System.out.println(this.globalVariableSymbolTable.size());
+
         return null;
     }
 

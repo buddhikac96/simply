@@ -35,6 +35,14 @@ public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
         return this.varName;
     }
 
+    public boolean isConst() {
+        return isConst;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<ASTNode>();

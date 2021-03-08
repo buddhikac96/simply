@@ -1,4 +1,4 @@
-package ast.helper.syntaxErrorHelper;
+package app.bootstrap;
 
 import ast.util.enums.DataType;
 

@@ -1,9 +1,9 @@
 get io;
-get math;
+
+global int a = 10;
+global const list int arr = [1,2];
+global list float reals = [3.14, 8.624];
 
 function main() : void {
-    list int arr = [1,2,3];
-    int b = 1;
-
-    b = arr[2] + arr[1];
+    int b = 10;
 }
