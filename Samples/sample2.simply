@@ -3,6 +3,7 @@ get io;
 global int a = 10;
 global const list int arr = [1,2];
 global list float reals = [3.14, 8.624];
+global float a = 3.14;
 
 function main() : void {
     int b = 10;

@@ -210,14 +210,23 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     public String visit(GlobalVariableDeclarationNodeList node) {
 
         for(VariableDeclarationNode varNode : node.getVariableDeclarationNodes()){
+
+            String name = varNode.getName();
+
             if(varNode instanceof PrimitiveVariableDeclarationNode) {
                 PrimitiveVariableDeclarationNode primNode = (PrimitiveVariableDeclarationNode) varNode;
                 Symbol symbol = new SymbolBuilder()
-                        .setName(primNode.getName())
+                        .setName(name)
                         .setConst(primNode.isConst())
                         .setDataType(primNode.getDataType())
                         .build();
-                this.globalVariableSymbolTable.put(primNode.getName(), symbol);
+
+                //Check whether symbol name exists
+                if(this.globalVariableSymbolTable.containsKey(name)){
+                    System.out.println("Syntax Error: Global variable " + name + " already exist");
+                }else{
+                    this.globalVariableSymbolTable.put(name, symbol);
+                }
             }else if(varNode instanceof ArrayVariableDeclarationNode){
                 ArrayVariableDeclarationNode arrNode = (ArrayVariableDeclarationNode) varNode;
                 Symbol symbol = new SymbolBuilder()
@@ -226,7 +235,11 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
                         .setDataType(arrNode.getDataType())
                         .setConst(arrNode.isConst())
                         .build();
-                this.globalVariableSymbolTable.put(arrNode.getName(), symbol);
+                if(this.globalVariableSymbolTable.containsKey(name)){
+                    System.out.println("Syntax Error: Global variable " + name + " already exist");
+                }else{
+                    this.globalVariableSymbolTable.put(arrNode.getName(), symbol);
+                }
             }
         }
 
