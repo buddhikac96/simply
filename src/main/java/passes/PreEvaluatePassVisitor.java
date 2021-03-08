@@ -9,6 +9,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.StringJoiner;
 
+import static ast.ArithmeticExpressionNode.*;
+import static ast.AssignmentStatementNode.*;
+import static ast.FunctionDeclarationNode.*;
+import static ast.IfStatementNode.*;
+import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
+import static ast.LiteralExpressionNode.*;
+import static ast.LogicExpressionNode.*;
+import static ast.UnaryExpressionNode.*;
+
 public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
 
     HashMap<String, HashSet<ArrayList<DataType>>> functions;
@@ -31,27 +40,27 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(ArithmeticExpressionNode.AdditionExpressionNode node) {
+    public Void visit(AdditionExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(ArithmeticExpressionNode.DivisionExpressionNode node) {
+    public Void visit(DivisionExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(ArithmeticExpressionNode.ModulusExpressionNode node) {
+    public Void visit(ModulusExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(ArithmeticExpressionNode.MultiplicationExpressionNode node) {
+    public Void visit(MultiplicationExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(ArithmeticExpressionNode.SubtractionExpressionNode node) {
+    public Void visit(SubtractionExpressionNode node) {
         return null;
     }
 
@@ -71,12 +80,12 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(AssignmentStatementNode.ArrayVariableAssignmentStatementNode node) {
+    public Void visit(ArrayVariableAssignmentStatementNode node) {
         return null;
     }
 
     @Override
-    public Void visit(AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode node) {
+    public Void visit(PrimitiveVariableAssignmentStatementNode node) {
         return null;
     }
 
@@ -143,7 +152,7 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(FunctionDeclarationNode.FunctionSignatureNode node) {
+    public Void visit(FunctionSignatureNode node) {
         return null;
     }
 
@@ -168,12 +177,12 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(IfStatementNode.ElseBlockNode node) {
+    public Void visit(ElseBlockNode node) {
         return null;
     }
 
     @Override
-    public Void visit(IfStatementNode.IfBlockNode node) {
+    public Void visit(IfBlockNode node) {
         return null;
     }
 
@@ -183,17 +192,17 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
+    public Void visit(ArrayIterateExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
+    public Void visit(BooleanIterateExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode node) {
+    public Void visit(RangeIterateExpressionNode node) {
         return null;
     }
 
@@ -208,67 +217,67 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(LiteralExpressionNode.BoolLiteralExpressionNode node) {
+    public Void visit(BoolLiteralExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LiteralExpressionNode.CharLiteralExpressionNode node) {
+    public Void visit(CharLiteralExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LiteralExpressionNode.FloatLiteralExpressionNode node) {
+    public Void visit(FloatLiteralExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LiteralExpressionNode.IntegerLiteralExpressionNode node) {
+    public Void visit(IntegerLiteralExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LiteralExpressionNode.StringLiteralExpressionNode node) {
+    public Void visit(StringLiteralExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.AndExpressionNode node) {
+    public Void visit(AndExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.EqualsExpressionNode node) {
+    public Void visit(EqualsExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.GreaterOrEqualThanExpressionNode node) {
+    public Void visit(GreaterOrEqualThanExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.GreaterThanExpressionNode node) {
+    public Void visit(GreaterThanExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.LessOrEqualThanExpressionNode node) {
+    public Void visit(LessOrEqualThanExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.LessThanExpressionNode node) {
+    public Void visit(LessThanExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.NotEqualsExpressionNode node) {
+    public Void visit(NotEqualsExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(LogicExpressionNode.OrExpressionNode node) {
+    public Void visit(OrExpressionNode node) {
         return null;
     }
 
@@ -293,22 +302,22 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     }
 
     @Override
-    public Void visit(UnaryExpressionNode.ParenExpressionNode node) {
+    public Void visit(ParenExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(UnaryExpressionNode.PrefixMinusExpressionNode node) {
+    public Void visit(PrefixMinusExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(UnaryExpressionNode.PrefixNotExpressionNode node) {
+    public Void visit(PrefixNotExpressionNode node) {
         return null;
     }
 
     @Override
-    public Void visit(UnaryExpressionNode.PrefixPlusExpressionNode node) {
+    public Void visit(PrefixPlusExpressionNode node) {
         return null;
     }
 }
