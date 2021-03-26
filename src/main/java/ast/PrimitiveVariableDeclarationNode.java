@@ -43,6 +43,10 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
         return dataType;
     }
 
+    public boolean isInit(){
+        return this.value != null;
+    }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>();

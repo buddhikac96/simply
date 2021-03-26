@@ -127,8 +127,10 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
         String varName = ctx.identifier().getText();
 
-        // TODO: If expression is a function call -> Syntax Error
-        ExpressionNode expressionNode = visitExpression(ctx.expression());
+        ExpressionNode expressionNode = null;
+        if(ctx.expression() != null){
+            expressionNode = visitExpression(ctx.expression());
+        }
 
         LOGGER.info("PrimitiveVariableDeclarationNode created");
         return new PrimitiveVariableDeclarationNode(
@@ -393,6 +395,15 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     @Override
     public NonEmptyArrayInitializationNode visitNonEmptyArrayInitialization(NonEmptyArrayInitializationContext ctx) {
+        /*
+            Variable declaration without initialization
+            Ex: list int arr;
+         */
+
+        if(ctx == null){
+            return null;
+        }
+
         NonEmptyArrContext nonEmptyArrContext = ctx.nonEmptyArr();
 
         NonEmptyArrayInitializationNode nonEmptyArrayInitializationNode =

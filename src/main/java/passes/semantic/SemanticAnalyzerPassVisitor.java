@@ -36,6 +36,9 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     HashMap<String, Symbol> funcLocalSymbolTable;
     HashMap<String, Symbol> blockLocalSymbolTable;
 
+    // new symbol table ds
+    SymbolTable symbolTable = new SymbolTable();
+
     public SemanticAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();
         this.functions = functions;
@@ -193,6 +196,62 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionDeclarationNode node) {
+        this.funcLocalSymbolTable = new HashMap<>();
+
+        // Go through all the children nodes of function block
+        node.getFunctionBody().getChildren().forEach(stmtNode -> {
+            /*
+                Check for duplicate variable declarations
+             */
+            if(stmtNode instanceof VariableDeclarationNode){
+
+                var name = ((VariableDeclarationNode) stmtNode).getName();
+
+                if(stmtNode instanceof PrimitiveVariableDeclarationNode){
+                    var primNode = (PrimitiveVariableDeclarationNode) stmtNode;
+                    Symbol symbol = new SymbolBuilder()
+                            .setName(name)
+                            .setConst(primNode.isConst())
+                            .setDataType(primNode.getDataType())
+                            .setInit(primNode.isInit())
+                            .build();
+
+
+                    //Check func local symbol in global symbol table
+                    if(this.globalVariableSymbolTable.containsKey(name)){
+                        System.out.println("Syntax Error: Local variable " + name + " already exist in global variables");
+                    }
+
+                    //Check whether symbol name exists in funcLocalSymbolTable
+                    if(this.funcLocalSymbolTable.containsKey(name)){
+                        System.out.println("Syntax Error: Variable " + name + " already exist");
+                    }else{
+                        this.funcLocalSymbolTable.put(name, symbol);
+                    }
+                }else if(stmtNode instanceof ArrayVariableDeclarationNode){
+                    var arrNode = (ArrayVariableDeclarationNode) stmtNode;
+                    Symbol symbol = new SymbolBuilder()
+                            .setName(arrNode.getName())
+                            .setArray(true)
+                            .setDataType(arrNode.getDataType())
+                            .setConst(arrNode.isConst())
+                            .build();
+
+                    //Check func local symbol in global symbol table
+                    if(this.globalVariableSymbolTable.containsKey(name)){
+                        System.out.println("Syntax Error: Local variable  " + name + " already used by global variable");
+                    }
+
+                    //Check whether symbol name exists in funcLocalSymbolTable
+                    if(this.funcLocalSymbolTable.containsKey(arrNode.getName())){
+                        System.out.println("Syntax Error: Variable " + arrNode.getName() + " already exist");
+                    }else{
+                        this.funcLocalSymbolTable.put(arrNode.getName(), symbol);
+                    }
+                }
+            }
+        });
+
         return null;
     }
 
@@ -208,7 +267,10 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(GlobalVariableDeclarationNodeList node) {
-
+        /*
+            Add all global variables into global variable symbol table
+            While adding checks for duplicates
+         */
         for(VariableDeclarationNode varNode : node.getVariableDeclarationNodes()){
 
             String name = varNode.getName();
@@ -219,6 +281,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
                         .setName(name)
                         .setConst(primNode.isConst())
                         .setDataType(primNode.getDataType())
+                        .setInit(primNode.isInit())
                         .build();
 
                 //Check whether symbol name exists
@@ -230,11 +293,13 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
             }else if(varNode instanceof ArrayVariableDeclarationNode){
                 ArrayVariableDeclarationNode arrNode = (ArrayVariableDeclarationNode) varNode;
                 Symbol symbol = new SymbolBuilder()
-                        .setName(arrNode.getName())
+                        .setName(name)
                         .setArray(true)
                         .setDataType(arrNode.getDataType())
                         .setConst(arrNode.isConst())
                         .build();
+
+                //Check whether symbol name exists
                 if(this.globalVariableSymbolTable.containsKey(name)){
                     System.out.println("Syntax Error: Global variable " + name + " already exist");
                 }else{
@@ -242,8 +307,6 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
                 }
             }
         }
-
-        System.out.println(this.globalVariableSymbolTable.size());
 
         return null;
     }
@@ -292,7 +355,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     public String visit(LibImportNode node) {
         //TODO: Syntax error should be added to proper data structure
         if(!libResourceModal.libraries.containsKey(node.getLibName())){
-            System.out.println("Undefined library import: " + node.getLibName());
+            System.out.println("Syntax Error: Undefined library import: " + node.getLibName());
         }
 
         return null;
