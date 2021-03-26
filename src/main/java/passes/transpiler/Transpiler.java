@@ -1,11 +1,13 @@
 package passes.transpiler;
 
 import ast.*;
+import ast.util.DataTypeMapper;
 import visitors.BaseAstVisitor;
 
 public class Transpiler extends BaseAstVisitor {
 
-    StringBuilder builder = new StringBuilder();
+    public StringBuilder libImports = new StringBuilder();
+    public StringBuilder globalVars = new StringBuilder();
 
     @Override
     public Object visit(ArgNode node) {
@@ -104,6 +106,33 @@ public class Transpiler extends BaseAstVisitor {
 
     @Override
     public Object visit(GlobalVariableDeclarationNodeList node) {
+
+        for(VariableDeclarationNode variableDeclarationNode : node.getVariableDeclarationNodes()){
+            if(variableDeclarationNode instanceof PrimitiveVariableDeclarationNode){
+                var primNode = (PrimitiveVariableDeclarationNode) variableDeclarationNode;
+
+                var line = new StringBuilder().append("static ");
+
+                var dataType = primNode.getDataType();
+                line.append(DataTypeMapper.getJavaType(dataType)).append(" ");
+
+                var varName = primNode.getName();
+                line.append(varName).append(" ");
+
+                if(primNode.getValue() != null){
+                    line.append(" = ").append(primNode.getValue().toString());
+                }
+
+                line.append(";");
+                globalVars.append(line).append("\n");
+
+                System.out.println(line.toString());
+
+            }else{
+
+            }
+        }
+
         return null;
     }
 
@@ -149,6 +178,8 @@ public class Transpiler extends BaseAstVisitor {
 
     @Override
     public Object visit(LibImportNode node) {
+        String s = "import " + node.getLibName();
+        libImports.append(s).append(";\n");
         return null;
     }
 

@@ -59,7 +59,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             this.compilationUnitNode.addFunctionDeclarationNode(functionDeclarationNode);
         }
 
-        LOGGER.info("CompilationUnitNode created");
+        //Logger.info("CompilationUnitNode created");
         return this.compilationUnitNode;
 
     }
@@ -69,7 +69,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         String name = ctx.identifier().getText();
         LibImportNode libImportNode = new LibImportNode(name);
 
-        LOGGER.info("LibImportNode created");
+        //Logger.info("LibImportNode created");
         return libImportNode;
     }
 
@@ -95,7 +95,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         this.globalVariableSymbolTable.add(variableDeclarationNode.getName());
 
-        LOGGER.info("VariableDeclarationNode created");
+        //Logger.info("VariableDeclarationNode created");
         return variableDeclarationNode;
 
     }
@@ -116,7 +116,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                 visitVariableDeclaration(ctx.variableDeclaration());
         variableDeclarationNode.setConst();
 
-        LOGGER.info("VariableDeclarationNode created");
+        //Logger.info("VariableDeclarationNode created");
         return variableDeclarationNode;
 
     }
@@ -124,7 +124,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     @Override
     public PrimitiveVariableDeclarationNode visitPrimitiveVariableDeclaration(PrimitiveVariableDeclarationContext ctx) {
 
-        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+        DataType dataType = DataTypeMapper.getSimplyTypeClass(ctx.nonVoidDataTypeName().getText());
         String varName = ctx.identifier().getText();
 
         ExpressionNode expressionNode = null;
@@ -132,7 +132,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             expressionNode = visitExpression(ctx.expression());
         }
 
-        LOGGER.info("PrimitiveVariableDeclarationNode created");
+        //Logger.info("PrimitiveVariableDeclarationNode created");
         return new PrimitiveVariableDeclarationNode(
                 false,
                 dataType,
@@ -153,7 +153,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = visitLogicExpression(ctx.logicExpression());
 
-            LOGGER.info("MultiplicationExpressionNode created");
+            //Logger.info("MultiplicationExpressionNode created");
             return new MultiplicationExpressionNode(left, right);
 
         } else if (ctx.DIV() != null) {
@@ -161,7 +161,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = visitLogicExpression(ctx.logicExpression());
 
-            LOGGER.info("DivisionExpressionNode created");
+            //Logger.info("DivisionExpressionNode created");
             return new DivisionExpressionNode(left, right);
 
         } else if (ctx.SUB() != null) {
@@ -169,7 +169,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = visitLogicExpression(ctx.logicExpression());
 
-            LOGGER.info("SubtractionExpressionNode created");
+            //Logger.info("SubtractionExpressionNode created");
             return new SubtractionExpressionNode(left, right);
 
         } else if (ctx.ADD() != null) {
@@ -177,7 +177,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = visitLogicExpression(ctx.logicExpression());
 
-            LOGGER.info("AdditionExpressionNode created");
+            //Logger.info("AdditionExpressionNode created");
             return new AdditionExpressionNode(left, right);
 
         } else if (ctx.MOD() != null) {
@@ -185,7 +185,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitArithmaticExpression(ctx.arithmaticExpression());
             ExpressionNode right = visitLogicExpression(ctx.logicExpression());
 
-            LOGGER.info("ModulusExpressionNode created");
+            //Logger.info("ModulusExpressionNode created");
             return new ModulusExpressionNode(left, right);
 
         } else {
@@ -202,7 +202,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("OrExpressionNode created");
+            //Logger.info("OrExpressionNode created");
             return new OrExpressionNode(left, right);
 
         } else if (ctx.AND() != null) {
@@ -210,7 +210,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("AndExpressionNode created");
+            //Logger.info("AndExpressionNode created");
             return new AndExpressionNode(left, right);
 
         } else if (ctx.GT() != null) {
@@ -218,7 +218,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("GreaterThanExpressionNode created");
+            //Logger.info("GreaterThanExpressionNode created");
             return new GreaterThanExpressionNode(left, right);
 
         } else if (ctx.LT() != null) {
@@ -226,7 +226,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("LessThanExpressionNode created");
+            //Logger.info("LessThanExpressionNode created");
             return new LessThanExpressionNode(left, right);
 
         } else if (ctx.GE() != null) {
@@ -234,7 +234,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("GreaterOrEqualThanExpressionNode created");
+            //Logger.info("GreaterOrEqualThanExpressionNode created");
             return new GreaterOrEqualThanExpressionNode(left, right);
 
         } else if (ctx.LE() != null) {
@@ -242,7 +242,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("LessOrEqualThanExpressionNode created");
+            //Logger.info("LessOrEqualThanExpressionNode created");
             return new LessOrEqualThanExpressionNode(left, right);
 
         } else if (ctx.EQUAL() != null) {
@@ -250,7 +250,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("EqualsExpressionNode created");
+            //Logger.info("EqualsExpressionNode created");
             return new EqualsExpressionNode(left, right);
 
         } else if (ctx.NOTEQUAL() != null) {
@@ -258,7 +258,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode left = visitLogicExpression(ctx.logicExpression());
             ExpressionNode right = visitUnaryExpression(ctx.unaryExpression());
 
-            LOGGER.info("NotEqualsExpressionNode created");
+            //Logger.info("NotEqualsExpressionNode created");
             return new NotEqualsExpressionNode(left, right);
 
         } else {
@@ -303,7 +303,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                                 ((IntegerLiteralContext) literalContext).IntegerLiteral().getText()
                         );
 
-                LOGGER.info("IntegerLiteralExpression created");
+                //Logger.info("IntegerLiteralExpression created");
                 return new IntegerLiteralExpressionNode(value);
 
             } else if (literalContext instanceof FloatLiteralContext) {
@@ -313,7 +313,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                                 ((FloatLiteralContext) literalContext).FloatLiteral().getText()
                         );
 
-                LOGGER.info("FloatLiteralExpression created");
+                //Logger.info("FloatLiteralExpression created");
                 return new FloatLiteralExpressionNode(value);
 
             } else if (literalContext instanceof CharLiteralContext) {
@@ -321,7 +321,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                 char value =
                         ((CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
 
-                LOGGER.info("CharLiteralExpression created");
+                //Logger.info("CharLiteralExpression created");
                 return new CharLiteralExpressionNode(value);
 
             } else if (literalContext instanceof StringLiteralContext) {
@@ -329,7 +329,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                 String value =
                         ((StringLiteralContext) literalContext).StringLiteral().getText();
 
-                LOGGER.info("StringLiteralExpression created");
+                //Logger.info("StringLiteralExpression created");
                 return new StringLiteralExpressionNode(value);
 
             } else {
@@ -339,7 +339,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                                 ((BoolLiteralContext) literalContext).BoolLiteral().getText()
                         );
 
-                LOGGER.info("BoolLiteralExpression created");
+                //Logger.info("BoolLiteralExpression created");
                 return new BoolLiteralExpressionNode(value);
             }
 
@@ -347,7 +347,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             String name = ((VariableAccessExpressionContext) ctx).identifier().getText();
 
-            LOGGER.info("IdentifierExpressionNode created");
+            //Logger.info("IdentifierExpressionNode created");
             return new IdentifierNode(name);
 
         } else{
@@ -358,7 +358,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode expressionNode = visitExpression(
                     ((ArrayAccessExpressionContext) ctx).arrayAccess().expression());
 
-            LOGGER.info("ArrayAccessExpressionNode created");
+            //Logger.info("ArrayAccessExpressionNode created");
             return new ArrayAccessExpressionNode(name, expressionNode);
 
         }
@@ -368,12 +368,12 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     public ArrayVariableDeclarationNode visitArrayVariableDeclaration(ArrayVariableDeclarationContext ctx) {
 
         String arrayName = ctx.identifier().getText();
-        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+        DataType dataType = DataTypeMapper.getSimplyTypeClass(ctx.nonVoidDataTypeName().getText());
 
         ArrayInitializationNode arrayInitializationNode =
                 visitArrayInitialization(ctx.arrayIntialization());
 
-        LOGGER.info("ArrayVariableDeclarationNode created");
+        //Logger.info("ArrayVariableDeclarationNode created");
         return new ArrayVariableDeclarationNode(false, dataType, arrayName, arrayInitializationNode);
 
     }
@@ -418,13 +418,13 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             );
         }
 
-        LOGGER.info("NonEmptyArrayInitializationNode created");
+        //Logger.info("NonEmptyArrayInitializationNode created");
         return nonEmptyArrayInitializationNode;
     }
 
     @Override
     public FunctionDeclarationNode visitFunctionDeclaration(FunctionDeclarationContext ctx) {
-        DataType returnType = DataTypeMapper.getType(
+        DataType returnType = DataTypeMapper.getSimplyTypeClass(
                 ctx.dataTypeName().getText()
         );
 
@@ -434,7 +434,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         BlockNode blockNode =
                 visitBlock(ctx.block());
 
-        LOGGER.info("FunctionDeclarationNode created");
+        //Logger.info("FunctionDeclarationNode created");
         return new FunctionDeclarationNode(functionSignatureNode, returnType, blockNode);
 
 
@@ -455,7 +455,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             );
         }
 
-        LOGGER.info("FunctionSignatureNode created");
+        //Logger.info("FunctionSignatureNode created");
         return functionSignatureNode;
     }
 
@@ -463,9 +463,9 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     @Override
     public ArgNode visitArg(ArgContext ctx) {
         String varName = ctx.identifier().getText();
-        DataType dataType = DataTypeMapper.getType(ctx.nonVoidDataTypeName().getText());
+        DataType dataType = DataTypeMapper.getSimplyTypeClass(ctx.nonVoidDataTypeName().getText());
 
-        LOGGER.info("ArgNode created");
+        //Logger.info("ArgNode created");
         return new ArgNode(dataType, varName);
     }
 
@@ -546,7 +546,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             );
         }
 
-        LOGGER.info("IfStatementNode created");
+        //Logger.info("IfStatementNode created");
         return ifStatementNode;
 
     }
@@ -559,7 +559,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         BlockNode blockNode = visitBlock(ctx.block());
 
-        LOGGER.info("IfBlockNode created");
+        //Logger.info("IfBlockNode created");
         return new IfBlockNode(expressionNode, blockNode);
 
     }
@@ -569,7 +569,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         BlockNode blockNode = visitBlock(ctx.block());
 
-        LOGGER.info("ElseBlockNode created");
+        //Logger.info("ElseBlockNode created");
         return new ElseBlockNode(blockNode);
 
     }
@@ -588,7 +588,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             );
         }
 
-        LOGGER.info("BlockNode created");
+        //Logger.info("BlockNode created");
         return blockNode;
     }
 
@@ -602,7 +602,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         BlockNode blockNode = visitBlock(iterateStatementContext.block());
 
-        LOGGER.info("IterateStatementNode created");
+        //Logger.info("IterateStatementNode created");
         return new IterateStatementNode(iterateConditionExpressionNode, blockNode);
     }
 
@@ -612,7 +612,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
             ExpressionNode expressionNode = visitExpression(((BooleanIterateExpressionRuleContext) ctx).expression());
 
-            LOGGER.info("BooleanIterateExpressionNode created");
+            //Logger.info("BooleanIterateExpressionNode created");
             return new BooleanIterateExpressionNode(expressionNode);
 
 
@@ -626,7 +626,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode toExpression = visitExpression(((RangeIterateExpressionRuleContext) ctx)
                     .rangeExpression().toExpression().expression());
 
-            LOGGER.info("RangeIterateExpressionNode created");
+            //Logger.info("RangeIterateExpressionNode created");
             return new RangeIterateExpressionNode(argNode, fromExpression, toExpression);
 
         } else{
@@ -637,7 +637,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             ExpressionNode expressionNode = visitExpression(((ArrayIterateExpressionRuleContext) ctx)
                     .arrayIterateExpression().expression());
 
-            LOGGER.info("ArrayIterateExpressionNode created");
+            //Logger.info("ArrayIterateExpressionNode created");
             return new ArrayIterateExpressionNode(argNode, expressionNode);
         }
     }
@@ -666,7 +666,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         ExpressionNode expressionNode =
                 visitExpression(ctx.expression());
 
-        LOGGER.info("PrimitiveVariableAssignmentStatementNode created");
+        //Logger.info("PrimitiveVariableAssignmentStatementNode created");
         return new PrimitiveVariableAssignmentStatementNode(name, operator, expressionNode);
     }
 
@@ -682,7 +682,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         ExpressionNode expressionNode =
                 visitExpression(ctx.expression());
 
-        LOGGER.info("ArrayVariableAssignmentStatementNode created");
+        //Logger.info("ArrayVariableAssignmentStatementNode created");
         return new ArrayVariableAssignmentStatementNode(name, operator, expressionNode);
     }
 
@@ -691,7 +691,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         FunctionCallExpressionNode functionCallExpressionNode = (FunctionCallExpressionNode)
                 visitFuncCall(ctx.funcCallStatement().funcCall());
 
-        LOGGER.info("FunctionCallStatementNode created");
+        //Logger.info("FunctionCallStatementNode created");
         return new FunctionCallStatementNode(functionCallExpressionNode);
     }
 
@@ -720,7 +720,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             functionCallExpressionNode.addParameter(expressionNode);
         }
 
-        LOGGER.info("FunctionCallExpressionNode created");
+        //Logger.info("FunctionCallExpressionNode created");
         return functionCallExpressionNode;
     }
 
@@ -729,7 +729,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     public ReturnStatementNode visitReturnStatemtntRule(ReturnStatemtntRuleContext ctx) {
         ExpressionNode expressionNode = visitExpression(ctx.returnStatemtnt().expression());
 
-        LOGGER.info("ReturnStatementNode created");
+        //Logger.info("ReturnStatementNode created");
         return new ReturnStatementNode(expressionNode);
     }
 
@@ -749,11 +749,11 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         String loopControlOperator = ctx.loopControlStatement().getText();
 
         if (loopControlOperator.equals("continue")) {
-            LOGGER.info("LoopControlStatementNode(continue) created");
+            //Logger.info("LoopControlStatementNode(continue) created");
             return new LoopControlStatementNode(LoopControlOperator.Continue);
         } else {
             // instance of break
-            LOGGER.info("LoopControlStatementNode(break) created");
+            //Logger.info("LoopControlStatementNode(break) created");
             return new LoopControlStatementNode(LoopControlOperator.Break);
         }
     }

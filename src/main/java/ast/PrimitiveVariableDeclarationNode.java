@@ -43,6 +43,10 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
         return dataType;
     }
 
+    public ExpressionNode getValue() {
+        return value;
+    }
+
     public boolean isInit(){
         return this.value != null;
     }

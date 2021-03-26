@@ -1,25 +1,30 @@
 package app;
 
-import ast.util.enums.DataType;
-import passes.PreEvaluatePassVisitor;
-import passes.semantic.SemanticAnalyzerPassVisitor;
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.CompilationUnitNode;
 import ast.gui.AstDotGenerator;
+import ast.util.enums.DataType;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
+import passes.PreEvaluatePassVisitor;
+import passes.semantic.SemanticAnalyzerPassVisitor;
+import passes.transpiler.TempTranspiler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class MainAppDemo {
+
+    private static final Logger LOGGER = Logger.getLogger(MainAppDemo.class.getName());
+
     public static void main(String[] args) throws IOException {
 
         String filePath = "Samples/sample2.simply";
@@ -33,11 +38,13 @@ public class MainAppDemo {
 
         List<String> errors = new ArrayList<>();
 
+        // Convert CST into AST
         Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
         CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
 
-        /*TestAstVisitor testAstVisitor = new TestAstVisitor();
-        astRoot.accept(testAstVisitor);*/
+        // Generate AST Image
+        AstDotGenerator.draw(astRoot);
+
 
         // pre-evaluation pass
         // get the function list data structure
@@ -48,12 +55,14 @@ public class MainAppDemo {
 
         HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
-        // Syntax analyzing
+        // Semantics analyzing
+
         SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
         astRoot.accept(semanticAnalyzerPassVisitor);
 
-        AstDotGenerator.draw(astRoot);
+        TempTranspiler transpiler = new TempTranspiler();
+        astRoot.accept(transpiler);
 
-
+        System.out.println(transpiler.code);
     }
 }

@@ -6,10 +6,5 @@ public enum DataType {
     BooleanType,
     CharType,
     StringType,
-    VoidType,
-    ListIntegerType,
-    ListFloatType,
-    ListBooleanType,
-    ListCharType,
-    ListStringType
+    VoidType
 }

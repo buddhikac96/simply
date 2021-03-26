@@ -31,6 +31,18 @@ public class CompilationUnitNode extends ASTNode {
     }
 
 
+    public LibImportNodeList getLibImportNodeList() {
+        return libImportNodeList;
+    }
+
+    public GlobalVariableDeclarationNodeList getGlobalVariableDeclarationNodeList() {
+        return globalVariableDeclarationNodeList;
+    }
+
+    public FunctionDeclarationNodeList getFunctionDeclarationNodeList() {
+        return functionDeclarationNodeList;
+    }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>();

@@ -57,11 +57,11 @@ public class LibResourceModalMapper {
 
                 // Create overload
                 overloadList.forEach(overload -> {
-                    DataType returnType = DataTypeMapper.getType(overload.valueOf("return"));
+                    DataType returnType = DataTypeMapper.getSimplyTypeClass(overload.valueOf("return"));
                     Overload overloadItem = new Overload(returnType);
 
                     overload.selectNodes("args/arg").forEach(arg -> {
-                        overloadItem.addArg(DataTypeMapper.getType(arg.getStringValue()));
+                        overloadItem.addArg(DataTypeMapper.getSimplyTypeClass(arg.getStringValue()));
                     });
 
                     // add overload to function

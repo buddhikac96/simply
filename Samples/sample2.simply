@@ -1,4 +1,5 @@
-get sldfkj;
+get io;
+get math;
 
 global int a = 10;
 

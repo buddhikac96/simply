@@ -19,6 +19,10 @@ public class LibImportNodeList extends ASTNode {
     }
 
 
+    public List<LibImportNode> getLibImportNodes() {
+        return new ArrayList<>(libImportNodes);
+    }
+
     @Override
     public List<ASTNode> getChildren() {
         return new ArrayList<ASTNode>(this.libImportNodes);
