@@ -298,7 +298,9 @@ public class TempTranspiler extends BaseAstVisitor<String> {
         line.append(varName).append(" ");
 
         if(node.getValue() != null){
-            line.append(" = ").append(node.getValue().toString());
+            var value = node.getValue();
+
+            // line.append(" = ").append(visit(node.getValue()));
         }
 
         line.append(";");
@@ -328,6 +330,49 @@ public class TempTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(PrefixPlusExpressionNode node) {
+        return null;
+    }
+
+    public String visit(ExpressionNode node){
+        if(node instanceof ArithmeticExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof ArrayAccessExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof FunctionCallExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof IdentifierNode newNode){
+            return visit(newNode);
+        }else if(node instanceof IterateStatementNode.IterateConditionExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof LiteralExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof LogicExpressionNode newNode){
+            return visit(newNode);
+        }else if(node instanceof UnaryExpressionNode newNode){
+            return visit(newNode);
+        }
+
+        return null;
+
+    }
+
+    public String visit(IterateStatementNode.IterateConditionExpressionNode node){
+        // visitors with implementations of IterateConditionExpressionNode
+        return null;
+    }
+
+    public String visit(LiteralExpressionNode node){
+        // visitors with implementations of LiteralExpressionNode
+        return null;
+    }
+
+    public String visit(LogicExpressionNode node){
+        // visitors with implementations of LiteralExpressionNode
+        return null;
+    }
+
+    public String visit(UnaryExpressionNode node){
+        // visitors with implementations of LiteralExpressionNode
         return null;
     }
 }

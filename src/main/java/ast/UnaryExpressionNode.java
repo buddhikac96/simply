@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public abstract class UnaryExpressionNode extends ExpressionNode {
 
-    public static class ParenExpressionNode extends ExpressionNode {
+    public static class ParenExpressionNode extends UnaryExpressionNode {
         ExpressionNode expressionNode;
 
         public ParenExpressionNode(ExpressionNode expressionNode) {
@@ -36,7 +36,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class PrefixPlusExpressionNode extends ExpressionNode {
+    public static class PrefixPlusExpressionNode extends UnaryExpressionNode {
         ExpressionNode expressionNode;
 
         public PrefixPlusExpressionNode(ExpressionNode expressionNode) {
@@ -64,7 +64,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class PrefixMinusExpressionNode extends ExpressionNode{
+    public static class PrefixMinusExpressionNode extends UnaryExpressionNode{
         ExpressionNode expressionNode;
 
         public PrefixMinusExpressionNode(ExpressionNode expressionNode) {
@@ -92,7 +92,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class PrefixNotExpressionNode extends ExpressionNode{
+    public static class PrefixNotExpressionNode extends UnaryExpressionNode{
         ExpressionNode expressionNode;
 
         public PrefixNotExpressionNode(ExpressionNode expressionNode) {
