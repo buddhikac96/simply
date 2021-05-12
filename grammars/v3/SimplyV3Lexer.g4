@@ -12,24 +12,31 @@ GET: 'get';
 CONST: 'const';
 LIST: 'list';
 SEND: 'send';
-CHECK: 'check';
-OTHERWISE: 'otherwise';
+CHECK: 'if';
+OTHERWISE: 'else';
 ITERATE: 'iterate';
-INT: 'int';
-FLOAT: 'float';
-CHAR: 'char';
-STRING: 'string';
-BOOL: 'bool';
-VOID: 'void';
 FUNCTION: 'function' ;
 FROM: 'from' ;
 TO: 'to' ;
-CONTINUE: 'continue' ;
+CONTINUE: 'conotherwisetinue' ;
 BREAK: 'break' ;
 OF: 'of' ;
 GLOBAL: 'global';
 RANGE: 'range';
 NEXT: 'next';
+OUT: 'out';
+IN: 'in';
+
+
+//
+//  Keywords | Data types
+//
+INT: 'integer';
+FLOAT: 'float';
+CHAR: 'character';
+STRING: 'string';
+BOOL: 'boolean';
+VOID: 'no';
 
 //
 // Literals

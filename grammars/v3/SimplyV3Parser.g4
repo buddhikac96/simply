@@ -166,11 +166,11 @@ arrayValue
 
 // Function declaration
 functionDeclaration
-    : FUNCTION functionSignature COLON LIST? dataTypeName block
+    : FUNCTION functionSignature OUT COLON LIST? dataTypeName block
     ;
 
 functionSignature
-    : identifier LPAREN argList RPAREN
+    : identifier LPAREN IN COLON argList RPAREN
     ;
 
 argList
