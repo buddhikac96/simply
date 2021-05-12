@@ -28,6 +28,8 @@ CONTINUE: 'continue' ;
 BREAK: 'break' ;
 OF: 'of' ;
 GLOBAL: 'global';
+RANGE: 'range';
+NEXT: 'next';
 
 //
 // Literals

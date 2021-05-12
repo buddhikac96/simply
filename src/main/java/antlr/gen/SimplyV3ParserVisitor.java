@@ -406,6 +406,13 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRangeIterateExpressionRule(SimplyV3Parser.RangeIterateExpressionRuleContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code newrangeExpressionRule}
+	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNewrangeExpressionRule(SimplyV3Parser.NewrangeExpressionRuleContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code arrayIterateExpressionRule}
 	 * labeled alternative in {@link SimplyV3Parser#iterateConditionExpression}.
 	 * @param ctx the parse tree
@@ -418,6 +425,18 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#newRangeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNewRangeExpression(SimplyV3Parser.NewRangeExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimplyV3Parser#nextExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNextExpression(SimplyV3Parser.NextExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimplyV3Parser#fromExpression}.
 	 * @param ctx the parse tree

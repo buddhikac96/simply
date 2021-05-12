@@ -750,6 +750,18 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNewrangeExpressionRule(SimplyV3Parser.NewrangeExpressionRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewrangeExpressionRule(SimplyV3Parser.NewrangeExpressionRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArrayIterateExpressionRule(SimplyV3Parser.ArrayIterateExpressionRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -769,6 +781,30 @@ public class SimplyV3ParserBaseListener implements SimplyV3ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRangeExpression(SimplyV3Parser.RangeExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNewRangeExpression(SimplyV3Parser.NewRangeExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewRangeExpression(SimplyV3Parser.NewRangeExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNextExpression(SimplyV3Parser.NextExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNextExpression(SimplyV3Parser.NextExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -240,12 +240,21 @@ iterateStatement
 iterateConditionExpression
     : expression                            # booleanIterateExpressionRule
     | rangeExpression                       # rangeIterateExpressionRule
+    | newRangeExpression                    # newrangeExpressionRule
     | arrayIterateExpression                # arrayIterateExpressionRule
     ;
 
 // Loop through a range
 rangeExpression
     : arg FROM fromExpression TO toExpression
+    ;
+
+newRangeExpression
+    : arg EOL RANGE COLON fromExpression TO toExpression (EOL nextExpression)?
+    ;
+
+nextExpression
+    : NEXT expression
     ;
 
 fromExpression
