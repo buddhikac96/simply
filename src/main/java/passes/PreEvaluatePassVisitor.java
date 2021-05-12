@@ -320,4 +320,9 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     public Void visit(PrefixPlusExpressionNode node) {
         return null;
     }
+
+    @Override
+    public Void visit(NewRangeExpressionNode node) {
+        return null;
+    }
 }

@@ -1,12 +1,22 @@
 get io;
 get math;
 
-global int a = 10;
+global integer a = 5;
 
-function main() : void {
+function main(in: ) out: no {
+    integer a = 5;
+    integer b = 10;
 
+    integer total = add(a, b);
+    io.print(total);
+
+    repeat(integer i; range : 1 to 10; next 2){
+
+    }
 }
 
-function foo() : void {
-    int a = 10;
+
+function add(in: integer a, integer b) out: integer {
+    integer total = a + b;
+    return total;
 }

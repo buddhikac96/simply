@@ -67,13 +67,14 @@ public class SimplyV3Parser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'get'", "'const'", "'list'", "'send'", "'if'", "'else'", "'iterate'", 
-			"'function'", "'from'", "'to'", "'conotherwisetinue'", "'break'", "'of'", 
-			"'global'", "'range'", "'next'", "'out'", "'in'", "'integer'", "'float'", 
-			"'character'", "'string'", "'boolean'", "'no'", null, null, null, null, 
-			null, "'('", "')'", "'{'", "'}'", "'['", "']'", "';'", "','", "'.'", 
-			"':'", "'='", "'>'", "'<'", "'!'", "'=='", "'<='", "'>='", "'!='", "'and'", 
-			"'or'", "'+'", "'-'", "'*'", "'/'", "'%'", "'+='", "'-='", "'*='", "'/='"
+			null, "'get'", "'constant'", "'list'", "'return'", "'if'", "'else'", 
+			"'repeat'", "'function'", "'from'", "'to'", "'continue'", "'break'", 
+			"'of'", "'global'", "'range'", "'next'", "'out'", "'in'", "'integer'", 
+			"'float'", "'character'", "'string'", "'boolean'", "'no'", null, null, 
+			null, null, null, "'('", "')'", "'{'", "'}'", "'['", "']'", "';'", "','", 
+			"'.'", "':'", "'='", "'>'", "'<'", "'!'", "'=='", "'<='", "'>='", "'!='", 
+			"'and'", "'or'", "'+'", "'-'", "'*'", "'/'", "'%'", "'+='", "'-='", "'*='", 
+			"'/='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();

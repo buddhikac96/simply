@@ -629,6 +629,22 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             //Logger.info("RangeIterateExpressionNode created");
             return new RangeIterateExpressionNode(argNode, fromExpression, toExpression);
 
+        } else if(ctx instanceof NewrangeExpressionRuleContext){
+
+            ArgNode argNode = visitArg(((NewrangeExpressionRuleContext) ctx).newRangeExpression().arg());
+
+            ExpressionNode fromExpression = visitExpression(((NewrangeExpressionRuleContext) ctx)
+                    .newRangeExpression().fromExpression().expression());
+
+            ExpressionNode toExpression = visitExpression(((NewrangeExpressionRuleContext) ctx)
+                    .newRangeExpression().toExpression().expression());
+
+            ExpressionNode nextExpression = visitExpression(((NewrangeExpressionRuleContext) ctx)
+                    .newRangeExpression().nextExpression().expression());
+
+            //Logger.info("RangeIterateExpressionNode created");
+            return new NewRangeExpressionNode(argNode, fromExpression, toExpression, nextExpression);
+
         } else{
             // instance of ArrayIterateExpressionRuleContext
             ArgNode argNode = visitArg(((ArrayIterateExpressionRuleContext) ctx)

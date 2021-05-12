@@ -4,6 +4,8 @@ import ast.*;
 import ast.util.DataTypeMapper;
 import visitors.BaseAstVisitor;
 
+import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
+
 public class Transpiler extends BaseAstVisitor {
 
     public StringBuilder libImports = new StringBuilder();
@@ -162,17 +164,17 @@ public class Transpiler extends BaseAstVisitor {
     }
 
     @Override
-    public Object visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
+    public Object visit(ArrayIterateExpressionNode node) {
         return null;
     }
 
     @Override
-    public Object visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
+    public Object visit(BooleanIterateExpressionNode node) {
         return null;
     }
 
     @Override
-    public Object visit(IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode node) {
+    public Object visit(RangeIterateExpressionNode node) {
         return null;
     }
 
@@ -290,6 +292,11 @@ public class Transpiler extends BaseAstVisitor {
 
     @Override
     public Object visit(UnaryExpressionNode.PrefixPlusExpressionNode node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(NewRangeExpressionNode node) {
         return null;
     }
 }

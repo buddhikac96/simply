@@ -103,6 +103,42 @@ public class IterateStatementNode extends StatementNode{
             }
         }
 
+        public static class NewRangeExpressionNode extends IterateConditionExpressionNode{
+
+            ArgNode variableDeclaration;
+            ExpressionNode fromValue;
+            ExpressionNode toValue;
+            ExpressionNode nextValue;
+
+            public NewRangeExpressionNode(
+                    ArgNode variableDeclaration,
+                    ExpressionNode fromValue,
+                    ExpressionNode toValue,
+                    ExpressionNode nextValue
+            ) {
+                this.variableDeclaration = variableDeclaration;
+                this.fromValue = fromValue;
+                this.toValue = toValue;
+                this.nextValue = nextValue;
+            }
+
+            @Override
+            public List<ASTNode> getChildren() {
+                List<ASTNode> children = new ArrayList<>();
+                children.add(this.variableDeclaration);
+                children.add(this.fromValue);
+                children.add(this.toValue);
+                children.add(this.nextValue);
+                return children;
+            }
+
+            @Override
+            public void accept(BaseAstVisitor visitor) {
+                this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
+                visitor.visit(this);
+            }
+        }
+
         public static class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
             ArgNode variableDeclaration;
             ExpressionNode expressionNode;  // Identifier or function call expression

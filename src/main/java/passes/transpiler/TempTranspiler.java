@@ -333,6 +333,11 @@ public class TempTranspiler extends BaseAstVisitor<String> {
         return null;
     }
 
+    @Override
+    public String visit(NewRangeExpressionNode node) {
+        return null;
+    }
+
     public String visit(ExpressionNode node){
         if(node instanceof ArithmeticExpressionNode newNode){
             return visit(newNode);

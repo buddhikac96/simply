@@ -9,16 +9,16 @@ package antlr.gen;
 //
 
 GET: 'get';
-CONST: 'const';
+CONST: 'constant';
 LIST: 'list';
-SEND: 'send';
+SEND: 'return';
 CHECK: 'if';
 OTHERWISE: 'else';
-ITERATE: 'iterate';
+ITERATE: 'repeat';
 FUNCTION: 'function' ;
 FROM: 'from' ;
 TO: 'to' ;
-CONTINUE: 'conotherwisetinue' ;
+CONTINUE: 'continue' ;
 BREAK: 'break' ;
 OF: 'of' ;
 GLOBAL: 'global';
