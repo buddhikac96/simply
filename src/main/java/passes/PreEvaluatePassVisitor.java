@@ -325,4 +325,9 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     public Void visit(NewRangeExpressionNode node) {
         return null;
     }
+
+    @Override
+    public Void visit(LogicExpressionNode node) {
+        return null;
+    }
 }

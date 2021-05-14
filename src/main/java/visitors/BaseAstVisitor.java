@@ -66,4 +66,5 @@ public abstract class BaseAstVisitor<T> {
     public abstract T visit(PrefixNotExpressionNode node);
     public abstract T visit(PrefixPlusExpressionNode node);
     public abstract T visit(NewRangeExpressionNode node);
+    public abstract T visit(LogicExpressionNode node);
 }

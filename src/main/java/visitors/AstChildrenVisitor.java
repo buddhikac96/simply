@@ -276,4 +276,9 @@ public class AstChildrenVisitor extends BaseAstVisitor<List<ASTNode>>{
     public List<ASTNode> visit(NewRangeExpressionNode node) {
         return null;
     }
+
+    @Override
+    public List<ASTNode> visit(LogicExpressionNode node) {
+        return null;
+    }
 }

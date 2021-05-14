@@ -299,4 +299,9 @@ public class Transpiler extends BaseAstVisitor {
     public Object visit(NewRangeExpressionNode node) {
         return null;
     }
+
+    @Override
+    public Object visit(LogicExpressionNode node) {
+        return null;
+    }
 }

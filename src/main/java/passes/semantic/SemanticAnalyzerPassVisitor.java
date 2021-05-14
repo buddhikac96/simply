@@ -475,4 +475,9 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     public String visit(NewRangeExpressionNode node) {
         return null;
     }
+
+    @Override
+    public String visit(LogicExpressionNode node) {
+        return null;
+    }
 }
