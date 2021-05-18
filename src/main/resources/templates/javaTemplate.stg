@@ -1,7 +1,7 @@
-program(libImports, globals, body) ::= <<
-<libImports>
+program(libImportSection, globalSection, body) ::= <<
+<libImportSection>
 public class Main {
-    <globals>
+    <globalSection>
     public static void main(String[] args) {
         <body>
     }
@@ -13,3 +13,8 @@ imports(libName) ::= "import <libName>;  <\n>"
 
 globalVariables(type, identifier, val) ::= "static <type> <identifier><init(val)>; <\n>"
 init(val) ::= "<if(val)> = <val><endif>"
+
+globalArraysDec(type, identifier) ::= "static <type>[] <identifier>;  <\n>"
+globalArraysDecInit(type, identifier, values) ::= "static <type>[] <identifier> = { <values> }; <\n>"
+
+

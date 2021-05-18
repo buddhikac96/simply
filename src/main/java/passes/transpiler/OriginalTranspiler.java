@@ -55,12 +55,46 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArrayInitializationNode node) {
-        return null;
+        StringBuilder arrayElements = new StringBuilder();
+        if(node instanceof EmptyArrayInitializationNode) {
+            return null;
+        }else if(node instanceof NonEmptyArrayInitializationNode) {
+            var newNode = (NonEmptyArrayInitializationNode) node;
+            for(ExpressionNode elementNode : newNode.getArrayValues()) {
+                var value = visit(elementNode);
+                arrayElements.append(value).append(",");
+            }
+        }
+
+        // Removing the additional ','
+        return arrayElements.deleteCharAt(arrayElements.length() - 1).toString();
+
     }
 
+    // Update the array template to support both empty and non-empty initialization nodes
     @Override
     public String visit(ArrayVariableDeclarationNode node) {
-        return null;
+        var arrValues = visit(node.getValue());
+        if(arrValues == null) {
+            ST st = group.getInstanceOf("globalArraysDec");
+
+            var dataType = node.getDataType();
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            var varName = node.getName();
+            st.add("identifier", varName);
+
+            return st.render();
+        }else{
+            ST st = group.getInstanceOf("globalArraysDecInit");
+
+            var dataType = node.getDataType();
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            var varName = node.getName();
+            st.add("identifier", varName);
+            st.add("values", arrValues);
+
+            return st.render();
+        }
     }
 
     @Override
@@ -82,9 +116,9 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     public String visit(CompilationUnitNode node) {
         ST st = group.getInstanceOf("program");
         var libImportsSection = visit(node.getLibImportNodeList());
-        st.add("libImports", libImportsSection);
+        st.add("libImportSection", libImportsSection);
         var globalVarsSection = visit(node.getGlobalVariableDeclarationNodeList());
-        st.add("globals", globalVarsSection);
+        st.add("globalSection", globalVarsSection);
 
         // Append lib imports
 //        code.append(libImportsSection);
@@ -128,12 +162,14 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     @Override
     public String visit(GlobalVariableDeclarationNodeList node) {
         StringBuilder line = new StringBuilder();
-        ST st = group.getInstanceOf("globalVariables");
 
         for(VariableDeclarationNode variableDeclarationNode : node.getVariableDeclarationNodes()){
             if(variableDeclarationNode instanceof PrimitiveVariableDeclarationNode){
                 var primNode = (PrimitiveVariableDeclarationNode) variableDeclarationNode;
                 line.append(visit(primNode));
+            }else if(variableDeclarationNode instanceof ArrayVariableDeclarationNode){
+                var arrayNode = (ArrayVariableDeclarationNode) variableDeclarationNode;
+                line.append(visit(arrayNode));
             }
         }
 

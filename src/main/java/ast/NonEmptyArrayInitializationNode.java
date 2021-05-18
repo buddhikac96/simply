@@ -17,6 +17,8 @@ public class NonEmptyArrayInitializationNode extends ArrayInitializationNode {
         this.arrayValues.add(expressionNode);
     }
 
+    public List<ExpressionNode> getArrayValues() { return this.arrayValues; }
+
     @Override
     public List<ASTNode> getChildren() {
         return new ArrayList<>(this.arrayValues);
