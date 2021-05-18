@@ -2,17 +2,18 @@ package passes.transpiler;
 
 import ast.*;
 import ast.util.DataTypeMapper;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupFile;
 import visitors.BaseAstVisitor;
-import org.stringtemplate.v4.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     public StringBuilder code = new StringBuilder();
-    STGroup group = new STGroupFile("G:\\Dev\\v4\\simply\\src\\main\\resources\\templates\\javaTemplate.stg");
+    STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");
 
     //STGroup group = new STGroupDir("G:\\Dev\\v4\\simply\\src\\main\\java\\passes\\transpiler");
 
