@@ -2,6 +2,10 @@ get io;
 get math;
 
 global integer a = 5;
+global string b = "haha";
+global boolean c = true;
+global character d = "%";
+global float e = 2.34566;
 
 function main(in: ) out: no {
     integer a = 5;

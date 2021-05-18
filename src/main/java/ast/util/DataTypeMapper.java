@@ -10,12 +10,12 @@ public class DataTypeMapper {
 
     static{
         dataTypeMap = new HashMap<>();
-        dataTypeMap.put("int", DataType.IntegerType);
+        dataTypeMap.put("integer", DataType.IntegerType);
         dataTypeMap.put("float", DataType.FloatType);
-        dataTypeMap.put("char", DataType.CharType);
+        dataTypeMap.put("character", DataType.CharType);
         dataTypeMap.put("string", DataType.StringType);
         dataTypeMap.put("boolean", DataType.BooleanType);
-        dataTypeMap.put("void", DataType.VoidType);
+        dataTypeMap.put("no", DataType.VoidType);
     }
 
     static{

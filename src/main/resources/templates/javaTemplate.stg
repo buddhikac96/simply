@@ -1,0 +1,15 @@
+program(libImports, globals, body) ::= <<
+<libImports>
+public class Main {
+    <globals>
+    public static void main(String[] args) {
+        <body>
+    }
+}
+>>
+
+libImport(libList) ::= "<libList:imports()>"
+imports(libName) ::= "import <libName>;  <\n>"
+
+globalVariables(type, identifier, val) ::= "static <type> <identifier><init(val)>; <\n>"
+init(val) ::= "<if(val)> = <val><endif>"

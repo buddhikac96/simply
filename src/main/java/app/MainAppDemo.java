@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
 import passes.PreEvaluatePassVisitor;
 import passes.semantic.SemanticAnalyzerPassVisitor;
+import passes.transpiler.OriginalTranspiler;
 import passes.transpiler.TempTranspiler;
 
 import java.io.IOException;
@@ -60,7 +61,8 @@ public class MainAppDemo {
         SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
         astRoot.accept(semanticAnalyzerPassVisitor);
 
-        TempTranspiler transpiler = new TempTranspiler();
+        // TempTranspiler transpiler = new TempTranspiler();
+        OriginalTranspiler transpiler = new OriginalTranspiler();
         astRoot.accept(transpiler);
 
         System.out.println(transpiler.code);
