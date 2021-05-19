@@ -7,20 +7,9 @@ global boolean c = true;
 global character d = "%";
 global float e = 2.34566;
 
-function main(in: ) out: no {
-    integer a = 5;
-    integer b = 10;
-
-    integer total = add(a, b);
-    io.print(total);
-
-    repeat(integer i; range : 1 to 10; next 2){
-
-    }
-}
-
-
-function add(in: integer a, integer b) out: integer {
-    integer total = a + b;
-    return total;
-}
+global list integer intArr1 = [];
+global list integer intArr2 = [1, 2, 3];
+global list float floatArr = [1.123, 2.456, 3.98989];
+global list string stringArr = ["abc","def"];
+global list character charArr = ["A","B","C","D"];
+global list boolean boolArr = [true, false, true];

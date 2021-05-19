@@ -43,6 +43,8 @@ public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
         return dataType;
     }
 
+    public ArrayInitializationNode getValue() { return this.initializationNode; }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<ASTNode>();
