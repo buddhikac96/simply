@@ -2,6 +2,7 @@ package app;
 
 import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
+import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.gui.AstDotGenerator;
 import ast.util.enums.DataType;
@@ -13,9 +14,8 @@ import passes.Cst2AstPassVisitor;
 import passes.PreEvaluatePassVisitor;
 import passes.semantic.SemanticAnalyzerPassVisitor;
 import passes.transpiler.OriginalTranspiler;
-import passes.transpiler.TempTranspiler;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,16 +26,10 @@ public class MainAppDemo {
 
     private static final Logger LOGGER = Logger.getLogger(MainAppDemo.class.getName());
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         String filePath = "Samples/sample2.simply";
-
-        CharStream charStream = CharStreams.fromFileName(filePath);
-        SimplyV3Lexer lexer = new SimplyV3Lexer(charStream);
-        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
-        SimplyV3Parser parser = new SimplyV3Parser(commonTokenStream);
-
-        ParseTree tree = parser.compilationUnit();
+        ParseTree tree = getParseTree(filePath);
 
         List<String> errors = new ArrayList<>();
 
@@ -57,13 +51,25 @@ public class MainAppDemo {
         HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
         // Semantics analyzing
-
         SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
         astRoot.accept(semanticAnalyzerPassVisitor);
 
+        generateCode(astRoot);
+    }
+
+    private static ParseTree getParseTree(String path) throws IOException {
+        CharStream charStream = CharStreams.fromFileName(path);
+        SimplyV3Lexer lexer = new SimplyV3Lexer(charStream);
+        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+        SimplyV3Parser parser = new SimplyV3Parser(commonTokenStream);
+
+        return parser.compilationUnit();
+    }
+
+    private static void generateCode(ASTNode node) throws Exception {
         // TempTranspiler transpiler = new TempTranspiler();
         OriginalTranspiler transpiler = new OriginalTranspiler();
-        astRoot.accept(transpiler);
+        node.accept(transpiler);
 
         System.out.println(transpiler.code);
     }
