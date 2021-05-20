@@ -281,4 +281,18 @@ public class AstChildrenVisitor extends BaseAstVisitor<List<ASTNode>>{
     public List<ASTNode> visit(LogicExpressionNode node) {
         return null;
     }
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+    @Override
+    public List<ASTNode> enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public List<ASTNode> enterBlockNode(BlockNode node) {
+        return null;
+    }
 }

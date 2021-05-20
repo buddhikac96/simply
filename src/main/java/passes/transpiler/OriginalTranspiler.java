@@ -422,4 +422,19 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     }
 
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+
+    @Override
+    public String enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public String enterBlockNode(BlockNode node) {
+        return null;
+    }
+
 }

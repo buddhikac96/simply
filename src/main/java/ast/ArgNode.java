@@ -9,10 +9,17 @@ import java.util.List;
 public class ArgNode extends ASTNode {
     private DataType dataType;
     private String name;
+    private boolean isList;
 
     public ArgNode(DataType dataType, String name) {
         this.dataType = dataType;
         this.name = name;
+    }
+
+    public ArgNode(DataType dataType, String name, boolean isList) {
+        this.dataType = dataType;
+        this.name = name;
+        this.isList = isList;
     }
 
     public DataType getDataType() {
@@ -29,6 +36,10 @@ public class ArgNode extends ASTNode {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isList(){
+        return this.isList;
     }
 
     @Override

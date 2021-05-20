@@ -464,9 +464,10 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     public ArgNode visitArg(ArgContext ctx) {
         String varName = ctx.identifier().getText();
         DataType dataType = DataTypeMapper.getSimplyTypeClass(ctx.nonVoidDataTypeName().getText());
+        boolean isList = ctx.LIST() == null;
 
         //Logger.info("ArgNode created");
-        return new ArgNode(dataType, varName);
+        return new ArgNode(dataType, varName, isList);
     }
 
     @Override

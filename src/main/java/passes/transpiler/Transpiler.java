@@ -304,4 +304,19 @@ public class Transpiler extends BaseAstVisitor {
     public Object visit(LogicExpressionNode node) {
         return null;
     }
+
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+    @Override
+    public Object enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public Object enterBlockNode(BlockNode node) {
+        return null;
+    }
 }

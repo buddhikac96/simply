@@ -4,16 +4,17 @@
 
 package passes.semantic;
 
+import app.bootstrap.LibResourceModal;
 import app.bootstrap.LibResourceModalMapper;
 import ast.*;
-import app.bootstrap.LibResourceModal;
 import ast.util.enums.DataType;
+import errors.SimplyError;
+import errors.library.UndefinedLibraryImport;
 import visitors.BaseAstVisitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
+import static app.bootstrap.LibResourceModal.*;
 import static ast.ArithmeticExpressionNode.*;
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
 import static ast.AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode;
@@ -24,7 +25,6 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
-import static app.bootstrap.LibResourceModal.*;
 
 public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
@@ -36,13 +36,18 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     HashMap<String, Symbol> funcLocalSymbolTable;
     HashMap<String, Symbol> blockLocalSymbolTable;
 
-    // new symbol table ds
-    SymbolTable symbolTable = new SymbolTable();
+    // Errors
+    public List<SimplyError> simplyErrorList;
+
+    // symbol table
+    Stack<NewSymbolTable> symbolTableStack;
 
     public SemanticAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();
         this.functions = functions;
         this.globalVariableSymbolTable = new HashMap<>();
+        this.simplyErrorList = new ArrayList<>();
+        this.symbolTableStack = new Stack<>();
     }
 
     @Override
@@ -126,7 +131,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
             //TODO: Syntax error should be added to proper data structure
             //Check whether library defined
             if(!libResourceModal.libraries.containsKey(libName)){
-                System.out.println("Library " + libName +" not identified");
+                this.simplyErrorList.add(new UndefinedLibraryImport(libName, 0));
                 return null;
             }
 
@@ -136,6 +141,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
             //TODO: Syntax error should be added to proper data structure
             //Check whether function defined in the library
             if(!library.functionList.containsKey(funcName)){
+
                 System.out.println("Library " + libName + " does not contains a function " + funcName);
                 return null;
             }
@@ -355,7 +361,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     public String visit(LibImportNode node) {
         //TODO: Syntax error should be added to proper data structure
         if(!libResourceModal.libraries.containsKey(node.getLibName())){
-            System.out.println("Syntax Error: Undefined library import: " + node.getLibName());
+            this.simplyErrorList.add(new UndefinedLibraryImport(node.getLibName(), 0));
         }
 
         return null;
@@ -478,6 +484,20 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode node) {
+        return null;
+    }
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+    @Override
+    public String enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public String enterBlockNode(BlockNode node) {
         return null;
     }
 }

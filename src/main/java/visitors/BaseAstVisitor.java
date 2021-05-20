@@ -67,4 +67,13 @@ public abstract class BaseAstVisitor<T> {
     public abstract T visit(PrefixPlusExpressionNode node);
     public abstract T visit(NewRangeExpressionNode node);
     public abstract T visit(LogicExpressionNode node);
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+    public abstract T enterFunctionDeclaration(FunctionDeclarationNode node);
+    public abstract T enterBlockNode(BlockNode node);
+
+
 }

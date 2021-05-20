@@ -31,8 +31,8 @@ public class BlockNode extends ASTNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
+        visitor.enterBlockNode(this);
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
 }
-
