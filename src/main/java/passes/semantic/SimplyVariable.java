@@ -7,6 +7,10 @@ public class SimplyVariable {
     private DataType type;
     private boolean isList;
 
+    public SimplyVariable(String name) {
+        this.name = name;
+    }
+
     public SimplyVariable(String name, DataType type) {
         this.name = name;
         this.type = type;

@@ -2,8 +2,11 @@ package passes.semantic;
 
 import app.SimplySystem;
 import ast.*;
+import ast.util.enums.DataType;
 import errors.SimplyError;
-import errors.variable.DuplicateVariableDeclaration;
+import errors.variable.DuplicateVariableDeclarationError;
+import errors.variable.TypeMisMatchError;
+import errors.variable.VariableNotDefinedError;
 import visitors.BaseAstVisitor;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import static ast.AssignmentStatementNode.PrimitiveVariableAssignmentStatementNo
 import static ast.FunctionDeclarationNode.FunctionSignatureNode;
 import static ast.IfStatementNode.ElseBlockNode;
 import static ast.IfStatementNode.IfBlockNode;
+import static ast.IterateStatementNode.*;
 import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
@@ -71,6 +75,21 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     @Override
     public Object visit(ArrayVariableDeclarationNode node) {
+
+        // If the stack is empty it means global variables
+        // So we need to skip that case
+        // Very ugly. AST architecture should be changed
+        if(!this.simplySymbolTableStack.isStackEmpty()){
+            var varName = node.getName();
+            var dataType = node.getDataType();
+
+            // Duplicate variable declaration check
+            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, true))){
+                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
+                SimplySystem.exit(this.simplyErrorList);
+            }
+        }
+
         return null;
     }
 
@@ -81,6 +100,22 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     @Override
     public Object visit(PrimitiveVariableAssignmentStatementNode node) {
+        var varName = node.getName();
+
+        // Check whether variable already declared
+        if(!this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
+            this.simplyErrorList.add(new VariableNotDefinedError(varName));
+            SimplySystem.exit(this.simplyErrorList);
+        }
+
+        // Check data type mismatch
+        var symbol = this.simplySymbolTableStack.getSymbol(varName);
+        var exprType = getExpressionDataType(node.getValue()).dataType;
+
+        if(symbol.getType() != exprType){
+            SimplySystem.exit(new TypeMisMatchError(symbol.getType(), exprType));
+        }
+
         return null;
     }
 
@@ -142,7 +177,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
                 // Validate for duplicate variable declaration
                 if(!this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
-                    this.simplyErrorList.add(new DuplicateVariableDeclaration(varName));
+                    this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
 
@@ -155,7 +190,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
                 // Validate for duplicate variable declaration
                 if(!this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
-                    this.simplyErrorList.add(new DuplicateVariableDeclaration(varName));
+                    this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
 
@@ -301,9 +336,11 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var dataType = node.getDataType();
 
             if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType))){
-                this.simplyErrorList.add(new DuplicateVariableDeclaration(varName));
+                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
+
+            // check type mis match error
         }
 
         return null;
@@ -362,7 +399,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             // Validate for duplicate declarations
             if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
-                this.simplyErrorList.add(new DuplicateVariableDeclaration(varName));
+                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
         }
@@ -375,4 +412,89 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         this.simplySymbolTableStack.addSymbolTable(new NewSymbolTable());
         return null;
     }
+
+
+    //////////////////////////////////////////////////////////
+    //////////// Get data type from expression ///////////////
+    //////////////// Evaluate Expression /////////////////////
+    //////////////////////////////////////////////////////////
+
+    private SymbolDataType getExpressionDataType(ExpressionNode node){
+        if(node instanceof ArithmeticExpressionNode newNode){
+
+            if(newNode instanceof CastComplexArithmeticExpression ccn){
+                // + , - , * ,
+
+
+                var left = ccn.getLeft();
+                var right = ccn.getRight();
+
+                var leftType = getExpressionDataType(left).dataType;
+                var rightType = getExpressionDataType(right).dataType;
+
+                // If left or right is float -> return float
+                if(leftType == DataType.FloatType || rightType == DataType.FloatType){
+                    return new SymbolDataType(DataType.FloatType, false);
+                }
+
+
+                if(ccn instanceof AdditionExpressionNode
+                        && leftType == DataType.StringType && rightType == DataType.StringType
+                        || leftType == DataType.CharType && rightType == DataType.CharType
+                        || leftType == DataType.StringType && rightType == DataType.CharType
+                        || leftType == DataType.CharType && rightType == DataType.StringType
+                ){
+                    return new SymbolDataType(DataType.StringType, false);
+                }
+
+            }else{
+                if(newNode instanceof ModulusExpressionNode){
+                    return new SymbolDataType(DataType.IntegerType, false);
+                }else{
+                    // SubtractionExpressionNode type
+                    return new SymbolDataType(DataType.FloatType, false);
+                }
+            }
+
+        }else if(node instanceof ArrayAccessExpressionNode newNode){
+
+        }else if(node instanceof FunctionCallExpressionNode newNode){
+            var funcName = newNode.getFuncName();
+            //get function return type
+        }else if(node instanceof IdentifierNode newNode){
+
+            var symbol = this.simplySymbolTableStack.getSymbol(newNode.getName());
+            return new SymbolDataType(symbol.getType(), symbol.isList());
+
+        }else if(node instanceof IterateConditionExpressionNode newNode){
+
+            // Create error - Wrong expression
+            // SimplySystem.exit();
+
+        }else if(node instanceof LiteralExpressionNode newNode){
+
+            if(newNode instanceof IntegerLiteralExpressionNode){
+                return new SymbolDataType(DataType.IntegerType, false);
+            }else if(newNode instanceof FloatLiteralExpressionNode){
+                return new SymbolDataType(DataType.FloatType, false);
+            }else if(newNode instanceof CharLiteralExpressionNode){
+                return new SymbolDataType(DataType.CharType, false);
+            }else if(newNode instanceof StringLiteralExpressionNode){
+                return new SymbolDataType(DataType.StringType, false);
+            }else{
+                return new SymbolDataType(DataType.BooleanType, false);
+            }
+
+        }else if(node instanceof LogicExpressionNode newNode){
+
+            return new SymbolDataType(DataType.BooleanType, false);
+
+        }else{
+            // UnaryExpressionNode
+            return new SymbolDataType(DataType.IntegerType, false);
+        }
+
+        return new SymbolDataType(DataType.IntegerType, false);
+    }
+
 }

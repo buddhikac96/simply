@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IdentifierNode extends ExpressionNode{
-    String name;
+    private String name;
 
     public IdentifierNode(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

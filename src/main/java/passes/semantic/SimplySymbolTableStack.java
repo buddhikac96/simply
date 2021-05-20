@@ -1,5 +1,7 @@
 package passes.semantic;
 
+import ast.util.enums.DataType;
+
 import java.util.Stack;
 
 public class SimplySymbolTableStack {
@@ -32,7 +34,6 @@ public class SimplySymbolTableStack {
 
         for(NewSymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(variable.getName())){
-                // duplicate variable declaration
                 return false;
             }
         }
@@ -40,5 +41,35 @@ public class SimplySymbolTableStack {
         this.symbolTableStack.peek().map.put(variable.getName(), variable);
 
         return true;
+    }
+
+    // Validate variable for existence
+    public boolean validateVariableExistence(SimplyVariable variable){
+        return !this.validateDuplicateDeclaration(variable);
+    }
+
+    public SimplyVariable getSymbol(String varName){
+
+        SimplyVariable simplyVariable = new SimplyVariable("ThisIsTheDumbestThingThatAnyProgrammerCanDo");
+
+        for(NewSymbolTable symbolTable : this.symbolTableStack){
+            if(symbolTable.map.containsKey(varName)){
+                simplyVariable = symbolTable.map.get(varName);
+                break;
+            }
+        }
+
+        return simplyVariable;
+    }
+
+}
+
+class SymbolDataType {
+    DataType dataType;
+    boolean isList;
+
+    public SymbolDataType(DataType dataType, boolean isList) {
+        this.dataType = dataType;
+        this.isList = isList;
     }
 }

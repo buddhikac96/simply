@@ -2,11 +2,11 @@ package errors.variable;
 
 import errors.SimplyError;
 
-public class DuplicateVariableDeclaration implements SimplyError {
+public class DuplicateVariableDeclarationError implements SimplyError {
 
     private String variableName;
 
-    public DuplicateVariableDeclaration(String variableName) {
+    public DuplicateVariableDeclarationError(String variableName) {
         this.variableName = variableName;
     }
 

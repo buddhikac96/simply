@@ -8,7 +8,10 @@ import java.util.Objects;
 
 public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
-    public static class AdditionExpressionNode extends ArithmeticExpressionNode {
+    public static class AdditionExpressionNode
+            extends ArithmeticExpressionNode
+            implements CastComplexArithmeticExpression
+    {
         private ExpressionNode left;
         private ExpressionNode right;
 
@@ -36,6 +39,16 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         @Override
         public String toString() {
             return "AdditionExpressionNode{ + }";
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
         }
     }
 
@@ -101,7 +114,10 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class MultiplicationExpressionNode extends ArithmeticExpressionNode {
+    public static class MultiplicationExpressionNode
+            extends ArithmeticExpressionNode
+            implements CastComplexArithmeticExpression
+    {
         private ExpressionNode left;
         private ExpressionNode right;
 
@@ -129,9 +145,22 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 
-    public static class SubtractionExpressionNode extends ArithmeticExpressionNode {
+    public static class SubtractionExpressionNode
+            extends ArithmeticExpressionNode
+            implements CastComplexArithmeticExpression
+    {
         private ExpressionNode left;
 
         @Override
@@ -160,5 +189,16 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 }
+

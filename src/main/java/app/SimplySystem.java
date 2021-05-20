@@ -16,4 +16,9 @@ public class SimplySystem {
         // Exit
         System.exit(0);
     }
+
+    public static void exit(SimplyError error){
+        System.out.println(error.getErrorMessage());
+        System.exit(0);
+    }
 }

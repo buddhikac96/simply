@@ -40,6 +40,10 @@ public abstract class AssignmentStatementNode extends StatementNode {
             this.assignmentOperator = assignmentOperator;
         }
 
+        public ExpressionNode getValue() {
+            return value;
+        }
+
         @Override
         public List<ASTNode> getChildren() {
             List<ASTNode> children = new ArrayList<ASTNode>();
@@ -51,6 +55,10 @@ public abstract class AssignmentStatementNode extends StatementNode {
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

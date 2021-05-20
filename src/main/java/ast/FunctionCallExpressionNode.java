@@ -26,6 +26,10 @@ public class FunctionCallExpressionNode extends ExpressionNode {
         this.parameterList.add(expressionNode);
     }
 
+    public String getFuncName() {
+        return funcName;
+    }
+
     @Override
     public List<ASTNode> getChildren() {
         return new ArrayList<>(this.parameterList);
