@@ -330,4 +330,19 @@ public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
     public Void visit(LogicExpressionNode node) {
         return null;
     }
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+
+    @Override
+    public Void enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public Void enterBlockNode(BlockNode node) {
+        return null;
+    }
 }

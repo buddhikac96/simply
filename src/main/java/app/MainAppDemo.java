@@ -6,16 +6,17 @@ import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.gui.AstDotGenerator;
 import ast.util.enums.DataType;
+import errors.SimplyError;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
 import passes.PreEvaluatePassVisitor;
-import passes.semantic.SemanticAnalyzerPassVisitor;
+import passes.semantic.NewSemanticAnalyzerPassVisitor;
 import passes.transpiler.OriginalTranspiler;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ public class MainAppDemo {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Samples/sample2.simply";
+        String filePath = "Samples/sample3.simply";
         ParseTree tree = getParseTree(filePath);
 
         List<String> errors = new ArrayList<>();
@@ -50,9 +51,24 @@ public class MainAppDemo {
 
         HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
+        // Error List for semantic analysis
+        List<SimplyError> simplyErrorList = new ArrayList<>();
+
+
         // Semantics analyzing
-        SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
+        NewSemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList);
         astRoot.accept(semanticAnalyzerPassVisitor);
+
+        //SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
+        //astRoot.accept(semanticAnalyzerPassVisitor);
+
+        /*if(!semanticAnalyzerPassVisitor.simplyErrorList.isEmpty()){
+            for(SimplyError e : semanticAnalyzerPassVisitor.simplyErrorList){
+                System.out.println(e.getErrorMessage());
+            }
+        }else{
+            generateCode(astRoot);
+        }*/
 
         generateCode(astRoot);
     }

@@ -1,0 +1,13 @@
+global integer b = 10;
+
+function main(in: ) out : no {
+
+}
+
+function add(in: integer p) out : integer {
+
+}
+
+function notAdd(in: integer p) out : no {
+    
+}

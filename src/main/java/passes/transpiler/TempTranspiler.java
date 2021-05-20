@@ -380,4 +380,18 @@ public class TempTranspiler extends BaseAstVisitor<String> {
         // visitors with implementations of LiteralExpressionNode
         return null;
     }
+
+    //////////////////////////////////////////////////
+    //////////////// Symbol Table ////////////////////
+    //////////////////////////////////////////////////
+
+    @Override
+    public String enterFunctionDeclaration(FunctionDeclarationNode node) {
+        return null;
+    }
+
+    @Override
+    public String enterBlockNode(BlockNode node) {
+        return null;
+    }
 }

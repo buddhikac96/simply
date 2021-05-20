@@ -57,6 +57,7 @@ public class FunctionDeclarationNode extends ASTNode {
 
     @Override
     public void accept(BaseAstVisitor visitor) {
+        visitor.enterFunctionDeclaration(this);
         this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
         visitor.visit(this);
     }
