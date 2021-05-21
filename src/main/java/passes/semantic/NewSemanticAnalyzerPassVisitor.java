@@ -4,11 +4,16 @@ import app.SimplySystem;
 import ast.*;
 import ast.util.enums.DataType;
 import errors.SimplyError;
+import errors.arithmatic.InvalidAdditionOperationError;
+import errors.arithmatic.InvalidDivisionError;
+import errors.arithmatic.InvalidMultiplicationError;
+import errors.arithmatic.InvalidSubtractionOperationError;
 import errors.variable.DuplicateVariableDeclarationError;
 import errors.variable.TypeMisMatchError;
 import errors.variable.VariableNotDefinedError;
 import visitors.BaseAstVisitor;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static ast.ArithmeticExpressionNode.*;
@@ -17,13 +22,65 @@ import static ast.AssignmentStatementNode.PrimitiveVariableAssignmentStatementNo
 import static ast.FunctionDeclarationNode.FunctionSignatureNode;
 import static ast.IfStatementNode.ElseBlockNode;
 import static ast.IfStatementNode.IfBlockNode;
-import static ast.IterateStatementNode.*;
+import static ast.IterateStatementNode.IterateConditionExpressionNode;
 import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
+import static ast.util.enums.DataType.*;
+import static java.util.AbstractMap.SimpleEntry;
 
 public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
+
+    public static HashMap<SimpleEntry<DataType , DataType> , DataType> addDTypeMap;
+    public static HashMap<SimpleEntry<DataType , DataType> , DataType> subDTypeMap;
+    public static HashMap<SimpleEntry<DataType , DataType> , DataType> mulDTypeMap;
+    public static HashMap<SimpleEntry<DataType , DataType> , DataType> divDTypeMap;
+
+    static{
+
+        addDTypeMap = new HashMap<>();
+
+        addDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
+        addDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
+        addDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
+        addDTypeMap.put(new SimpleEntry<>(CharType , CharType), StringType);
+        addDTypeMap.put(new SimpleEntry<>(StringType , CharType), StringType);
+        addDTypeMap.put(new SimpleEntry<>(CharType , StringType), StringType);
+        addDTypeMap.put(new SimpleEntry<>(StringType , StringType), StringType);
+
+    }
+
+    static{
+
+        subDTypeMap = new HashMap<>();
+
+        subDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
+        subDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
+        subDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
+
+    }
+
+    static{
+
+        mulDTypeMap = new HashMap<>();
+
+        mulDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
+        mulDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
+        mulDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
+
+    }
+
+    static{
+
+        divDTypeMap = new HashMap<>();
+
+        divDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), FloatType);
+        divDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
+        divDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
+
+    }
+
 
     SimplySymbolTableStack simplySymbolTableStack;
     List<SimplyError> simplyErrorList;
@@ -333,14 +390,22 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // Very ugly. AST architecture should be changed
         if(!this.simplySymbolTableStack.isStackEmpty()){
             var varName = node.getName();
-            var dataType = node.getDataType();
+            var symbolDataType = node.getDataType();
 
-            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType))){
+            // Check variable already declared
+            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, symbolDataType))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
 
             // check type mis match error
+            var symbol = this.simplySymbolTableStack.getSymbol(varName);
+            var exprType = getExpressionDataType(node.getValue()).dataType;
+
+            if(symbol.getType() != exprType){
+                SimplySystem.exit(new TypeMisMatchError(symbol.getType(), exprType));
+            }
+
         }
 
         return null;
@@ -422,38 +487,51 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     private SymbolDataType getExpressionDataType(ExpressionNode node){
         if(node instanceof ArithmeticExpressionNode newNode){
 
-            if(newNode instanceof CastComplexArithmeticExpression ccn){
-                // + , - , * ,
+            var left = newNode.getLeft();
+            var right = newNode.getRight();
 
+            var leftType = getExpressionDataType(left).dataType;
+            var rightType = getExpressionDataType(right).dataType;
 
-                var left = ccn.getLeft();
-                var right = ccn.getRight();
+            if(newNode instanceof AdditionExpressionNode adn){
 
-                var leftType = getExpressionDataType(left).dataType;
-                var rightType = getExpressionDataType(right).dataType;
-
-                // If left or right is float -> return float
-                if(leftType == DataType.FloatType || rightType == DataType.FloatType){
-                    return new SymbolDataType(DataType.FloatType, false);
+                if(!NewSemanticAnalyzerPassVisitor.addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                    SimplySystem.exit(new InvalidAdditionOperationError(leftType, rightType));
                 }
 
+                var dataType =  NewSemanticAnalyzerPassVisitor.addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                return new SymbolDataType(dataType, false);
 
-                if(ccn instanceof AdditionExpressionNode
-                        && leftType == DataType.StringType && rightType == DataType.StringType
-                        || leftType == DataType.CharType && rightType == DataType.CharType
-                        || leftType == DataType.StringType && rightType == DataType.CharType
-                        || leftType == DataType.CharType && rightType == DataType.StringType
-                ){
-                    return new SymbolDataType(DataType.StringType, false);
+            }else if(newNode instanceof SubtractionExpressionNode sbn){
+
+                if(!NewSemanticAnalyzerPassVisitor.subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                    SimplySystem.exit(new InvalidSubtractionOperationError(leftType, rightType));
                 }
+
+                var dataType =  NewSemanticAnalyzerPassVisitor.subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                return new SymbolDataType(dataType, false);
+
+            }else if(newNode instanceof MultiplicationExpressionNode mln){
+
+                if(!NewSemanticAnalyzerPassVisitor.mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                    SimplySystem.exit(new InvalidMultiplicationError(leftType, rightType));
+                }
+
+                var dataType =  NewSemanticAnalyzerPassVisitor.mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                return new SymbolDataType(dataType, false);
+
+            }else if(newNode instanceof DivisionExpressionNode dvn){
+
+                if(!NewSemanticAnalyzerPassVisitor.divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                    SimplySystem.exit(new InvalidDivisionError(leftType, rightType));
+                }
+
+                var dataType =  NewSemanticAnalyzerPassVisitor.divDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                return new SymbolDataType(dataType, false);
 
             }else{
-                if(newNode instanceof ModulusExpressionNode){
-                    return new SymbolDataType(DataType.IntegerType, false);
-                }else{
-                    // SubtractionExpressionNode type
-                    return new SymbolDataType(DataType.FloatType, false);
-                }
+                // Modular expression
+                return new SymbolDataType(IntegerType, false);
             }
 
         }else if(node instanceof ArrayAccessExpressionNode newNode){
@@ -474,27 +552,27 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         }else if(node instanceof LiteralExpressionNode newNode){
 
             if(newNode instanceof IntegerLiteralExpressionNode){
-                return new SymbolDataType(DataType.IntegerType, false);
+                return new SymbolDataType(IntegerType, false);
             }else if(newNode instanceof FloatLiteralExpressionNode){
-                return new SymbolDataType(DataType.FloatType, false);
+                return new SymbolDataType(FloatType, false);
             }else if(newNode instanceof CharLiteralExpressionNode){
-                return new SymbolDataType(DataType.CharType, false);
+                return new SymbolDataType(CharType, false);
             }else if(newNode instanceof StringLiteralExpressionNode){
-                return new SymbolDataType(DataType.StringType, false);
+                return new SymbolDataType(StringType, false);
             }else{
-                return new SymbolDataType(DataType.BooleanType, false);
+                return new SymbolDataType(BooleanType, false);
             }
 
         }else if(node instanceof LogicExpressionNode newNode){
 
-            return new SymbolDataType(DataType.BooleanType, false);
+            return new SymbolDataType(BooleanType, false);
 
         }else{
             // UnaryExpressionNode
-            return new SymbolDataType(DataType.IntegerType, false);
+            return new SymbolDataType(IntegerType, false);
         }
 
-        return new SymbolDataType(DataType.IntegerType, false);
+        return new SymbolDataType(IntegerType, false);
     }
 
 }

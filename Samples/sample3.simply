@@ -1,6 +1,5 @@
 global integer b = 10;
 
 function main(in: ) out : no {
-    integer a;
-    a  = "string";
+    integer a = 'a' - 5;
 }

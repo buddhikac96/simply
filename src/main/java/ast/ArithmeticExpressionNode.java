@@ -8,9 +8,10 @@ import java.util.Objects;
 
 public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
-    public static class AdditionExpressionNode
-            extends ArithmeticExpressionNode
-            implements CastComplexArithmeticExpression
+    public abstract ExpressionNode getLeft();
+    public abstract ExpressionNode getRight();
+
+    public static class AdditionExpressionNode extends ArithmeticExpressionNode
     {
         private ExpressionNode left;
         private ExpressionNode right;
@@ -54,12 +55,6 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class DivisionExpressionNode extends ArithmeticExpressionNode{
         private ExpressionNode left;
-
-        @Override
-        public String toString() {
-            return "DivisionExpressionNode{ // }";
-        }
-
         private ExpressionNode right;
 
         public DivisionExpressionNode(ExpressionNode left, ExpressionNode right) {
@@ -77,67 +72,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
 
         @Override
-        public void accept(BaseAstVisitor visitor) {
-            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
-            visitor.visit(this);
-        }
-    }
-
-    public static class ModulusExpressionNode extends ArithmeticExpressionNode {
-        private ExpressionNode left;
-
-        @Override
         public String toString() {
-            return "ModulusExpressionNode{ % }";
-        }
-
-        private ExpressionNode right;
-
-        public ModulusExpressionNode(ExpressionNode left, ExpressionNode right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public List<ASTNode> getChildren() {
-            List<ASTNode> children = new ArrayList<>();
-            children.add(this.left);
-            children.add(this.right);
-
-            return children;
-        }
-
-        @Override
-        public void accept(BaseAstVisitor visitor) {
-            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
-            visitor.visit(this);
-        }
-    }
-
-    public static class MultiplicationExpressionNode
-            extends ArithmeticExpressionNode
-            implements CastComplexArithmeticExpression
-    {
-        private ExpressionNode left;
-        private ExpressionNode right;
-
-        @Override
-        public String toString() {
-            return "MultiplicationExpressionNode{ * }";
-        }
-
-        public MultiplicationExpressionNode(ExpressionNode left, ExpressionNode right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public List<ASTNode> getChildren() {
-            List<ASTNode> children = new ArrayList<>();
-            children.add(this.left);
-            children.add(this.right);
-
-            return children;
+            return "DivisionExpressionNode{ // }";
         }
 
         @Override
@@ -157,17 +93,91 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class SubtractionExpressionNode
-            extends ArithmeticExpressionNode
-            implements CastComplexArithmeticExpression
-    {
+    public static class ModulusExpressionNode extends ArithmeticExpressionNode {
         private ExpressionNode left;
+        private ExpressionNode right;
+
+        public ModulusExpressionNode(ExpressionNode left, ExpressionNode right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
+        }
 
         @Override
         public String toString() {
-            return "SubtractionExpressionNode{ - }";
+            return "ModulusExpressionNode{ % }";
         }
 
+        @Override
+        public void accept(BaseAstVisitor visitor) {
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
+            visitor.visit(this);
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
+    }
+
+    public static class MultiplicationExpressionNode extends ArithmeticExpressionNode
+    {
+        private ExpressionNode left;
+        private ExpressionNode right;
+
+        public MultiplicationExpressionNode(ExpressionNode left, ExpressionNode right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            List<ASTNode> children = new ArrayList<>();
+            children.add(this.left);
+            children.add(this.right);
+
+            return children;
+        }
+
+        @Override
+        public String toString() {
+            return "MultiplicationExpressionNode{ * }";
+        }
+
+        @Override
+        public void accept(BaseAstVisitor visitor) {
+            this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
+            visitor.visit(this);
+        }
+
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
+    }
+
+    public static class SubtractionExpressionNode extends ArithmeticExpressionNode
+    {
+        private ExpressionNode left;
         private ExpressionNode right;
 
         public SubtractionExpressionNode(ExpressionNode left, ExpressionNode right) {
@@ -183,12 +193,19 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
             return children;
         }
+        
+        @Override
+        public String toString() {
+            return "SubtractionExpressionNode{ - }";
+        }
+
 
         @Override
         public void accept(BaseAstVisitor visitor) {
             this.getChildren().stream().filter(Objects::nonNull).forEach(node -> node.accept(visitor));
             visitor.visit(this);
         }
+
 
         @Override
         public ExpressionNode getLeft() {
