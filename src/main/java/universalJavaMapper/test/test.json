@@ -1,0 +1,54 @@
+[
+  {
+    "name": "java.math",
+    "alias": "math",
+    "functions" : [
+      {
+        "name": "sqrt",
+        "alias": "root",
+        "overloads": [
+          {
+            "return" : "float",
+            "params" : ["int"]
+          },
+          {
+            "returnType" : "float",
+            "params" : ["float"]
+          }
+        ]
+      },
+      {
+        "name": "add",
+        "alias": "add",
+        "overloads" : [
+          {
+            "return" : "int",
+            "params": ["int", "int"]
+          },
+          {
+            "return" : "float",
+            "params" : ["float", "float"]
+          }
+        ]
+
+      }
+    ]
+  },
+  {
+
+    "name": "java.io",
+    "alias": "io",
+    "functions" : [
+      {
+        "name" : "System.out.println",
+        "alias" : "print",
+        "overloads" : [
+          {
+            "return" : "void",
+            "params" : ["String"]
+          }
+        ]
+      }
+    ]
+  }
+]
