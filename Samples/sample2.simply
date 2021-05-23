@@ -1,6 +1,5 @@
 get io;
 get math;
-get io;
 
 global integer a = 5;
 global string b = "haha";
@@ -16,9 +15,18 @@ global list character charArr = ["A","B","C","D"];
 global list boolean boolArr = [true, false, true];
 
 function main(in: ) out: no {
-    integer a = 5;
-}
-
-function sum(in: list integer arr) out : integer {
 
 }
+
+function test1(in: ) out: integer {
+
+}
+
+function test2(in: integer f, float g) out: integer {
+
+}
+
+function test3(in: integer h, list string i, character j) out: float {
+
+}
+

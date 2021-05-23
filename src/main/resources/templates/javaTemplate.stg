@@ -1,20 +1,28 @@
-program(libImportSection, globalSection, body) ::= <<
+program(libImportSection, globalSection, functionSection, body) ::= <<
 <libImportSection>
 public class Main {
     <globalSection>
-    public static void main(String[] args) {
-        <body>
-    }
+    <functionSection>
 }
 >>
 
 libImport(libList) ::= "<libList:imports()>"
 imports(libName) ::= "import <libName>;  <\n>"
 
-globalVariables(type, identifier, val) ::= "static <type> <identifier><init(val)>; <\n>"
-init(val) ::= "<if(val)> = <val><endif>"
+varDec(constant, type, identifier, val) ::= "<constant><type> <identifier><varInit(val)>; <\n>"
+varInit(val) ::= "<if(val)> = <val><endif>"
+arraysDec(constant, type, identifier) ::= "<constant><type>[] <identifier>;  <\n>"
+arraysDecInit(constant, type, identifier, values) ::= "<constant><type>[] <identifier> = { <values> }; <\n>"
 
-globalArraysDec(type, identifier) ::= "static <type>[] <identifier>;  <\n>"
-globalArraysDecInit(type, identifier, values) ::= "static <type>[] <identifier> = { <values> }; <\n>"
+funcDec(isMain, name, parameterList, body, return) ::= <<
+<if(isMain)>public static void main(String[] args) {
+    <body>
+}
+<else>
+public <return> <name>(<parameterList>){
+    <body>
+}
+<endif>
+>>
 
-
+parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
