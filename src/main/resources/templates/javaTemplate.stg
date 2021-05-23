@@ -1,4 +1,5 @@
 program(libImportSection, globalSection, functionSection, body) ::= <<
+import java.util.*;
 <libImportSection>
 public class Main {
     <globalSection>
@@ -26,3 +27,6 @@ public <return> <name>(<parameterList>){
 >>
 
 parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
+
+print(content) ::= "System.out.println(<content>); <\n>"
+funcCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"

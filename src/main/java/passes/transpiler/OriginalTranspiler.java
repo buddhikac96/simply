@@ -115,7 +115,18 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(BlockNode node) {
-        return null;
+        StringBuilder funcBody = new StringBuilder();
+        for(StatementNode stmtNode : node.getStatementNodeList()) {
+            if(stmtNode instanceof PrimitiveVariableDeclarationNode) {
+                var primNode = (PrimitiveVariableDeclarationNode) stmtNode;
+                funcBody.append(visit(primNode));
+            }
+            if(stmtNode instanceof FunctionCallStatementNode) {
+                var funcCallNode = (FunctionCallStatementNode) stmtNode;
+                funcBody.append(visit(funcCallNode));
+            }
+        }
+        return funcBody.toString();
     }
 
     @Override
@@ -143,12 +154,22 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionCallExpressionNode node) {
-        return null;
+        StringBuilder parameters = new StringBuilder();
+        ST st = group.getInstanceOf("print");
+
+        for(ExpressionNode expNode : node.getParameterList()) {
+            parameters.append(visit(expNode)).append("+");
+        }
+        parameters.deleteCharAt(parameters.length() - 1).toString();         // Removing the additional '+'
+        if(node.getLibRef().equals("io")) {
+            st.add("content", parameters);
+        }
+        return st.render();
     }
 
     @Override
     public String visit(FunctionCallStatementNode node) {
-        return null;
+        return visit(node.getFunctionCallExpressionNode());
     }
 
     @Override
@@ -167,7 +188,10 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         var returnType = node.getReturnType();
         st.add("return", DataTypeMapper.getJavaType(returnType));
         var funcBody = visit(node.getFunctionBody());
-        st.add("body", null);
+
+        var body = visit(node.getFunctionBody());
+        st.add("body", body);
+        //st.add("body", null);
         return st.render();
     }
 
@@ -211,7 +235,7 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IdentifierNode node) {
-        return null;
+        return node.getName();
     }
 
     @Override
@@ -275,24 +299,19 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         // visitors with implementations of LiteralExpressionNode
         if(node instanceof LiteralExpressionNode.BoolLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.BoolLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.CharLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.CharLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.FloatLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.FloatLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.IntegerLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.IntegerLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.StringLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.StringLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }
         return null;
     }
@@ -442,13 +461,13 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         }else if(node instanceof FunctionCallExpressionNode){
             return null;
         }else if(node instanceof IdentifierNode){
-            return null;
+            var newNode = (IdentifierNode) node;
+            return visit(newNode);
         }else if(node instanceof IterateStatementNode.IterateConditionExpressionNode){
             return null;
         }else if(node instanceof LiteralExpressionNode) {
             var newNode = (LiteralExpressionNode) node;
-            var literalValue = visit(newNode);
-            return literalValue;
+            return visit(newNode);
         }else if(node instanceof LogicExpressionNode){
             return null;
         }else if(node instanceof UnaryExpressionNode){

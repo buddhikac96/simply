@@ -24,6 +24,8 @@ public class BlockNode extends ASTNode {
         this.statementNodeList.add(statementNode);
     }
 
+    public List<StatementNode> getStatementNodeList() { return this.statementNodeList; }
+
     @Override
     public List<ASTNode> getChildren() {
         return new ArrayList<>(this.statementNodeList);
