@@ -15,12 +15,16 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     public StringBuilder code = new StringBuilder();
     STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");
 
-    //STGroup group = new STGroupDir("G:\\Dev\\v4\\simply\\src\\main\\java\\passes\\transpiler");
-
-
     @Override
     public String visit(ArgNode node) {
-        return null;
+        ST st = group.getInstanceOf("parameter");
+        var isList = node.isList();
+        var dataType = node.getDataType();
+        var paraName = node.getName();
+        st.add("isList", isList);
+        st.add("type", DataTypeMapper.getJavaType(dataType));
+        st.add("identifier", paraName);
+        return st.render();
     }
 
     @Override
@@ -76,23 +80,25 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     public String visit(ArrayVariableDeclarationNode node) {
         var arrValues = visit(node.getValue());
         if(arrValues == null) {
-            ST st = group.getInstanceOf("globalArraysDec");
-
+            ST st = group.getInstanceOf("arraysDec");
+            var isConst = "";
+            if(node.isConst()) { isConst = "final "; }
+            st.add("constant", isConst);
             var dataType = node.getDataType();
             st.add("type", DataTypeMapper.getJavaType(dataType));
             var varName = node.getName();
             st.add("identifier", varName);
-
             return st.render();
         }else{
-            ST st = group.getInstanceOf("globalArraysDecInit");
-
+            ST st = group.getInstanceOf("arraysDecInit");
+            var isConst = "";
+            if(node.isConst()) { isConst = "final "; }
+            st.add("constant", isConst);
             var dataType = node.getDataType();
             st.add("type", DataTypeMapper.getJavaType(dataType));
             var varName = node.getName();
             st.add("identifier", varName);
             st.add("values", arrValues);
-
             return st.render();
         }
     }
@@ -109,7 +115,18 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(BlockNode node) {
-        return null;
+        StringBuilder funcBody = new StringBuilder();
+        for(StatementNode stmtNode : node.getStatementNodeList()) {
+            if(stmtNode instanceof PrimitiveVariableDeclarationNode) {
+                var primNode = (PrimitiveVariableDeclarationNode) stmtNode;
+                funcBody.append(visit(primNode));
+            }
+            if(stmtNode instanceof FunctionCallStatementNode) {
+                var funcCallNode = (FunctionCallStatementNode) stmtNode;
+                funcBody.append(visit(funcCallNode));
+            }
+        }
+        return funcBody.toString();
     }
 
     @Override
@@ -119,8 +136,9 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         st.add("libImportSection", libImportsSection);
         var globalVarsSection = visit(node.getGlobalVariableDeclarationNodeList());
         st.add("globalSection", globalVarsSection);
+        var functionSection = visit(node.getFunctionDeclarationNodeList());
+        st.add("functionSection", functionSection);
 
-        // Append lib imports
 //        code.append(libImportsSection);
 //        code.append(globalVarsSection);
 
@@ -136,27 +154,66 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionCallExpressionNode node) {
-        return null;
+        StringBuilder parameters = new StringBuilder();
+        ST st = group.getInstanceOf("print");
+
+        for(ExpressionNode expNode : node.getParameterList()) {
+            parameters.append(visit(expNode)).append("+");
+        }
+        parameters.deleteCharAt(parameters.length() - 1).toString();         // Removing the additional '+'
+        if(node.getLibRef().equals("io")) {
+            st.add("content", parameters);
+        }
+        return st.render();
     }
 
     @Override
     public String visit(FunctionCallStatementNode node) {
-        return null;
+        return visit(node.getFunctionCallExpressionNode());
     }
 
     @Override
     public String visit(FunctionDeclarationNode node) {
-        return null;
+        ST st = group.getInstanceOf("funcDec");
+
+        var funcName = node.getFunctionSignatureNode().getFunctionName();
+        if(funcName.equals("main")) {
+            st.add("isMain", true);
+        } else {
+            st.add("isMain", false);
+        }
+        st.add("name", funcName);
+        var parameters = visit(node.getFunctionSignatureNode());
+        st.add("parameterList", parameters);
+        var returnType = node.getReturnType();
+        st.add("return", DataTypeMapper.getJavaType(returnType));
+        var funcBody = visit(node.getFunctionBody());
+
+        var body = visit(node.getFunctionBody());
+        st.add("body", body);
+        //st.add("body", null);
+        return st.render();
     }
 
     @Override
     public String visit(FunctionDeclarationNode.FunctionSignatureNode node) {
-        return null;
+        StringBuilder parameters = new StringBuilder();
+        for(ArgNode argNode : node.getFunctionArgumentNodeList()) {
+            parameters.append(visit(argNode)).append(',');
+        }
+        // Removing the additional ','
+        if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+        return parameters.toString();
     }
 
     @Override
     public String visit(FunctionDeclarationNodeList node) {
-        return null;
+        StringBuilder line = new StringBuilder();
+
+        for(FunctionDeclarationNode functionDeclarationNode : node.getFunctionDeclarationNodes()) {
+            line.append(visit(functionDeclarationNode));
+        }
+        return line.toString();
     }
 
     @Override
@@ -166,7 +223,7 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         for(VariableDeclarationNode variableDeclarationNode : node.getVariableDeclarationNodes()){
             if(variableDeclarationNode instanceof PrimitiveVariableDeclarationNode){
                 var primNode = (PrimitiveVariableDeclarationNode) variableDeclarationNode;
-                line.append(visit(primNode));
+                line.append("static ").append(visit(primNode));
             }else if(variableDeclarationNode instanceof ArrayVariableDeclarationNode){
                 var arrayNode = (ArrayVariableDeclarationNode) variableDeclarationNode;
                 line.append(visit(arrayNode));
@@ -178,7 +235,7 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IdentifierNode node) {
-        return null;
+        return node.getName();
     }
 
     @Override
@@ -242,24 +299,19 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         // visitors with implementations of LiteralExpressionNode
         if(node instanceof LiteralExpressionNode.BoolLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.BoolLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.CharLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.CharLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.FloatLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.FloatLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.IntegerLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.IntegerLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }else if(node instanceof LiteralExpressionNode.StringLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.StringLiteralExpressionNode) node;
-            var literal = visit(newNode);
-            return literal;
+            return visit(newNode);
         }
         return null;
     }
@@ -346,13 +398,17 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(PrimitiveVariableDeclarationNode node) {
-        ST st = group.getInstanceOf("globalVariables");
+        ST st = group.getInstanceOf("varDec");
+
+        var isConst = "";
+        if(node.isConst()) { isConst = "final "; }
+        st.add("constant", isConst);
+
         var dataType = node.getDataType();
         st.add("type", DataTypeMapper.getJavaType(dataType));
 
         var varName = node.getName();
         st.add("identifier", varName);
-
 
         var expNode = node.getValue();
         var initValue = visit(expNode);
@@ -405,13 +461,13 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         }else if(node instanceof FunctionCallExpressionNode){
             return null;
         }else if(node instanceof IdentifierNode){
-            return null;
+            var newNode = (IdentifierNode) node;
+            return visit(newNode);
         }else if(node instanceof IterateStatementNode.IterateConditionExpressionNode){
             return null;
         }else if(node instanceof LiteralExpressionNode) {
             var newNode = (LiteralExpressionNode) node;
-            var literalValue = visit(newNode);
-            return literalValue;
+            return visit(newNode);
         }else if(node instanceof LogicExpressionNode){
             return null;
         }else if(node instanceof UnaryExpressionNode){
