@@ -1,24 +1,13 @@
 get io;
-get math;
-get io;
-
-global integer a = 5;
-global string b = "haha";
-global boolean c = true;
-global character d = "%";
-global float e = 2.34566;
-
-global list integer intArr1 = [];
-global list integer intArr2 = [1, 2, 3];
-global list float floatArr = [1.123, 2.456, 3.98989];
-global list string stringArr = ["abc","def"];
-global list character charArr = ["A","B","C","D"];
-global list boolean boolArr = [true, false, true];
 
 function main(in: ) out: no {
-    integer a = 5;
+    string uni = "UOM";
+    io.print(uni);
+    io.print("I am Geethya");
+    io.print("My university is", uni);
 }
 
-function sum(in: list integer arr) out : integer {
-
+function test2(in: integer a) out: integer {
+    string c = "Hello";
+    io.print(c, " Geethya");
 }
