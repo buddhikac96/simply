@@ -5,21 +5,18 @@ import antlr.gen.SimplyV3Parser;
 import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.gui.AstDotGenerator;
-import ast.util.enums.DataType;
 import errors.SimplyError;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.Cst2AstPassVisitor;
-import passes.PreEvaluatePassVisitor;
 import passes.semantic.NewSemanticAnalyzerPassVisitor;
 import passes.transpiler.OriginalTranspiler;
+import universalJavaMapper.newProvider.SimplyFunctionServiceProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -46,17 +43,19 @@ public class MainAppDemo {
         // get the function list data structure
         // pass data structure to syntax analyzing phase
 
-        PreEvaluatePassVisitor preEvaluatePassVisitor = new PreEvaluatePassVisitor();
-        astRoot.accept(preEvaluatePassVisitor);
+        //PreEvaluatePassVisitor preEvaluatePassVisitor = new PreEvaluatePassVisitor();
+        //astRoot.accept(preEvaluatePassVisitor);
 
-        HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
+        //HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
 
         // Error List for semantic analysis
         List<SimplyError> simplyErrorList = new ArrayList<>();
 
+        // Java Library provider
+        var sfm = new SimplyFunctionServiceProvider();
 
         // Semantics analyzing
-        NewSemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList);
+        var semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList, sfm);
         astRoot.accept(semanticAnalyzerPassVisitor);
 
         //SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);

@@ -1,28 +1,20 @@
 package errors.library;
 
-public class DuplicateLibraryImportSimplyError extends LibrarySimplyError {
+import errors.SimplyError;
+
+public class DuplicateLibraryImportSimplyError implements SimplyError {
 
     private String libName;
-    private int lineNumber;
-    private int oldLibLineNumber;
 
-    public DuplicateLibraryImportSimplyError(String libName, int lineNumber) {
+    public DuplicateLibraryImportSimplyError(String libName) {
         this.libName = libName;
-        this.lineNumber = lineNumber;
-    }
-
-    public DuplicateLibraryImportSimplyError(String libName, int lineNumber, int oldLibLineNumber) {
-        this.libName = libName;
-        this.lineNumber = lineNumber;
-        this.oldLibLineNumber = oldLibLineNumber;
     }
 
     @Override
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType());
-        message.append("in line:" + getLineNumber() + "\n");
+        message.append(this.getErrorType()).append("\n");
         message.append("Library " + this.libName + " have already imported");
 
         return message.toString();
@@ -35,6 +27,7 @@ public class DuplicateLibraryImportSimplyError extends LibrarySimplyError {
 
     @Override
     public int getLineNumber() {
-        return this.lineNumber;
+        return 0;
     }
+
 }

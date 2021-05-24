@@ -1,13 +1,13 @@
-package errors.variable;
+package errors.function;
 
 import errors.SimplyError;
 
-public class DuplicateVariableDeclarationError implements SimplyError {
+public class NotImportedLibraryReference implements SimplyError {
 
-    private String variableName;
+    String libName;
 
-    public DuplicateVariableDeclarationError(String variableName) {
-        this.variableName = variableName;
+    public NotImportedLibraryReference(String libName) {
+        this.libName = libName;
     }
 
     @Override
@@ -15,14 +15,14 @@ public class DuplicateVariableDeclarationError implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType()).append("\n");
-        message.append("Variable " + this.variableName + " have already declared");
+        message.append("Library " + this.libName + " is not imported");
 
         return message.toString();
     }
 
     @Override
     public String getErrorType() {
-        return "VariableError: DuplicateVariableDeclarationError";
+        return "FunctionError:" + this.getClass().getName();
     }
 
     @Override

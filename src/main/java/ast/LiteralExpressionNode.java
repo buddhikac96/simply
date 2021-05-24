@@ -7,7 +7,11 @@ import java.util.List;
 
 public abstract class LiteralExpressionNode extends ExpressionNode {
 
-    public static class IntegerLiteralExpressionNode extends LiteralExpressionNode {
+    public static interface NumberTypeLiteralExpression{
+        String getStringValue();
+    }
+
+    public static class IntegerLiteralExpressionNode extends LiteralExpressionNode implements NumberTypeLiteralExpression{
         private int value;
 
         public IntegerLiteralExpressionNode(int value) {
@@ -16,6 +20,10 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
 
         public int getValue() {
             return value;
+        }
+
+        public String getStringValue(){
+            return Integer.toString(value);
         }
 
         public void setValue(int value) {
@@ -40,7 +48,7 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
         }
     }
 
-    public static class FloatLiteralExpressionNode extends LiteralExpressionNode {
+    public static class FloatLiteralExpressionNode extends LiteralExpressionNode implements NumberTypeLiteralExpression{
         private float value;
 
         public FloatLiteralExpressionNode(float value) {
@@ -70,6 +78,10 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
             return "FloatLiteralExpressionNode{" +
                     "value=" + value +
                     '}';
+        }
+
+        public String getStringValue() {
+            return Float.toString(value);
         }
     }
 

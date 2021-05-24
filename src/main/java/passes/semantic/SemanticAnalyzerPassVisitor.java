@@ -9,7 +9,7 @@ import app.bootstrap.LibResourceModalMapper;
 import ast.*;
 import ast.util.enums.DataType;
 import errors.SimplyError;
-import errors.library.UndefinedLibraryImport;
+import errors.library.UndefinedLibraryImportError;
 import visitors.BaseAstVisitor;
 
 import java.util.*;
@@ -131,7 +131,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
             //TODO: Syntax error should be added to proper data structure
             //Check whether library defined
             if(!libResourceModal.libraries.containsKey(libName)){
-                this.simplyErrorList.add(new UndefinedLibraryImport(libName, 0));
+                this.simplyErrorList.add(new UndefinedLibraryImportError(libName));
                 return null;
             }
 
@@ -361,7 +361,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
     public String visit(LibImportNode node) {
         //TODO: Syntax error should be added to proper data structure
         if(!libResourceModal.libraries.containsKey(node.getLibName())){
-            this.simplyErrorList.add(new UndefinedLibraryImport(node.getLibName(), 0));
+            this.simplyErrorList.add(new UndefinedLibraryImportError(node.getLibName()));
         }
 
         return null;

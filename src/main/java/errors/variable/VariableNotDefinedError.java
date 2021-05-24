@@ -14,8 +14,7 @@ public class VariableNotDefinedError implements SimplyError {
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType() + " ");
-        message.append("in line: " + getLineNumber() + "\n");
+        message.append(this.getErrorType() + " ").append("\n");
         message.append("Variable " + this.varName + " not defined");
 
         return message.toString();

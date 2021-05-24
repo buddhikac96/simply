@@ -3,12 +3,12 @@ package errors.arithmatic;
 import ast.util.enums.DataType;
 import errors.SimplyError;
 
-public class InvalidMultiplicationError implements SimplyError {
+public class InvalidDivisionOperationError implements SimplyError {
 
     private DataType left;
     private DataType right;
 
-    public InvalidMultiplicationError(DataType left, DataType right) {
+    public InvalidDivisionOperationError(DataType left, DataType right) {
         this.left = left;
         this.right = right;
     }
@@ -18,14 +18,14 @@ public class InvalidMultiplicationError implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType() + "\n");
-        message.append("Can't multiply " + this.left + " by " + this.right);
+        message.append("Can't divide " + this.left + " by " + this.right);
 
         return message.toString();
     }
 
     @Override
     public String getErrorType() {
-        return "ArithmeticError:InvalidMultiplicationError";
+        return "ArithmeticError:InvalidDivisionError";
     }
 
     @Override
@@ -33,5 +33,3 @@ public class InvalidMultiplicationError implements SimplyError {
         return 0;
     }
 }
-
-

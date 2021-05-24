@@ -1,5 +1,14 @@
-global integer b = 10;
+get io;
+get io;
 
-function main(in: ) out : no {
-    integer a = 'a' - 5;
+global integer a = 10;
+
+function main(in: ) out: no{
+//    float b = 5/0;
 }
+
+/*
+function add(in: integer a) out : no {
+
+}
+*/

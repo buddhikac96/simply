@@ -1,21 +1,20 @@
 package errors.library;
 
-public class UndefinedLibraryImport extends LibrarySimplyError {
+import errors.SimplyError;
+
+public class UndefinedLibraryImportError implements SimplyError {
 
     private String libName;
-    private int lineNumber;
 
-    public UndefinedLibraryImport(String libName, int lineNumber) {
+    public UndefinedLibraryImportError(String libName) {
         this.libName = libName;
-        this.lineNumber = lineNumber;
     }
 
     @Override
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType());
-        message.append("in line:" + getLineNumber() + "\n");
+        message.append(this.getErrorType()).append("\n");
         message.append("Library " + this.libName + " node defined");
 
         return message.toString();
@@ -23,7 +22,7 @@ public class UndefinedLibraryImport extends LibrarySimplyError {
 
     @Override
     public String getErrorType() {
-        return "LibraryError: UndefinedLibraryImportError";
+        return "LibraryError:" + this.getClass().getName();
     }
 
     @Override

@@ -1,24 +1,15 @@
 package errors.arithmatic;
 
-import ast.util.enums.DataType;
 import errors.SimplyError;
 
-public class InvalidDivisionError implements SimplyError {
-
-    private DataType left;
-    private DataType right;
-
-    public InvalidDivisionError(DataType left, DataType right) {
-        this.left = left;
-        this.right = right;
-    }
+public class InvalidModulusOperationError implements SimplyError {
 
     @Override
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType() + "\n");
-        message.append("Can't divide " + this.left + " by " + this.right);
+        message.append("Modulus operation should be Integer % Integer");
 
         return message.toString();
     }

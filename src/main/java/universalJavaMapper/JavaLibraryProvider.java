@@ -1,15 +1,27 @@
 package universalJavaMapper;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 public class JavaLibraryProvider {
-    HashSet<String> set;
-    public List<JavaLibrary> libraryList;
+    private final HashSet<String> set;
+    private final List<JavaLibrary> libraryList;
 
-    public JavaLibraryProvider(List<JavaLibrary> libraryList) {
-        this.libraryList = libraryList;
+    public JavaLibraryProvider() throws IOException {
         this.set = new HashSet<>();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        libraryList = objectMapper.readValue(
+                new File("src/main/resources/UniversalJavaLibraryResourceModel.json"),
+                new TypeReference<List<JavaLibrary>>(){}
+        );
+
         createHashSet();
     }
 
@@ -36,4 +48,40 @@ public class JavaLibraryProvider {
 
         return set;
     }
+
+
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// JLP Service /////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
+    public HashSet<String> getSet() {
+        return set;
+    }
+
+    public void addLibFunctionHash(String hash){
+        this.set.add(hash);
+    }
+
+    public boolean isExist(String hash){
+        return set.contains(hash);
+    }
+
+    public String getLibrary(String hash){
+        return hash.split(";")[0].split(":")[1];
+    }
+
+    public String getFunction(String hash){
+        return hash.split(";")[1].split(":")[1];
+    }
+
+    public String getReturnType(String hash){
+        return hash.split(";")[2].split(":")[1];
+    }
+
+    public List<String> getParams(String hash){
+        return Arrays.asList(hash.split(";")[3].split(":")[1].split(","));
+    }
+
 }
+
+
