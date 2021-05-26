@@ -1,6 +1,7 @@
 package passes.transpiler;
 
 import ast.*;
+import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -133,14 +134,25 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         }
     }
 
+    // Complete the array assignment (update Cst2AstPassVisitor file to add the array access expression node)
     @Override
     public String visit(AssignmentStatementNode.ArrayVariableAssignmentStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("arrayAssign");
+        st.add("arrayAccess", node.getName());
+        st.add("assignOperator", AssignmentOperatorMapper.getAssignmentOperator(node.getAssignmentOperator()));
+        var assignedValue = visit(node.getValue());
+        st.add("val", assignedValue);
+        return st.render();
     }
 
     @Override
     public String visit(AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("varAssign");
+        st.add("identifier", node.getName());
+        st.add("assignOperator", AssignmentOperatorMapper.getAssignmentOperator(node.getAssignmentOperator()));
+        var assignedValue = visit(node.getValue());
+        st.add("val", assignedValue);
+        return st.render();
     }
 
     @Override
@@ -154,6 +166,12 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof ArrayVariableDeclarationNode) {
                 var arrayNode = (ArrayVariableDeclarationNode) stmtNode;
                 funcBody.append(visit(arrayNode));
+            } else if(stmtNode instanceof AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode) {
+                var primAssignNode = (AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode) stmtNode;
+                funcBody.append(visit(primAssignNode));
+            } else if(stmtNode instanceof AssignmentStatementNode.ArrayVariableAssignmentStatementNode) {
+                var arrAssignNode = (AssignmentStatementNode.ArrayVariableAssignmentStatementNode) stmtNode;
+                funcBody.append(visit(arrAssignNode));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 // edit!!!!
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;

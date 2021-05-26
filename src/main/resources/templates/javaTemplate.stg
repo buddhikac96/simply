@@ -14,6 +14,10 @@ varInit(val) ::= "<if(val)> = <val><endif>"
 arraysDec(constant, type, identifier) ::= "<constant><type>[] <identifier>;  <\n>"
 arraysDecInit(constant, type, identifier, values) ::= "<constant><type>[] <identifier> = { <values> }; <\n>"
 
+varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>; <\n>"
+arrayAssign(arrayAccess, assignOperator, val) ::= "<arrayAccess> <assignOperator> <val>; <\n>"
+arrayAccess(identifier, index) ::= "<identifier>[<index>]"
+
 funcDec(isMain, name, parameterList, body, returnType) ::= <<
 <if(isMain)>public static void main(String[] args) {
     <body>

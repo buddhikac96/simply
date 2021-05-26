@@ -89,6 +89,14 @@ public abstract class AssignmentStatementNode extends StatementNode {
             return assignmentOperator;
         }
 
+        public ExpressionNode getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
         public void setAssignmentOperator(AssignmentOperator assignmentOperator) {
             this.assignmentOperator = assignmentOperator;
         }
