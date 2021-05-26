@@ -1,13 +1,11 @@
-get io;
-
-function main(in: ) out: no {
-    string uni = "UOM";
-    io.print(uni);
-    io.print("I am Geethya");
-    io.print("My university is", uni);
+function test1(in: integer e) out: integer {
+    integer a = 10;
+    float b = 10/3;
+    integer c = 10%4;
+    float d = a + b + e + 100 - 20 * 10 / 60;
+    return d;
 }
 
-function test2(in: integer a) out: integer {
-    string c = "Hello";
-    io.print(c, " Geethya");
+function test2(in: integer f) out: integer {
+    return f / 20 + 200 - 20 * 20;
 }

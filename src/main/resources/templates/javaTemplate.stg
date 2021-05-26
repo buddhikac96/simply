@@ -1,5 +1,4 @@
 program(libImportSection, globalSection, functionSection, body) ::= <<
-import java.util.*;
 <libImportSection>
 public class Main {
     <globalSection>
@@ -15,12 +14,12 @@ varInit(val) ::= "<if(val)> = <val><endif>"
 arraysDec(constant, type, identifier) ::= "<constant><type>[] <identifier>;  <\n>"
 arraysDecInit(constant, type, identifier, values) ::= "<constant><type>[] <identifier> = { <values> }; <\n>"
 
-funcDec(isMain, name, parameterList, body, return) ::= <<
+funcDec(isMain, name, parameterList, body, returnType) ::= <<
 <if(isMain)>public static void main(String[] args) {
     <body>
 }
 <else>
-public <return> <name>(<parameterList>){
+public <returnType> <name>(<parameterList>){
     <body>
 }
 <endif>
@@ -30,3 +29,6 @@ parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><els
 
 print(content) ::= "System.out.println(<content>); <\n>"
 funcCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
+
+arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
+returnStmt(content) ::= "return <content>;"

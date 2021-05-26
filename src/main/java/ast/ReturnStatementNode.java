@@ -13,6 +13,8 @@ public class ReturnStatementNode extends StatementNode {
         this.value = value;
     }
 
+    public ExpressionNode getValue() { return this.value; }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>();
