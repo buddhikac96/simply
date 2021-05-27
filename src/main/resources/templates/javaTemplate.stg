@@ -14,18 +14,18 @@ varInit(val) ::= "<if(val)> = <val><endif>"
 arraysDec(constant, type, identifier) ::= "<constant><type>[] <identifier>;  <\n>"
 arraysDecInit(constant, type, identifier, values) ::= "<constant><type>[] <identifier> = { <values> }; <\n>"
 
-varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>; <\n>"
-arrayAssign(arrayAccess, assignOperator, val) ::= "<arrayAccess> <assignOperator> <val>; <\n>"
+varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>;"
+arrayAssign(arrayAccess, assignOperator, val) ::= "<arrayAccess> <assignOperator> <val>;"
 arrayAccess(identifier, index) ::= "<identifier>[<index>]"
 
 funcDec(isMain, name, parameterList, body, returnType) ::= <<
 <if(isMain)>public static void main(String[] args) {
     <body>
-}
+} <\n>
 <else>
 public <returnType> <name>(<parameterList>){
     <body>
-}
+} <\n>
 <endif>
 >>
 
@@ -37,16 +37,15 @@ funcCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
 returnStmt(content) ::= "return <content>;"
 
-ifStmt(ifBlock, elseIfBlock, elseBlock) ::= "<ifBlock> <elseIfBlock> <elseBlock> <\n>"
+ifStmt(ifBlock, elseIfBlock, elseBlock) ::= "<ifBlock><elseIfBlock><elseBlock><\n>"
 ifBlock(condition, body) ::= <<
-if(<condition>) {
+if(<condition>){
     <body>
 }
 >>
-elseIfBlock() ::= "else <ifBlock()>"
 elseBlock(body) ::= <<
-else {
+else{
     <body>
-} <\n>
+}
 >>
 conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"

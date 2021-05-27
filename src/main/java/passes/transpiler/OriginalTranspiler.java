@@ -296,16 +296,16 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IfStatementNode node) {
-        StringBuilder ifStmt = new StringBuilder();
+        StringBuilder elseifStmt = new StringBuilder();
         ST st = group.getInstanceOf("ifStmt");
 
         var ifNode = visit(node.getIfBlockNode());
         st.add("ifBlock", ifNode);
         for(IfStatementNode.IfBlockNode ifBlockNode : node.getElseIfBlockNodeList()) {
             var elseIfNodeBlock = visit(ifBlockNode);
-            ifStmt.append(elseIfNodeBlock);
+            elseifStmt.append("else ").append(elseIfNodeBlock);
         }
-        st.add("elseIfBlock", ifStmt.toString());
+        st.add("elseIfBlock", elseifStmt.toString());
         var elseNode = visit(node.getElseBlockNode());
         st.add("elseBlock", elseNode);
         return st.render();
@@ -315,7 +315,10 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IfStatementNode.ElseBlockNode node) {
-        return null;
+        ST st = group.getInstanceOf("elseBlock");
+        var elseBlock = visit(node.getBlockNode());
+        st.add("body", elseBlock);
+        return st.render();
     }
 
     @Override

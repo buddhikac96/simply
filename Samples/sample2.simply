@@ -1,30 +1,32 @@
-function main(in:) out:string {
+global string result;
+
+function test1(in:) out:no {
+    integer a = 20;
+    if(a>10){
+        if(a>15) {
+            result = "greater than 10 and 15";
+        } else {
+            result = "between 10 and 15";
+        }
+    } else {
+        if(a>5) {
+            result = "between 10 and 5";
+        } else {
+            result = "less than 5";
+        }
+    }
+    return result;
+}
+
+function test2(in:) out:string {
     integer x = 10;
-    boolean y = true;
-    boolean z = false;
-    if(x>10) {
-        integer a = 10;
-        return "greater";
+    integer y = 20;
+    if(x>y) {
+        result = "x is greater than y";
+    } else if(x<y) {
+        result = "x is lesser than y";
+    } else {
+       result = "x and y are equal";
     }
-    if(x==10) {
-        return "equal";
-    }
-    if(x>=10) {
-        return "greater than or equal";
-    }
-    if(x!=10) {
-        return "not equal";
-    }
-    if(x<10) {
-        return "lesser";
-    }
-    if(x<=10) {
-        return "less than or equal";
-    }
-    if(x and y) {
-        return "and";
-    }
-    if(x or y) {
-        return "or";
-    }
+    return result;
 }
