@@ -1,13 +1,7 @@
-get io;
+global integer result;
 
-function main(in: ) out: no {
-    string uni = "UOM";
-    io.print(uni);
-    io.print("I am Geethya");
-    io.print("My university is", uni);
-}
-
-function test2(in: integer a) out: integer {
-    string c = "Hello";
-    io.print(c, " Geethya");
+function test1(in: integer e) out: boolean {
+    result = 10;
+    list integer arr = [];
+    arr[0] = 20;
 }

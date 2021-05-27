@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class LogicExpressionNode extends ExpressionNode {
+
+    public abstract ExpressionNode getLeft();
+    public abstract ExpressionNode getRight();
+
     public static class OrExpressionNode extends LogicExpressionNode {
         ExpressionNode left;
         ExpressionNode right;
@@ -36,6 +40,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     "left=" + left +
                     ", right=" + right +
                     '}';
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
         }
     }
 
@@ -69,6 +83,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     ", right=" + right +
                     '}';
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 
     public static class GreaterThanExpressionNode extends LogicExpressionNode {
@@ -100,6 +124,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     "left=" + left +
                     ", right=" + right +
                     '}';
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
         }
     }
 
@@ -133,6 +167,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     ", right=" + right +
                     '}';
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 
     public static class GreaterOrEqualThanExpressionNode extends LogicExpressionNode {
@@ -164,6 +208,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     "left=" + left +
                     ", right=" + right +
                     '}';
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
         }
     }
 
@@ -197,6 +251,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     ", right=" + right +
                     '}';
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 
     public static class EqualsExpressionNode extends LogicExpressionNode {
@@ -229,6 +293,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     ", right=" + right +
                     '}';
         }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
+        }
     }
 
     public static class NotEqualsExpressionNode extends LogicExpressionNode {
@@ -260,6 +334,16 @@ public abstract class LogicExpressionNode extends ExpressionNode {
                     "left=" + left +
                     ", right=" + right +
                     '}';
+        }
+
+        @Override
+        public ExpressionNode getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public ExpressionNode getRight() {
+            return this.right;
         }
     }
 }
