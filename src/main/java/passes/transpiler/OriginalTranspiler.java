@@ -172,6 +172,9 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof AssignmentStatementNode.ArrayVariableAssignmentStatementNode) {
                 var arrAssignNode = (AssignmentStatementNode.ArrayVariableAssignmentStatementNode) stmtNode;
                 funcBody.append(visit(arrAssignNode));
+            } else if(stmtNode instanceof IfStatementNode) {
+                var ifStmt = (IfStatementNode) stmtNode;
+                funcBody.append(visit(ifStmt));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 // edit!!!!
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
@@ -293,17 +296,39 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IfStatementNode node) {
-        return null;
+        StringBuilder elseifStmt = new StringBuilder();
+        ST st = group.getInstanceOf("ifStmt");
+
+        var ifNode = visit(node.getIfBlockNode());
+        st.add("ifBlock", ifNode);
+        for(IfStatementNode.IfBlockNode ifBlockNode : node.getElseIfBlockNodeList()) {
+            var elseIfNodeBlock = visit(ifBlockNode);
+            elseifStmt.append("else ").append(elseIfNodeBlock);
+        }
+        st.add("elseIfBlock", elseifStmt.toString());
+        var elseNode = visit(node.getElseBlockNode());
+        st.add("elseBlock", elseNode);
+        return st.render();
+        //return ifStmt.toString();
+        //return null;
     }
 
     @Override
     public String visit(IfStatementNode.ElseBlockNode node) {
-        return null;
+        ST st = group.getInstanceOf("elseBlock");
+        var elseBlock = visit(node.getBlockNode());
+        st.add("body", elseBlock);
+        return st.render();
     }
 
     @Override
     public String visit(IfStatementNode.IfBlockNode node) {
-        return null;
+        ST st = group.getInstanceOf("ifBlock");
+        var condition = visit(node.getConditionExpressionNode());
+        var ifBody = visit(node.getBlockNode());
+        st.add("condition", condition);
+        st.add("body", ifBody);
+        return st.render();
     }
 
     @Override
@@ -333,7 +358,14 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-        return node.getLibName();
+        StringBuilder library = new StringBuilder();
+        library.append(node.getLibName());
+        if(library.toString().equals("io")) {
+            return "java.io.*";
+        } else {
+            return library.append(".h").toString();
+        }
+
     }
 
     @Override
@@ -395,48 +427,120 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     }
 
     public String visit(LogicExpressionNode node){
-        // visitors with implementations of LiteralExpressionNode
+        if(node instanceof LogicExpressionNode.AndExpressionNode) {
+            var andNode = (LogicExpressionNode.AndExpressionNode) node;
+            return visit(andNode);
+        } else if(node instanceof LogicExpressionNode.OrExpressionNode) {
+            var orNode = (LogicExpressionNode.OrExpressionNode) node;
+            return visit(orNode);
+        } else if(node instanceof LogicExpressionNode.EqualsExpressionNode) {
+            var eqNode = (LogicExpressionNode.EqualsExpressionNode) node;
+            return visit(eqNode);
+        } else if(node instanceof LogicExpressionNode.NotEqualsExpressionNode) {
+            var neqNode = (LogicExpressionNode.NotEqualsExpressionNode) node;
+            return visit(neqNode);
+        } else if(node instanceof LogicExpressionNode.GreaterThanExpressionNode) {
+            var gtNode = (LogicExpressionNode.GreaterThanExpressionNode) node;
+            return visit(gtNode);
+        } else if(node instanceof LogicExpressionNode.GreaterOrEqualThanExpressionNode) {
+            var gteqNode = (LogicExpressionNode.GreaterOrEqualThanExpressionNode) node;
+            return visit(gteqNode);
+        } else if(node instanceof LogicExpressionNode.LessThanExpressionNode) {
+            var ltNode = (LogicExpressionNode.LessThanExpressionNode) node;
+            return visit(ltNode);
+        } else if(node instanceof LogicExpressionNode.LessOrEqualThanExpressionNode) {
+            var lteqNode = (LogicExpressionNode.LessOrEqualThanExpressionNode) node;
+            return visit(lteqNode);
+        }
         return null;
     }
 
     @Override
     public String visit(LogicExpressionNode.AndExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "&&");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.EqualsExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "==");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.GreaterOrEqualThanExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", ">=");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.GreaterThanExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", ">");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.LessOrEqualThanExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "<=");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.LessThanExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "<");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.NotEqualsExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "!=");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
     public String visit(LogicExpressionNode.OrExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("conditionStmt");
+        var lhsNode = visit(node.getLeft());
+        var rhsNode = visit(node.getRight());
+        st.add("lhs", lhsNode);
+        st.add("operator", "||");
+        st.add("rhs", rhsNode);
+        return st.render();
     }
 
     @Override
@@ -539,8 +643,9 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
             var litNode = (LiteralExpressionNode) node;
             return visit(litNode);
         }else if(node instanceof LogicExpressionNode){
-            return null;
-        }else if(node instanceof UnaryExpressionNode){
+            var logicNode = (LogicExpressionNode) node;
+            return visit(logicNode);
+        } else if(node instanceof UnaryExpressionNode){
             return null;
         }
 
