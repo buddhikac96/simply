@@ -36,3 +36,17 @@ funcCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
 returnStmt(content) ::= "return <content>;"
+
+ifStmt(ifBlock, elseIfBlock, elseBlock) ::= "<ifBlock> <elseIfBlock> <elseBlock> <\n>"
+ifBlock(condition, body) ::= <<
+if(<condition>) {
+    <body>
+}
+>>
+elseIfBlock() ::= "else <ifBlock()>"
+elseBlock(body) ::= <<
+else {
+    <body>
+} <\n>
+>>
+conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"

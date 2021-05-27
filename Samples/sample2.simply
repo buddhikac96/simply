@@ -1,7 +1,30 @@
-global integer result;
-
-function test1(in: integer e) out: boolean {
-    result = 10;
-    list integer arr = [];
-    arr[0] = 20;
+function main(in:) out:string {
+    integer x = 10;
+    boolean y = true;
+    boolean z = false;
+    if(x>10) {
+        integer a = 10;
+        return "greater";
+    }
+    if(x==10) {
+        return "equal";
+    }
+    if(x>=10) {
+        return "greater than or equal";
+    }
+    if(x!=10) {
+        return "not equal";
+    }
+    if(x<10) {
+        return "lesser";
+    }
+    if(x<=10) {
+        return "less than or equal";
+    }
+    if(x and y) {
+        return "and";
+    }
+    if(x or y) {
+        return "or";
+    }
 }
