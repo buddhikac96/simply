@@ -1,10 +1,5 @@
-get io;
-
 function main(in: ) out:no{
-    integer result = add(5,10);
-    io.print("The total is: ", result);
-}
+    repeat(integer i of arr){
 
-function add(in: integer a, integer b) out: integer{
-    return a+b;
+    }
 }

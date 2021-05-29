@@ -57,7 +57,8 @@ loopStmt(loop, body) ::= <<
 }
 >>
 
-forCondition(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
+forLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
 relationalOperator(isReverse) ::= "<if(isReverse)>>=<else>\<=<endif>"
 incDec(isPos) ::= "<if(isPos)>+=<else>-=<endif>"
-whileCondition(condition) ::= "while(<condition>)"
+whileLoop(condition) ::= "while(<condition>)"
+forEachLoop(dataType, arrName) ::= "for(<dataType> iterator:<arrName>)"

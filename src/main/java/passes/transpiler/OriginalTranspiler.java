@@ -393,13 +393,17 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
-
-        return null;
+        ST st = group.getInstanceOf("forEachLoop");
+        var dataType = node.getArgNode().getDataType();
+        var arrName = visit(node.getExpressionNode());
+        st.add("dataType", DataTypeMapper.getJavaType(dataType));
+        st.add("arrName", arrName);
+        return st.render();
     }
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
-        ST st = group.getInstanceOf("whileCondition");
+        ST st = group.getInstanceOf("whileLoop");
         var condition = visit(node.getExpressionNode());
         st.add("condition", condition);
         return st.render();
@@ -663,7 +667,7 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode node) {
-        ST st = group.getInstanceOf("forCondition");
+        ST st = group.getInstanceOf("forLoop");
 
         var controlVarDeclaration = visit(node.getArgNode());
         var controlVarName = node.getArgNode().getName();
