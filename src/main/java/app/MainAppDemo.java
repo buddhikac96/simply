@@ -26,7 +26,7 @@ public class MainAppDemo {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Samples/sample2.simply";
+        String filePath = "Samples/sample4.simply";
         ParseTree tree = getParseTree(filePath);
 
         List<String> errors = new ArrayList<>();

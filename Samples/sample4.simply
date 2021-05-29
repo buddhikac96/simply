@@ -1,1 +1,5 @@
 get io;
+
+function add(in: ) out: no {
+    io.print("Simply");
+}
