@@ -6,6 +6,11 @@ import ast.util.DataTypeMapper;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
+import universalJavaMapper.FunctionHashStringBuilder;
+import universalJavaMapper.JavaLibrary;
+import universalJavaMapper.JavaLibraryProvider;
+import universalJavaMapper.newProvider.SimplyFunctionModel;
+import universalJavaMapper.newProvider.SimplyFunctionServiceProvider;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
@@ -175,8 +180,10 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof IfStatementNode) {
                 var ifStmt = (IfStatementNode) stmtNode;
                 funcBody.append(visit(ifStmt));
+            } else if(stmtNode instanceof IterateStatementNode) {
+                var iterateStmt = (IterateStatementNode) stmtNode;
+                funcBody.append(visit(iterateStmt));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
-                // edit!!!!
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
                 funcBody.append(visit(funcCallNode));
             } else {
@@ -214,16 +221,38 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
     @Override
     public String visit(FunctionCallExpressionNode node) {
         StringBuilder parameters = new StringBuilder();
-        ST st = group.getInstanceOf("print");
+        var libRef = node.getLibRef();
+        var funcName = node.getFuncName();
 
-        for(ExpressionNode expNode : node.getParameterList()) {
-            parameters.append(visit(expNode)).append("+");
-        }
-        parameters.deleteCharAt(parameters.length() - 1).toString();         // Removing the additional '+'
-        if(node.getLibRef().equals("io")) {
+        if(libRef == null) {
+            ST st = group.getInstanceOf("funcCall");
+            st.add("funcName", funcName);
+            for(ExpressionNode expNode : node.getParameterList()) {
+                parameters.append(visit(expNode)).append(",");
+            }
+            if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+            st.add("parameters", parameters);
+            return st.render();
+        } else if(libRef.equals("io")){
+            ST st = group.getInstanceOf("print");
+            for(ExpressionNode expNode : node.getParameterList()) {
+                parameters.append(visit(expNode)).append("+");
+            }
+            parameters.deleteCharAt(parameters.length() - 1).toString();         // Removing the additional '+'
             st.add("content", parameters);
+            return st.render();
+        } else {
+            for(ExpressionNode expNode : node.getParameterList()) {
+                parameters.append(visit(expNode)).append(",");
+            }
+            if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+            ST st = group.getInstanceOf("libFuncCall");
+            st.add("libRef", libRef);
+            st.add("funcName", funcName);
+            st.add("parameters", parameters);
+            return st.render();
         }
-        return st.render();
     }
 
     @Override
@@ -333,22 +362,51 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("loopStmt");
+
+        var loopHeader = visit(node.getIterateConditionExpressionNode());
+        var body = visit(node.getBlockNode());
+
+        st.add("loop", loopHeader);
+        st.add("body", body);
+        return st.render();
     }
 
     public String visit(IterateStatementNode.IterateConditionExpressionNode node){
         // visitors with implementations of IterateConditionExpressionNode
-        return null;
+        if(node instanceof IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode) {
+            var whileLoop = (IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode) node;
+            return visit(whileLoop);
+        } else if (node instanceof IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode) {
+            var newRangeForLoop = (IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode) node;
+            return visit(newRangeForLoop);
+        } else if (node instanceof IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode) {
+            var forEachLoop = (IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode) node;
+            return visit(forEachLoop);
+        } else if (node instanceof IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode) {
+            var rangeForLoop = (IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode) node;
+            return visit(rangeForLoop);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("forEachLoop");
+        var dataType = node.getArgNode().getDataType();
+        var arrName = visit(node.getExpressionNode());
+        st.add("dataType", DataTypeMapper.getJavaType(dataType));
+        st.add("arrName", arrName);
+        return st.render();
     }
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("whileLoop");
+        var condition = visit(node.getExpressionNode());
+        st.add("condition", condition);
+        return st.render();
     }
 
     @Override
@@ -609,7 +667,28 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("forLoop");
+
+        var controlVarDeclaration = visit(node.getArgNode());
+        var controlVarName = node.getArgNode().getName();
+        var startVal = visit(node.getFromValue());
+        var endVal = visit(node.getToValue());
+        var stepVal = visit(node.getNextValue());
+
+        st.add("init", controlVarDeclaration);
+        st.add("controlVar", controlVarName);
+        st.add("start", startVal);
+        st.add("end", endVal);
+        if(Integer.parseInt(stepVal) > 0) {
+            st.add("isPositive", true);
+            st.add("stepVal", stepVal);
+            st.add("isReverse", false);
+        } else {
+            st.add("isPositive", false);
+            st.add("stepVal", java.lang.Math.abs(Integer.parseInt(stepVal)));
+            st.add("isReverse", true);
+        }
+        return st.render();
     }
 
     public String visit(ExpressionNode node){
@@ -633,7 +712,8 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         }else if(node instanceof ArrayAccessExpressionNode){
             return null;
         }else if(node instanceof FunctionCallExpressionNode){
-            return null;
+            var funcCall = (FunctionCallExpressionNode) node;
+            return visit(funcCall);
         }else if(node instanceof IdentifierNode){
             var idNode = (IdentifierNode) node;
             return visit(idNode);

@@ -26,7 +26,7 @@ public class MainAppDemo {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Samples/sample4.simply";
+        String filePath = "Samples/sample2.simply";
         ParseTree tree = getParseTree(filePath);
 
         List<String> errors = new ArrayList<>();
@@ -56,7 +56,7 @@ public class MainAppDemo {
 
         // Semantics analyzing
         var semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList, sfm);
-        astRoot.accept(semanticAnalyzerPassVisitor);
+        //astRoot.accept(semanticAnalyzerPassVisitor);
 
         //SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
         //astRoot.accept(semanticAnalyzerPassVisitor);

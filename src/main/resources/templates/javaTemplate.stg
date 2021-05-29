@@ -32,7 +32,8 @@ public <returnType> <name>(<parameterList>){
 parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
 
 print(content) ::= "System.out.println(<content>); <\n>"
-funcCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
+libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
+funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
 returnStmt(content) ::= "return <content>;"
@@ -49,3 +50,15 @@ else{
 }
 >>
 conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
+
+loopStmt(loop, body) ::= <<
+<loop> {
+    <body>
+}
+>>
+
+forLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
+relationalOperator(isReverse) ::= "<if(isReverse)>>=<else>\<=<endif>"
+incDec(isPos) ::= "<if(isPos)>+=<else>-=<endif>"
+whileLoop(condition) ::= "while(<condition>)"
+forEachLoop(dataType, arrName) ::= "for(<dataType> iterator:<arrName>)"

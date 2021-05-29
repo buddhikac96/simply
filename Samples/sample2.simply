@@ -1,32 +1,5 @@
-global string result;
+function main(in: ) out:no{
+    repeat(integer i of arr){
 
-function test1(in:) out:no {
-    integer a = 20;
-    if(a>10){
-        if(a>15) {
-            result = "greater than 10 and 15";
-        } else {
-            result = "between 10 and 15";
-        }
-    } else {
-        if(a>5) {
-            result = "between 10 and 5";
-        } else {
-            result = "less than 5";
-        }
     }
-    return result;
-}
-
-function test2(in:) out:string {
-    integer x = 10;
-    integer y = 20;
-    if(x>y) {
-        result = "x is greater than y";
-    } else if(x<y) {
-        result = "x is lesser than y";
-    } else {
-       result = "x and y are equal";
-    }
-    return result;
 }
