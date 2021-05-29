@@ -1,21 +1,10 @@
+get io;
+
 function main(in: ) out:no{
-    integer x = 10;
-    repeat(x>=0){
-
-    }
+    integer result = add(5,10);
+    io.print("The total is: ", result);
 }
 
-function test1(in: ) out:no{
-    boolean y = true;
-    repeat(y){
-
-    }
-}
-
-function test2(in: ) out:no{
-    integer a = 10;
-    integer b = 20;
-    repeat(a>=5 and b<=10){
-
-    }
+function add(in: integer a, integer b) out: integer{
+    return a+b;
 }
