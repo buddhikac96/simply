@@ -183,4 +183,17 @@ public abstract class LiteralExpressionNode extends ExpressionNode {
                     '}';
         }
     }
+
+    public static class VoidLiteralExpressionNode extends LiteralExpressionNode{
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(BaseAstVisitor visitor) {
+
+        }
+    }
 }

@@ -498,7 +498,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         } else if (ctx instanceof ReturnStatemtntRuleContext) {
 
-            return visitReturnStatemtntRule((ReturnStatemtntRuleContext) ctx);
+            return this.visitReturnStatementRule((ReturnStatemtntRuleContext) ctx);
 
         } else if (ctx instanceof VariableDeclarationStatementRuleContext) {
 
@@ -743,7 +743,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
 
     @Override
-    public ReturnStatementNode visitReturnStatemtntRule(ReturnStatemtntRuleContext ctx) {
+    public ReturnStatementNode visitReturnStatementRule(ReturnStatemtntRuleContext ctx) {
         ExpressionNode expressionNode = visitExpression(ctx.returnStatemtnt().expression());
 
         //Logger.info("ReturnStatementNode created");

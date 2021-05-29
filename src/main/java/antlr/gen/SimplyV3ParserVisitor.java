@@ -333,7 +333,7 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
+	T visitReturnStatementRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code variableDeclarationStatementRule}
 	 * labeled alternative in {@link SimplyV3Parser#statement}.
