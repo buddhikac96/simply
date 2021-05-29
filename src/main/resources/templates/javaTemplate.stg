@@ -49,3 +49,13 @@ else{
 }
 >>
 conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
+
+loopStmt(loop, body) ::= <<
+<loop> {
+    <body>
+}
+>>
+
+forCondition(init, controlVar, start, end, isPos, stepVal) ::= "for(<init> = <start>; <controlVar>\<=<end>; <controlVar><incDec(isPos)><stepVal>)"
+incDec(isPos) ::= "<if(isPos)>+=<else>-=<endif>"
+whileCondition(condition) ::= "while(<condition>)"

@@ -15,6 +15,10 @@ public class IterateStatementNode extends StatementNode{
         this.blockNode = blockNode;
     }
 
+    public IterateConditionExpressionNode getIterateConditionExpressionNode() { return this.iterateConditionExpressionNode; }
+
+    public BlockNode getBlockNode() { return this.blockNode; }
+
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>();
@@ -45,6 +49,8 @@ public class IterateStatementNode extends StatementNode{
             public BooleanIterateExpressionNode(ExpressionNode expressionNode) {
                 this.expressionNode = expressionNode;
             }
+
+            public ExpressionNode getExpressionNode() { return this.expressionNode; }
 
             @Override
             public List<ASTNode> getChildren() {
@@ -121,6 +127,14 @@ public class IterateStatementNode extends StatementNode{
                 this.toValue = toValue;
                 this.nextValue = nextValue;
             }
+
+            public ArgNode getArgNode() { return this.variableDeclaration; }
+
+            public ExpressionNode getFromValue() { return this.fromValue; }
+
+            public ExpressionNode getToValue() { return this.toValue; }
+
+            public ExpressionNode getNextValue() { return this.nextValue; }
 
             @Override
             public List<ASTNode> getChildren() {

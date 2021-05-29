@@ -175,6 +175,9 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof IfStatementNode) {
                 var ifStmt = (IfStatementNode) stmtNode;
                 funcBody.append(visit(ifStmt));
+            } else if(stmtNode instanceof IterateStatementNode) {
+                var iterateStmt = (IterateStatementNode) stmtNode;
+                funcBody.append(visit(iterateStmt));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 // edit!!!!
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
@@ -333,12 +336,27 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("loopStmt");
+
+        var loopHeader = visit(node.getIterateConditionExpressionNode());
+        var body = visit(node.getBlockNode());
+
+        st.add("loop", loopHeader);
+        st.add("body", body);
+        return st.render();
     }
 
     public String visit(IterateStatementNode.IterateConditionExpressionNode node){
         // visitors with implementations of IterateConditionExpressionNode
-        return null;
+        if(node instanceof IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode) {
+            var whileLoop = (IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode) node;
+            return visit(whileLoop);
+        } else if (node instanceof IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode) {
+            var newRangeForLoop = (IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode) node;
+            return visit(newRangeForLoop);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -348,7 +366,10 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("whileCondition");
+        var condition = visit(node.getExpressionNode());
+        st.add("condition", condition);
+        return st.render();
     }
 
     @Override
@@ -609,7 +630,26 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("forCondition");
+
+        var controlVarDeclaration = visit(node.getArgNode());
+        var controlVarName = node.getArgNode().getName();
+        var startVal = visit(node.getFromValue());
+        var endVal = visit(node.getToValue());
+        var stepVal = visit(node.getNextValue());
+
+        st.add("init", controlVarDeclaration);
+        st.add("controlVar", controlVarName);
+        st.add("start", startVal);
+        st.add("end", endVal);
+        if(Integer.parseInt(stepVal) > 0) {
+            st.add("isPos", true);
+            st.add("stepVal", stepVal);
+        } else {
+            st.add("isPos", false);
+            st.add("stepVal", java.lang.Math.abs(Integer.parseInt(stepVal)));
+        }
+        return st.render();
     }
 
     public String visit(ExpressionNode node){
