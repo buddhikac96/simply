@@ -1,5 +1,5 @@
-function main(in:) out:no{
-    repeat(integer i; range: 10 to 0; next -1){
+function main(in: ) out:no{
+    repeat(integer i; range: 20 to 10; next -5){
 
     }
 }
