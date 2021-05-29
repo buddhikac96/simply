@@ -1,5 +1,21 @@
 function main(in: ) out:no{
-    repeat(integer i; range: 20 to 10; next -5){
+    repeat(integer i; range: 0 to 10; next 1){
+    }
+}
 
+function test1(in: ) out:no{
+    repeat(integer i; range: 10 to 0; next -1){
+    }
+}
+
+function test2(in: ) out:no{
+    repeat(integer i; range: 0 to 20; next 2){
+    }
+}
+
+function test3(in: ) out:no {
+    integer a = 10;
+    integer b = 0;
+    repeat(integer i; range: b to a; next -5){
     }
 }

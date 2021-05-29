@@ -642,17 +642,14 @@ public class OriginalTranspiler extends BaseAstVisitor<String> {
         st.add("controlVar", controlVarName);
         st.add("start", startVal);
         st.add("end", endVal);
-        if(Integer.parseInt(startVal) < Integer.parseInt(endVal)) {
-            st.add("isReverse", false);
-        } else {
-            st.add("isReverse", true);
-        }
         if(Integer.parseInt(stepVal) > 0) {
             st.add("isPositive", true);
             st.add("stepVal", stepVal);
+            st.add("isReverse", false);
         } else {
             st.add("isPositive", false);
             st.add("stepVal", java.lang.Math.abs(Integer.parseInt(stepVal)));
+            st.add("isReverse", true);
         }
         return st.render();
     }
