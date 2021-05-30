@@ -102,46 +102,16 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         StringBuilder arrayElements = new StringBuilder();
         if(node instanceof EmptyArrayInitializationNode) {
             return null;
-        }else if(node instanceof NonEmptyArrayInitializationNode) {
+        } else {
             var newNode = (NonEmptyArrayInitializationNode) node;
             for(ExpressionNode elementNode : newNode.getArrayValues()) {
                 var value = visit(elementNode);
                 arrayElements.append(value).append(",");
             }
+            // Removing the additional ','
+            return arrayElements.deleteCharAt(arrayElements.length() - 1).toString();
         }
-
-        // Removing the additional ','
-        return arrayElements.deleteCharAt(arrayElements.length() - 1).toString();
-
     }
-
-    // Update the array template to support both empty and non-empty initialization nodes
-//    @Override
-//    public String visit(ArrayVariableDeclarationNode node) {
-//        var arrValues = visit(node.getValue());
-//        if(arrValues == null) {
-//            ST st = group.getInstanceOf("arraysDec");
-//            var isConst = "";
-//            if(node.isConst()) { isConst = "final "; }
-//            st.add("constant", isConst);
-//            var dataType = node.getDataType();
-//            st.add("type", DataTypeMapper.getJavaType(dataType));
-//            var varName = node.getName();
-//            st.add("identifier", varName);
-//            return st.render();
-//        }else{
-//            ST st = group.getInstanceOf("arraysDecInit");
-//            var isConst = "";
-//            if(node.isConst()) { isConst = "final "; }
-//            st.add("constant", isConst);
-//            var dataType = node.getDataType();
-//            st.add("type", DataTypeMapper.getJavaType(dataType));
-//            var varName = node.getName();
-//            st.add("identifier", varName);
-//            st.add("values", arrValues);
-//            return st.render();
-//        }
-//    }
 
     @Override
     public String visit(ArrayVariableDeclarationNode node) {
@@ -163,18 +133,17 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     }
 
 
-    // Complete the array assignment (update Cst2AstPassVisitor file to add the array access expression node)
     @Override
     public String visit(AssignmentStatementNode.ArrayVariableAssignmentStatementNode node) {
-//        var assignedValue = visit(node.getValue());
-//
-//        ST st = group.getInstanceOf("arrayAssign");
-//        st.add("arrayAccess", );
-//        st.add("assignOperator", AssignmentOperatorMapper.getAssignmentOperator(node.getAssignmentOperator()));
-//        st.add("val", assignedValue);
-//        return st.render();
-        return null;
+        var arrName = node.getName();
+        var value = visit(node.getValue());
+
+        ST st = group.getInstanceOf("arrAssign");
+        st.add("identifier", arrName);
+        st.add("val", value);
+        return st.render();
     }
+
 
     @Override
     public String visit(AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode node) {
@@ -337,7 +306,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
                 line.append("static ").append(visit(primNode));
             }else if(variableDeclarationNode instanceof ArrayVariableDeclarationNode){
                 var arrayNode = (ArrayVariableDeclarationNode) variableDeclarationNode;
-                line.append(visit(arrayNode));
+                line.append("static ").append(visit(arrayNode));
             }
         }
 

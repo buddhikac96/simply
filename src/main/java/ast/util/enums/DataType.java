@@ -2,7 +2,7 @@ package ast.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public enum DataType {
+public enum  DataType {
     @JsonAlias({"int"}) IntegerType("integer"),
     @JsonAlias({"float"}) FloatType("float"),
     @JsonAlias({"boolean"}) BooleanType("boolean"),

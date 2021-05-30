@@ -18,8 +18,8 @@ varInit(val) ::= "<if(val)> = <val><endif>"
 arrayDec(type, identifier, isEmptyInit, values) ::= "ArrayList\<<type>> <identifier> = new ArrayList\<<type>>(<arrayInit(isEmptyInit, values)>); <\n>"
 arrayInit(isEmptyInit, values) ::= "<if(!isEmptyInit)>Arrays.asList(<values>)<endif>"
 
-varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>;"
-arrAssign(identifier, val) ::= "<identifier>.add(<value>);"
+varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>; <\n>"
+arrAssign(identifier, val) ::= "<identifier>.add(<val>); <\n>"
 arrayAccess(identifier, index) ::= "<identifier>[<index>]"
 
 funcDec(isMain, name, parameterList, body, returnType, isList) ::= <<
