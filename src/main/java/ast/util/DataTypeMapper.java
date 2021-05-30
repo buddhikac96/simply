@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class DataTypeMapper {
     private static final HashMap<String, DataType> dataTypeMap;
     private static final HashMap<DataType, String> javaDataTypeMap;
+    private static final HashMap<DataType, String> javaWrapperMap;
 
     static{
         dataTypeMap = new HashMap<>();
@@ -28,6 +29,14 @@ public class DataTypeMapper {
         javaDataTypeMap.put(DataType.VoidType, "void");
     }
 
+    static{
+        javaWrapperMap = new HashMap<>();
+        javaWrapperMap.put(DataType.IntegerType, "Integer");
+        javaWrapperMap.put(DataType.FloatType, "Float");
+        javaWrapperMap.put(DataType.CharType, "Character");
+        javaWrapperMap.put(DataType.StringType, "String");
+        javaWrapperMap.put(DataType.BooleanType, "Boolean");
+    }
 
 
     public static DataType getSimplyTypeClass(String typeName){
@@ -38,6 +47,8 @@ public class DataTypeMapper {
         return javaDataTypeMap.get(dataType);
     }
 
-
+    public static String getJavaWrapper(DataType dataType){
+        return javaWrapperMap.get(dataType);
+    }
 
 }

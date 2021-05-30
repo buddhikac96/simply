@@ -1,14 +1,7 @@
-get io;
-
 function main(in: ) out : no {
-    integer a = 5;
-    integer a = 10;
-
-    integer total = add(a, b);
-    io.print(total);
-}
-
-function add(in: integer a, integer b) out : integer {
-    integer total = a + b;
-    return total;
+    list integer intArr = [];
+    list character charArr = [];
+    list string stringArr = ["Geethya", "buddhika", "piumi"];
+    list boolean boolArr = [true, false, true, true];
+    list float floatArr = [1.23, 3.34, 4.56];
 }

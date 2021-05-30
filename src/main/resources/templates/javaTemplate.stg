@@ -1,7 +1,11 @@
-program(libImportSection, globalSection, functionSection, body) ::= <<
+program(libImportSection, globalSection, functionSection) ::= <<
+import java.util.ArrayList;
+import java.util.Scanner;
 <libImportSection>
+
 public class Main {
     <globalSection>
+
     <functionSection>
 }
 >>
@@ -11,24 +15,25 @@ imports(libName) ::= "import <libName>;  <\n>"
 
 varDec(constant, type, identifier, val) ::= "<constant><type> <identifier><varInit(val)>; <\n>"
 varInit(val) ::= "<if(val)> = <val><endif>"
-arraysDec(constant, type, identifier) ::= "<constant><type>[] <identifier>;  <\n>"
-arraysDecInit(constant, type, identifier, values) ::= "<constant><type>[] <identifier> = { <values> }; <\n>"
+arrayDec(type, identifier, isEmptyInit, values) ::= "ArrayList\<<type>> <identifier> = new ArrayList\<<type>>(<arrayInit(isEmptyInit, values)>); <\n>"
+arrayInit(isEmptyInit, values) ::= "<if(!isEmptyInit)>Arrays.asList(<values>)<endif>"
 
 varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>;"
-arrayAssign(arrayAccess, assignOperator, val) ::= "<arrayAccess> <assignOperator> <val>;"
+arrAssign(identifier, val) ::= "<identifier>.add(<value>);"
 arrayAccess(identifier, index) ::= "<identifier>[<index>]"
 
-funcDec(isMain, name, parameterList, body, returnType) ::= <<
+funcDec(isMain, name, parameterList, body, returnType, isList) ::= <<
 <if(isMain)>public static void main(String[] args) {
     <body>
 } <\n>
 <else>
-public static <returnType> <name>(<parameterList>){
+public static <returnType><list(isList)> <name>(<parameterList>){
     <body>
 } <\n>
 <endif>
 >>
 
+list(isList) ::= "<if(isList)>[]<endif>"
 parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
 
 print(content) ::= "System.out.println(<content>); <\n>"
