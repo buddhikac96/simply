@@ -4,7 +4,7 @@ import errors.SimplyError;
 
 public class UndefinedLibraryImportError implements SimplyError {
 
-    private String libName;
+    private final String libName;
 
     public UndefinedLibraryImportError(String libName) {
         this.libName = libName;
@@ -15,7 +15,7 @@ public class UndefinedLibraryImportError implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType()).append("\n");
-        message.append("Library " + this.libName + " node defined");
+        message.append("Library ").append(this.libName).append(" node defined");
 
         return message.toString();
     }

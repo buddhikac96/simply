@@ -20,7 +20,7 @@ import static ast.UnaryExpressionNode.*;
 
 public class PreEvaluatePassVisitor extends BaseAstVisitor<Void> {
 
-    HashMap<String, HashSet<ArrayList<DataType>>> functions;
+    final HashMap<String, HashSet<ArrayList<DataType>>> functions;
     /*
         add : { [int, int], [float, float], [int, float] }
         pow : { [int], [float] }

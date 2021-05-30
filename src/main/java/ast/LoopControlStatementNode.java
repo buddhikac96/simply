@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoopControlStatementNode extends StatementNode {
-    LoopControlOperator operator;
+    final LoopControlOperator operator;
 
     public LoopControlStatementNode(LoopControlOperator operator) {
         this.operator = operator;

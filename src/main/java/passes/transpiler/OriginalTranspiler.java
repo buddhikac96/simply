@@ -6,11 +6,6 @@ import ast.util.DataTypeMapper;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
-import universalJavaMapper.FunctionHashStringBuilder;
-import universalJavaMapper.JavaLibrary;
-import universalJavaMapper.JavaLibraryProvider;
-import universalJavaMapper.newProvider.SimplyFunctionModel;
-import universalJavaMapper.newProvider.SimplyFunctionServiceProvider;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
@@ -18,8 +13,8 @@ import java.util.List;
 
 public class OriginalTranspiler extends BaseAstVisitor<String> {
 
-    public StringBuilder code = new StringBuilder();
-    STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");
+    public final StringBuilder code = new StringBuilder();
+    final STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");
 
     @Override
     public String visit(ArgNode node) {

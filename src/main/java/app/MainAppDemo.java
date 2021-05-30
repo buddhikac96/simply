@@ -56,18 +56,6 @@ public class MainAppDemo {
 
         // Semantics analyzing
         var semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList, sfm);
-        //astRoot.accept(semanticAnalyzerPassVisitor);
-
-        //SemanticAnalyzerPassVisitor semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(userDefinedFunctionList);
-        //astRoot.accept(semanticAnalyzerPassVisitor);
-
-        /*if(!semanticAnalyzerPassVisitor.simplyErrorList.isEmpty()){
-            for(SimplyError e : semanticAnalyzerPassVisitor.simplyErrorList){
-                System.out.println(e.getErrorMessage());
-            }
-        }else{
-            generateCode(astRoot);
-        }*/
 
         generateCode(astRoot);
     }

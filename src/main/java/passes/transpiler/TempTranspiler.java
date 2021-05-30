@@ -17,7 +17,7 @@ import static ast.UnaryExpressionNode.*;
 
 public class TempTranspiler extends BaseAstVisitor<String> {
 
-    public StringBuilder code = new StringBuilder();
+    public final StringBuilder code = new StringBuilder();
 
     @Override
     public String visit(ArgNode node) {

@@ -81,13 +81,13 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
+	 * Visit a parse tree produced by .
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
+	 * Visit a parse tree produced by .
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

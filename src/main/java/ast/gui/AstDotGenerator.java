@@ -16,7 +16,7 @@ import static guru.nidi.graphviz.model.Factory.mutNode;
 
 public class AstDotGenerator {
 
-    static HashMap<String, Integer> hashMap = new HashMap<>();
+    static final HashMap<String, Integer> hashMap = new HashMap<>();
 
     public static void draw(ASTNode astNode){
         MutableGraph g = mutGraph("example1").setDirected(true);
@@ -50,7 +50,7 @@ public class AstDotGenerator {
         if(hashMap.containsKey(name)){
             int append = hashMap.get(name) + 1;
             hashMap.replace(name, append);
-            return name + Integer.toString(append);
+            return name + append;
         }else{
             hashMap.put(name, 1);
             return name;

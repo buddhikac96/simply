@@ -28,19 +28,19 @@ import static ast.UnaryExpressionNode.*;
 
 public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<String> {
 
-    LibResourceModal libResourceModal;
-    HashMap<String, HashSet<ArrayList<DataType>>> functions;
+    final LibResourceModal libResourceModal;
+    final HashMap<String, HashSet<ArrayList<DataType>>> functions;
 
     //Symbol tables
-    HashMap<String, Symbol> globalVariableSymbolTable;
+    final HashMap<String, Symbol> globalVariableSymbolTable;
     HashMap<String, Symbol> funcLocalSymbolTable;
     HashMap<String, Symbol> blockLocalSymbolTable;
 
     // Errors
-    public List<SimplyError> simplyErrorList;
+    public final List<SimplyError> simplyErrorList;
 
     // symbol table
-    Stack<NewSymbolTable> symbolTableStack;
+    final Stack<NewSymbolTable> symbolTableStack;
 
     public SemanticAnalyzerPassVisitor(HashMap<String, HashSet<ArrayList<DataType>>> functions) {
         this.libResourceModal = LibResourceModalMapper.getMap();

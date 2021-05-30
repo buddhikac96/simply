@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class NonEmptyArrayInitializationNode extends ArrayInitializationNode {
-    List<ExpressionNode> arrayValues;
+    final List<ExpressionNode> arrayValues;
 
     public NonEmptyArrayInitializationNode() {
         this.arrayValues = new ArrayList<>();

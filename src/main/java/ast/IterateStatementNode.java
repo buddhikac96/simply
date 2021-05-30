@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class IterateStatementNode extends StatementNode{
-    IterateConditionExpressionNode iterateConditionExpressionNode;
-    BlockNode blockNode;
+    final IterateConditionExpressionNode iterateConditionExpressionNode;
+    final BlockNode blockNode;
 
     public IterateStatementNode(IterateConditionExpressionNode iterateConditionExpressionNode, BlockNode blockNode) {
         this.iterateConditionExpressionNode = iterateConditionExpressionNode;
@@ -44,7 +44,7 @@ public class IterateStatementNode extends StatementNode{
     public abstract static class IterateConditionExpressionNode extends ExpressionNode{
 
         public static class BooleanIterateExpressionNode extends IterateConditionExpressionNode{
-            ExpressionNode expressionNode;
+            final ExpressionNode expressionNode;
 
             public BooleanIterateExpressionNode(ExpressionNode expressionNode) {
                 this.expressionNode = expressionNode;
@@ -74,9 +74,9 @@ public class IterateStatementNode extends StatementNode{
         }
 
         public static class RangeIterateExpressionNode extends IterateConditionExpressionNode{
-            ArgNode variableDeclaration;
-            ExpressionNode fromValue;
-            ExpressionNode toValue;
+            final ArgNode variableDeclaration;
+            final ExpressionNode fromValue;
+            final ExpressionNode toValue;
 
             public RangeIterateExpressionNode(ArgNode variableDeclaration, ExpressionNode fromValue, ExpressionNode toValue) {
                 this.variableDeclaration = variableDeclaration;
@@ -111,10 +111,10 @@ public class IterateStatementNode extends StatementNode{
 
         public static class NewRangeExpressionNode extends IterateConditionExpressionNode{
 
-            ArgNode variableDeclaration;
-            ExpressionNode fromValue;
-            ExpressionNode toValue;
-            ExpressionNode nextValue;
+            final ArgNode variableDeclaration;
+            final ExpressionNode fromValue;
+            final ExpressionNode toValue;
+            final ExpressionNode nextValue;
 
             public NewRangeExpressionNode(
                     ArgNode variableDeclaration,
@@ -154,8 +154,8 @@ public class IterateStatementNode extends StatementNode{
         }
 
         public static class ArrayIterateExpressionNode extends IterateConditionExpressionNode{
-            ArgNode variableDeclaration;
-            ExpressionNode expressionNode;  // Identifier or function call expression
+            final ArgNode variableDeclaration;
+            final ExpressionNode expressionNode;  // Identifier or function call expression
 
             public ArrayIterateExpressionNode(ArgNode variableDeclaration, ExpressionNode expressionNode) {
                 this.variableDeclaration = variableDeclaration;

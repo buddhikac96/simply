@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class LibResourceModal {
 
-    public HashMap<String, Library> libraries;
+    public final HashMap<String, Library> libraries;
 
     public LibResourceModal() {
         this.libraries = new HashMap<>();
@@ -25,9 +25,9 @@ public class LibResourceModal {
         Library class
     */
     public static class Library{
-        public String jname;
-        public String alias;
-        public HashMap<String, Function> functionList;
+        public final String jname;
+        public final String alias;
+        public final HashMap<String, Function> functionList;
 
         public Library(String jname, String alias) {
             this.jname = jname;
@@ -46,9 +46,9 @@ public class LibResourceModal {
         Function class
      */
     public static class Function{
-        public String jname;
-        public String alias;
-        public List<Overload> overloadList;
+        public final String jname;
+        public final String alias;
+        public final List<Overload> overloadList;
 
         public Function(String jname, String alias) {
             this.jname = jname;
@@ -66,8 +66,8 @@ public class LibResourceModal {
         Overload class
      */
     public static class Overload{
-        public List<DataType> argList;
-        public DataType returnType;
+        public final List<DataType> argList;
+        public final DataType returnType;
 
         public Overload(DataType returnType) {
             this.argList = new ArrayList<>();

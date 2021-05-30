@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class FunctionCallExpressionNode extends ExpressionNode {
     public String libRef;
-    public String funcName;
-    public List<ExpressionNode> parameterList;
+    public final String funcName;
+    public final List<ExpressionNode> parameterList;
 
     public FunctionCallExpressionNode(String libRef, String funcName) {
         this.libRef = libRef;

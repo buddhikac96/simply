@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class ArrayVariableDeclarationNode extends VariableDeclarationNode {
     boolean isConst;
-    DataType dataType;
-    String varName;
-    ArrayInitializationNode initializationNode;
+    final DataType dataType;
+    final String varName;
+    final ArrayInitializationNode initializationNode;
 
     public ArrayVariableDeclarationNode(
             boolean isConst,

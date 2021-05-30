@@ -9,7 +9,7 @@ public class SimplyFunctionModel {
     private String libName;
     private String funcName;
     private DataType returnType;
-    private List<DataType> params;
+    private final List<DataType> params;
 
     public SimplyFunctionModel() {
         this.params = new ArrayList<>();

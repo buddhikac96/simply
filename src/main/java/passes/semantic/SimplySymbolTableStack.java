@@ -5,11 +5,11 @@ import ast.util.enums.DataType;
 import java.util.Stack;
 
 public class SimplySymbolTableStack {
-    private Stack<NewSymbolTable> symbolTableStack;
+    private final Stack<NewSymbolTable> symbolTableStack;
 
     // Ugly - Just for skip triggering VariableDeclaration in GlobalVariableDeclaration
     public boolean isStackEmpty(){
-        return this.symbolTableStack.isEmpty();
+        return !this.symbolTableStack.isEmpty();
     }
 
     public SimplySymbolTableStack() {
@@ -34,13 +34,13 @@ public class SimplySymbolTableStack {
 
         for(NewSymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(variable.getName())){
-                return false;
+                return true;
             }
         }
 
         this.symbolTableStack.peek().map.put(variable.getName(), variable);
 
-        return true;
+        return false;
     }
 
     // Validate variable for existence
@@ -65,8 +65,8 @@ public class SimplySymbolTableStack {
 }
 
 class SymbolDataType {
-    DataType dataType;
-    boolean isList;
+    final DataType dataType;
+    final boolean isList;
 
     public SymbolDataType(DataType dataType, boolean isList) {
         this.dataType = dataType;

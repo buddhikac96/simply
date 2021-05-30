@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class LiteralExpressionNode extends ExpressionNode {
 
-    public static interface NumberTypeLiteralExpression{
+    public interface NumberTypeLiteralExpression{
         String getStringValue();
     }
 

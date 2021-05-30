@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class DuplicateFunctionDeclarationError implements SimplyError {
-    String libName;
-    String funcName;
-    List<DataType> args;
+    final String libName;
+    final String funcName;
+    final List<DataType> args;
 
     public DuplicateFunctionDeclarationError(String libName, String funcName, List<DataType> args) {
         this.libName = libName;
@@ -26,7 +26,7 @@ public class DuplicateFunctionDeclarationError implements SimplyError {
         var sj = new StringJoiner(",", "(", ")");
         args.forEach(i -> sj.add(i.getDatatype()));
 
-        message.append("Function " + this.funcName + sj.toString() + " have already declared in package " + this.libName);
+        message.append("Function ").append(this.funcName).append(sj.toString()).append(" have already declared in package ").append(this.libName);
         return message.toString();
     }
 

@@ -8,7 +8,7 @@ public class InvalidModulusOperationError implements SimplyError {
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType() + "\n");
+        message.append(this.getErrorType()).append("\n");
         message.append("Modulus operation should be Integer % Integer");
 
         return message.toString();

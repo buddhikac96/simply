@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class BlockNode extends ASTNode {
-    List<StatementNode> statementNodeList;
+    final List<StatementNode> statementNodeList;
 
     @Override
     public String toString() {

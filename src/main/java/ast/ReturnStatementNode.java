@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReturnStatementNode extends StatementNode {
-    ExpressionNode value;
+    final ExpressionNode value;
 
     public ReturnStatementNode(ExpressionNode value) {
         this.value = value;

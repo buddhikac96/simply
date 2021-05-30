@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LibImportNode extends ASTNode {
-    private String LibName;
+    private final String LibName;
 
     public LibImportNode(String libName) {
         LibName = libName;

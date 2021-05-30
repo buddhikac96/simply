@@ -12,8 +12,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     public abstract ExpressionNode getRight();
 
     public static class OrExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public OrExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -54,8 +54,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class AndExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public AndExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -96,8 +96,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class GreaterThanExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public GreaterThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -138,8 +138,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class LessThanExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public LessThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -180,8 +180,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class GreaterOrEqualThanExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public GreaterOrEqualThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -222,8 +222,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class LessOrEqualThanExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public LessOrEqualThanExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -264,8 +264,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class EqualsExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public EqualsExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -306,8 +306,8 @@ public abstract class LogicExpressionNode extends ExpressionNode {
     }
 
     public static class NotEqualsExpressionNode extends LogicExpressionNode {
-        ExpressionNode left;
-        ExpressionNode right;
+        final ExpressionNode left;
+        final ExpressionNode right;
 
         public NotEqualsExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;

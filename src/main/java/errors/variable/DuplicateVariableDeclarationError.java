@@ -4,7 +4,7 @@ import errors.SimplyError;
 
 public class DuplicateVariableDeclarationError implements SimplyError {
 
-    private String variableName;
+    private final String variableName;
 
     public DuplicateVariableDeclarationError(String variableName) {
         this.variableName = variableName;
@@ -15,7 +15,7 @@ public class DuplicateVariableDeclarationError implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType()).append("\n");
-        message.append("Variable " + this.variableName + " have already declared");
+        message.append("Variable ").append(this.variableName).append(" have already declared");
 
         return message.toString();
     }

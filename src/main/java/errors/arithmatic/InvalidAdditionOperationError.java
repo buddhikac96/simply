@@ -5,8 +5,8 @@ import errors.SimplyError;
 
 public class InvalidAdditionOperationError implements SimplyError {
 
-    private DataType left;
-    private DataType right;
+    private final DataType left;
+    private final DataType right;
 
     public InvalidAdditionOperationError(DataType left, DataType right) {
         this.left = left;
@@ -17,8 +17,8 @@ public class InvalidAdditionOperationError implements SimplyError {
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType() + "\n");
-        message.append("Can't add " + this.left + " with " + this.right);
+        message.append(this.getErrorType()).append("\n");
+        message.append("Can't add ").append(this.left).append(" with ").append(this.right);
 
         return message.toString();
     }

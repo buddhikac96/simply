@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     boolean isConst;
-    DataType dataType;
-    String varName;
-    ExpressionNode value;
+    final DataType dataType;
+    final String varName;
+    final ExpressionNode value;
 
     public PrimitiveVariableDeclarationNode(
             boolean isConst,

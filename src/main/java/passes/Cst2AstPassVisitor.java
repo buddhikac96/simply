@@ -28,9 +28,9 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     private static final Logger LOGGER = Logger.getLogger(Cst2AstPassVisitor.class.getName());
 
-    public List<String> syntaxErrors;
-    CompilationUnitNode compilationUnitNode;
-    HashSet<String> globalVariableSymbolTable;
+    public final List<String> syntaxErrors;
+    final CompilationUnitNode compilationUnitNode;
+    final HashSet<String> globalVariableSymbolTable;
 
     public Cst2AstPassVisitor(List<String> syntaxErrors) {
         this.compilationUnitNode = new CompilationUnitNode();
@@ -67,10 +67,9 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     @Override
     public LibImportNode visitLibImport(LibImportContext ctx) {
         String name = ctx.identifier().getText();
-        LibImportNode libImportNode = new LibImportNode(name);
 
         //Logger.info("LibImportNode created");
-        return libImportNode;
+        return new LibImportNode(name);
     }
 
     @Override

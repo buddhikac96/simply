@@ -4,7 +4,7 @@ import errors.SimplyError;
 
 public class DuplicateLibraryImportSimplyError implements SimplyError {
 
-    private String libName;
+    private final String libName;
 
     public DuplicateLibraryImportSimplyError(String libName) {
         this.libName = libName;
@@ -15,7 +15,7 @@ public class DuplicateLibraryImportSimplyError implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType()).append("\n");
-        message.append("Library " + this.libName + " have already imported");
+        message.append("Library ").append(this.libName).append(" have already imported");
 
         return message.toString();
     }

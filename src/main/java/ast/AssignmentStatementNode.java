@@ -10,9 +10,9 @@ import java.util.Objects;
 public abstract class AssignmentStatementNode extends StatementNode {
 
     public static class PrimitiveVariableAssignmentStatementNode extends AssignmentStatementNode{
-        private String name;
+        private final String name;
         private AssignmentOperator assignmentOperator;
-        private ExpressionNode value;
+        private final ExpressionNode value;
 
         @Override
         public String toString() {
@@ -63,9 +63,9 @@ public abstract class AssignmentStatementNode extends StatementNode {
     }
 
     public static class ArrayVariableAssignmentStatementNode extends AssignmentStatementNode{
-        private String name;
+        private final String name;
         private AssignmentOperator assignmentOperator;
-        private ExpressionNode value;
+        private final ExpressionNode value;
 
         @Override
         public String toString() {

@@ -5,8 +5,8 @@ import errors.SimplyError;
 
 public class ReturnTypeMisMatchError implements SimplyError {
 
-    private DataType expected;
-    private DataType actual;
+    private final DataType expected;
+    private final DataType actual;
 
     public ReturnTypeMisMatchError(DataType expected, DataType actual) {
         this.expected = expected;

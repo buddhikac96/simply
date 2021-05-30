@@ -14,8 +14,4 @@ public class LibResourceMapperTest {
         assert libResourceModal.libraries.size() == 2;
     }
 
-    /*@Test
-    public void libName() {
-        assert libResourceModal.libraryList.get(0).jname.equals("libjname");
-    }*/
 }

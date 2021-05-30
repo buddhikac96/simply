@@ -13,8 +13,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class AdditionExpressionNode extends ArithmeticExpressionNode
     {
-        private ExpressionNode left;
-        private ExpressionNode right;
+        private final ExpressionNode left;
+        private final ExpressionNode right;
 
         public AdditionExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -54,8 +54,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
     }
 
     public static class DivisionExpressionNode extends ArithmeticExpressionNode{
-        private ExpressionNode left;
-        private ExpressionNode right;
+        private final ExpressionNode left;
+        private final ExpressionNode right;
 
         public DivisionExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -94,8 +94,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
     }
 
     public static class ModulusExpressionNode extends ArithmeticExpressionNode {
-        private ExpressionNode left;
-        private ExpressionNode right;
+        private final ExpressionNode left;
+        private final ExpressionNode right;
 
         public ModulusExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -135,8 +135,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class MultiplicationExpressionNode extends ArithmeticExpressionNode
     {
-        private ExpressionNode left;
-        private ExpressionNode right;
+        private final ExpressionNode left;
+        private final ExpressionNode right;
 
         public MultiplicationExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;
@@ -177,8 +177,8 @@ public abstract class ArithmeticExpressionNode extends ExpressionNode {
 
     public static class SubtractionExpressionNode extends ArithmeticExpressionNode
     {
-        private ExpressionNode left;
-        private ExpressionNode right;
+        private final ExpressionNode left;
+        private final ExpressionNode right;
 
         public SubtractionExpressionNode(ExpressionNode left, ExpressionNode right) {
             this.left = left;

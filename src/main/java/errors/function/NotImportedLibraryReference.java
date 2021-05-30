@@ -4,7 +4,7 @@ import errors.SimplyError;
 
 public class NotImportedLibraryReference implements SimplyError {
 
-    String libName;
+    final String libName;
 
     public NotImportedLibraryReference(String libName) {
         this.libName = libName;
@@ -15,7 +15,7 @@ public class NotImportedLibraryReference implements SimplyError {
         var message = new StringBuilder();
         message.append("Error:");
         message.append(this.getErrorType()).append("\n");
-        message.append("Library " + this.libName + " is not imported");
+        message.append("Library ").append(this.libName).append(" is not imported");
 
         return message.toString();
     }

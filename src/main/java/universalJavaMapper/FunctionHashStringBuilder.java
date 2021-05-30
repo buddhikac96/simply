@@ -9,7 +9,7 @@ public class FunctionHashStringBuilder {
     String libName;
     String funcName;
     DataType returnType;
-    List<DataType> params;
+    final List<DataType> params;
 
     public FunctionHashStringBuilder() {
         this.params = new ArrayList<>();

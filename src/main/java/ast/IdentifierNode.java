@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IdentifierNode extends ExpressionNode{
-    private String name;
+    private final String name;
 
     public IdentifierNode(String name) {
         this.name = name;

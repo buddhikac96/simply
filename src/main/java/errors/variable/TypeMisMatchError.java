@@ -5,8 +5,8 @@ import errors.SimplyError;
 
 public class TypeMisMatchError implements SimplyError {
 
-    private DataType requiredType;
-    private DataType originalType;
+    private final DataType requiredType;
+    private final DataType originalType;
 
     public TypeMisMatchError(DataType requiredType, DataType originalType) {
         this.requiredType = requiredType;

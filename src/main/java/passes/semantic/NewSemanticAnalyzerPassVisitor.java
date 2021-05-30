@@ -41,10 +41,10 @@ import static java.util.stream.Collectors.toList;
 
 public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
-    public static HashMap<SimpleEntry<DataType , DataType> , DataType> addDTypeMap;
-    public static HashMap<SimpleEntry<DataType , DataType> , DataType> subDTypeMap;
-    public static HashMap<SimpleEntry<DataType , DataType> , DataType> mulDTypeMap;
-    public static HashMap<SimpleEntry<DataType , DataType> , DataType> divDTypeMap;
+    public static final HashMap<SimpleEntry<DataType , DataType> , DataType> addDTypeMap;
+    public static final HashMap<SimpleEntry<DataType , DataType> , DataType> subDTypeMap;
+    public static final HashMap<SimpleEntry<DataType , DataType> , DataType> mulDTypeMap;
+    public static final HashMap<SimpleEntry<DataType , DataType> , DataType> divDTypeMap;
 
     static{
 
@@ -171,12 +171,12 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // If the stack is empty it means global variables
         // So we need to skip that case
         // Very ugly. AST architecture should be changed
-        if(!this.simplySymbolTableStack.isStackEmpty()){
+        if(this.simplySymbolTableStack.isStackEmpty()){
             var varName = node.getName();
             var dataType = node.getDataType();
 
             // Duplicate variable declaration check
-            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, true))){
+            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, true))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
@@ -195,7 +195,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         var varName = node.getName();
 
         // Check whether variable already declared
-        if(!this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
+        if(this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
             this.simplyErrorList.add(new VariableNotDefinedError(varName));
             SimplySystem.exit(this.simplyErrorList);
         }
@@ -286,7 +286,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // Check main method exist
 
         var isMainMethodExist = node.getFunctionDeclarationNodes().stream()
-                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName() == "main");
+                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().equals("main"));
 
         if(!isMainMethodExist){
             SimplySystem.exit(new MainMethodNotExistError());
@@ -308,7 +308,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var variable = new SimplyVariable(varName, dataType);
 
                 // Validate for duplicate variable declaration
-                if(!this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
+                if(this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
                     this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
@@ -321,7 +321,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var variable = new SimplyVariable(varName, dataType, true);
 
                 // Validate for duplicate variable declaration
-                if(!this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
+                if(this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
                     this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
@@ -477,12 +477,12 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // If the stack is empty it means global variables
         // So we need to skip that case
         // Very ugly. AST architecture should be changed
-        if(!this.simplySymbolTableStack.isStackEmpty()){
+        if(this.simplySymbolTableStack.isStackEmpty()){
             var varName = node.getName();
             var symbolDataType = node.getDataType();
 
             // Check variable already declared
-            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, symbolDataType))){
+            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, symbolDataType))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
@@ -572,7 +572,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var isList = argNode.isList();
 
             // Validate for duplicate declarations
-            if(!this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
+            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
@@ -666,7 +666,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         }else if(node instanceof IdentifierNode _node){
 
             // validate the symbol from symbol table
-            if(!this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(_node.getName()))){
+            if(this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(_node.getName()))){
                 SimplySystem.exit(new VariableNotDefinedError(_node.getName()));
             }
 

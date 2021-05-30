@@ -3,7 +3,7 @@ package passes.semantic;
 import ast.util.enums.DataType;
 
 public class SimplyVariable {
-    private String name;
+    private final String name;
     private DataType type;
     private boolean isList;
 

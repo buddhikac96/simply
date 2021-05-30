@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 public class AssignmentOperatorMapper {
 
-    static HashMap<String, AssignmentOperator> operatorHashMap;
-    static HashMap<AssignmentOperator, String> javaOperatorHashMap;
+    static final HashMap<String, AssignmentOperator> operatorHashMap;
+    static final HashMap<AssignmentOperator, String> javaOperatorHashMap;
 
     static {
         operatorHashMap = new HashMap<>();

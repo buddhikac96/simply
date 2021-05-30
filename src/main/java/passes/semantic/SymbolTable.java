@@ -3,7 +3,7 @@ package passes.semantic;
 import java.util.HashMap;
 
 public class SymbolTable {
-    HashMap<String, Symbol> map;
+    final HashMap<String, Symbol> map;
     SymbolTable symbolTable;
 
     public SymbolTable() {

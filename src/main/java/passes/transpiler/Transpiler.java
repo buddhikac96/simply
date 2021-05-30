@@ -8,8 +8,8 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 
 public class Transpiler extends BaseAstVisitor {
 
-    public StringBuilder libImports = new StringBuilder();
-    public StringBuilder globalVars = new StringBuilder();
+    public final StringBuilder libImports = new StringBuilder();
+    public final StringBuilder globalVars = new StringBuilder();
 
     @Override
     public Object visit(ArgNode node) {

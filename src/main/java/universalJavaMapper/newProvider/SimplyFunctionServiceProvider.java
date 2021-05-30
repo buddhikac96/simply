@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimplyFunctionServiceProvider {
-    private List<SimplyFunctionModel> functionModels;
+    private final List<SimplyFunctionModel> functionModels;
 
     public SimplyFunctionServiceProvider() throws IOException {
         this.functionModels = new ArrayList<>();

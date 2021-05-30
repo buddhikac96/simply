@@ -4,7 +4,7 @@ import errors.SimplyError;
 
 public class VariableNotDefinedError implements SimplyError {
 
-    String varName;
+    final String varName;
 
     public VariableNotDefinedError(String varName) {
         this.varName = varName;
@@ -14,8 +14,8 @@ public class VariableNotDefinedError implements SimplyError {
     public String getErrorMessage() {
         var message = new StringBuilder();
         message.append("Error:");
-        message.append(this.getErrorType() + " ").append("\n");
-        message.append("Variable " + this.varName + " not defined");
+        message.append(this.getErrorType()).append(" ").append("\n");
+        message.append("Variable ").append(this.varName).append(" not defined");
 
         return message.toString();
     }
