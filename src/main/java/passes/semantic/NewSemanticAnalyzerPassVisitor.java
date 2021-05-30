@@ -202,7 +202,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
         // Check data type mismatch
         var symbol = this.simplySymbolTableStack.getSymbol(varName);
-        var exprType = getExpressionDataType(node.getValue()).dataType;
+        var exprType = getExpressionDataType(node.getValue()).dataType();
 
         if(symbol.getType() != exprType){
             SimplySystem.exit(new TypeMisMatchError(symbol.getType(), exprType));
@@ -265,7 +265,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         var actualReturnType = VoidType;
 
         if(!(returnNode.getValue() instanceof VoidLiteralExpressionNode)){
-            actualReturnType = getExpressionDataType(returnNode.getValue()).dataType;
+            actualReturnType = getExpressionDataType(returnNode.getValue()).dataType();
         }
 
         if(expectReturnType != actualReturnType){
@@ -489,7 +489,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             // check type mis match error
             var symbol = this.simplySymbolTableStack.getSymbol(varName);
-            var exprType = getExpressionDataType(node.getValue()).dataType;
+            var exprType = getExpressionDataType(node.getValue()).dataType();
 
             if(symbol.getType() != exprType){
                 SimplySystem.exit(new TypeMisMatchError(symbol.getType(), exprType));
@@ -599,8 +599,8 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var left = _node.getLeft();
             var right = _node.getRight();
 
-            var leftType = getExpressionDataType(left).dataType;
-            var rightType = getExpressionDataType(right).dataType;
+            var leftType = getExpressionDataType(left).dataType();
+            var rightType = getExpressionDataType(right).dataType();
 
             if(_node instanceof AdditionExpressionNode adn){
 
@@ -652,7 +652,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var args = new ArrayList<DataType>();
 
             for(var arg : _node.parameterList){
-                args.add(getExpressionDataType(arg).dataType);
+                args.add(getExpressionDataType(arg).dataType());
             }
 
             var sfm = new SimplyFunctionModel().setLibName(_node.libRef).setFuncName(_node.funcName);

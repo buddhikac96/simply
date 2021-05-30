@@ -3,23 +3,15 @@ package errors.arithmatic;
 import ast.util.enums.DataType;
 import errors.SimplyError;
 
-public class InvalidSubtractionOperationError implements SimplyError {
-    private final DataType left;
-    private final DataType right;
-
-    public InvalidSubtractionOperationError(DataType left, DataType right) {
-        this.left = left;
-        this.right = right;
-    }
+public record InvalidSubtractionOperationError(DataType left,
+                                               DataType right) implements SimplyError {
 
     @Override
     public String getErrorMessage() {
-        var message = new StringBuilder();
-        message.append("Error:");
-        message.append(this.getErrorType()).append("\n");
-        message.append("Can't subtract ").append(this.right).append(" from ").append(this.left);
 
-        return message.toString();
+        return "Error:" +
+                this.getErrorType() + "\n" +
+                "Can't subtract " + this.right + " from " + this.left;
     }
 
     @Override

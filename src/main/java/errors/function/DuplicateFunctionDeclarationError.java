@@ -6,16 +6,8 @@ import errors.SimplyError;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class DuplicateFunctionDeclarationError implements SimplyError {
-    final String libName;
-    final String funcName;
-    final List<DataType> args;
-
-    public DuplicateFunctionDeclarationError(String libName, String funcName, List<DataType> args) {
-        this.libName = libName;
-        this.funcName = funcName;
-        this.args = args;
-    }
+public record DuplicateFunctionDeclarationError(String libName, String funcName,
+                                                List<DataType> args) implements SimplyError {
 
     @Override
     public String getErrorMessage() {

@@ -3,15 +3,8 @@ package errors.variable;
 import ast.util.enums.DataType;
 import errors.SimplyError;
 
-public class TypeMisMatchError implements SimplyError {
-
-    private final DataType requiredType;
-    private final DataType originalType;
-
-    public TypeMisMatchError(DataType requiredType, DataType originalType) {
-        this.requiredType = requiredType;
-        this.originalType = originalType;
-    }
+public record TypeMisMatchError(DataType requiredType,
+                                DataType originalType) implements SimplyError {
 
     @Override
     public String getErrorMessage() {

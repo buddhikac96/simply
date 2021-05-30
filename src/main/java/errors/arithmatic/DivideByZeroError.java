@@ -5,10 +5,7 @@ import errors.SimplyError;
 public class DivideByZeroError implements SimplyError {
     @Override
     public String getErrorMessage() {
-
-        String message = "Error:" +
-                "Divisor can't be zero (0)";
-        return message;
+        return "Error: Divisor can't be zero (0)";
     }
 
     @Override

@@ -2,22 +2,14 @@ package errors.library;
 
 import errors.SimplyError;
 
-public class UndefinedLibraryImportError implements SimplyError {
-
-    private final String libName;
-
-    public UndefinedLibraryImportError(String libName) {
-        this.libName = libName;
-    }
+public record UndefinedLibraryImportError(String libName) implements SimplyError {
 
     @Override
     public String getErrorMessage() {
-        var message = new StringBuilder();
-        message.append("Error:");
-        message.append(this.getErrorType()).append("\n");
-        message.append("Library ").append(this.libName).append(" node defined");
 
-        return message.toString();
+        return "Error:" +
+                this.getErrorType() + "\n" +
+                "Library " + this.libName + " node defined";
     }
 
     @Override

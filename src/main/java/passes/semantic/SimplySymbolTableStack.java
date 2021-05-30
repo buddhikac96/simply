@@ -1,7 +1,5 @@
 package passes.semantic;
 
-import ast.util.enums.DataType;
-
 import java.util.Stack;
 
 public class SimplySymbolTableStack {
@@ -64,12 +62,3 @@ public class SimplySymbolTableStack {
 
 }
 
-class SymbolDataType {
-    final DataType dataType;
-    final boolean isList;
-
-    public SymbolDataType(DataType dataType, boolean isList) {
-        this.dataType = dataType;
-        this.isList = isList;
-    }
-}

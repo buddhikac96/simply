@@ -2,22 +2,14 @@ package errors.variable;
 
 import errors.SimplyError;
 
-public class VariableNotDefinedError implements SimplyError {
-
-    final String varName;
-
-    public VariableNotDefinedError(String varName) {
-        this.varName = varName;
-    }
+public record VariableNotDefinedError(String varName) implements SimplyError {
 
     @Override
     public String getErrorMessage() {
-        var message = new StringBuilder();
-        message.append("Error:");
-        message.append(this.getErrorType()).append(" ").append("\n");
-        message.append("Variable ").append(this.varName).append(" not defined");
 
-        return message.toString();
+        return "Error:" +
+                this.getErrorType() + " " + "\n" +
+                "Variable " + this.varName + " not defined";
     }
 
     @Override
