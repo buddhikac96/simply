@@ -38,16 +38,6 @@ public class MainAppDemo {
         // Generate AST Image
         AstDotGenerator.draw(astRoot);
 
-
-        // pre-evaluation pass
-        // get the function list data structure
-        // pass data structure to syntax analyzing phase
-
-        //PreEvaluatePassVisitor preEvaluatePassVisitor = new PreEvaluatePassVisitor();
-        //astRoot.accept(preEvaluatePassVisitor);
-
-        //HashMap<String, HashSet<ArrayList<DataType>>> userDefinedFunctionList = preEvaluatePassVisitor.getFunctions();
-
         // Error List for semantic analysis
         List<SimplyError> simplyErrorList = new ArrayList<>();
 
