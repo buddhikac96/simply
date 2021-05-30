@@ -16,4 +16,12 @@ function main(in: ) out : no {
 
     integer a = intArr[0];
     string name = stringArr[1];
+
+    repeat(integer i of intArr){
+
+    }
+
+    repeat(character j of charArr){
+
+    }
 }

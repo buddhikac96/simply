@@ -388,10 +388,13 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
-        ST st = group.getInstanceOf("forEachLoop");
         var dataType = node.getArgNode().getDataType();
+        var iteratorName = node.getArgNode().getName();
         var arrName = visit(node.getExpressionNode());
-        st.add("dataType", DataTypeMapper.getJavaType(dataType));
+
+        ST st = group.getInstanceOf("forEachLoop");
+        st.add("dataType", DataTypeMapper.getJavaWrapper(dataType));
+        st.add("iterator", iteratorName);
         st.add("arrName", arrName);
         return st.render();
     }
