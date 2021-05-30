@@ -13,4 +13,7 @@ function main(in: ) out : no {
     stringArr[3] = "Rangana";
     boolArr[4] = false;
     floatArr[3] = 4.56778856737;
+
+    integer a = intArr[0];
+    string name = stringArr[1];
 }

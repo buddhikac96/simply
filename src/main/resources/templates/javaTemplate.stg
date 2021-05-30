@@ -20,7 +20,7 @@ arrayInit(isEmptyInit, values) ::= "<if(!isEmptyInit)>Arrays.asList(<values>)<en
 
 varAssign(identifier, assignOperator, val) ::= "<identifier> <assignOperator> <val>; <\n>"
 arrAssign(identifier, val) ::= "<identifier>.add(<val>); <\n>"
-arrayAccess(identifier, index) ::= "<identifier>[<index>]"
+arrayAccess(identifier, index) ::= "<identifier>.get(<index>)"
 
 funcDec(isMain, name, parameterList, body, returnType, isList) ::= <<
 <if(isMain)>public static void main(String[] args) {
