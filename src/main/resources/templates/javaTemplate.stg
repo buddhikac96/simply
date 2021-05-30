@@ -23,7 +23,7 @@ funcDec(isMain, name, parameterList, body, returnType) ::= <<
     <body>
 } <\n>
 <else>
-public <returnType> <name>(<parameterList>){
+public static <returnType> <name>(<parameterList>){
     <body>
 } <\n>
 <endif>

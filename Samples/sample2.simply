@@ -1,5 +1,14 @@
-function main(in: ) out:no{
-    repeat(integer i of arr){
+get io;
 
-    }
+function main(in: ) out : no {
+    integer a = 5;
+    integer a = 10;
+
+    integer total = add(a, b);
+    io.print(total);
+}
+
+function add(in: integer a, integer b) out : integer {
+    integer total = a + b;
+    return total;
 }

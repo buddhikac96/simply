@@ -59,7 +59,7 @@ public class MainAppDemo {
         return parser.compilationUnit();
     }
 
-    private static void generateCode(ASTNode node) throws Exception {
+    private static void generateCode(ASTNode node) {
         // TempTranspiler transpiler = new TempTranspiler();
         SimplyTranspiler transpiler = new SimplyTranspiler();
         node.accept(transpiler);

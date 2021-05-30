@@ -604,38 +604,38 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             if(_node instanceof AdditionExpressionNode adn){
 
-                if(!SemanticAnalyzerPassVisitor.addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidAdditionOperationError(leftType, rightType));
                 }
 
-                var dataType =  SemanticAnalyzerPassVisitor.addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof SubtractionExpressionNode sbn){
 
-                if(!SemanticAnalyzerPassVisitor.subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidSubtractionOperationError(leftType, rightType));
                 }
 
-                var dataType =  SemanticAnalyzerPassVisitor.subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof MultiplicationExpressionNode mln){
 
-                if(!SemanticAnalyzerPassVisitor.mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidMultiplicationOperationError(leftType, rightType));
                 }
 
-                var dataType =  SemanticAnalyzerPassVisitor.mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof DivisionExpressionNode dvn){
 
-                if(!SemanticAnalyzerPassVisitor.divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidDivisionOperationError(leftType, rightType));
                 }
 
-                var dataType =  SemanticAnalyzerPassVisitor.divDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  divDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else{
