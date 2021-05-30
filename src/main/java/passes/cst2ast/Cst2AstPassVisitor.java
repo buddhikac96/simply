@@ -1,4 +1,4 @@
-package passes;
+package passes.cst2ast;
 
 import antlr.gen.SimplyV3Parser.*;
 import antlr.gen.SimplyV3ParserBaseVisitor;

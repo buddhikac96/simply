@@ -11,7 +11,7 @@ import visitors.BaseAstVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OriginalTranspiler extends BaseAstVisitor<String> {
+public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     public final StringBuilder code = new StringBuilder();
     final STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");

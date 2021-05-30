@@ -1,4 +1,4 @@
-package universalJavaMapper.newProvider;
+package universalJavaPortal;
 
 import ast.util.enums.DataType;
 

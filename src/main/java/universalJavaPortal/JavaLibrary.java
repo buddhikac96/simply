@@ -1,4 +1,4 @@
-package universalJavaMapper;
+package universalJavaPortal;
 
 import ast.util.enums.DataType;
 import com.fasterxml.jackson.annotation.JsonAlias;

@@ -4,16 +4,16 @@ import antlr.gen.SimplyV3Lexer;
 import antlr.gen.SimplyV3Parser;
 import ast.ASTNode;
 import ast.CompilationUnitNode;
-import ast.gui.AstDotGenerator;
+import ast.astImgGenerator.AstDotGenerator;
 import errors.SimplyError;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import passes.Cst2AstPassVisitor;
-import passes.semantic.NewSemanticAnalyzerPassVisitor;
-import passes.transpiler.OriginalTranspiler;
-import universalJavaMapper.newProvider.SimplyFunctionServiceProvider;
+import passes.cst2ast.Cst2AstPassVisitor;
+import passes.semantic.SemanticAnalyzerPassVisitor;
+import passes.transpiler.SimplyTranspiler;
+import universalJavaPortal.JavaPortalServiceProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,10 +42,10 @@ public class MainAppDemo {
         List<SimplyError> simplyErrorList = new ArrayList<>();
 
         // Java Library provider
-        var sfm = new SimplyFunctionServiceProvider();
+        var sfm = new JavaPortalServiceProvider();
 
         // Semantics analyzing
-        var semanticAnalyzerPassVisitor = new NewSemanticAnalyzerPassVisitor(simplyErrorList, sfm);
+        var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
 
         generateCode(astRoot);
     }
@@ -61,7 +61,7 @@ public class MainAppDemo {
 
     private static void generateCode(ASTNode node) throws Exception {
         // TempTranspiler transpiler = new TempTranspiler();
-        OriginalTranspiler transpiler = new OriginalTranspiler();
+        SimplyTranspiler transpiler = new SimplyTranspiler();
         node.accept(transpiler);
 
         System.out.println(transpiler.code);

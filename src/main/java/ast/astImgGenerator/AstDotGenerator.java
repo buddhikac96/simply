@@ -1,4 +1,4 @@
-package ast.gui;
+package ast.astImgGenerator;
 
 import ast.ASTNode;
 import guru.nidi.graphviz.engine.Format;

@@ -14,8 +14,8 @@ import errors.library.UndefinedLibraryImportError;
 import errors.variable.DuplicateVariableDeclarationError;
 import errors.variable.TypeMisMatchError;
 import errors.variable.VariableNotDefinedError;
-import universalJavaMapper.newProvider.SimplyFunctionModel;
-import universalJavaMapper.newProvider.SimplyFunctionServiceProvider;
+import universalJavaPortal.SimplyFunctionModel;
+import universalJavaPortal.JavaPortalServiceProvider;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import static java.util.AbstractMap.SimpleEntry;
 
 import static java.util.stream.Collectors.toList;
 
-public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
+public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     public static final HashMap<SimpleEntry<DataType , DataType> , DataType> addDTypeMap;
     public static final HashMap<SimpleEntry<DataType , DataType> , DataType> subDTypeMap;
@@ -91,13 +91,13 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     }
 
 
-    SimplySymbolTableStack simplySymbolTableStack;
+    SymbolTableStack symbolTableStack;
     List<SimplyError> simplyErrorList;
-    SimplyFunctionServiceProvider universalJavaLibraryServiceProvider;
+    JavaPortalServiceProvider universalJavaLibraryServiceProvider;
     HashSet<String> importedLibraries;
 
-    public NewSemanticAnalyzerPassVisitor(List<SimplyError> simplyErrorList, SimplyFunctionServiceProvider sfp) {
-        this.simplySymbolTableStack = new SimplySymbolTableStack();
+    public SemanticAnalyzerPassVisitor(List<SimplyError> simplyErrorList, JavaPortalServiceProvider sfp) {
+        this.symbolTableStack = new SymbolTableStack();
         this.simplyErrorList = simplyErrorList;
         this.universalJavaLibraryServiceProvider = sfp;
         importedLibraries = new HashSet<>();
@@ -171,12 +171,12 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // If the stack is empty it means global variables
         // So we need to skip that case
         // Very ugly. AST architecture should be changed
-        if(this.simplySymbolTableStack.isStackEmpty()){
+        if(this.symbolTableStack.isStackEmpty()){
             var varName = node.getName();
             var dataType = node.getDataType();
 
             // Duplicate variable declaration check
-            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, true))){
+            if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, true))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
@@ -195,13 +195,13 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         var varName = node.getName();
 
         // Check whether variable already declared
-        if(this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
+        if(this.symbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
             this.simplyErrorList.add(new VariableNotDefinedError(varName));
             SimplySystem.exit(this.simplyErrorList);
         }
 
         // Check data type mismatch
-        var symbol = this.simplySymbolTableStack.getSymbol(varName);
+        var symbol = this.symbolTableStack.getSymbol(varName);
         var exprType = getExpressionDataType(node.getValue()).dataType();
 
         if(symbol.getType() != exprType){
@@ -214,7 +214,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     // exitBlockNode
     @Override
     public Object visit(BlockNode node) {
-        this.simplySymbolTableStack.popSymbolTable();
+        this.symbolTableStack.popSymbolTable();
         return null;
     }
 
@@ -248,7 +248,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     // exitFunctionDeclarationNode
     @Override
     public Object visit(FunctionDeclarationNode node) {
-        this.simplySymbolTableStack.popSymbolTable();
+        this.symbolTableStack.popSymbolTable();
 
         /*
             Compare expected return type and actual return type
@@ -298,7 +298,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     @Override
     public Object visit(GlobalVariableDeclarationNodeList node) {
 
-        this.simplySymbolTableStack.addSymbolTable(new NewSymbolTable());
+        this.symbolTableStack.addSymbolTable(new SymbolTable());
 
         for(ASTNode astNode : node.getVariableDeclarationNodes()){
             if(astNode instanceof PrimitiveVariableDeclarationNode _node){
@@ -308,7 +308,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var variable = new SimplyVariable(varName, dataType);
 
                 // Validate for duplicate variable declaration
-                if(this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
+                if(this.symbolTableStack.validateDuplicateDeclaration(variable)){
                     this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
@@ -321,7 +321,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var variable = new SimplyVariable(varName, dataType, true);
 
                 // Validate for duplicate variable declaration
-                if(this.simplySymbolTableStack.validateDuplicateDeclaration(variable)){
+                if(this.symbolTableStack.validateDuplicateDeclaration(variable)){
                     this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                     SimplySystem.exit(this.simplyErrorList);
                 }
@@ -477,18 +477,18 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // If the stack is empty it means global variables
         // So we need to skip that case
         // Very ugly. AST architecture should be changed
-        if(this.simplySymbolTableStack.isStackEmpty()){
+        if(this.symbolTableStack.isStackEmpty()){
             var varName = node.getName();
             var symbolDataType = node.getDataType();
 
             // Check variable already declared
-            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, symbolDataType))){
+            if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, symbolDataType))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
 
             // check type mis match error
-            var symbol = this.simplySymbolTableStack.getSymbol(varName);
+            var symbol = this.symbolTableStack.getSymbol(varName);
             var exprType = getExpressionDataType(node.getValue()).dataType();
 
             if(symbol.getType() != exprType){
@@ -563,7 +563,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         }
 
         // Add new stack to symbol table stack
-        this.simplySymbolTableStack.addSymbolTable(new NewSymbolTable());
+        this.symbolTableStack.addSymbolTable(new SymbolTable());
 
         // Add parameters to symbol table
         for(ArgNode argNode : argNodeList){
@@ -572,7 +572,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var isList = argNode.isList();
 
             // Validate for duplicate declarations
-            if(this.simplySymbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
+            if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
                 this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
                 SimplySystem.exit(this.simplyErrorList);
             }
@@ -583,7 +583,7 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     @Override
     public Object enterBlockNode(BlockNode node) {
-        this.simplySymbolTableStack.addSymbolTable(new NewSymbolTable());
+        this.symbolTableStack.addSymbolTable(new SymbolTable());
         return null;
     }
 
@@ -604,38 +604,38 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             if(_node instanceof AdditionExpressionNode adn){
 
-                if(!NewSemanticAnalyzerPassVisitor.addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!SemanticAnalyzerPassVisitor.addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidAdditionOperationError(leftType, rightType));
                 }
 
-                var dataType =  NewSemanticAnalyzerPassVisitor.addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  SemanticAnalyzerPassVisitor.addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof SubtractionExpressionNode sbn){
 
-                if(!NewSemanticAnalyzerPassVisitor.subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!SemanticAnalyzerPassVisitor.subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidSubtractionOperationError(leftType, rightType));
                 }
 
-                var dataType =  NewSemanticAnalyzerPassVisitor.subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  SemanticAnalyzerPassVisitor.subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof MultiplicationExpressionNode mln){
 
-                if(!NewSemanticAnalyzerPassVisitor.mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!SemanticAnalyzerPassVisitor.mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidMultiplicationOperationError(leftType, rightType));
                 }
 
-                var dataType =  NewSemanticAnalyzerPassVisitor.mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  SemanticAnalyzerPassVisitor.mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else if(_node instanceof DivisionExpressionNode dvn){
 
-                if(!NewSemanticAnalyzerPassVisitor.divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
+                if(!SemanticAnalyzerPassVisitor.divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidDivisionOperationError(leftType, rightType));
                 }
 
-                var dataType =  NewSemanticAnalyzerPassVisitor.divDTypeMap.get(new SimpleEntry<>(leftType, rightType));
+                var dataType =  SemanticAnalyzerPassVisitor.divDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
             }else{
@@ -666,11 +666,11 @@ public class NewSemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         }else if(node instanceof IdentifierNode _node){
 
             // validate the symbol from symbol table
-            if(this.simplySymbolTableStack.validateVariableExistence(new SimplyVariable(_node.getName()))){
+            if(this.symbolTableStack.validateVariableExistence(new SimplyVariable(_node.getName()))){
                 SimplySystem.exit(new VariableNotDefinedError(_node.getName()));
             }
 
-            var symbol = this.simplySymbolTableStack.getSymbol(_node.getName());
+            var symbol = this.symbolTableStack.getSymbol(_node.getName());
             return new SymbolDataType(symbol.getType(), symbol.isList());
 
         }else if(node instanceof IterateConditionExpressionNode _node){

@@ -2,19 +2,19 @@ package passes.semantic;
 
 import java.util.Stack;
 
-public class SimplySymbolTableStack {
-    private final Stack<NewSymbolTable> symbolTableStack;
+public class SymbolTableStack {
+    private final Stack<SymbolTable> symbolTableStack;
 
     // Ugly - Just for skip triggering VariableDeclaration in GlobalVariableDeclaration
     public boolean isStackEmpty(){
         return !this.symbolTableStack.isEmpty();
     }
 
-    public SimplySymbolTableStack() {
+    public SymbolTableStack() {
         this.symbolTableStack = new Stack<>();
     }
 
-    public void addSymbolTable(NewSymbolTable symbolTable){
+    public void addSymbolTable(SymbolTable symbolTable){
         this.symbolTableStack.add(symbolTable);
     }
 
@@ -30,7 +30,7 @@ public class SimplySymbolTableStack {
     // Validate variable for declaration
     public boolean validateDuplicateDeclaration(SimplyVariable variable){
 
-        for(NewSymbolTable symbolTable : this.symbolTableStack){
+        for(SymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(variable.getName())){
                 return true;
             }
@@ -50,7 +50,7 @@ public class SimplySymbolTableStack {
 
         SimplyVariable simplyVariable = new SimplyVariable("ThisIsTheDumbestThingThatAnyProgrammerCanDo");
 
-        for(NewSymbolTable symbolTable : this.symbolTableStack){
+        for(SymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(varName)){
                 simplyVariable = symbolTable.map.get(varName);
                 break;

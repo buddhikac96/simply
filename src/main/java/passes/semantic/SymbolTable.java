@@ -2,10 +2,10 @@ package passes.semantic;
 
 import java.util.HashMap;
 
-public class NewSymbolTable {
+public class SymbolTable {
     final HashMap<String, SimplyVariable> map;
 
-    public NewSymbolTable() {
+    public SymbolTable() {
         this.map = new HashMap<>();
     }
 }

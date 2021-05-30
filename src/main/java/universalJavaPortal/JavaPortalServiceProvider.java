@@ -1,18 +1,17 @@
-package universalJavaMapper.newProvider;
+package universalJavaPortal;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import universalJavaMapper.JavaLibrary;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimplyFunctionServiceProvider {
+public class JavaPortalServiceProvider {
     private final List<SimplyFunctionModel> functionModels;
 
-    public SimplyFunctionServiceProvider() throws IOException {
+    public JavaPortalServiceProvider() throws IOException {
         this.functionModels = new ArrayList<>();
 
         // deserialize json
