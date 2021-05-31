@@ -1,14 +1,27 @@
-get io;
+global list integer intArr = [];
 
 function main(in: ) out : no {
-    integer a = 5;
-    integer a = 10;
+    list integer intArr = [];
+    list character charArr = [];
+    list string stringArr = ["Geethya", "buddhika", "piumi"];
+    list boolean boolArr = [true,false, true, true];
+    list float floatArr = [1.23, 3.34, 4.56];
 
-    integer total = add(a, b);
-    io.print(total);
-}
+    intArr[0] = 10;
+    intArr[1] = 20;
+    charArr[0] = "A";
+    stringArr[3] = "Rangana";
+    boolArr[4] = false;
+    floatArr[3] = 4.56778856737;
 
-function add(in: integer a, integer b) out : integer {
-    integer total = a + b;
-    return total;
+    integer a = intArr[0];
+    string name = stringArr[1];
+
+    repeat(integer i of intArr){
+
+    }
+
+    repeat(character j of charArr){
+
+    }
 }

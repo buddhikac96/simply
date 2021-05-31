@@ -6,6 +6,9 @@ import ast.util.DataTypeMapper;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
+import universalJavaPortal.JavaLibrary;
+import universalJavaPortal.JavaPortalServiceProvider;
+import universalJavaPortal.SimplyFunctionModel;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
@@ -73,6 +76,17 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     }
 
     @Override
+    public String visit(ArrayAccessExpressionNode node) {
+        var arrName = node.getArrayName();
+        var index = visit(node.getAccessValueExpression());
+
+        ST st = group.getInstanceOf("arrayAccess");
+        st.add("identifier", arrName);
+        st.add("index", index);
+        return st.render();
+    }
+
+    @Override
     public String visit(ArithmeticExpressionNode.SubtractionExpressionNode node) {
         ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
@@ -84,66 +98,52 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     }
 
     @Override
-    public String visit(ArrayAccessExpressionNode node) {
-        return null;
-    }
-
-    @Override
     public String visit(ArrayInitializationNode node) {
         StringBuilder arrayElements = new StringBuilder();
         if(node instanceof EmptyArrayInitializationNode) {
             return null;
-        }else if(node instanceof NonEmptyArrayInitializationNode) {
+        } else {
             var newNode = (NonEmptyArrayInitializationNode) node;
             for(ExpressionNode elementNode : newNode.getArrayValues()) {
                 var value = visit(elementNode);
                 arrayElements.append(value).append(",");
             }
+            // Removing the additional ','
+            return arrayElements.deleteCharAt(arrayElements.length() - 1).toString();
         }
-
-        // Removing the additional ','
-        return arrayElements.deleteCharAt(arrayElements.length() - 1).toString();
-
     }
 
-    // Update the array template to support both empty and non-empty initialization nodes
     @Override
     public String visit(ArrayVariableDeclarationNode node) {
-        var arrValues = visit(node.getValue());
-        if(arrValues == null) {
-            ST st = group.getInstanceOf("arraysDec");
-            var isConst = "";
-            if(node.isConst()) { isConst = "final "; }
-            st.add("constant", isConst);
-            var dataType = node.getDataType();
-            st.add("type", DataTypeMapper.getJavaType(dataType));
-            var varName = node.getName();
-            st.add("identifier", varName);
-            return st.render();
-        }else{
-            ST st = group.getInstanceOf("arraysDecInit");
-            var isConst = "";
-            if(node.isConst()) { isConst = "final "; }
-            st.add("constant", isConst);
-            var dataType = node.getDataType();
-            st.add("type", DataTypeMapper.getJavaType(dataType));
-            var varName = node.getName();
-            st.add("identifier", varName);
-            st.add("values", arrValues);
-            return st.render();
-        }
-    }
 
-    // Complete the array assignment (update Cst2AstPassVisitor file to add the array access expression node)
-    @Override
-    public String visit(AssignmentStatementNode.ArrayVariableAssignmentStatementNode node) {
-        ST st = group.getInstanceOf("arrayAssign");
-        st.add("arrayAccess", node.getName());
-        st.add("assignOperator", AssignmentOperatorMapper.getAssignmentOperator(node.getAssignmentOperator()));
-        var assignedValue = visit(node.getValue());
-        st.add("val", assignedValue);
+        var arrValues = visit(node.getValue());
+        var dataType = DataTypeMapper.getJavaWrapper(node.getDataType());
+        var arrName = node.getName();
+        var isEmptyArray = true;
+        if(arrValues != null) {
+            isEmptyArray = false;
+        }
+
+        ST st = group.getInstanceOf("arrayDec");
+        st.add("type", dataType);
+        st.add("identifier", arrName);
+        st.add("isEmptyInit", isEmptyArray);
+        st.add("values", arrValues);
         return st.render();
     }
+
+
+    @Override
+    public String visit(AssignmentStatementNode.ArrayVariableAssignmentStatementNode node) {
+        var arrName = node.getName();
+        var value = visit(node.getValue());
+
+        ST st = group.getInstanceOf("arrAssign");
+        st.add("identifier", arrName);
+        st.add("val", value);
+        return st.render();
+    }
+
 
     @Override
     public String visit(AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode node) {
@@ -228,7 +228,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
             if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
             st.add("parameters", parameters);
             return st.render();
-        } else if(libRef.equals("io")){
+        } else if(libRef.equals("io")) {
             ST st = group.getInstanceOf("print");
             for(ExpressionNode expNode : node.getParameterList()) {
                 parameters.append(visit(expNode)).append("+");
@@ -306,7 +306,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
                 line.append("static ").append(visit(primNode));
             }else if(variableDeclarationNode instanceof ArrayVariableDeclarationNode){
                 var arrayNode = (ArrayVariableDeclarationNode) variableDeclarationNode;
-                line.append(visit(arrayNode));
+                line.append("static ").append(visit(arrayNode));
             }
         }
 
@@ -388,10 +388,13 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.ArrayIterateExpressionNode node) {
-        ST st = group.getInstanceOf("forEachLoop");
         var dataType = node.getArgNode().getDataType();
+        var iteratorName = node.getArgNode().getName();
         var arrName = visit(node.getExpressionNode());
-        st.add("dataType", DataTypeMapper.getJavaType(dataType));
+
+        ST st = group.getInstanceOf("forEachLoop");
+        st.add("dataType", DataTypeMapper.getJavaWrapper(dataType));
+        st.add("iterator", iteratorName);
         st.add("arrName", arrName);
         return st.render();
     }
@@ -705,7 +708,8 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
                 return visit(modNode);
             }
         }else if(node instanceof ArrayAccessExpressionNode){
-            return null;
+            var arrAccessNode = (ArrayAccessExpressionNode) node;
+            return visit(arrAccessNode);
         }else if(node instanceof FunctionCallExpressionNode){
             var funcCall = (FunctionCallExpressionNode) node;
             return visit(funcCall);
