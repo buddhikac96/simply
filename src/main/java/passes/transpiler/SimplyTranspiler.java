@@ -181,7 +181,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
                 funcBody.append(visit(funcCallNode));
-            } else {
+            } else if(stmtNode instanceof LoopControlStatementNode) {
+                var loopControlNode = (LoopControlStatementNode) stmtNode;
+                funcBody.append(visit(loopControlNode));
+            }else {
                 var returnNode = (ReturnStatementNode) stmtNode;
                 funcBody.append(visit(returnNode));
             }
@@ -621,7 +624,9 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LoopControlStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("loopController");
+        st.add("loopControl", node.getOperator().toString().toLowerCase());
+        return st.render();
     }
 
     @Override

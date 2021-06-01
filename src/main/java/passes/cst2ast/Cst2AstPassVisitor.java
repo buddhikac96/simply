@@ -764,7 +764,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
         String loopControlOperator = ctx.loopControlStatement().getText();
 
-        if (loopControlOperator.equals("continue")) {
+        if (loopControlOperator.equals("continue;")) {
             //Logger.info("LoopControlStatementNode(continue) created");
             return new LoopControlStatementNode(LoopControlOperator.Continue);
         } else {

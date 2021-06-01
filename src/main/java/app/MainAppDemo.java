@@ -47,7 +47,7 @@ public class MainAppDemo {
         // Semantics analyzing
         //var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
 
-       // generateCode(astRoot);
+        generateCode(astRoot);
     }
 
     private static ParseTree getParseTree(String path) throws IOException {
