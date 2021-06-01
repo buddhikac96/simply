@@ -1,27 +1,7 @@
-global list integer intArr = [];
-
 function main(in: ) out : no {
-    list integer intArr = [];
-    list character charArr = [];
-    list string stringArr = ["Geethya", "buddhika", "piumi"];
-    list boolean boolArr = [true,false, true, true];
-    list float floatArr = [1.23, 3.34, 4.56];
-
-    intArr[0] = 10;
-    intArr[1] = 20;
-    charArr[0] = "A";
-    stringArr[3] = "Rangana";
-    boolArr[4] = false;
-    floatArr[3] = 4.56778856737;
-
-    integer a = intArr[0];
-    string name = stringArr[1];
-
-    repeat(integer i of intArr){
-
+    repeat(integer i from 0 to 10){
     }
 
-    repeat(character j of charArr){
-
+    repeat(integer j from 10 to 0){
     }
 }

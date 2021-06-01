@@ -61,7 +61,7 @@ loopStmt(loop, body) ::= <<
 } <\n>
 >>
 
-forLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
+modifiedForLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
 relationalOperator(isReverse) ::= "<if(isReverse)>>=<else>\<=<endif>"
 incDec(isPos) ::= "<if(isPos)>+=<else>-=<endif>"
 whileLoop(condition) ::= "while(<condition>)"

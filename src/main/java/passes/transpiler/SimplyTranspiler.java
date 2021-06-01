@@ -409,7 +409,27 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode node) {
-        return null;
+        ST st = group.getInstanceOf("modifiedForLoop");
+
+        var controlVarDeclaration = visit(node.getArgNode());
+        var controlVarName = node.getArgNode().getName();
+        var startVal = visit(node.getFromValue());
+        var endVal = visit(node.getToValue());
+
+        st.add("init", controlVarDeclaration);
+        st.add("controlVar", controlVarName);
+        st.add("start", startVal);
+        st.add("end", endVal);
+        if(Integer.parseInt(endVal) > Integer.parseInt(startVal)) {
+            st.add("isPositive", true);
+            st.add("stepVal", "1");
+            st.add("isReverse", false);
+        } else {
+            st.add("isPositive", false);
+            st.add("stepVal", "1");
+            st.add("isReverse", true);
+        }
+        return st.render();
     }
 
     @Override
@@ -665,7 +685,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode node) {
-        ST st = group.getInstanceOf("forLoop");
+        ST st = group.getInstanceOf("modifiedForLoop");
 
         var controlVarDeclaration = visit(node.getArgNode());
         var controlVarName = node.getArgNode().getName();
