@@ -1,15 +1,10 @@
-function main(in: ) out : no {
-    repeat(integer i from 0 to 10){
-        integer j = 5;
-        if(j == 5){
-            continue;
-        }else if(j == 7){
-            break;
-        }else{
-            continue;
-        }
-    }
+get mathematics;
 
-    repeat(integer j from 10 to 0){
-    }
+function main(in: ) out:no{
+    integer result = add(5,10);
+    display("The total is: ", result);
+}
+
+function add(in: integer a, integer b) out: integer{
+    return mathematics.root(a) + b;
 }

@@ -36,7 +36,7 @@ list(isList) ::= "<if(isList)>[]<endif>"
 parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
 
 print(content) ::= "System.out.println(<content>); <\n>"
-libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
+libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>)"
 funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
