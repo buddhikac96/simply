@@ -36,7 +36,7 @@ list(isList) ::= "<if(isList)>[]<endif>"
 parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
 
 print(content) ::= "System.out.println(<content>); <\n>"
-libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>);"
+libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>)"
 funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
@@ -61,8 +61,9 @@ loopStmt(loop, body) ::= <<
 } <\n>
 >>
 
-forLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
+modifiedForLoop(init, controlVar, start, end, isPositive, isReverse, stepVal) ::= "for(<init> = <start>; <controlVar><relationalOperator(isReverse)><end>; <controlVar><incDec(isPositive)><stepVal>)"
 relationalOperator(isReverse) ::= "<if(isReverse)>>=<else>\<=<endif>"
 incDec(isPos) ::= "<if(isPos)>+=<else>-=<endif>"
 whileLoop(condition) ::= "while(<condition>)"
 forEachLoop(dataType, iterator, arrName) ::= "for(<dataType> <iterator>:<arrName>)"
+loopController(loopControl) ::= "<loopControl>;"

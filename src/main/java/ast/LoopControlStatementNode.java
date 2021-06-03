@@ -13,6 +13,8 @@ public class LoopControlStatementNode extends StatementNode {
         this.operator = operator;
     }
 
+    public LoopControlOperator getOperator() { return this.operator; }
+
     @Override
     public List<ASTNode> getChildren() {
         return new ArrayList<>();

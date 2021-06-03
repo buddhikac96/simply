@@ -21,10 +21,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArgNode node) {
-        ST st = group.getInstanceOf("parameter");
         var isList = node.isList();
         var dataType = node.getDataType();
         var paraName = node.getName();
+
+        ST st = group.getInstanceOf("parameter");
         st.add("isList", isList);
         st.add("type", DataTypeMapper.getJavaType(dataType));
         st.add("identifier", paraName);
@@ -33,9 +34,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArithmeticExpressionNode.AdditionExpressionNode node) {
-        ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("arithmeticStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "+");
         st.add("rhs", rhsNode);
@@ -44,9 +46,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArithmeticExpressionNode.DivisionExpressionNode node) {
-        ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("arithmeticStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "/");
         st.add("rhs", rhsNode);
@@ -55,9 +58,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArithmeticExpressionNode.ModulusExpressionNode node) {
-        ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("arithmeticStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "%");
         st.add("rhs", rhsNode);
@@ -66,9 +70,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArithmeticExpressionNode.MultiplicationExpressionNode node) {
-        ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("arithmeticStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "*");
         st.add("rhs", rhsNode);
@@ -88,9 +93,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(ArithmeticExpressionNode.SubtractionExpressionNode node) {
-        ST st = group.getInstanceOf("arithmeticStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("arithmeticStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "-");
         st.add("rhs", rhsNode);
@@ -147,10 +153,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(AssignmentStatementNode.PrimitiveVariableAssignmentStatementNode node) {
+        var assignedValue = visit(node.getValue());
+
         ST st = group.getInstanceOf("varAssign");
         st.add("identifier", node.getName());
         st.add("assignOperator", AssignmentOperatorMapper.getAssignmentOperator(node.getAssignmentOperator()));
-        var assignedValue = visit(node.getValue());
         st.add("val", assignedValue);
         return st.render();
     }
@@ -181,27 +188,27 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
                 funcBody.append(visit(funcCallNode));
-            } else {
+            } else if(stmtNode instanceof LoopControlStatementNode) {
+                var loopControlNode = (LoopControlStatementNode) stmtNode;
+                funcBody.append(visit(loopControlNode));
+            }else {
                 var returnNode = (ReturnStatementNode) stmtNode;
                 funcBody.append(visit(returnNode));
             }
-
         }
         return funcBody.toString();
     }
 
     @Override
     public String visit(CompilationUnitNode node) {
-        ST st = group.getInstanceOf("program");
         var libImportsSection = visit(node.getLibImportNodeList());
-        st.add("libImportSection", libImportsSection);
         var globalVarsSection = visit(node.getGlobalVariableDeclarationNodeList());
-        st.add("globalSection", globalVarsSection);
         var functionSection = visit(node.getFunctionDeclarationNodeList());
-        st.add("functionSection", functionSection);
 
-//        code.append(libImportsSection);
-//        code.append(globalVarsSection);
+        ST st = group.getInstanceOf("program");
+        st.add("libImportSection", libImportsSection);
+        st.add("globalSection", globalVarsSection);
+        st.add("functionSection", functionSection);
 
         var program = st.render();
         code.append(program);
@@ -213,30 +220,14 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         return null;
     }
 
+
     @Override
     public String visit(FunctionCallExpressionNode node) {
         StringBuilder parameters = new StringBuilder();
         var libRef = node.getLibRef();
         var funcName = node.getFuncName();
 
-        if(libRef == null) {
-            ST st = group.getInstanceOf("funcCall");
-            st.add("funcName", funcName);
-            for(ExpressionNode expNode : node.getParameterList()) {
-                parameters.append(visit(expNode)).append(",");
-            }
-            if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
-            st.add("parameters", parameters);
-            return st.render();
-        } else if(libRef.equals("io")) {
-            ST st = group.getInstanceOf("print");
-            for(ExpressionNode expNode : node.getParameterList()) {
-                parameters.append(visit(expNode)).append("+");
-            }
-            parameters.deleteCharAt(parameters.length() - 1).toString();         // Removing the additional '+'
-            st.add("content", parameters);
-            return st.render();
-        } else {
+        if(libRef != null) {
             for(ExpressionNode expNode : node.getParameterList()) {
                 parameters.append(visit(expNode)).append(",");
             }
@@ -247,6 +238,27 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
             st.add("funcName", funcName);
             st.add("parameters", parameters);
             return st.render();
+        } else {
+            if(funcName.equals("display")) {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append("+");
+                }
+                parameters.deleteCharAt(parameters.length() - 1);         // Removing the additional '+'
+
+                ST st = group.getInstanceOf("print");
+                st.add("content", parameters);
+                return st.render();
+            } else {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append(",");
+                }
+                if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+                ST st = group.getInstanceOf("funcCall");
+                st.add("funcName", funcName);
+                st.add("parameters", parameters);
+                return st.render();
+            }
         }
     }
 
@@ -257,20 +269,20 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionDeclarationNode node) {
-        ST st = group.getInstanceOf("funcDec");
-
         var funcName = node.getFunctionSignatureNode().getFunctionName();
+        var parameters = visit(node.getFunctionSignatureNode());
+        var returnType = node.getReturnType();
+        var funcBody = visit(node.getFunctionBody());
+
+        ST st = group.getInstanceOf("funcDec");
         if(funcName.equals("main")) {
             st.add("isMain", true);
         } else {
             st.add("isMain", false);
         }
         st.add("name", funcName);
-        var parameters = visit(node.getFunctionSignatureNode());
         st.add("parameterList", parameters);
-        var returnType = node.getReturnType();
         st.add("returnType", DataTypeMapper.getJavaType(returnType));
-        var funcBody = visit(node.getFunctionBody());
         st.add("body", funcBody);
         return st.render();
     }
@@ -321,35 +333,35 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     @Override
     public String visit(IfStatementNode node) {
         StringBuilder elseifStmt = new StringBuilder();
-        ST st = group.getInstanceOf("ifStmt");
-
         var ifNode = visit(node.getIfBlockNode());
+        var elseNode = visit(node.getElseBlockNode());
+
+        ST st = group.getInstanceOf("ifStmt");
         st.add("ifBlock", ifNode);
         for(IfStatementNode.IfBlockNode ifBlockNode : node.getElseIfBlockNodeList()) {
             var elseIfNodeBlock = visit(ifBlockNode);
             elseifStmt.append("else ").append(elseIfNodeBlock);
         }
         st.add("elseIfBlock", elseifStmt.toString());
-        var elseNode = visit(node.getElseBlockNode());
         st.add("elseBlock", elseNode);
         return st.render();
-        //return ifStmt.toString();
-        //return null;
     }
 
     @Override
     public String visit(IfStatementNode.ElseBlockNode node) {
-        ST st = group.getInstanceOf("elseBlock");
         var elseBlock = visit(node.getBlockNode());
+
+        ST st = group.getInstanceOf("elseBlock");
         st.add("body", elseBlock);
         return st.render();
     }
 
     @Override
     public String visit(IfStatementNode.IfBlockNode node) {
-        ST st = group.getInstanceOf("ifBlock");
         var condition = visit(node.getConditionExpressionNode());
         var ifBody = visit(node.getBlockNode());
+
+        ST st = group.getInstanceOf("ifBlock");
         st.add("condition", condition);
         st.add("body", ifBody);
         return st.render();
@@ -357,11 +369,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode node) {
-        ST st = group.getInstanceOf("loopStmt");
-
         var loopHeader = visit(node.getIterateConditionExpressionNode());
         var body = visit(node.getBlockNode());
 
+        ST st = group.getInstanceOf("loopStmt");
         st.add("loop", loopHeader);
         st.add("body", body);
         return st.render();
@@ -401,15 +412,35 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.BooleanIterateExpressionNode node) {
-        ST st = group.getInstanceOf("whileLoop");
         var condition = visit(node.getExpressionNode());
+
+        ST st = group.getInstanceOf("whileLoop");
         st.add("condition", condition);
         return st.render();
     }
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.RangeIterateExpressionNode node) {
-        return null;
+        var controlVarDeclaration = visit(node.getArgNode());
+        var controlVarName = node.getArgNode().getName();
+        var startVal = visit(node.getFromValue());
+        var endVal = visit(node.getToValue());
+
+        ST st = group.getInstanceOf("modifiedForLoop");
+        st.add("init", controlVarDeclaration);
+        st.add("controlVar", controlVarName);
+        st.add("start", startVal);
+        st.add("end", endVal);
+        if(Integer.parseInt(endVal) > Integer.parseInt(startVal)) {
+            st.add("isPositive", true);
+            st.add("stepVal", "1");
+            st.add("isReverse", false);
+        } else {
+            st.add("isPositive", false);
+            st.add("stepVal", "1");
+            st.add("isReverse", true);
+        }
+        return st.render();
     }
 
     @Override
@@ -437,7 +468,6 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     }
 
     public String visit(LiteralExpressionNode node){
-        // visitors with implementations of LiteralExpressionNode
         if(node instanceof LiteralExpressionNode.BoolLiteralExpressionNode) {
             var newNode = (LiteralExpressionNode.BoolLiteralExpressionNode) node;
             return visit(newNode);
@@ -513,9 +543,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.AndExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "&&");
         st.add("rhs", rhsNode);
@@ -524,9 +555,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.EqualsExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "==");
         st.add("rhs", rhsNode);
@@ -535,9 +567,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.GreaterOrEqualThanExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", ">=");
         st.add("rhs", rhsNode);
@@ -546,9 +579,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.GreaterThanExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", ">");
         st.add("rhs", rhsNode);
@@ -557,9 +591,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.LessOrEqualThanExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "<=");
         st.add("rhs", rhsNode);
@@ -568,9 +603,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.LessThanExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "<");
         st.add("rhs", rhsNode);
@@ -579,9 +615,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.NotEqualsExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "!=");
         st.add("rhs", rhsNode);
@@ -590,9 +627,10 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LogicExpressionNode.OrExpressionNode node) {
-        ST st = group.getInstanceOf("conditionStmt");
         var lhsNode = visit(node.getLeft());
         var rhsNode = visit(node.getRight());
+
+        ST st = group.getInstanceOf("conditionStmt");
         st.add("lhs", lhsNode);
         st.add("operator", "||");
         st.add("rhs", rhsNode);
@@ -601,7 +639,9 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LoopControlStatementNode node) {
-        return null;
+        ST st = group.getInstanceOf("loopController");
+        st.add("loopControl", node.getOperator().toString().toLowerCase());
+        return st.render();
     }
 
     @Override
@@ -611,29 +651,26 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(PrimitiveVariableDeclarationNode node) {
-        ST st = group.getInstanceOf("varDec");
-
         var isConst = "";
-        if(node.isConst()) { isConst = "final "; }
-        st.add("constant", isConst);
-
         var dataType = node.getDataType();
-        st.add("type", DataTypeMapper.getJavaType(dataType));
-
         var varName = node.getName();
-        st.add("identifier", varName);
-
         var expNode = node.getValue();
         var initValue = visit(expNode);
-        st.add("val", initValue);
 
+        ST st = group.getInstanceOf("varDec");
+        if(node.isConst()) { isConst = "final "; }
+        st.add("constant", isConst);
+        st.add("type", DataTypeMapper.getJavaType(dataType));
+        st.add("identifier", varName);
+        st.add("val", initValue);
         return st.render();
     }
 
     @Override
     public String visit(ReturnStatementNode node) {
-        ST st = group.getInstanceOf("returnStmt");
         var returnStmt = visit(node.getValue());
+
+        ST st = group.getInstanceOf("returnStmt");
         st.add("content", returnStmt);
         return st.render();
     }
@@ -665,7 +702,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IterateStatementNode.IterateConditionExpressionNode.NewRangeExpressionNode node) {
-        ST st = group.getInstanceOf("forLoop");
+        ST st = group.getInstanceOf("modifiedForLoop");
 
         var controlVarDeclaration = visit(node.getArgNode());
         var controlVarName = node.getArgNode().getName();

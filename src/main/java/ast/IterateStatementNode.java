@@ -84,6 +84,12 @@ public class IterateStatementNode extends StatementNode{
                 this.toValue = toValue;
             }
 
+            public ArgNode getArgNode() { return this.variableDeclaration; }
+
+            public ExpressionNode getFromValue() { return this.fromValue; }
+
+            public ExpressionNode getToValue() { return this.toValue; }
+
             @Override
             public List<ASTNode> getChildren() {
                 List<ASTNode> children = new ArrayList<>();
