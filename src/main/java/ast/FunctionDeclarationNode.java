@@ -76,10 +76,10 @@ public class FunctionDeclarationNode extends ASTNode {
 
     // Function Signature AST Node class
     public static class FunctionSignatureNode extends ASTNode{
-        private String functionName;
+        private IdentifierNode functionName;
         private final List<ArgNode> functionArgumentNodeList;
 
-        public FunctionSignatureNode(String functionName) {
+        public FunctionSignatureNode(IdentifierNode functionName) {
             this.functionName = functionName;
             this.functionArgumentNodeList = new ArrayList<ArgNode>();
         }
@@ -88,11 +88,11 @@ public class FunctionDeclarationNode extends ASTNode {
             this.functionArgumentNodeList.add(functionArgumentNode);
         }
 
-        public String getFunctionName() {
+        public IdentifierNode getFunctionName() {
             return functionName;
         }
 
-        public void setFunctionName(String functionName) {
+        public void setFunctionName(IdentifierNode functionName) {
             this.functionName = functionName;
         }
 
@@ -102,7 +102,12 @@ public class FunctionDeclarationNode extends ASTNode {
 
         @Override
         public List<ASTNode> getChildren() {
-            return new ArrayList<>(this.functionArgumentNodeList);
+            var arr = new ArrayList<ASTNode>();
+            for(var i : this.functionArgumentNodeList){
+                arr.add(i);
+            }
+            arr.add(this.functionName);
+            return arr;
         }
 
         @Override
@@ -114,7 +119,7 @@ public class FunctionDeclarationNode extends ASTNode {
         @Override
         public String toString() {
             return "FunctionSignatureNode{" +
-                    "functionName='" + functionName + '\'' +
+                    "functionName='" + functionName.getIdentifierName() + '\'' +
                     ", functionArgumentNodeList=" + functionArgumentNodeList +
                     '}';
         }

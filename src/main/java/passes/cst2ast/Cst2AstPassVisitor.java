@@ -88,11 +88,11 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
 
         // Check whether variable already exist
-        if (this.globalVariableSymbolTable.contains(variableDeclarationNode.getName())) {
+        if (this.globalVariableSymbolTable.contains(variableDeclarationNode.getName().getIdentifierName())) {
             this.syntaxErrors.add("Global Variable : " + variableDeclarationNode.getName() + " already exist");
         }
 
-        this.globalVariableSymbolTable.add(variableDeclarationNode.getName());
+        this.globalVariableSymbolTable.add(variableDeclarationNode.getName().getIdentifierName());
 
         //Logger.info("VariableDeclarationNode created");
         return variableDeclarationNode;
@@ -124,7 +124,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
     public PrimitiveVariableDeclarationNode visitPrimitiveVariableDeclaration(PrimitiveVariableDeclarationContext ctx) {
 
         DataType dataType = DataTypeMapper.getSimplyTypeClass(ctx.nonVoidDataTypeName().getText());
-        String varName = ctx.identifier().getText();
+        IdentifierNode varName = new IdentifierNode(ctx.identifier().getText());
 
         ExpressionNode expressionNode = null;
         if(ctx.expression() != null){
@@ -373,7 +373,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                 visitArrayInitialization(ctx.arrayIntialization());
 
         //Logger.info("ArrayVariableDeclarationNode created");
-        return new ArrayVariableDeclarationNode(false, dataType, arrayName, arrayInitializationNode);
+        return new ArrayVariableDeclarationNode(false, dataType, new IdentifierNode(arrayName), arrayInitializationNode);
 
     }
 
@@ -442,7 +442,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
         String functionName = ctx.identifier().getText();
 
         FunctionSignatureNode functionSignatureNode =
-                new FunctionSignatureNode(functionName);
+                new FunctionSignatureNode(new IdentifierNode(functionName));
 
         List<ArgContext> argContextList = ctx.argList().arg();
 

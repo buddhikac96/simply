@@ -12,7 +12,7 @@ public class IdentifierNode extends ExpressionNode{
         this.name = name;
     }
 
-    public String getName() { return this.name; }
+    public String getIdentifierName() { return this.name; }
 
     @Override
     public List<ASTNode> getChildren() {

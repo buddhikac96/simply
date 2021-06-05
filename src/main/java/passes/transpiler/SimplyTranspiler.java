@@ -6,9 +6,6 @@ import ast.util.DataTypeMapper;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
-import universalJavaPortal.JavaLibrary;
-import universalJavaPortal.JavaPortalServiceProvider;
-import universalJavaPortal.SimplyFunctionModel;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
@@ -327,7 +324,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IdentifierNode node) {
-        return node.getName();
+        return node.getIdentifierName();
     }
 
     @Override

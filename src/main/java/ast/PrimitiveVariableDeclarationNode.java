@@ -10,13 +10,13 @@ import java.util.Objects;
 public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     boolean isConst;
     final DataType dataType;
-    final String varName;
+    final IdentifierNode varName;
     final ExpressionNode value;
 
     public PrimitiveVariableDeclarationNode(
             boolean isConst,
             DataType dataType,
-            String varName,
+            IdentifierNode varName,
             ExpressionNode value
     ) {
         this.isConst = isConst;
@@ -31,7 +31,7 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     }
 
     @Override
-    public String getName() {
+    public IdentifierNode getName() {
         return this.varName;
     }
 
@@ -54,6 +54,7 @@ public class PrimitiveVariableDeclarationNode extends VariableDeclarationNode {
     @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>();
+        children.add(this.varName);
         children.add(this.value);
         return children;
     }
