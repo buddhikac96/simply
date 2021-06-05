@@ -237,6 +237,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             SimplySystem.exit(new NotImportedLibraryReference(node.libRef));
         }
 
+        // TODO: check function existence
         return null;
     }
 
@@ -661,6 +662,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 sfm.addParam(arg);
             }
 
+            // TODO: get return type by simply function model
             return null;
 
         }else if(node instanceof IdentifierNode _node){

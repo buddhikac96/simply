@@ -1,5 +1,6 @@
 package universalJavaPortal;
 
+import ast.util.enums.DataType;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaPortalServiceProvider {
+public class JavaPortalServiceProvider implements ILibraryServiceProvider{
     private final List<SimplyFunctionModel> functionModels;
 
     public JavaPortalServiceProvider() throws IOException {
@@ -67,4 +68,37 @@ public class JavaPortalServiceProvider {
     public boolean isValidLibrary(String libName){
         return this.functionModels.stream().anyMatch(i -> i.getLibName().equals(libName));
     }
+
+    //////////////////////////////////
+
+    @Override
+    public boolean isValidLibrary(Message message) {
+        return false;
+    }
+
+    @Override
+    public boolean isValidFuncCall(Message message) {
+        return false;
+    }
+
+    @Override
+    public DataType getReturnType(Message message) {
+        return null;
+    }
+
+    @Override
+    public boolean isFunctionExist(Message message) {
+        return false;
+    }
+
+    @Override
+    public String getJavaLibName(String simplyLibName) {
+        return null;
+    }
+
+    @Override
+    public String getFuncCall(Message message) {
+        return null;
+    }
+
 }

@@ -1,10 +1,8 @@
-get mathematics;
+get math;
 
-function main(in: ) out:no{
-    integer result = add(5,10);
-    display("The total is: ", result);
+function main(in: ) out : no {
+    integer a = 5;
+    integer b = a;
+
 }
 
-function add(in: integer a, integer b) out: integer{
-    return mathematics.root(a) + b;
-}

@@ -8,15 +8,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class FunctionDeclarationNode extends ASTNode {
+    private String libRef;
     private FunctionSignatureNode functionSignatureNode;
     private DataType returnType;
     private BlockNode functionBody;
 
     public FunctionDeclarationNode(
+            String libRef,
             FunctionSignatureNode functionSignatureNode,
             DataType returnType,
             BlockNode functionBody
     ) {
+        this.libRef = libRef;
         this.functionSignatureNode = functionSignatureNode;
         this.returnType = returnType;
         this.functionBody = functionBody;

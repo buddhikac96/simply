@@ -45,7 +45,8 @@ public class MainAppDemo {
         var sfm = new JavaPortalServiceProvider();
 
         // Semantics analyzing
-        //var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
+        var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
+        astRoot.accept(semanticAnalyzerPassVisitor);
 
         generateCode(astRoot);
     }

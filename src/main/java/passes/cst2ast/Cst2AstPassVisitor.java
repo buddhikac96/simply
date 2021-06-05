@@ -434,9 +434,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
                 visitBlock(ctx.block());
 
         //Logger.info("FunctionDeclarationNode created");
-        return new FunctionDeclarationNode(functionSignatureNode, returnType, blockNode);
-
-
+        return new FunctionDeclarationNode("simply",functionSignatureNode, returnType, blockNode);
     }
 
     @Override
