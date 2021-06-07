@@ -121,7 +121,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
         var arrValues = visit(node.getValue());
         var dataType = DataTypeMapper.getJavaWrapper(node.getDataType());
-        var arrName = node.getName();
+        var arrName = visit(node.getName());
         var isEmptyArray = true;
         if(arrValues != null) {
             isEmptyArray = false;
@@ -266,7 +266,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(FunctionDeclarationNode node) {
-        var funcName = node.getFunctionSignatureNode().getFunctionName();
+        var funcName = visit(node.getFunctionSignatureNode().getFunctionName());
         var parameters = visit(node.getFunctionSignatureNode());
         var returnType = node.getReturnType();
         var funcBody = visit(node.getFunctionBody());
@@ -346,11 +346,13 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(IfStatementNode.ElseBlockNode node) {
-        var elseBlock = visit(node.getBlockNode());
-
-        ST st = group.getInstanceOf("elseBlock");
-        st.add("body", elseBlock);
-        return st.render();
+        if(node != null) {
+            var elseBlock = visit(node.getBlockNode());
+            ST st = group.getInstanceOf("elseBlock");
+            st.add("body", elseBlock);
+            return st.render();
+        }
+        return null;
     }
 
     @Override
@@ -650,7 +652,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     public String visit(PrimitiveVariableDeclarationNode node) {
         var isConst = "";
         var dataType = node.getDataType();
-        var varName = node.getName();
+        var varName = visit(node.getName());
         var expNode = node.getValue();
         var initValue = visit(expNode);
 
@@ -673,8 +675,24 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     }
 
     public String visit(UnaryExpressionNode node){
-        // visitors with implementations of LiteralExpressionNode
-        return null;
+        if(node instanceof UnaryExpressionNode.PrefixNotExpressionNode) {
+            var notNode = (UnaryExpressionNode.PrefixNotExpressionNode) node;
+            return visit(notNode);
+        } else if(node instanceof UnaryExpressionNode.PrefixPlusExpressionNode) {
+            var plusNode = (UnaryExpressionNode.PrefixPlusExpressionNode) node;
+            return visit(plusNode);
+        } else if(node instanceof UnaryExpressionNode.PrefixMinusExpressionNode) {
+            var minusNode = (UnaryExpressionNode.PrefixMinusExpressionNode) node;
+            return visit(minusNode);
+        } else if(node instanceof UnaryExpressionNode.ParenExpressionNode) {
+            var parenthesisNode = (UnaryExpressionNode.ParenExpressionNode) node;
+            return visit(parenthesisNode);
+        } else if(node instanceof ExpressionNode) {
+            var expNode = (ExpressionNode) node;
+            return visit(expNode);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -759,7 +777,8 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
             var logicNode = (LogicExpressionNode) node;
             return visit(logicNode);
         } else if(node instanceof UnaryExpressionNode){
-            return null;
+            var unaryNode = (UnaryExpressionNode) node;
+            return visit(unaryNode);
         }
 
         return null;

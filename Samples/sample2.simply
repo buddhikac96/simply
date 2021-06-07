@@ -1,8 +1,6 @@
-get math;
-global integer z = 10;
+function main(in: ) out : no {
+    if(x>10){}
 
-function main(in: string a, string b) out : no {
-    integer p = 10;
-    list integer arr = [1,2,3,4];
+    if(y>5){}
 }
 
