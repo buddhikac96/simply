@@ -1,31 +1,19 @@
-get mathematics;
 get keyboardIn;
-get strings;
 
 function main(in: ) out:no {
-    integer a = mathematics.squareRoot(4);
-    integer b = mathematics.absolute(-4);
-    integer c = mathematics.roundUp(3.14);
-    integer d = mathematics.roundDown(3.56);
-    integer e = mathematics.power(4, 2);
+    display("get user input: ");
+
+    integer a = keyboardIn.input();
+    string b = keyboardIn.input();
+    float c = keyboardIn.input();
+    boolean d = keyboardIn.input();
+    character e = keyboardIn.input();
 
     display(a);
     display(b);
     display(c);
     display(d);
     display(e);
-    display(mathematics.squareRoot(16));
-
-    string test = "Hello World";
-    integer length = strings.length(test);
-    boolean isNull = strings.isEmpty(test);
-    string cap = strings.toCapital(test);
-    string sim = strings.toSimple(test);
-
-    display(length);
-    display(isNull);
-    display(cap);
-    display(strings.toSimple(test));
 }
 
 

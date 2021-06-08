@@ -3,6 +3,7 @@ package passes.transpiler;
 import ast.*;
 import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
+import ast.util.enums.DataType;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
@@ -256,7 +257,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
             // handle functions of keyboardIn library (using scanner class)
             else if(libRef.equals("keyboardIn")) {
-                return null;
+                return "keyboardInput";
             }else {
                 return null;
             }
@@ -671,18 +672,32 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     @Override
     public String visit(PrimitiveVariableDeclarationNode node) {
         var isConst = "";
+        if(node.isConst()) { isConst = "final "; }
         var dataType = node.getDataType();
         var varName = visit(node.getName());
         var expNode = node.getValue();
         var initValue = visit(expNode);
 
-        ST st = group.getInstanceOf("varDec");
-        if(node.isConst()) { isConst = "final "; }
-        st.add("constant", isConst);
-        st.add("type", DataTypeMapper.getJavaType(dataType));
-        st.add("identifier", varName);
-        st.add("val", initValue);
-        return st.render();
+        // Handle scanner class and feed data into keyboard input template
+        if(initValue.equals("keyboardInput")) {
+            var needNextLine = false;
+            if(dataType == DataType.IntegerType) { needNextLine = true; }
+
+            ST st = group.getInstanceOf("keyboardInput");
+            st.add("constant", isConst);
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            st.add("identifier", varName);
+            st.add("val", JavaUserInputMapper.getScannerClassMethod(dataType));
+            st.add("needNextLine", needNextLine);
+            return st.render();
+        }else {
+            ST st = group.getInstanceOf("varDec");
+            st.add("constant", isConst);
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            st.add("identifier", varName);
+            st.add("val", initValue);
+            return st.render();
+        }
     }
 
     @Override

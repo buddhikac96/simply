@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 public class Main {
     <globalSection>
+
+    static Scanner sc = new Scanner(System.in);
+
     <functionSection>
 }
 >>
@@ -39,6 +42,10 @@ print(content) ::= "System.out.println(<content>); <\n>"
 libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>)"
 libFuncCall2(funcName, parameter) ::= "<parameter>.<funcName>()"
 funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
+keyboardInput(constant, type, identifier, val, needNextLine) ::= <<
+<constant><type> <identifier> = sc.<val>;
+<if(needNextLine)>sc.nextLine(); <\n><endif>
+>>
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
 returnStmt(content) ::= "return <content>;"
