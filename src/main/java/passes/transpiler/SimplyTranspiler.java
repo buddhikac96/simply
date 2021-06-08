@@ -224,18 +224,43 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         var libRef = node.getLibRef();
         var funcName = node.getFuncName();
 
+        // Handle standard libraries and their function set
         if(libRef != null) {
-            for(ExpressionNode expNode : node.getParameterList()) {
-                parameters.append(visit(expNode)).append(",");
-            }
-            if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
 
-            ST st = group.getInstanceOf("libFuncCall");
-            st.add("libRef", libRef);
-            st.add("funcName", funcName);
-            st.add("parameters", parameters);
-            return st.render();
-        } else {
+            // handle functions of mathematics library (Math.sqrt())
+            if(libRef.equals("mathematics")) {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append(",");
+                }
+                if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+                ST st = group.getInstanceOf("libFuncCall");
+                st.add("libRef", "Math");
+                st.add("funcName", StandardLibraryMapper.getJavaLibraryFunction(funcName));
+                st.add("parameters", parameters);
+                return st.render();
+            }
+
+            // handle functions of strings library (length(), isEmpty(), toUpperCase(), toLowerCase())
+            else if(libRef.equals("strings")) {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append(",");
+                }
+                if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+                ST st = group.getInstanceOf("libFuncCall2");
+                st.add("funcName", StandardLibraryMapper.getJavaLibraryFunction(funcName));
+                st.add("parameter", parameters);
+                return st.render();
+            }
+
+            // handle functions of keyboardIn library (using scanner class)
+            else if(libRef.equals("keyboardIn")) {
+                return null;
+            }else {
+                return null;
+            }
+        }else {
             if(funcName.equals("display")) {
                 for(ExpressionNode expNode : node.getParameterList()) {
                     parameters.append(visit(expNode)).append("+");

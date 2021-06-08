@@ -37,6 +37,7 @@ parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><els
 
 print(content) ::= "System.out.println(<content>); <\n>"
 libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>)"
+libFuncCall2(funcName, parameter) ::= "<parameter>.<funcName>()"
 funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
 
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
