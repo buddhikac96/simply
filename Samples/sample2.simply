@@ -1,8 +1,10 @@
-get math;
-global integer z = 10;
-
-function main(in: string a, string b) out : no {
-    integer p = 10;
-    list integer arr = [1,2,3,4];
+function main(in: ) out:no{
+   integer a = 10 * 20 + 30;
+   integer b = 10 * (20 + 30);
+   integer c = -b;
+   integer d = +c;
+   integer e = 10 - +5;
+   integer f = 10 - (+5);
+   integer g = 10 + -5;
+   integer h = 10 + (-5);
 }
-

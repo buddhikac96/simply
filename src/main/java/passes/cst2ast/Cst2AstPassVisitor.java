@@ -270,20 +270,20 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
 
     public ExpressionNode visitUnaryExpression(UnaryExpressionContext ctx) {
         if (ctx instanceof ParenExpressionContext) {
-
-            return visitExpression(((ParenExpressionContext) ctx).expression());
+            ExpressionNode expressionNode = visitExpression(((ParenExpressionContext) ctx).expression());
+            return new UnaryExpressionNode.ParenExpressionNode(expressionNode);
 
         } else if (ctx instanceof PrefixPlusExpressionContext) {
-
-            return visitExpression((((PrefixPlusExpressionContext) ctx).expression()));
+            ExpressionNode expressionNode = visitExpression((((PrefixPlusExpressionContext) ctx).expression()));
+            return new UnaryExpressionNode.PrefixPlusExpressionNode(expressionNode);
 
         } else if (ctx instanceof PrefixMinusExpressionContext) {
-
-            return visitExpression(((PrefixMinusExpressionContext) ctx).expression());
+            ExpressionNode expressionNode = visitExpression(((PrefixMinusExpressionContext) ctx).expression());
+            return new UnaryExpressionNode.PrefixMinusExpressionNode(expressionNode);
 
         } else if (ctx instanceof PrefixNotExpressionContext) {
-
-            return visitExpression(((PrefixNotExpressionContext) ctx).expression());
+            ExpressionNode expressionNode = visitExpression(((PrefixNotExpressionContext) ctx).expression());
+            return new UnaryExpressionNode.PrefixNotExpressionNode(expressionNode);
 
         } else if (ctx instanceof FunctionCallExpressionContext) {
 

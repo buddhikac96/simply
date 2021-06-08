@@ -8,11 +8,17 @@ import java.util.Objects;
 
 public abstract class UnaryExpressionNode extends ExpressionNode {
 
+    public abstract ExpressionNode getExpressionNode();
+
     public static class ParenExpressionNode extends UnaryExpressionNode {
         final ExpressionNode expressionNode;
 
         public ParenExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
+        }
+
+        public ExpressionNode getExpressionNode() {
+            return this.expressionNode;
         }
 
         @Override
@@ -43,6 +49,10 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
             this.expressionNode = expressionNode;
         }
 
+        public ExpressionNode getExpressionNode() {
+            return this.expressionNode;
+        }
+
         @Override
         public List<ASTNode> getChildren() {
             List<ASTNode> children = new ArrayList<>();
@@ -71,6 +81,10 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
             this.expressionNode = expressionNode;
         }
 
+        public ExpressionNode getExpressionNode() {
+            return this.expressionNode;
+        }
+
         @Override
         public List<ASTNode> getChildren() {
             List<ASTNode> children = new ArrayList<>();
@@ -97,6 +111,10 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
 
         public PrefixNotExpressionNode(ExpressionNode expressionNode) {
             this.expressionNode = expressionNode;
+        }
+
+        public ExpressionNode getExpressionNode() {
+            return this.expressionNode;
         }
 
         @Override

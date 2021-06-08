@@ -1,6 +1,6 @@
 program(libImportSection, globalSection, functionSection) ::= <<
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 <libImportSection>
 
 public class Main {
@@ -42,6 +42,10 @@ funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
 arithmeticStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
 returnStmt(content) ::= "return <content>;"
 
+bracketOfExpr(expression) ::= "(<expression>)"
+prefixMinus(expression) ::= "-<expression>"
+prefixPlus(expression) ::= "+<expression>"
+
 ifStmt(ifBlock, elseIfBlock, elseBlock) ::= "<ifBlock><elseIfBlock><elseBlock><\n>"
 ifBlock(condition, body) ::= <<
 if(<condition>){
@@ -54,6 +58,7 @@ else{
 }
 >>
 conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
+notCondition(condition) ::= "!<condition>"
 
 loopStmt(loop, body) ::= <<
 <loop> {
