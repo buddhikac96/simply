@@ -455,7 +455,6 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         } else {
             return library.toString();
         }
-
     }
 
     @Override
@@ -701,12 +700,20 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(UnaryExpressionNode.ParenExpressionNode node) {
-        return null;
+        var expressionNode = visit(node.getExpressionNode());
+
+        ST st = group.getInstanceOf("bracketOfExpr");
+        st.add("expression", expressionNode);
+        return st.render();
     }
 
     @Override
     public String visit(UnaryExpressionNode.PrefixMinusExpressionNode node) {
-        return null;
+        var expressionNode = visit(node.getExpressionNode());
+
+        ST st = group.getInstanceOf("prefixMinus");
+        st.add("expression", expressionNode);
+        return st.render();
     }
 
     @Override
@@ -720,7 +727,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(UnaryExpressionNode.PrefixPlusExpressionNode node) {
-        return null;
+        var expressionNode = visit(node.getExpressionNode());
+
+        ST st = group.getInstanceOf("prefixPlus");
+        st.add("expression", expressionNode);
+        return st.render();
     }
 
     @Override
