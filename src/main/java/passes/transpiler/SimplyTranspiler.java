@@ -444,17 +444,9 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-        StringBuilder library = new StringBuilder();
-        library.append(node.getLibName());
-        if(library.toString().equals("keyboardIn")) {
-            return "java.util.Scanner";
-        }else if(library.toString().equals("mathematics")) {
-            return "java.lang.Math";
-        }else if(library.toString().equals("strings")) {
-            return "java.lang.String";
-        } else {
-            return library.toString();
-        }
+        var libName = node.getLibName();
+        var javaLibImport = StandardLibraryMapper.getJavaLibraryImport(libName);
+        return javaLibImport;
     }
 
     @Override

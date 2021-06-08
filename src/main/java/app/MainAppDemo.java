@@ -46,7 +46,7 @@ public class MainAppDemo {
 
         // Semantics analyzing
         var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
-        astRoot.accept(semanticAnalyzerPassVisitor);
+        //astRoot.accept(semanticAnalyzerPassVisitor);
 
         generateCode(astRoot);
     }
