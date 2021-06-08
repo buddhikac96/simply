@@ -446,10 +446,14 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     public String visit(LibImportNode node) {
         StringBuilder library = new StringBuilder();
         library.append(node.getLibName());
-        if(library.toString().equals("io")) {
-            return "java.io.*";
+        if(library.toString().equals("keyboardIn")) {
+            return "java.util.Scanner";
+        }else if(library.toString().equals("mathematics")) {
+            return "java.lang.Math";
+        }else if(library.toString().equals("strings")) {
+            return "java.lang.String";
         } else {
-            return library.append(".h").toString();
+            return library.toString();
         }
 
     }
@@ -707,7 +711,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(UnaryExpressionNode.PrefixNotExpressionNode node) {
-        return null;
+        var expressionNode = visit(node.getExpressionNode());
+
+        ST st = group.getInstanceOf("notCondition");
+        st.add("condition", expressionNode);
+        return st.render();
     }
 
     @Override

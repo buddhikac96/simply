@@ -287,7 +287,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // Check main method exist
 
         var isMainMethodExist = node.getFunctionDeclarationNodes().stream()
-                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().equals("main"));
+                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().getIdentifierName().equals("main"));
 
         if(!isMainMethodExist){
             SimplySystem.exit(new MainMethodNotExistError());

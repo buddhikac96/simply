@@ -1,6 +1,6 @@
 program(libImportSection, globalSection, functionSection) ::= <<
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 <libImportSection>
 
 public class Main {
@@ -54,6 +54,7 @@ else{
 }
 >>
 conditionStmt(lhs, operator, rhs) ::= "<lhs> <operator> <rhs>"
+notCondition(condition) ::= "!<condition>"
 
 loopStmt(loop, body) ::= <<
 <loop> {

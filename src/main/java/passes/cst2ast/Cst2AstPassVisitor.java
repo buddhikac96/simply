@@ -282,8 +282,8 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             return visitExpression(((PrefixMinusExpressionContext) ctx).expression());
 
         } else if (ctx instanceof PrefixNotExpressionContext) {
-
-            return visitExpression(((PrefixNotExpressionContext) ctx).expression());
+            ExpressionNode expressionNode = visitExpression(((PrefixNotExpressionContext) ctx).expression());
+            return new UnaryExpressionNode.PrefixNotExpressionNode(expressionNode);
 
         } else if (ctx instanceof FunctionCallExpressionContext) {
 

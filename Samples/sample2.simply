@@ -1,6 +1,7 @@
-function main(in: ) out : no {
-    if(x>10){}
+function main(in: ) out:no{
+   boolean isValid = false;
 
-    if(y>5){}
+   if(!isValid) {
+        display("valid");
+   }
 }
-
