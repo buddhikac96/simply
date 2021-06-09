@@ -35,37 +35,43 @@ public class Main {
                 throw new Exception("File path: " + filePath + " not exist!");
             }
 
-            System.out.println("=============== Simply =================\n\n");
+            System.out.println("===================== Simply ======================\n\n");
 
-            System.out.println("Start Parsing");
             ParseTree tree = getParseTree(filePath);
-            System.out.println("Parsed successfully");
+            System.out.println("---------------------------------------------------");
+            System.out.println("PARSE SUCCESSFUL");
+            System.out.println("---------------------------------------------------\n\n");
 
             List<String> errors = new ArrayList<>();
 
             // Convert CST into AST
-            System.out.println("Building AST");
             Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
             CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
-            System.out.println("Build AST successful");
+            System.out.println("---------------------------------------------------");
+            System.out.println("CST -> AST TRANSLATION SUCCESSFUL");
+            System.out.println("---------------------------------------------------\n\n");
 
             // Generate AST Image
-            System.out.println("Building AST visualization");
             AstDotGenerator.draw(astRoot);
-            System.out.println("Building AST visualization successful");
+            System.out.println("---------------------------------------------------");
+            System.out.println("AST VISUALISATION GENERATION SUCCESSFUL");
+            System.out.println("---------------------------------------------------\n\n");
 
             // Java Library provider
             var sfm = new JavaPortalServiceProvider();
 
             // Semantics analyzing
-            System.out.println("Semantic analyzing stated");
             var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(sfm);
             astRoot.accept(semanticAnalyzerPassVisitor);
-            System.out.println("Semantic analyzing successful");
+            System.out.println("---------------------------------------------------");
+            System.out.println("SEMANTIC ANALYZING SUCCESSFUL");
+            System.out.println("---------------------------------------------------\n\n");
 
-            System.out.println("Transpiling started");
+
             generateCode(astRoot);
-            System.out.println("Transpiling successful");
+            System.out.println("---------------------------------------------------");
+            System.out.println("TRANSPILING SUCCESSFUL");
+            System.out.println("---------------------------------------------------\n\n");
 
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Invalid arguments");
