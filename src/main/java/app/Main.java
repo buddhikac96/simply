@@ -58,7 +58,7 @@ public class Main {
 
             // Semantics analyzing
             var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(sfm);
-           // astRoot.accept(semanticAnalyzerPassVisitor);
+            astRoot.accept(semanticAnalyzerPassVisitor);
             System.out.println("---------------------------------------------------");
             System.out.println("SEMANTIC ANALYZING SUCCESSFUL");
             System.out.println("---------------------------------------------------\n\n");

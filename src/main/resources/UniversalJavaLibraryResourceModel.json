@@ -18,57 +18,166 @@
         ]
       },
       {
-        "name": "abs",
-        "alias": "absolute",
+        "name": "pow",
+        "alias": "power",
         "overloads" : [
           {
-            "return" : "int",
+            "return" : "double",
             "params": ["int", "int"]
           },
           {
             "return" : "double",
             "params" : ["double", "double"]
+          },
+          {
+            "return" : "double",
+            "params" : ["double", "int"]
           }
         ]
-      }
-    ]
-  },
-  {
-
-    "name": "java.io",
-    "alias": "io",
-    "functions" : [
+      },
       {
-        "name" : "System.out.println",
-        "alias" : "print",
-        "overloads" : [
+        "name": "abs",
+        "alias": "absolute",
+        "overloads": [
           {
-            "return" : "void",
-            "params" : ["String"]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name" : "io",
-    "alias" : "io",
-    "functions" : [
-      {
-        "name" : "System.out.println",
-        "alias" : "print",
-        "overloads" :[
-          {
-            "return" : "void",
+            "return" : "int",
             "params" : ["int"]
           },
           {
-            "return" : "void",
-            "params" : ["String"]
-          },
-          {
-            "return" : "void",
+            "returnType" : "double",
             "params" : ["double"]
+          }
+        ]
+      },
+      {
+        "name": "ceil",
+        "alias": "roundUp",
+        "overloads": [
+          {
+            "returnType" : "double",
+            "params" : ["double"]
+          }
+        ]
+      },
+      {
+        "name": "floor",
+        "alias": "roundDown",
+        "overloads": [
+          {
+            "returnType" : "double",
+            "params" : ["double"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "String",
+    "alias": "strings",
+    "functions" : [
+      {
+        "name" : "length",
+        "alias" : "getLength",
+        "overloads" : [
+          {
+            "return" : "int",
+            "params" : ["String"]
+          }
+        ]
+      },
+      {
+        "name" : "concat",
+        "alias" : "combine",
+        "overloads" : [
+          {
+            "return" : "String",
+            "params" : ["String", "String"]
+          }
+        ]
+      },
+      {
+        "name" : "isEmpty",
+        "alias" : "isEmpty",
+        "overloads" : [
+          {
+            "return" : "boolean",
+            "params" : ["String"]
+          }
+        ]
+      },
+      {
+        "name" : "toUpperCase",
+        "alias" : "toCapital",
+        "overloads" : [
+          {
+            "return" : "String",
+            "params" : ["String"]
+          }
+        ]
+      },
+      {
+        "name" : "toLowerCase",
+        "alias" : "toSimple",
+        "overloads" : [
+          {
+            "return" : "String",
+            "params" : ["String"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name" : "java.util.Scanner",
+    "alias" : "keyboardIn",
+    "functions" : [
+      {
+        "name" : "nextLine",
+        "alias" : "input",
+        "overloads" :[
+          {
+            "return" : "String",
+            "params" : []
+          }
+        ]
+      },
+      {
+        "name" : "nextInt",
+        "alias" : "input",
+        "overloads" :[
+          {
+            "return" : "int",
+            "params" : []
+          }
+        ]
+      },
+      {
+        "name" : "nextBoolean",
+        "alias" : "input",
+        "overloads" :[
+          {
+            "return" : "boolean",
+            "params" : []
+          }
+        ]
+      },
+      {
+        "name" : "nextFloat",
+        "alias" : "input",
+        "overloads" :[
+          {
+            "return" : "double",
+            "params" : []
+          }
+        ]
+      },
+      {
+        "name" : "next().charAt(0)",
+        "alias" : "input",
+        "overloads" :[
+          {
+            "return" : "char",
+            "params" : []
           }
         ]
       }
