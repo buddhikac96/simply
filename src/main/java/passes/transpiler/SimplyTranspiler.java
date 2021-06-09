@@ -3,6 +3,7 @@ package passes.transpiler;
 import ast.*;
 import ast.util.AssignmentOperatorMapper;
 import ast.util.DataTypeMapper;
+import ast.util.enums.DataType;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
@@ -224,18 +225,43 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         var libRef = node.getLibRef();
         var funcName = node.getFuncName();
 
+        // Handle standard libraries and their function set
         if(libRef != null) {
-            for(ExpressionNode expNode : node.getParameterList()) {
-                parameters.append(visit(expNode)).append(",");
-            }
-            if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
 
-            ST st = group.getInstanceOf("libFuncCall");
-            st.add("libRef", libRef);
-            st.add("funcName", funcName);
-            st.add("parameters", parameters);
-            return st.render();
-        } else {
+            // handle functions of mathematics library (Math.sqrt())
+            if(libRef.equals("mathematics")) {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append(",");
+                }
+                if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+                ST st = group.getInstanceOf("libFuncCall");
+                st.add("libRef", "Math");
+                st.add("funcName", StandardLibraryMapper.getJavaLibraryFunction(funcName));
+                st.add("parameters", parameters);
+                return st.render();
+            }
+
+            // handle functions of strings library (length(), isEmpty(), toUpperCase(), toLowerCase())
+            else if(libRef.equals("strings")) {
+                for(ExpressionNode expNode : node.getParameterList()) {
+                    parameters.append(visit(expNode)).append(",");
+                }
+                if(parameters.length() != 0) { parameters.deleteCharAt(parameters.length() - 1); }
+
+                ST st = group.getInstanceOf("libFuncCall2");
+                st.add("funcName", StandardLibraryMapper.getJavaLibraryFunction(funcName));
+                st.add("parameter", parameters);
+                return st.render();
+            }
+
+            // handle functions of keyboardIn library (using scanner class)
+            else if(libRef.equals("keyboardIn")) {
+                return "keyboardInput";
+            }else {
+                return null;
+            }
+        }else {
             if(funcName.equals("display")) {
                 for(ExpressionNode expNode : node.getParameterList()) {
                     parameters.append(visit(expNode)).append("+");
@@ -444,17 +470,9 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LibImportNode node) {
-        StringBuilder library = new StringBuilder();
-        library.append(node.getLibName());
-        if(library.toString().equals("keyboardIn")) {
-            return "java.util.Scanner";
-        }else if(library.toString().equals("mathematics")) {
-            return "java.lang.Math";
-        }else if(library.toString().equals("strings")) {
-            return "java.lang.String";
-        } else {
-            return library.toString();
-        }
+        var libName = node.getLibName();
+        var javaLibImport = StandardLibraryMapper.getJavaLibraryImport(libName);
+        return javaLibImport;
     }
 
     @Override
@@ -654,18 +672,32 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
     @Override
     public String visit(PrimitiveVariableDeclarationNode node) {
         var isConst = "";
+        if(node.isConst()) { isConst = "final "; }
         var dataType = node.getDataType();
         var varName = visit(node.getName());
         var expNode = node.getValue();
         var initValue = visit(expNode);
 
-        ST st = group.getInstanceOf("varDec");
-        if(node.isConst()) { isConst = "final "; }
-        st.add("constant", isConst);
-        st.add("type", DataTypeMapper.getJavaType(dataType));
-        st.add("identifier", varName);
-        st.add("val", initValue);
-        return st.render();
+        // Handle scanner class and feed data into keyboard input template
+        if(initValue.equals("keyboardInput")) {
+            var needNextLine = false;
+            if(dataType == DataType.IntegerType) { needNextLine = true; }
+
+            ST st = group.getInstanceOf("keyboardInput");
+            st.add("constant", isConst);
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            st.add("identifier", varName);
+            st.add("val", JavaUserInputMapper.getScannerClassMethod(dataType));
+            st.add("needNextLine", needNextLine);
+            return st.render();
+        }else {
+            ST st = group.getInstanceOf("varDec");
+            st.add("constant", isConst);
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+            st.add("identifier", varName);
+            st.add("val", initValue);
+            return st.render();
+        }
     }
 
     @Override
