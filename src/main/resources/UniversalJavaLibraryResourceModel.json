@@ -1,36 +1,35 @@
 [
   {
-    "name": "math",
+    "name": "Math",
     "alias": "mathematics",
     "functions" : [
       {
         "name": "sqrt",
-        "alias": "root",
+        "alias": "squareRoot",
         "overloads": [
           {
-            "return" : "float",
+            "return" : "double",
             "params" : ["int"]
           },
           {
-            "returnType" : "float",
-            "params" : ["float"]
+            "returnType" : "double",
+            "params" : ["double"]
           }
         ]
       },
       {
-        "name": "add",
-        "alias": "add",
+        "name": "abs",
+        "alias": "absolute",
         "overloads" : [
           {
             "return" : "int",
             "params": ["int", "int"]
           },
           {
-            "return" : "float",
-            "params" : ["float", "float"]
+            "return" : "double",
+            "params" : ["double", "double"]
           }
         ]
-
       }
     ]
   },
@@ -69,7 +68,7 @@
           },
           {
             "return" : "void",
-            "params" : ["float"]
+            "params" : ["double"]
           }
         ]
       }
