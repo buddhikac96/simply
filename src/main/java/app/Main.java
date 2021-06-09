@@ -37,6 +37,7 @@ public class Main {
 
             System.out.println("===================== Simply ======================\n\n");
 
+            // TODO: Catch syntax errors
             ParseTree tree = getParseTree(filePath);
             System.out.println("---------------------------------------------------");
             System.out.println("PARSE SUCCESSFUL");

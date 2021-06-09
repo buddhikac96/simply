@@ -1,5 +1,3 @@
 function main(in: ) out:no {
-    display("hello world");
+    character a = 'a';
 }
-
-

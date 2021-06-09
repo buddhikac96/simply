@@ -118,7 +118,7 @@ COMMA : ',';
 DOT : '.';
 COLON: ':' ;
 
-
+//TODO: convert to not
 // Operators
 ASSIGN : '=';
 GT : '>';

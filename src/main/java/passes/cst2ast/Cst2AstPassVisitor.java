@@ -318,7 +318,7 @@ public class Cst2AstPassVisitor extends SimplyV3ParserBaseVisitor<ASTNode> {
             } else if (literalContext instanceof CharLiteralContext) {
 
                 char value =
-                        ((CharLiteralContext) literalContext).CharLiteral().getText().charAt(0);
+                        ((CharLiteralContext) literalContext).CharLiteral().getText().charAt(1);
 
                 //Logger.info("CharLiteralExpression created");
                 return new CharLiteralExpressionNode(value);

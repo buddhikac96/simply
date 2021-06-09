@@ -253,6 +253,7 @@ newRangeExpression
     : arg EOL RANGE COLON fromExpression TO toExpression (EOL nextExpression)?
     ;
 
+// TODO: NEXT COLON EXPRESSION
 nextExpression
     : NEXT expression
     ;
