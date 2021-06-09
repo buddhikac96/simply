@@ -92,13 +92,11 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
 
     SymbolTableStack symbolTableStack;
-    List<SimplyError> simplyErrorList;
     JavaPortalServiceProvider universalJavaLibraryServiceProvider;
     HashSet<String> importedLibraries;
 
-    public SemanticAnalyzerPassVisitor(List<SimplyError> simplyErrorList, JavaPortalServiceProvider sfp) {
+    public SemanticAnalyzerPassVisitor(JavaPortalServiceProvider sfp) {
         this.symbolTableStack = new SymbolTableStack();
-        this.simplyErrorList = simplyErrorList;
         this.universalJavaLibraryServiceProvider = sfp;
         importedLibraries = new HashSet<>();
     }
@@ -177,8 +175,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             // Duplicate variable declaration check
             if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName.getIdentifierName(), dataType, true))){
-                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
-                SimplySystem.exit(this.simplyErrorList);
+                SimplySystem.exit(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
             }
         }
 
@@ -196,8 +193,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
         // Check whether variable already declared
         if(this.symbolTableStack.validateVariableExistence(new SimplyVariable(varName))){
-            this.simplyErrorList.add(new VariableNotDefinedError(varName));
-            SimplySystem.exit(this.simplyErrorList);
+            //this.simplyErrorList.add();
+            SimplySystem.exit(new VariableNotDefinedError(varName));
         }
 
         // Check data type mismatch
@@ -310,8 +307,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
                 // Validate for duplicate variable declaration
                 if(this.symbolTableStack.validateDuplicateDeclaration(variable)){
-                    this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
-                    SimplySystem.exit(this.simplyErrorList);
+                    SimplySystem.exit(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
                 }
 
 
@@ -323,8 +319,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
                 // Validate for duplicate variable declaration
                 if(this.symbolTableStack.validateDuplicateDeclaration(variable)){
-                    this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
-                    SimplySystem.exit(this.simplyErrorList);
+                    SimplySystem.exit(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
                 }
 
             }
@@ -484,8 +479,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             // Check variable already declared
             if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName.getIdentifierName(), symbolDataType))){
-                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
-                SimplySystem.exit(this.simplyErrorList);
+                SimplySystem.exit(new DuplicateVariableDeclarationError(varName.getIdentifierName()));
             }
 
             // check type mis match error
@@ -574,8 +568,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
             // Validate for duplicate declarations
             if(this.symbolTableStack.validateDuplicateDeclaration(new SimplyVariable(varName, dataType, isList))){
-                this.simplyErrorList.add(new DuplicateVariableDeclarationError(varName));
-                SimplySystem.exit(this.simplyErrorList);
+                SimplySystem.exit(new DuplicateVariableDeclarationError(varName));
             }
         }
 

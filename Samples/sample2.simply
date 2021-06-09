@@ -1,19 +1,5 @@
-get keyboardIn;
-
 function main(in: ) out:no {
-    display("get user input: ");
-
-    integer a = keyboardIn.input();
-    string b = keyboardIn.input();
-    float c = keyboardIn.input();
-    boolean d = keyboardIn.input();
-    character e = keyboardIn.input();
-
-    display(a);
-    display(b);
-    display(c);
-    display(d);
-    display(e);
+    display("hello world");
 }
 
 

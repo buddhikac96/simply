@@ -5,7 +5,6 @@ import antlr.gen.SimplyV3Parser;
 import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.astImgGenerator.AstDotGenerator;
-import errors.SimplyError;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -22,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class MainAppDemo {
+public class Main {
 
-    private static final Logger LOGGER = Logger.getLogger(MainAppDemo.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws Exception {
 
@@ -32,7 +31,7 @@ public class MainAppDemo {
 
             String filePath = args[0];
 
-            if(Files.exists(Paths.get(filePath))){
+            if(!Files.exists(Paths.get(filePath))){
                 throw new Exception("File path: " + filePath + " not exist!");
             }
 
@@ -49,24 +48,18 @@ public class MainAppDemo {
             Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
             CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
             System.out.println("Build AST successful");
-        // Semantics analyzing
-        var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
-        //astRoot.accept(semanticAnalyzerPassVisitor);
 
             // Generate AST Image
             System.out.println("Building AST visualization");
             AstDotGenerator.draw(astRoot);
             System.out.println("Building AST visualization successful");
 
-            // Error List for semantic analysis
-            List<SimplyError> simplyErrorList = new ArrayList<>();
-
             // Java Library provider
             var sfm = new JavaPortalServiceProvider();
 
             // Semantics analyzing
             System.out.println("Semantic analyzing stated");
-            var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
+            var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(sfm);
             astRoot.accept(semanticAnalyzerPassVisitor);
             System.out.println("Semantic analyzing successful");
 
@@ -96,7 +89,6 @@ public class MainAppDemo {
     }
 
     private static void generateCode(ASTNode node) {
-        // TempTranspiler transpiler = new TempTranspiler();
         SimplyTranspiler transpiler = new SimplyTranspiler();
         node.accept(transpiler);
 
