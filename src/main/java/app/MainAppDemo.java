@@ -16,6 +16,8 @@ import passes.transpiler.SimplyTranspiler;
 import universalJavaPortal.JavaPortalServiceProvider;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -26,29 +28,62 @@ public class MainAppDemo {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Samples/sample2.simply";
-        ParseTree tree = getParseTree(filePath);
+        try{
 
-        List<String> errors = new ArrayList<>();
+            String filePath = args[0];
 
-        // Convert CST into AST
-        Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
-        CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
+            if(Files.exists(Paths.get(filePath))){
+                throw new Exception("File path: " + filePath + " not exist!");
+            }
 
-        // Generate AST Image
-        AstDotGenerator.draw(astRoot);
+            System.out.println("=============== Simply =================\n\n");
 
-        // Error List for semantic analysis
-        List<SimplyError> simplyErrorList = new ArrayList<>();
+            System.out.println("Start Parsing");
+            ParseTree tree = getParseTree(filePath);
+            System.out.println("Parsed successfully");
 
-        // Java Library provider
-        var sfm = new JavaPortalServiceProvider();
+            List<String> errors = new ArrayList<>();
 
+            // Convert CST into AST
+            System.out.println("Building AST");
+            Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
+            CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
+            System.out.println("Build AST successful");
         // Semantics analyzing
         var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
         //astRoot.accept(semanticAnalyzerPassVisitor);
 
-        generateCode(astRoot);
+            // Generate AST Image
+            System.out.println("Building AST visualization");
+            AstDotGenerator.draw(astRoot);
+            System.out.println("Building AST visualization successful");
+
+            // Error List for semantic analysis
+            List<SimplyError> simplyErrorList = new ArrayList<>();
+
+            // Java Library provider
+            var sfm = new JavaPortalServiceProvider();
+
+            // Semantics analyzing
+            System.out.println("Semantic analyzing stated");
+            var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(simplyErrorList, sfm);
+            astRoot.accept(semanticAnalyzerPassVisitor);
+            System.out.println("Semantic analyzing successful");
+
+            System.out.println("Transpiling started");
+            generateCode(astRoot);
+            System.out.println("Transpiling successful");
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Invalid arguments");
+            System.out.println("Required: <Simply source file path>");
+            System.out.println("Provided: None");
+            System.exit(-1);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
     }
 
     private static ParseTree getParseTree(String path) throws IOException {
