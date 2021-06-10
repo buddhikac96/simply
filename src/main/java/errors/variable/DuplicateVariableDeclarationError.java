@@ -2,7 +2,14 @@ package errors.variable;
 
 import errors.SimplyError;
 
-public record DuplicateVariableDeclarationError(String variableName) implements SimplyError {
+import java.util.Objects;
+
+public final class DuplicateVariableDeclarationError implements SimplyError {
+    private final String variableName;
+
+    public DuplicateVariableDeclarationError(String variableName) {
+        this.variableName = variableName;
+    }
 
     @Override
     public String getErrorMessage() {
@@ -21,4 +28,28 @@ public record DuplicateVariableDeclarationError(String variableName) implements 
     public int getLineNumber() {
         return 0;
     }
+
+    public String variableName() {
+        return variableName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (DuplicateVariableDeclarationError) obj;
+        return Objects.equals(this.variableName, that.variableName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(variableName);
+    }
+
+    @Override
+    public String toString() {
+        return "DuplicateVariableDeclarationError[" +
+                "variableName=" + variableName + ']';
+    }
+
 }

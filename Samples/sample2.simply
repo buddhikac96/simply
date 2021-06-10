@@ -1,3 +1,4 @@
 function main(in: ) out:no {
-    character a = 'a';
+    integer a = 10;
+    display(a);
 }

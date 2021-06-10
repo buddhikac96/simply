@@ -64,7 +64,8 @@ public class SimplyFunctionModel {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof SimplyFunctionModel sfm){
+        if(obj instanceof SimplyFunctionModel){
+            var sfm = ((SimplyFunctionModel) obj);
             return libName.equals(sfm.getLibName())
                     && funcName.equals(sfm.getFuncName())
                     && params.equals(sfm.getParams());

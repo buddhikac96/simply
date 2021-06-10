@@ -14,7 +14,10 @@ import passes.semantic.SemanticAnalyzerPassVisitor;
 import passes.transpiler.SimplyTranspiler;
 import universalJavaPortal.JavaPortalServiceProvider;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,15 +29,11 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws Exception {
-
         try{
-
             String filePath = args[0];
-
             if(!Files.exists(Paths.get(filePath))){
                 throw new Exception("File path: " + filePath + " not exist!");
             }
-
             System.out.println("===================== Simply ======================\n\n");
 
             // TODO: Catch syntax errors
@@ -79,7 +78,11 @@ public class Main {
             System.out.println("Required: <Simply source file path>");
             System.out.println("Provided: None");
             System.exit(-1);
-        }catch (Exception e){
+        }catch (IOException e){
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        catch (Exception e){
             e.printStackTrace();
             System.exit(-1);
         }
@@ -91,14 +94,28 @@ public class Main {
         SimplyV3Lexer lexer = new SimplyV3Lexer(charStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         SimplyV3Parser parser = new SimplyV3Parser(commonTokenStream);
-
         return parser.compilationUnit();
     }
 
-    private static void generateCode(ASTNode node) {
+    private static void generateCode(ASTNode node) throws IOException {
         SimplyTranspiler transpiler = new SimplyTranspiler();
         node.accept(transpiler);
-
-        System.out.println(transpiler.code);
+        File output = new File("output");
+        if(!output.exists()){
+            System.out.println("Creating new folder : output");
+            output.mkdir();
+        }else{
+            for(File f : output.listFiles()){
+                f.delete();
+            }
+        }
+        System.out.println("Writing Main.java");
+        String code = transpiler.code.toString();
+        FileWriter fileWriter = new FileWriter("output/Main.java");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(code);
+        printWriter.close();
+        fileWriter.close();
+        System.out.println("Main.java file created in location : output/Main.java\n\n");
     }
 }

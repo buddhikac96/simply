@@ -3,8 +3,17 @@ package errors.function;
 import ast.util.enums.DataType;
 import errors.SimplyError;
 
-public record ReturnTypeMisMatchError(DataType expected,
-                                      DataType actual) implements SimplyError {
+import java.util.Objects;
+
+public final class ReturnTypeMisMatchError implements SimplyError {
+    private final DataType expected;
+    private final DataType actual;
+
+    public ReturnTypeMisMatchError(DataType expected,
+                                   DataType actual) {
+        this.expected = expected;
+        this.actual = actual;
+    }
 
     @Override
     public String getErrorMessage() {
@@ -24,4 +33,34 @@ public record ReturnTypeMisMatchError(DataType expected,
     public int getLineNumber() {
         return 0;
     }
+
+    public DataType expected() {
+        return expected;
+    }
+
+    public DataType actual() {
+        return actual;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (ReturnTypeMisMatchError) obj;
+        return Objects.equals(this.expected, that.expected) &&
+                Objects.equals(this.actual, that.actual);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expected, actual);
+    }
+
+    @Override
+    public String toString() {
+        return "ReturnTypeMisMatchError[" +
+                "expected=" + expected + ", " +
+                "actual=" + actual + ']';
+    }
+
 }

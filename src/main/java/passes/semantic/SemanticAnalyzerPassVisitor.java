@@ -3,7 +3,6 @@ package passes.semantic;
 import app.SimplySystem;
 import ast.*;
 import ast.util.enums.DataType;
-import errors.SimplyError;
 import errors.arithmatic.*;
 import errors.function.DuplicateFunctionDeclarationError;
 import errors.function.MainMethodNotExistError;
@@ -14,14 +13,13 @@ import errors.library.UndefinedLibraryImportError;
 import errors.variable.DuplicateVariableDeclarationError;
 import errors.variable.TypeMisMatchError;
 import errors.variable.VariableNotDefinedError;
-import universalJavaPortal.SimplyFunctionModel;
 import universalJavaPortal.JavaPortalServiceProvider;
+import universalJavaPortal.SimplyFunctionModel;
 import visitors.BaseAstVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import static ast.ArithmeticExpressionNode.*;
 import static ast.AssignmentStatementNode.ArrayVariableAssignmentStatementNode;
@@ -36,7 +34,6 @@ import static ast.LogicExpressionNode.*;
 import static ast.UnaryExpressionNode.*;
 import static ast.util.enums.DataType.*;
 import static java.util.AbstractMap.SimpleEntry;
-
 import static java.util.stream.Collectors.toList;
 
 public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
@@ -117,7 +114,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     public Object visit(DivisionExpressionNode node) {
 
         // Divide by zero error
-        if(node.getRight() instanceof NumberTypeLiteralExpression _node){
+        if(node.getRight() instanceof NumberTypeLiteralExpression){
+            var _node = ((NumberTypeLiteralExpression) node.getRight());
             if(_node.getStringValue().equals("0")){
                 SimplySystem.exit(new DivideByZeroError());
             }
@@ -134,7 +132,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             SimplySystem.exit(new InvalidModulusOperationError());
         }
 
-        if(node.getRight() instanceof IntegerLiteralExpressionNode _node){
+        if(node.getRight() instanceof IntegerLiteralExpressionNode){
+            var _node = ((IntegerLiteralExpressionNode) node.getRight());
             if(_node.getStringValue().equals("0")){
                 SimplySystem.exit(new InvalidModulusOperationError());
             }
@@ -299,8 +298,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         this.symbolTableStack.addSymbolTable(new SymbolTable());
 
         for(ASTNode astNode : node.getVariableDeclarationNodes()){
-            if(astNode instanceof PrimitiveVariableDeclarationNode _node){
-
+            if(astNode instanceof PrimitiveVariableDeclarationNode){
+                var _node = ((PrimitiveVariableDeclarationNode) astNode);
                 var varName = _node.getName();
                 var dataType = _node.getDataType();
                 var variable = new SimplyVariable(varName.getIdentifierName(), dataType);
@@ -311,8 +310,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 }
 
 
-            }else if(astNode instanceof ArrayVariableDeclarationNode _node){
-
+            }else if(astNode instanceof ArrayVariableDeclarationNode ){
+                var _node = ((ArrayVariableDeclarationNode) astNode);
                 var varName = _node.getName();
                 var dataType = _node.getDataType();
                 var variable = new SimplyVariable(varName.getIdentifierName(), dataType, true);
@@ -588,16 +587,16 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     //////////////////////////////////////////////////////////
 
     private SymbolDataType getExpressionDataType(ExpressionNode node){
-        if(node instanceof ArithmeticExpressionNode _node){
-
+        if(node instanceof ArithmeticExpressionNode ){
+            var _node = ((ArithmeticExpressionNode) node);
             var left = _node.getLeft();
             var right = _node.getRight();
 
             var leftType = getExpressionDataType(left).dataType();
             var rightType = getExpressionDataType(right).dataType();
 
-            if(_node instanceof AdditionExpressionNode adn){
-
+            if(_node instanceof AdditionExpressionNode ){
+                var adn = ((AdditionExpressionNode) _node);
                 if(!addDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidAdditionOperationError(leftType, rightType));
                 }
@@ -605,8 +604,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var dataType =  addDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
-            }else if(_node instanceof SubtractionExpressionNode sbn){
-
+            }else if(_node instanceof SubtractionExpressionNode ){
+                var sbn = ((SubtractionExpressionNode) _node);
                 if(!subDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidSubtractionOperationError(leftType, rightType));
                 }
@@ -614,8 +613,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var dataType =  subDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
-            }else if(_node instanceof MultiplicationExpressionNode mln){
-
+            }else if(_node instanceof MultiplicationExpressionNode){
+                var sbn = ((MultiplicationExpressionNode) _node);
                 if(!mulDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidMultiplicationOperationError(leftType, rightType));
                 }
@@ -623,8 +622,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 var dataType =  mulDTypeMap.get(new SimpleEntry<>(leftType, rightType));
                 return new SymbolDataType(dataType, false);
 
-            }else if(_node instanceof DivisionExpressionNode dvn){
-
+            }else if(_node instanceof DivisionExpressionNode){
+                var dvn = ((DivisionExpressionNode) _node);
                 if(!divDTypeMap.containsKey(new SimpleEntry<>(leftType, rightType))){
                     SimplySystem.exit(new InvalidDivisionOperationError(leftType, rightType));
                 }
@@ -637,10 +636,10 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 return new SymbolDataType(IntegerType, false);
             }
 
-        }else if(node instanceof ArrayAccessExpressionNode _node){
-
-        }else if(node instanceof FunctionCallExpressionNode _node){
-
+        }else if(node instanceof ArrayAccessExpressionNode ){
+            var _node = ((ArrayAccessExpressionNode) node);
+        }else if(node instanceof FunctionCallExpressionNode ){
+            var _node = ((FunctionCallExpressionNode) node);
             var libName = _node.libRef == null ? "simply" : _node.libRef;
             var funcName = _node.funcName;
             var args = new ArrayList<DataType>();
@@ -658,9 +657,9 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             // TODO: get return type by simply function model
             return null;
 
-        }else if(node instanceof IdentifierNode _node){
-
-            // validate the symbol from symbol table
+        }else if(node instanceof IdentifierNode ){
+            var _node = ((IdentifierNode) node);
+// validate the symbol from symbol table
             if(this.symbolTableStack.validateVariableExistence(new SimplyVariable(_node.getIdentifierName()))){
                 SimplySystem.exit(new VariableNotDefinedError(_node.getIdentifierName()));
             }
@@ -668,13 +667,13 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
             var symbol = this.symbolTableStack.getSymbol(_node.getIdentifierName());
             return new SymbolDataType(symbol.getType(), symbol.isList());
 
-        }else if(node instanceof IterateConditionExpressionNode _node){
-
-            // Create error - Wrong expression
+        }else if(node instanceof IterateConditionExpressionNode ){
+            var _node = ((IterateConditionExpressionNode) node);
+// Create error - Wrong expression
             // SimplySystem.exit();
 
-        }else if(node instanceof LiteralExpressionNode _node){
-
+        }else if(node instanceof LiteralExpressionNode ){
+            var _node = ((LiteralExpressionNode) node);
             if(_node instanceof IntegerLiteralExpressionNode){
                 return new SymbolDataType(IntegerType, false);
             }else if(_node instanceof FloatLiteralExpressionNode){
@@ -687,8 +686,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 return new SymbolDataType(BooleanType, false);
             }
 
-        }else if(node instanceof LogicExpressionNode _node){
-
+        }else if(node instanceof LogicExpressionNode){
+            var _node = ((LogicExpressionNode) node);
             return new SymbolDataType(BooleanType, false);
 
         }else{
