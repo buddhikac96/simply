@@ -15,7 +15,7 @@ public class StandardLibraryMapper {
 
     static{
         javaLibraryFunctionMapper = new HashMap<>();
-        javaLibraryFunctionMapper.put("length", "length");
+        javaLibraryFunctionMapper.put("getLength", "length");
         javaLibraryFunctionMapper.put("combine", "concat");
         javaLibraryFunctionMapper.put("isEmpty", "isEmpty");
         javaLibraryFunctionMapper.put("toCapital", "toUpperCase");
