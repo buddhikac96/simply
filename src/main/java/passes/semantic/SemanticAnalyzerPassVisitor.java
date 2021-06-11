@@ -51,6 +51,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         addDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
         addDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
         addDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
+        addDTypeMap.put(new SimpleEntry<>(FloatType , FloatType), FloatType);
         addDTypeMap.put(new SimpleEntry<>(CharType , CharType), StringType);
         addDTypeMap.put(new SimpleEntry<>(StringType , CharType), StringType);
         addDTypeMap.put(new SimpleEntry<>(CharType , StringType), StringType);

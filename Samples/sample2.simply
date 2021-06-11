@@ -3,7 +3,7 @@ function main(in: ) out:integer {
     return a;
 }
 
-function add(in: integer a, integer b) out : integer {
     integer total = a + b;
-    return total;
+function add(in: integer a, integer b) out : integer {
 }
+    return total;

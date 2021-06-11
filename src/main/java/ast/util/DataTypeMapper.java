@@ -22,7 +22,7 @@ public class DataTypeMapper {
     static{
         javaDataTypeMap = new HashMap<>();
         javaDataTypeMap.put(DataType.IntegerType, "int");
-        javaDataTypeMap.put(DataType.FloatType, "float");
+        javaDataTypeMap.put(DataType.FloatType, "double");
         javaDataTypeMap.put(DataType.CharType, "char");
         javaDataTypeMap.put(DataType.StringType, "String");
         javaDataTypeMap.put(DataType.BooleanType, "boolean");
@@ -32,7 +32,7 @@ public class DataTypeMapper {
     static{
         javaWrapperMap = new HashMap<>();
         javaWrapperMap.put(DataType.IntegerType, "Integer");
-        javaWrapperMap.put(DataType.FloatType, "Float");
+        javaWrapperMap.put(DataType.FloatType, "Double");
         javaWrapperMap.put(DataType.CharType, "Character");
         javaWrapperMap.put(DataType.StringType, "String");
         javaWrapperMap.put(DataType.BooleanType, "Boolean");
