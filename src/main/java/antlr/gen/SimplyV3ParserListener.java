@@ -124,22 +124,22 @@ public interface SimplyV3ParserListener extends ParseTreeListener {
 	 */
 	void exitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by .
+	 * Enter a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 */
 	void enterArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by .
+	 * Exit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 */
 	void exitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by .
+	 * Enter a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 */
 	void enterLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by .
+	 * Exit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 */
 	void exitLogicExpression(SimplyV3Parser.LogicExpressionContext ctx);

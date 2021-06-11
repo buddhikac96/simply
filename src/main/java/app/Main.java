@@ -22,12 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Main {
-
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-
     public static void main(String[] args) throws Exception {
         try{
             String filePath = args[0];
@@ -67,7 +63,6 @@ public class Main {
             System.out.println("SEMANTIC ANALYZING SUCCESSFUL");
             System.out.println("---------------------------------------------------\n\n");
 
-
             generateCode(astRoot);
             System.out.println("---------------------------------------------------");
             System.out.println("TRANSPILING SUCCESSFUL");
@@ -86,7 +81,6 @@ public class Main {
             e.printStackTrace();
             System.exit(-1);
         }
-
     }
 
     private static ParseTree getParseTree(String path) throws IOException {

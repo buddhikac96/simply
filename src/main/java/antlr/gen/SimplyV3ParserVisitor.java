@@ -81,13 +81,13 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SimplyV3Parser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by .
+	 * Visit a parse tree produced by {@link SimplyV3Parser#arithmaticExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArithmaticExpression(SimplyV3Parser.ArithmaticExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by .
+	 * Visit a parse tree produced by {@link SimplyV3Parser#logicExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -333,7 +333,7 @@ public interface SimplyV3ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnStatementRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
+	T visitReturnStatemtntRule(SimplyV3Parser.ReturnStatemtntRuleContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code variableDeclarationStatementRule}
 	 * labeled alternative in {@link SimplyV3Parser#statement}.
