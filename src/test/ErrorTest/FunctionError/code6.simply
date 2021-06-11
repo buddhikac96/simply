@@ -1,0 +1,17 @@
+// Duplicate function declaration error
+
+function main(in: ) out : no {
+
+}
+
+function add(in: ) out : no {
+
+}
+
+function add(in: ) out : no {
+
+}
+
+/*
+    assert(throw(DuplicateMethodDeclarationError)
+*/

@@ -1,0 +1,10 @@
+// Invalid addition error
+
+function main(in: ) out : no {
+    integer a = 10 + "foo";
+
+}
+
+/*
+    assert(throw(InvalidAdditionError))
+*/

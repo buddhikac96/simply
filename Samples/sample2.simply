@@ -1,4 +1,9 @@
-function main(in: ) out:no {
-    integer a = 10;
-    display(a);
+function main(in: ) out:integer {
+    integer a = 5;
+    return a;
+}
+
+function add(in: integer a, integer b) out : integer {
+    integer total = a + b;
+    return total;
 }

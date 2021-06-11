@@ -1,0 +1,10 @@
+// Invalid multiplication error
+
+function main(in: ) out : no {
+    integer a = "haha" * 3;
+
+}
+
+/*
+    assert(throw(InvalidMultiplicationError))
+*/

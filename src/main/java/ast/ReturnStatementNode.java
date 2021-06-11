@@ -8,9 +8,11 @@ import java.util.Objects;
 
 public class ReturnStatementNode extends StatementNode {
     final ExpressionNode value;
+    final public ReturnExpressionNode returnExpressionNode;
 
     public ReturnStatementNode(ExpressionNode value) {
         this.value = value;
+        this.returnExpressionNode = new ReturnExpressionNode(value);
     }
 
     public ExpressionNode getValue() { return this.value; }
@@ -34,4 +36,25 @@ public class ReturnStatementNode extends StatementNode {
                 "value=" + value +
                 '}';
     }
+
+    public static class ReturnExpressionNode extends ExpressionNode{
+
+        final public ExpressionNode value;
+
+        public ReturnExpressionNode(ExpressionNode value) {
+            this.value = value;
+        }
+
+        @Override
+        public List<ASTNode> getChildren() {
+            return null;
+        }
+
+        @Override
+        public void accept(BaseAstVisitor visitor) {
+
+        }
+    }
 }
+
+

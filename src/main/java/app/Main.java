@@ -25,6 +25,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
+        /*var a = DataType.VoidType;
+
+        System.out.println(a);
+        System.exit(-1);*/
+
         try{
             String filePath = args[0];
             if(!Files.exists(Paths.get(filePath))){

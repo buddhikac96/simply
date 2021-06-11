@@ -1,0 +1,9 @@
+// Variable not defined error
+
+function main(in: ) out : no {
+    integer a = b;
+}
+
+/*
+    assert(throw(VariableNotDefinedError))
+*/

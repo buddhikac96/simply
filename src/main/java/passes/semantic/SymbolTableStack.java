@@ -18,6 +18,10 @@ public class SymbolTableStack {
         this.symbolTableStack.add(symbolTable);
     }
 
+    public int getTableCount(){
+        return this.symbolTableStack.size();
+    }
+
     public boolean popSymbolTable(){
         if(this.symbolTableStack.isEmpty()){
             return false;
@@ -27,37 +31,32 @@ public class SymbolTableStack {
         }
     }
 
-    // Validate variable for declaration
-    public boolean validateDuplicateDeclaration(SimplyVariable variable){
-
+    public boolean isVariableExist(SimplyVariable variable){
         for(SymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(variable.getName())){
                 return true;
             }
         }
-
-        this.symbolTableStack.peek().map.put(variable.getName(), variable);
-
         return false;
     }
 
-    // Validate variable for existence
-    public boolean validateVariableExistence(SimplyVariable variable){
-        return !this.validateDuplicateDeclaration(variable);
-    }
-
     public SimplyVariable getSymbol(String varName){
-
         SimplyVariable simplyVariable = new SimplyVariable("ThisIsTheDumbestThingThatAnyProgrammerCanDo");
-
         for(SymbolTable symbolTable : this.symbolTableStack){
             if(symbolTable.map.containsKey(varName)){
                 simplyVariable = symbolTable.map.get(varName);
                 break;
             }
         }
-
         return simplyVariable;
+    }
+
+    public boolean addSymbol(SimplyVariable variable){
+        if(isVariableExist(variable)){
+            return false;
+        }
+        this.symbolTableStack.peek().map.put(variable.getName(), variable);
+        return true;
     }
 
 }

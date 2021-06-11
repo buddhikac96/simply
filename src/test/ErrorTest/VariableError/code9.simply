@@ -1,0 +1,11 @@
+// Variable duplicate error
+
+function main(in: ) out : no {
+    integer a = 42;
+    integer a = 42;
+
+}
+
+/*
+    assert(throw(VariableDuplicateError))
+*/

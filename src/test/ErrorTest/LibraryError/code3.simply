@@ -1,0 +1,10 @@
+// Library not imported error
+
+
+function main(in: ) out : no {
+    mathematics.add(4,5);
+}
+
+/*
+    assert(throw(LibraryNotImportedError)
+*/

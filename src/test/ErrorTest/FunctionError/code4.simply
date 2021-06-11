@@ -1,0 +1,9 @@
+// Main method not exist error
+
+function add(in: ) out : no {
+
+}
+
+/*
+    assert(throw(MainMethodNotExistError)
+*/

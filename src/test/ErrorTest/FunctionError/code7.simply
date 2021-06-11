@@ -1,0 +1,13 @@
+// Return type mismatch
+
+function main(in: ) out : no {
+
+}
+
+function add(in: ) out : float {
+    return 42;
+}
+
+/*
+    assert(throw(ReturnTypeMisMatchError))
+*/

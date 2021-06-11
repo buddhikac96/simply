@@ -1,0 +1,12 @@
+// Duplicate library import error
+
+get mathematics;
+get mathematics;
+
+function main(in: ) out : no {
+
+}
+
+/*
+    assert(throw(DuplicateLibImportError)
+*/

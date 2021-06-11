@@ -1,0 +1,9 @@
+// Invalid main method error
+
+function main(in: ) out : integer {
+
+}
+
+/*
+    assert(throw(InvalidMainMethodError)
+*/

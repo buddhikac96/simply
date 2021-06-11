@@ -1,0 +1,9 @@
+// Divide by zero error
+
+function main(in: ) out : no {
+    float a = 42/0;
+}
+
+/*
+    assert(throw(DivideByZeroError))
+*/

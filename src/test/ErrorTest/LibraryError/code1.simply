@@ -1,0 +1,11 @@
+// Undefined Library import
+
+get lkjlkjlkj;
+
+function main(in: ) out : no {
+
+}
+
+/*
+    assert(throw(UndefinedLibraryImportError))
+*/
