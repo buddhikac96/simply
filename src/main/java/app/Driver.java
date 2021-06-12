@@ -23,19 +23,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Driver {
     public static void main(String[] args) throws Exception {
-
-        /*var a = DataType.VoidType;
-
-        System.out.println(a);
-        System.exit(-1);*/
-
         try{
             String filePath = args[0];
             if(!Files.exists(Paths.get(filePath))){
-                throw new Exception("File path: " + filePath + " not exist!");
+                throw new Exception("Simply file: " + filePath + " not exist!");
             }
+
+            String universalLibResource = args[1];
+            if(!Files.exists(Paths.get(universalLibResource))){
+                throw new Exception("JSON Library resource not found in location: " + universalLibResource);
+            }
+
             System.out.println("===================== Simply ======================\n\n");
 
             // TODO: Catch syntax errors
@@ -60,7 +60,7 @@ public class Main {
             System.out.println("---------------------------------------------------\n\n");
 
             // Java Library provider
-            var sfm = new JavaPortalServiceProvider();
+            var sfm = new JavaPortalServiceProvider(universalLibResource);
 
             // Semantics analyzing
             var semanticAnalyzerPassVisitor = new SemanticAnalyzerPassVisitor(sfm);
@@ -76,8 +76,7 @@ public class Main {
 
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Invalid arguments");
-            System.out.println("Required: <Simply source file path>");
-            System.out.println("Provided: None");
+            System.out.println("Required: <Simply source file path> <Universal Library Resource>");
             System.exit(-1);
         }catch (IOException e){
             e.printStackTrace();
