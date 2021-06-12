@@ -15,6 +15,11 @@ public class InvalidMainMethodError implements SimplyError {
     }
 
     @Override
+    public String getErrorDescription() {
+        return null;
+    }
+
+    @Override
     public int getLineNumber() {
         return 0;
     }

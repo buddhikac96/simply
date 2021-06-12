@@ -6,6 +6,8 @@ public interface SimplyError {
 
     String getErrorType();
 
+    String getErrorDescription();
+
     int getLineNumber();
 }
 

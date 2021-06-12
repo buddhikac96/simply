@@ -19,13 +19,23 @@ public final class InvalidDivisionOperationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Can't divide " + this.left + " by " + this.right;
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "ArithmeticError:InvalidDivisionError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have tried to divide " + this.left + " with " + this.right +  ". You can only divide numbers. \n" +
+                "These are the types you can divide:\n" +
+                "integer / integer\n" +
+                "float / float\n" +
+                "integer / float\n" +
+                "float / integer\n";
     }
 
     @Override

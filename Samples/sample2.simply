@@ -1,3 +1,9 @@
-function main(in: ) out : no {
+// Invalid subtract error
 
+function main(in: ) out : no {
+    integer a = "abc" - 42;
 }
+
+/*
+    assert(throw(InvalidSubtractError))
+*/

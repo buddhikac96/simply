@@ -19,13 +19,23 @@ public final class InvalidAdditionOperationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Can't add " + this.left + " with " + this.right;
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "ArithmeticError:InvalidAdditionOperationError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have tried to add " + this.left + " with " + this.right +  ". You can only add numbers. \n" +
+                "These are the data types you can add:\n" +
+                "integer + integer\n" +
+                "float + float\n" +
+                "integer + float\n" +
+                "float + integer\n";
     }
 
     @Override

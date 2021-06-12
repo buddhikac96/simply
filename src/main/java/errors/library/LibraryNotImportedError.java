@@ -10,7 +10,14 @@ public class LibraryNotImportedError implements SimplyError {
 
     @Override
     public String getErrorType() {
-        return null;
+        return  "Error:" +
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have forgotten to import the mathematics library. Please import it!";
     }
 
     @Override

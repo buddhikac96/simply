@@ -15,13 +15,18 @@ public final class NotImportedLibraryReference implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Library " + this.libName + " is not imported";
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "FunctionError:" + this.getClass().getName();
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have forgotten to import the " + this.libName + " library. Please import it!";
     }
 
     @Override

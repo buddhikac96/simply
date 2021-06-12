@@ -15,14 +15,17 @@ public final class VariableNotDefinedError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + " " + "\n" +
-                "Variable " + this.varName + " not defined";
+                this.getErrorType() + " " + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "Variable:VariableNotDefinedError";
     }
+
+    @Override
+    public String getErrorDescription() { return "You have not defined Variable " + this.varName; }
 
     @Override
     public int getLineNumber() {

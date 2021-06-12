@@ -38,6 +38,11 @@ public final class DuplicateFunctionDeclarationError implements SimplyError {
     }
 
     @Override
+    public String getErrorDescription() {
+        return null;
+    }
+
+    @Override
     public int getLineNumber() {
         return 0;
     }
