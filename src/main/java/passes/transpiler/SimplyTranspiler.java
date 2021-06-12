@@ -15,7 +15,7 @@ import java.util.List;
 public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     public final StringBuilder code = new StringBuilder();
-    final STGroup group = new STGroupFile("src/main/resources/templates/javaTemplate.stg");
+    final STGroup group = new STGroupFile("templates/javaTemplate.stg");
 
     @Override
     public String visit(ArgNode node) {

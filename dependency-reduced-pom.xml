@@ -28,7 +28,7 @@
               </artifactSet>
               <transformers>
                 <transformer>
-                  <mainClass>app.Main</mainClass>
+                  <mainClass>app.Driver</mainClass>
                 </transformer>
               </transformers>
             </configuration>

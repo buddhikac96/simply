@@ -12,19 +12,16 @@ import java.util.List;
 public class JavaPortalServiceProvider implements ILibraryServiceProvider{
     private final List<SimplyFunctionModel> functionModels;
 
-    public JavaPortalServiceProvider() throws IOException {
+    public JavaPortalServiceProvider(String path) throws IOException {
         this.functionModels = new ArrayList<>();
-
-        // deserialize json
-        // add models into the list
-        readJson();
+        readJson(path);
     }
 
     // Read the universal java library model and add simply function models into the list
-    private void readJson() throws IOException {
+    private void readJson(String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         var libraryList = objectMapper.readValue(
-                new File("src/main/resources/UniversalJavaLibraryResourceModel.json"),
+                new File(path),
                 new TypeReference<List<JavaLibrary>>(){}
         );
 
