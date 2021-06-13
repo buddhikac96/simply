@@ -1,11 +1,30 @@
-function start(in: ) out : no {
-    character a = 'A';
-    list character arr2 = ['A', 'n', '#', '>'];
+// standard library function invokation (strings, mathematics)
+get maths;
+get keyboardIn;
+get strings;
+
+function start(in: ) out:no {
+    float a = maths.squareRoot(4);
+    float b = maths.absolute(-4);
+    float c = maths.roundUp(3.14);
+    float d = maths.roundDown(3.56);
+    float e = maths.power(4, 2);
 
     display(a);
+    display(b);
+    display(c);
+    display(d);
+    display(e);
+    display(maths.squareRoot(16));
 
-    repeat(character i of arr2) {
-        display(i);
-    }
+    string test = "Hello World";
+    integer length = strings.getLength(test);
+    boolean isNull = strings.isEmpty(test);
+    string cap = strings.toCapital(test);
+    string sim = strings.toSimple(test);
 
+    display(length);
+    display(isNull);
+    display(cap);
+    display(strings.toSimple(test));
 }

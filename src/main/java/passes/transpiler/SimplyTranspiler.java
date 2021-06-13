@@ -228,8 +228,8 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         // Handle standard libraries and their function set
         if(libRef != null) {
 
-            // handle functions of mathematics library (Math.sqrt())
-            if(libRef.equals("mathematics")) {
+            // handle functions of maths library (Math.sqrt())
+            if(libRef.equals("maths")) {
                 for(ExpressionNode expNode : node.getParameterList()) {
                     parameters.append(visit(expNode)).append(",");
                 }

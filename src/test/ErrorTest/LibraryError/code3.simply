@@ -2,7 +2,7 @@
 
 
 function start(in: ) out : no {
-    mathematics.add(4,5);
+    maths.power(4,5);
 }
 
 /*

@@ -26,7 +26,7 @@ public final class UndefinedLibraryImportError implements SimplyError {
 
     @Override
     public String getErrorDescription() {
-        return "We don’t have a library called " + this.libName + ". We only have 3 standard libraries: mathematics, strings, and keyboardIn.";
+        return "We don’t have a library called " + this.libName + ". We only have 3 standard libraries: maths, strings, and keyboardIn.";
     }
 
     @Override
