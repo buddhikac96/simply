@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 public class SimplySystem {
     public static void exit(SimplyError error){
 
+        System.out.println(error.getErrorMessage());
+
         File output = new File("output");
         if(!output.exists()){
             System.out.println("Creating new folder : output");

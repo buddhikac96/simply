@@ -29,8 +29,8 @@ public class JavaPortalServiceProvider implements ILibraryServiceProvider{
             for(var func : lib.functions){
                 for(var overload : func.overloads){
                     var sfm = new SimplyFunctionModel();
-                    sfm.setLibName(lib.name)
-                            .setFuncName(func.name)
+                    sfm.setLibName(lib.alias)
+                            .setFuncName(func.alias)
                             .setReturnType(overload.returnType);
 
                     for(var param : overload.params){
