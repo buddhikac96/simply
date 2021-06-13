@@ -1,6 +1,6 @@
 // Invalid modulus error
 
-function main(in: ) out : no {
+function start(in: ) out : no {
     integer a = 3 % haha;
 
 }

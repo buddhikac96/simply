@@ -21,12 +21,18 @@ public final class ReturnTypeMisMatchError implements SimplyError {
         return "Error:" +
                 this.getErrorType() + "\n" +
                 "Expected: " + this.expected.getDatatype() + "\n" +
-                "Provided: " + this.actual.getDatatype();
+                "Provided: " + this.actual.getDatatype() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "FunctionError:" + this.getClass().getName();
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "Your function's output data type is " + this.expected + ". But you have mistakenly returned " + this.actual + " in the return statement.";
     }
 
     @Override

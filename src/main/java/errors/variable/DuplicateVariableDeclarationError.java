@@ -15,13 +15,18 @@ public final class DuplicateVariableDeclarationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Variable " + this.variableName + " have already declared";
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "VariableError: DuplicateVariableDeclarationError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have already declared Variable " + this.variableName + ". You can’t declare the same variable twice.";
     }
 
     @Override

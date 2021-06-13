@@ -3,7 +3,7 @@ package errors.function;
 import errors.SimplyError;
 
 //TODO : complete this
-public class InvalidMainMethodError implements SimplyError {
+public class InvalidStartMethodError implements SimplyError {
     @Override
     public String getErrorMessage() {
         return null;
@@ -11,6 +11,11 @@ public class InvalidMainMethodError implements SimplyError {
 
     @Override
     public String getErrorType() {
+        return null;
+    }
+
+    @Override
+    public String getErrorDescription() {
         return null;
     }
 

@@ -15,13 +15,18 @@ public final class UndefinedLibraryImportError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Library " + this.libName + " not defined";
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "LibraryError:" + this.getClass().getName();
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "We don’t have a library called " + this.libName + ". We only have 3 standard libraries: maths, strings, and keyboardIn.";
     }
 
     @Override

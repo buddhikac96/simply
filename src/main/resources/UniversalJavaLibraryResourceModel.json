@@ -1,7 +1,7 @@
 [
   {
     "name": "Math",
-    "alias": "mathematics",
+    "alias": "maths",
     "functions" : [
       {
         "name": "sqrt",

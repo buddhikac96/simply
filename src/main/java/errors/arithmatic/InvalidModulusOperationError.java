@@ -8,13 +8,18 @@ public class InvalidModulusOperationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Modulus operation should be Integer % Integer";
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
-        return "ArithmeticError:InvalidDivisionError";
+        return "ArithmeticError:InvalidModulusOperationError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have tried to give a wrong data type to the Modulus operation (%). You can only use integers for this!";
     }
 
     @Override

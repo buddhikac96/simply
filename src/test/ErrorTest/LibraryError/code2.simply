@@ -1,9 +1,9 @@
 // Duplicate library import error
 
-get mathematics;
-get mathematics;
+get maths;
+get maths;
 
-function main(in: ) out : no {
+function start(in: ) out : no {
 
 }
 

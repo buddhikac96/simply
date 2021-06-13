@@ -19,13 +19,23 @@ public final class InvalidMultiplicationOperationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Can't multiply " + this.left + " by " + this.right;
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "ArithmeticError:InvalidMultiplicationError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have tried to multiply " + this.left + " by " + this.right +  ". You can only multiply numbers. \n" +
+                "These are the data types you can multiply:\n" +
+                "integer * integer\n" +
+                "float * float\n" +
+                "integer * float\n" +
+                "float * integer\n";
     }
 
     @Override

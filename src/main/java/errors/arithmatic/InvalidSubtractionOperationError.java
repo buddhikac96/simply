@@ -19,13 +19,23 @@ public final class InvalidSubtractionOperationError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Can't subtract " + this.right + " from " + this.left;
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "ArithmeticError:InvalidSubtractionOperationError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have tried to subtract " + this.right + " from " + this.left +  ". You can only subtract numbers. \n" +
+                "These are the data types you can subtract:\n" +
+                "integer - integer\n" +
+                "float - float\n" +
+                "integer - float\n" +
+                "float - integer\n";
     }
 
     @Override

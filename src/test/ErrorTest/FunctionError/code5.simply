@@ -1,6 +1,6 @@
-// Invalid main method error
+// Invalid start method error
 
-function main(in: ) out : integer {
+function start(in: ) out : integer {
 
 }
 

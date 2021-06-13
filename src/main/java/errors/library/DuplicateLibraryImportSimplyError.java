@@ -15,13 +15,18 @@ public final class DuplicateLibraryImportSimplyError implements SimplyError {
     public String getErrorMessage() {
 
         return "Error:" +
-                this.getErrorType() + "\n" +
-                "Library " + this.libName + " have already imported";
+                this.getErrorType() + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "LibraryError: DuplicateLibraryImportError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "You have already imported the " + this.libName + " library. You can’t import the same library twice.";
     }
 
     @Override

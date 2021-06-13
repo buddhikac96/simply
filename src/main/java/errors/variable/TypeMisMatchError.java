@@ -22,12 +22,18 @@ public final class TypeMisMatchError implements SimplyError {
         return "Error:" +
                 this.getErrorType() + "\n" +
                 "Required: " + this.requiredType + "\n" +
-                "Provided: " + this.originalType;
+                "Provided: " + this.originalType + "\n\n" +
+                this.getErrorDescription();
     }
 
     @Override
     public String getErrorType() {
         return "VariableError:DataTypeMisMatchError";
+    }
+
+    @Override
+    public String getErrorDescription() {
+        return "The data type you gave and the data type we need don't match. Please check if you have assigned the correct data type.";
     }
 
     @Override

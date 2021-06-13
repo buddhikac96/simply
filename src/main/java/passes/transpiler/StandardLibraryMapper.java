@@ -8,7 +8,7 @@ public class StandardLibraryMapper {
 
     static{
         javaLibraryMapper = new HashMap<>();
-        javaLibraryMapper.put("mathematics", "java.lang.Math");
+        javaLibraryMapper.put("maths", "java.lang.Math");
         javaLibraryMapper.put("keyboardIn", "java.util.Scanner");
         javaLibraryMapper.put("strings", "java.lang.String");
     }
