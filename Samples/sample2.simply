@@ -1,9 +1,11 @@
-// Invalid subtract error
+function start(in: ) out : no {
+    character a = 'A';
+    list character arr2 = ['A', 'n', '#', '>'];
 
-function main(in: ) out : no {
-    integer a = "abc" - 42;
+    display(a);
+
+    repeat(character i of arr2) {
+        display(i);
+    }
+
 }
-
-/*
-    assert(throw(InvalidSubtractError))
-*/

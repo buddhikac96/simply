@@ -1,6 +1,6 @@
 // Divide by zero error
 
-function main(in: ) out : no {
+function start(in: ) out : no {
     float a = 42/0;
 }
 

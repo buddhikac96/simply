@@ -5,7 +5,7 @@ global int a = 5;
 global list int arr = [1,2,3];
 global const float PI = 3.14;
 
-function main() : void {
+function start() : void {
     int age = 18;
 
     check(age > 18) {

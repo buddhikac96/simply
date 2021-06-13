@@ -3,7 +3,7 @@ get io;
 
 global integer a = 10;
 
-function main(in: ) out: no{
+function start(in: ) out: no{
 //    float b = 5/0;
 }
 

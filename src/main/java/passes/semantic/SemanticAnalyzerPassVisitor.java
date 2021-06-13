@@ -5,7 +5,7 @@ import ast.*;
 import ast.util.enums.DataType;
 import errors.arithmatic.*;
 import errors.function.DuplicateFunctionDeclarationError;
-import errors.function.MainMethodNotExistError;
+import errors.function.StartMethodNotExistError;
 import errors.function.NotImportedLibraryReference;
 import errors.function.ReturnTypeMisMatchError;
 import errors.library.DuplicateLibraryImportSimplyError;
@@ -283,10 +283,10 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         // Check main method exist
 
         var isMainMethodExist = node.getFunctionDeclarationNodes().stream()
-                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().getIdentifierName().equals("main"));
+                .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().getIdentifierName().equals("start"));
 
         if(!isMainMethodExist){
-            SimplySystem.exit(new MainMethodNotExistError());
+            SimplySystem.exit(new StartMethodNotExistError());
         }
 
         return null;

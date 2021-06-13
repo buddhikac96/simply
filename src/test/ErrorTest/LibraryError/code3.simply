@@ -1,7 +1,7 @@
 // Library not imported error
 
 
-function main(in: ) out : no {
+function start(in: ) out : no {
     mathematics.add(4,5);
 }
 

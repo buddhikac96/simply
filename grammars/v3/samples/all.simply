@@ -20,7 +20,7 @@ bool isTrue = false;
 
 
 //function declaration
-function main() : void {
+function start() : void {
     int a = 5;
     int b = 10;
     int total = add(a, b);

@@ -1,8 +1,0 @@
-Error:ArithmeticError:InvalidSubtractionOperationError
-
-You have tried to subtract IntegerType from StringType. You can only subtract numbers. 
-These are the data types you can subtract:
-integer - integer
-float - float
-integer - float
-float - integer

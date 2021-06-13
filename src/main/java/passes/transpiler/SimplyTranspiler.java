@@ -298,7 +298,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         var funcBody = visit(node.getFunctionBody());
 
         ST st = group.getInstanceOf("funcDec");
-        if(funcName.equals("main")) {
+        if(funcName.equals("start")) {
             st.add("isMain", true);
         } else {
             st.add("isMain", false);
@@ -514,7 +514,9 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     @Override
     public String visit(LiteralExpressionNode.CharLiteralExpressionNode node) {
-        return Character.toString(node.getValue());
+        StringBuilder charLiteral = new StringBuilder();
+        charLiteral.append("'").append(Character.toString(node.getValue())).append("'");
+        return charLiteral.toString();
     }
 
     @Override
