@@ -1,30 +1,17 @@
-// standard library function invokation (strings, mathematics)
+// keyboard input
+//get keyboardIn;
 get maths;
-get keyboardIn;
-get strings;
 
 function start(in: ) out:no {
-    float a = maths.squareRoot(4);
-    float b = maths.absolute(-4);
-    float c = maths.roundUp(3.14);
-    float d = maths.roundDown(3.56);
-    float e = maths.power(4, 2);
-
-    display(a);
-    display(b);
+    list integer b = [1,2,3,4,5,6];
+    add(b);
+    integer c = maths.power(2,3);
     display(c);
-    display(d);
-    display(e);
-    display(maths.squareRoot(16));
+    display(maths.power(3,2));
+}
 
-    string test = "Hello World";
-    integer length = strings.getLength(test);
-    boolean isNull = strings.isEmpty(test);
-    string cap = strings.toCapital(test);
-    string sim = strings.toSimple(test);
-
-    display(length);
-    display(isNull);
-    display(cap);
-    display(strings.toSimple(test));
+function add(in: list integer a) out:no {
+    repeat(integer i of a){
+        display(i);
+    }
 }

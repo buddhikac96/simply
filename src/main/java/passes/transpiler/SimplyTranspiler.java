@@ -25,7 +25,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
         ST st = group.getInstanceOf("parameter");
         st.add("isList", isList);
-        st.add("type", DataTypeMapper.getJavaType(dataType));
+        if(!isList) {
+            st.add("type", DataTypeMapper.getJavaWrapper(dataType));
+        }else{
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+        }
         st.add("identifier", paraName);
         return st.render();
     }
@@ -185,7 +189,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
                 funcBody.append(visit(iterateStmt));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
-                funcBody.append(visit(funcCallNode));
+                funcBody.append(visit(funcCallNode)).append("; \n");
             } else if(stmtNode instanceof LoopControlStatementNode) {
                 var loopControlNode = (LoopControlStatementNode) stmtNode;
                 funcBody.append(visit(loopControlNode));
@@ -305,6 +309,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         }
         st.add("name", funcName);
         st.add("parameterList", parameters);
+        st.add("isList", false);
         st.add("returnType", DataTypeMapper.getJavaType(returnType));
         st.add("body", funcBody);
         return st.render();
@@ -681,7 +686,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         var initValue = visit(expNode);
 
         // Handle scanner class and feed data into keyboard input template
-        if(initValue.equals("keyboardInput")) {
+        if(initValue != null && initValue.equals("keyboardInput")) {
             var needNextLine = false;
             if(dataType == DataType.IntegerType) { needNextLine = true; }
 

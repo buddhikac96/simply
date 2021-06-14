@@ -10,7 +10,7 @@ public class JavaUserInputMapper {
     static{
         javaUserInputMethodMapper = new HashMap<>();
         javaUserInputMethodMapper.put(DataType.IntegerType, "nextInt()");
-        javaUserInputMethodMapper.put(DataType.FloatType, "nextFloat()");
+        javaUserInputMethodMapper.put(DataType.FloatType, "nextDouble()");
         javaUserInputMethodMapper.put(DataType.BooleanType, "nextBoolean()");
         javaUserInputMethodMapper.put(DataType.StringType, "nextLine()");
         javaUserInputMethodMapper.put(DataType.CharType, "next().charAt(0)");
