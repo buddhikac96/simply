@@ -1,6 +1,4 @@
-// standard library function invokation (strings, mathematics)
 get maths;
-get keyboardIn;
 get strings;
 
 function start(in: ) out:no {

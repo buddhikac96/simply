@@ -1,4 +1,0 @@
-Error:FunctionError:errors.function.StartMethodNotExistError
-start(in: ) method not found 
-
-You don’t have a start function in this code. Every code MUST have a start function, because it is the entry/starting point to the program.

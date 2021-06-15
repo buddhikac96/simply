@@ -15,6 +15,7 @@ import java.util.List;
 public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     public final StringBuilder code = new StringBuilder();
+    public int scannerObjectCounter = 0;
     final STGroup group = new STGroupFile("templates/javaTemplate.stg");
 
     @Override
@@ -25,7 +26,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
         ST st = group.getInstanceOf("parameter");
         st.add("isList", isList);
-        st.add("type", DataTypeMapper.getJavaType(dataType));
+        if(!isList) {
+            st.add("type", DataTypeMapper.getJavaWrapper(dataType));
+        }else{
+            st.add("type", DataTypeMapper.getJavaType(dataType));
+        }
         st.add("identifier", paraName);
         return st.render();
     }
@@ -185,7 +190,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
                 funcBody.append(visit(iterateStmt));
             } else if(stmtNode instanceof FunctionCallStatementNode) {
                 var funcCallNode = (FunctionCallStatementNode) stmtNode;
-                funcBody.append(visit(funcCallNode));
+                funcBody.append(visit(funcCallNode)).append("; \n");
             } else if(stmtNode instanceof LoopControlStatementNode) {
                 var loopControlNode = (LoopControlStatementNode) stmtNode;
                 funcBody.append(visit(loopControlNode));
@@ -207,6 +212,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         st.add("libImportSection", libImportsSection);
         st.add("globalSection", globalVarsSection);
         st.add("functionSection", functionSection);
+        if(scannerObjectCounter > 0) {
+            st.add("scanner", true);
+        }else{
+            st.add("scanner", false);
+        }
 
         var program = st.render();
         code.append(program);
@@ -257,6 +267,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
             // handle functions of keyboardIn library (using scanner class)
             else if(libRef.equals("keyboardIn")) {
+                scannerObjectCounter++;
                 return "keyboardInput";
             }else {
                 return null;
@@ -305,6 +316,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         }
         st.add("name", funcName);
         st.add("parameterList", parameters);
+        st.add("isList", false);
         st.add("returnType", DataTypeMapper.getJavaType(returnType));
         st.add("body", funcBody);
         return st.render();
@@ -681,7 +693,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         var initValue = visit(expNode);
 
         // Handle scanner class and feed data into keyboard input template
-        if(initValue.equals("keyboardInput")) {
+        if(initValue != null && initValue.equals("keyboardInput")) {
             var needNextLine = false;
             if(dataType == DataType.IntegerType) { needNextLine = true; }
 
