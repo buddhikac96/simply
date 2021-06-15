@@ -1,0 +1,3 @@
+function start(in: ) out : no {
+    foo.add();
+}

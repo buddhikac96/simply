@@ -1,0 +1,5 @@
+get abc;
+
+function start(in: ) out : no {
+
+}

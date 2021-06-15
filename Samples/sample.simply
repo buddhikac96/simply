@@ -1,7 +1,11 @@
-get maths;
-get keyboardIn;
-
 function start(in: ) out : no {
-    integer a = keyboardIn.input();
-    display(a);
+
+}
+
+function add(in: integer a) out : no {
+
+}
+
+function add(in: float a) out : no {
+
 }

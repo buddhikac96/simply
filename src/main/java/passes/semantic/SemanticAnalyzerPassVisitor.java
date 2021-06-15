@@ -5,9 +5,9 @@ import ast.*;
 import ast.util.enums.DataType;
 import errors.arithmatic.*;
 import errors.function.DuplicateFunctionDeclarationError;
-import errors.function.StartMethodNotExistError;
 import errors.function.NotImportedLibraryReference;
 import errors.function.ReturnTypeMisMatchError;
+import errors.function.StartMethodNotExistError;
 import errors.library.DuplicateLibraryImportSimplyError;
 import errors.library.UndefinedLibraryImportError;
 import errors.variable.DuplicateVariableDeclarationError;
@@ -31,7 +31,7 @@ import static ast.IterateStatementNode.IterateConditionExpressionNode;
 import static ast.IterateStatementNode.IterateConditionExpressionNode.*;
 import static ast.LiteralExpressionNode.*;
 import static ast.LogicExpressionNode.*;
-import static ast.ReturnStatementNode.*;
+import static ast.ReturnStatementNode.ReturnExpressionNode;
 import static ast.UnaryExpressionNode.*;
 import static ast.util.enums.DataType.*;
 import static java.util.AbstractMap.SimpleEntry;
@@ -45,9 +45,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     public static final HashMap<SimpleEntry<DataType , DataType> , DataType> divDTypeMap;
 
     static{
-
         addDTypeMap = new HashMap<>();
-
         addDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
         addDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
         addDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
@@ -56,39 +54,28 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         addDTypeMap.put(new SimpleEntry<>(StringType , CharType), StringType);
         addDTypeMap.put(new SimpleEntry<>(CharType , StringType), StringType);
         addDTypeMap.put(new SimpleEntry<>(StringType , StringType), StringType);
-
     }
 
     static{
-
         subDTypeMap = new HashMap<>();
-
         subDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
         subDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
         subDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
-
     }
 
     static{
-
         mulDTypeMap = new HashMap<>();
-
         mulDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), IntegerType);
         mulDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
         mulDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
-
     }
 
     static{
-
         divDTypeMap = new HashMap<>();
-
         divDTypeMap.put(new SimpleEntry<>(IntegerType , IntegerType), FloatType);
         divDTypeMap.put(new SimpleEntry<>(FloatType , IntegerType), FloatType);
         divDTypeMap.put(new SimpleEntry<>(IntegerType , FloatType), FloatType);
-
     }
-
 
     SymbolTableStack symbolTableStack;
     JavaPortalServiceProvider universalJavaLibraryServiceProvider;
@@ -99,8 +86,6 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         this.universalJavaLibraryServiceProvider = sfp;
         importedLibraries = new HashSet<>();
     }
-
-
 
     @Override
     public Object visit(ArgNode node) {
@@ -248,9 +233,8 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     // exitFunctionDeclarationNode
     @Override
     public Object visit(FunctionDeclarationNode node) {
-        /*
-            Compare expected return type and actual return type
-         */
+
+        //Compare expected return type and actual return type
         var expectReturnType = node.getReturnType();
 
         // If return exist get ReturnStatementNode() node else get new ReturnStatementNode(new VoidLiteralExpressionNode())
@@ -267,6 +251,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         if(expectReturnType != actualReturnType){
             SimplySystem.exit(new ReturnTypeMisMatchError(expectReturnType, actualReturnType));
         }
+        // pop function symbol table and function block symbol table
         this.symbolTableStack.popSymbolTable();
         this.symbolTableStack.popSymbolTable();
         return null;
@@ -281,7 +266,6 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
     public Object visit(FunctionDeclarationNodeList node) {
 
         // Check main method exist
-
         var isMainMethodExist = node.getFunctionDeclarationNodes().stream()
                 .anyMatch(_node -> _node.getFunctionSignatureNode().getFunctionName().getIdentifierName().equals("start"));
 
@@ -381,9 +365,9 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
                 SimplySystem.exit(new UndefinedLibraryImportError(_node.getLibName()));
             }
 
-            // Check for duplicate library import
-            if(!this.importedLibraries.add(_node.getLibName())){
-                new DuplicateLibraryImportSimplyError(_node.getLibName());
+            boolean isDuplicate = !this.importedLibraries.add(_node.getLibName());
+            if(isDuplicate){
+                SimplySystem.exit(new DuplicateLibraryImportSimplyError(_node.getLibName()));
             }
         });
 
