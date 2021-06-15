@@ -1,1 +1,7 @@
-get strings;
+get maths;
+get keyboardIn;
+
+function start(in: ) out : no {
+    integer a = keyboardIn.input();
+    display(a);
+}

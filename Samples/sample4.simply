@@ -1,5 +1,13 @@
-get io;
+global float PI = 3.14;
 
-function add(in: ) out: no {
-    io.print("Simply");
+function start(in: ) out : no{
+	
+	integer a = 5;
+	integer b = 10;
+
+	integer total = a + b;
+
+	display(total);
+
 }
+

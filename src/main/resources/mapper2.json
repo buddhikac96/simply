@@ -1,0 +1,51 @@
+[
+  {
+    "javalib": "java.lang.Math",
+    "alias": "mathematics",
+    "snippets" : "",
+    "methods": [
+      {
+        "javamethod": "abs",
+        "alias": "absolute",
+        "snippets": "",
+        "overloads": [
+          {
+            "params": ["double"],
+            "return": "double"
+          },
+          {
+            "params": ["int"],
+            "return": "int"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "javalib": "java.util.Scanner",
+    "alias": "keyboardIn",
+    "snippets": "Scanner scanner = new Scanner();\n",
+    "methods": [
+      {
+        "javamethod": "nextInt",
+        "alias": "input",
+        "snippets": "",
+        "overloads": [
+          {
+            "params": [],
+            "return": "int"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+
+
+
+
+
+
+
+
