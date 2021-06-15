@@ -1,3 +1,0 @@
-Error:Variable:VariableNotDefinedError 
-
-You have not defined Variable b

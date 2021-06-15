@@ -1,3 +1,4 @@
 function start(in: ) out : no {
-    integer a = b;
+    integer a = 10;
+    add();
 }

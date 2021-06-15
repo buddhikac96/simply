@@ -5,13 +5,12 @@ import antlr.gen.SimplyV3Parser;
 import ast.ASTNode;
 import ast.CompilationUnitNode;
 import ast.astImgGenerator.AstDotGenerator;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import passes.cst2ast.Cst2AstPassVisitor;
 import passes.semantic.SemanticAnalyzerPassVisitor;
 import passes.transpiler.SimplyTranspiler;
+import syntaxerror.SyntaxErrorListener;
 import universalJavaPortal.JavaPortalServiceProvider;
 
 import java.io.File;
@@ -24,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Driver {
+
+    private static final SyntaxErrorListener syntaxErrorListener = new SyntaxErrorListener();
+
     public static void main(String[] args) throws Exception {
         try{
             String filePath = args[0];
@@ -44,9 +46,15 @@ public class Driver {
             System.out.println("PARSE SUCCESSFUL");
             System.out.println("---------------------------------------------------\n\n");
 
-            List<String> errors = new ArrayList<>();
+
+            //syntax errors
+            var syntaxErrors = syntaxErrorListener.getSyntaxErrors();
+            if(!syntaxErrors.isEmpty()){
+                SimplySystem.exit(syntaxErrors);
+            }
 
             // Convert CST into AST
+            List<String> errors = new ArrayList<>();
             Cst2AstPassVisitor cst2AstPassVisitor = new Cst2AstPassVisitor(errors);
             CompilationUnitNode astRoot = (CompilationUnitNode) cst2AstPassVisitor.visit(tree);
             System.out.println("---------------------------------------------------");
@@ -93,6 +101,7 @@ public class Driver {
         SimplyV3Lexer lexer = new SimplyV3Lexer(charStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         SimplyV3Parser parser = new SimplyV3Parser(commonTokenStream);
+        parser.addErrorListener(syntaxErrorListener);
         return parser.compilationUnit();
     }
 
