@@ -1,0 +1,2 @@
+Error:FunctionError:DuplicateFunctionDeclarationError
+Function add(integer) have already declared in package simply

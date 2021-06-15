@@ -514,6 +514,7 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     @Override
     public Object enterFunctionDeclaration(FunctionDeclarationNode node) {
+
         // Add new stack to symbol table stack
         this.symbolTableStack.addSymbolTable(new SymbolTable());
 

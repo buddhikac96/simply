@@ -66,7 +66,7 @@ public class JavaPortalServiceProvider implements ILibraryServiceProvider{
         return this.functionModels.stream().anyMatch(i -> i.getLibName().equals(libName));
     }
 
-    //////////////////////////////////
+    //------------------------------------------------------------------------------------
 
     @Override
     public boolean isValidLibrary(Message message) {
