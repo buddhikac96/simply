@@ -312,6 +312,11 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
 
     @Override
     public Object visit(IdentifierNode node) {
+        /*var variable = new SimplyVariable(node.getIdentifierName());
+        if(!this.symbolTableStack.isVariableExist(variable)){
+            SimplySystem.exit(new VariableNotDefinedError(variable.getName()));
+        }
+        return null;*/
         return null;
     }
 

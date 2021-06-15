@@ -1,2 +1,3 @@
-Error:FunctionError:DuplicateFunctionDeclarationError
-Function add(integer) have already declared in package simply
+Error:Variable:VariableNotDefinedError 
+
+You have not defined Variable b

@@ -1,0 +1,7 @@
+function start(in: ) out : no {
+
+}
+
+function foo(in: ) out : integer {
+    return "abc";
+}

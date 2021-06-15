@@ -1,0 +1,4 @@
+function start(in: ) out : no {
+    integer a = 5;
+    integer a = 10;
+}
