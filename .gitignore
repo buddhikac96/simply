@@ -3,3 +3,5 @@ Reference/
 src/main/grammar/ReferenceGrammars/
 /target/
 /out/
+/astImg/
+/output/
