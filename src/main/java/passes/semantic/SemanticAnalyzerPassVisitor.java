@@ -4,10 +4,7 @@ import app.SimplySystem;
 import ast.*;
 import ast.util.enums.DataType;
 import errors.arithmatic.*;
-import errors.function.DuplicateFunctionDeclarationError;
-import errors.function.NotImportedLibraryReference;
-import errors.function.ReturnTypeMisMatchError;
-import errors.function.StartMethodNotExistError;
+import errors.function.*;
 import errors.library.DuplicateLibraryImportSimplyError;
 import errors.library.UndefinedLibraryImportError;
 import errors.variable.DuplicateVariableDeclarationError;
@@ -222,6 +219,21 @@ public class SemanticAnalyzerPassVisitor extends BaseAstVisitor<Object> {
         }
 
         // TODO: check function existence
+        var funcName = node.funcName;
+        var params = node.parameterList;
+        var paramDataTypeList = new ArrayList<DataType>();
+        params.forEach(p -> paramDataTypeList.add(getExpressionDataType(p).dataType()));
+
+        var sfm = new SimplyFunctionModel()
+                .setLibName(node.libRef)
+                .setFuncName(funcName)
+                .setParams(paramDataTypeList);
+
+        if(!universalJavaLibraryServiceProvider.isExist(sfm)){
+            SimplySystem.exit(new FunctionNotDeclared(funcName, paramDataTypeList));
+        }
+
+
         return null;
     }
 

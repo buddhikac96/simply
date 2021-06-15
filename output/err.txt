@@ -1,0 +1,1 @@
+Function add(integer,integer) not declared
