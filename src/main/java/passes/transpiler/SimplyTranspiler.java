@@ -15,6 +15,7 @@ import java.util.List;
 public class SimplyTranspiler extends BaseAstVisitor<String> {
 
     public final StringBuilder code = new StringBuilder();
+    public int scannerObjectCounter = 0;
     final STGroup group = new STGroupFile("templates/javaTemplate.stg");
 
     @Override
@@ -211,6 +212,11 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
         st.add("libImportSection", libImportsSection);
         st.add("globalSection", globalVarsSection);
         st.add("functionSection", functionSection);
+        if(scannerObjectCounter > 0) {
+            st.add("scanner", true);
+        }else{
+            st.add("scanner", false);
+        }
 
         var program = st.render();
         code.append(program);
@@ -261,6 +267,7 @@ public class SimplyTranspiler extends BaseAstVisitor<String> {
 
             // handle functions of keyboardIn library (using scanner class)
             else if(libRef.equals("keyboardIn")) {
+                scannerObjectCounter++;
                 return "keyboardInput";
             }else {
                 return null;
