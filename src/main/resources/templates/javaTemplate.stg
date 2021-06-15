@@ -1,4 +1,4 @@
-program(libImportSection, globalSection, functionSection) ::= <<
+program(libImportSection, globalSection, functionSection, scanner) ::= <<
 import java.io.*;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Main {
     <globalSection>
 
-    <! static Scanner sc = new Scanner(System.in); !>
+     <if(scanner)>static Scanner sc = new Scanner(System.in); <endif>
 
     <functionSection>
 }
@@ -37,9 +37,9 @@ public static <returnType><list(isList)> <name>(<parameterList>){
 >>
 
 list(isList) ::= "<if(isList)>[]<endif>"
-parameter(type, identifier, isList) ::=  "<if(!isList)><type>[] <identifier><else><type> <identifier><endif>"
+parameter(type, identifier, isList) ::=  "<if(!isList)>ArrayList\<<type>> <identifier><else><type> <identifier><endif>"
 
-print(content) ::= "System.out.println(<content>); <\n>"
+print(content) ::= "System.out.println(<content>)"
 libFuncCall(libRef, funcName, parameters) ::= "<libRef>.<funcName>(<parameters>)"
 libFuncCall2(funcName, parameter) ::= "<parameter>.<funcName>()"
 funcCall(funcName, parameters) ::= "<funcName>(<parameters>)"
